@@ -69,6 +69,10 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-item-submenu">
+                    <a href={{ route('organization.index') }} class="nav-link"><i class="icon-copy"></i> <span>Organization</span></a>
+
+                </li>
+                <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Themes</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Themes">
