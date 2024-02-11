@@ -9,11 +9,11 @@
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{ asset('limitless/global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{asset('assets/css/bootstrap_limitless.min.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{asset('assets/css/layout.min.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{asset('assets/css/components.min.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{asset('assets/css/colors.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('limitless/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('limitless/assets/css/bootstrap_limitless.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('limitless/assets/css/layout.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('limitless/assets/css/components.min.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('limitless/assets/css/colors.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
@@ -29,7 +29,7 @@
 	<script src="{{ asset('limitless/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('limitless/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 
-	<script src="assets/js/app.js"></script>
+	<script src="{{asset('limitless/assets/js/app.js')}}"></script>
 	<script src="{{ asset('limitless/global_assets/js/demo_pages/dashboard.js') }}"></script>
 	<script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/streamgraph.js') }}"></script>
 	<script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/sparklines.js') }}"></script>

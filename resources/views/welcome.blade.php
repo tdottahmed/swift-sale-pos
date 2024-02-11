@@ -1,1 +1,3 @@
-<x-head/>
+<x-layouts.master>
+   
+</x-layouts.master>
