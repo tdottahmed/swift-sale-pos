@@ -16,9 +16,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td colspan="7" class="text-center">
-                            No Data
-                        </td>
+                        @foreach ($organizations as $organization)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $organization->title }}</td>
+                            <td>{{ $organization->logo }}</td>
+                            <td></td>
+                            </tr>
+                        @endforeach
+
 
                     </tbody>
                 </table>

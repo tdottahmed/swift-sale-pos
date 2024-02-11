@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
 
 class OrganizationController extends Controller
 {
     public function index(){
-        return view('organization.index');
+        $organizations = Organization::get();
+        return view('organization.index',compact('organizations'));
     }
 
     public function create(){
@@ -55,7 +56,7 @@ class OrganizationController extends Controller
             'linkdein'=>$request->linkdein,
             'currency'=>$request->currency,
             'time_zone'=>$request->time_zone,
-            'image'=>$image_name,
+            'logo'=>$image_name,
             // 'logo'=>$logo_name,
             // 'footer_logo'=>$footer_logo_name,
         ]);
