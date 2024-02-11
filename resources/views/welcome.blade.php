@@ -1,3 +1,3 @@
-<x-layouts.master>
-   
-</x-layouts.master>
+<x-layouts.guest>
+  
+</x-layouts.guest>
