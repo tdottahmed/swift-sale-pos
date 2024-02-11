@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function(){
+Route:: get('/create','create')->name('create');
+Route:: post('/store','store')->name('store');
+ });
