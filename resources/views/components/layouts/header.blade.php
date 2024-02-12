@@ -5,13 +5,13 @@
 		<div class="navbar-header sidebar-light bg-indigo-400 d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
 				<a href="index.html" class="d-inline-block">
-					<img src="../../../../global_assets/images/logo_light.png" alt="">
+					<img src="{{asset('limitless/global_assets/images/logo_light.png')}}" alt="">
 				</a>
 			</div>
 			
 			<div class="navbar-brand navbar-brand-xs">
 				<a href="index.html" class="d-inline-block">
-					<img src="../../../../global_assets/images/logo_icon_light.png" alt="">
+					<img src="{{asset('limitless/global_assets/images/logo_icon_light.png')}}" alt="">
 				</a>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 		<div class="d-flex flex-1 d-md-none">
 			<div class="navbar-brand mr-auto">
 				<a href="index.html" class="d-inline-block">
-					<img src="../../../../global_assets/images/logo_light.png" alt="">
+					<img src="{{asset('limitless/global_assets/images/logo_light.png')}}" alt="">
 				</a>
 			</div>	
 
@@ -62,7 +62,7 @@
 							<ul class="media-list">
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Jordana Ansley</a>
@@ -73,7 +73,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Will Brason</a>
@@ -84,7 +84,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Hanna Walden</a>
@@ -95,7 +95,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Dori Laperriere</a>
@@ -106,7 +106,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Vanessa Aurelius</a>
@@ -130,16 +130,16 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-						<img src="../../../../global_assets/images/lang/gb.png" class="img-flag mr-2" alt="">
+						<img src="{{asset('limitless/global_assets/images/lang/gb.png')}}" class="img-flag mr-2" alt="">
 						English
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item english active"><img src="../../../../global_assets/images/lang/gb.png" class="img-flag" alt=""> English</a>
-						<a href="#" class="dropdown-item ukrainian"><img src="../../../../global_assets/images/lang/ua.png" class="img-flag" alt=""> Українська</a>
-						<a href="#" class="dropdown-item deutsch"><img src="../../../../global_assets/images/lang/de.png" class="img-flag" alt=""> Deutsch</a>
-						<a href="#" class="dropdown-item espana"><img src="../../../../global_assets/images/lang/es.png" class="img-flag" alt=""> España</a>
-						<a href="#" class="dropdown-item russian"><img src="../../../../global_assets/images/lang/ru.png" class="img-flag" alt=""> Русский</a>
+						<a href="#" class="dropdown-item english active"><img src="{{asset('limitless/global_assets/images/lang/gb.png')}}" class="img-flag" alt=""> English</a>
+						<a href="#" class="dropdown-item ukrainian"><img src="{{asset('limitless/global_assets/images/lang/ua.png')}}" class="img-flag" alt=""> Українська</a>
+						<a href="#" class="dropdown-item deutsch"><img src="{{asset('limitless/global_assets/images/lang/de.png')}}" class="img-flag" alt=""> Deutsch</a>
+						<a href="#" class="dropdown-item espana"><img src="{{asset('limitless/global_assets/images/lang/es.png')}}" class="img-flag" alt=""> España</a>
+						<a href="#" class="dropdown-item russian"><img src="{{asset('limitless/global_assets/images/lang/ru.png')}}" class="img-flag" alt=""> Русский</a>
 					</div>
 				</li>
 
@@ -160,7 +160,7 @@
 							<ul class="media-list">
 								<li class="media">
 									<div class="mr-3 position-relative">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 
 									<div class="media-body">
@@ -177,7 +177,7 @@
 
 								<li class="media">
 									<div class="mr-3 position-relative">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 
 									<div class="media-body">
@@ -194,7 +194,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -210,7 +210,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -226,7 +226,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -254,7 +254,7 @@
 
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+						<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" class="rounded-circle mr-2" height="34" alt="">
 						<span>Victoria</span>
 					</a>
 
@@ -264,7 +264,11 @@
 						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-indigo-400 ml-auto">58</span></a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
-						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+						<form  action="{{route('logout')}}" method="POST"> 
+							@csrf
+							<button class="dropdown-item"><i class="icon-switch2"></i> Logout
+							</button> 
+						</form>
 					</div>
 				</li>
 			</ul>
