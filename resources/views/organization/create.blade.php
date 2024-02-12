@@ -19,7 +19,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="favicon">Favicon</label>
-                            <input type="text" class="form-control" name="favicon" id="favicon">
+                            <input type="file" class="form-control" name="favicon" id="favicon">
                         </div>
                         <div class="mb-3">
                             <label for="footer_logo">Footer Logo:</label>
@@ -33,11 +33,6 @@
                             <label for="phone">Phone:</label>
                             <input type="text" class="form-control" name="phone" id="phone">
                         </div>
-                        <div class="mb-3">
-                            <label for="telephone_no">TelePhone:</label>
-                            <input type="text" class="form-control" name="telephone_no" id="telephone_no">
-                        </div>
-
                         <div class="mb-3">
                             <label for="address">Address:</label>
                             <textarea name="address" id="address" class="form-control" rows="5"></textarea>
@@ -69,13 +64,17 @@
                             <label for="time_zone">Time Zone:</label>
                             <input type="text" class="form-control" name="time_zone" id="time_zone">
                         </div>
+                        <div class="mb-3">
+                            <label for="telephone_no">TelePhone:</label>
+                            <input type="text" class="form-control" name="telephone_no" id="telephone_no">
+                        </div>
                     </div>
                 </div>
 
 
 
                 <div class="mb-3">
-                    <input type="submit" class="form-control btn btn-primary" value="Submit">
+                    <input type="submit" class="form-control btn btn-info" value="Submit">
                 </div>
 
             </form>

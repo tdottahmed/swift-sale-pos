@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
 
 class OrganizationController extends Controller
 {
     public function index(){
-        return view('organization.index');
+        $organizations = Organization::get();
+        return view('organization.index',compact('organizations'));
     }
 
     public function create(){
@@ -19,6 +20,8 @@ class OrganizationController extends Controller
     public function store(Request $request){
 
         $image = $request->file('logo');
+        $footer_logo = $request->file('footer_logo');
+        $favicon = $request->file('favicon');
         // $request->validate([
         //     'title'=>'required',
         //     'favicon'=>'required',
@@ -40,6 +43,16 @@ class OrganizationController extends Controller
 
             Image::make($image)->resize(200,250)->save(public_path('storage/organization/'.$image_name));
         }
+        if($footer_logo){
+            $footer_logo_name = uniqid().'.'.$footer_logo->getClientOriginalExtension();
+
+            Image::make($footer_logo)->resize(200,250)->save(public_path('storage/organization/'.$footer_logo_name));
+        }
+        if($favicon){
+            $favicon_name = uniqid().'.'.$favicon->getClientOriginalExtension();
+
+            Image::make($favicon)->resize(200,250)->save(public_path('storage/organization/'.$favicon_name));
+        }
 
 
         Organization::create([
@@ -55,9 +68,9 @@ class OrganizationController extends Controller
             'linkdein'=>$request->linkdein,
             'currency'=>$request->currency,
             'time_zone'=>$request->time_zone,
-            'image'=>$image_name,
-            // 'logo'=>$logo_name,
-            // 'footer_logo'=>$footer_logo_name,
+            'logo'=>$image_name,
+            'footer_logo'=>$footer_logo_name,
+            'favicon'=>$favicon_name,
         ]);
 
         return redirect(route('organization.index'))->with('success','Organization Info Create Successfully');
