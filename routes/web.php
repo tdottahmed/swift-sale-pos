@@ -34,4 +34,7 @@ Route::prefix('swift-sale')->name('organization.')->controller(OrganizationContr
 Route:: get('/index','index')->name('index');
 Route:: get('/create','create')->name('create');
 Route:: post('/store','store')->name('store');
+Route:: get('/edit/{organization}','edit')->name('edit');
+Route:: post('/update/{organization}','update')->name('update');
+
  });
