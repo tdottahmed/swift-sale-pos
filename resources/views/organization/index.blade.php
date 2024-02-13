@@ -14,10 +14,11 @@
                             <th class="text-center">Logo</th>
                             <th class="text-center">Footer Logo</th>
                             <th class="text-center">Favicon</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($organizations as $organization)
+                        @forelse ($organizations as $organization)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $organization->title }}</td>
@@ -30,8 +31,16 @@
                                 <td><img src="{{ asset('storage/organization') . '/' . $organization->favicon }}"
                                         width="100" height="70" alt="no image">
                                 </td>
+                                <td>
+                                    <a href="{{ route('organization.edit', $organization->id) }}"
+                                        class="btn btn-success btn-sm">edit</a>
+                                </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <td colspan="6" class="text-center">
+                                No data
+                            </td>
+                        @endforelse
 
 
                     </tbody>
@@ -39,8 +48,13 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <a href="{{ route('organization.create') }}" class="btn btn-success btn-sm">create</a>
+            @if ($organizations->isEmpty())
+                <a href="{{ route('organization.create') }}" class="btn btn-success btn-sm">Create</a>
+            @endif
         </div>
+
+
+
     </div>
 
 
