@@ -27,9 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function(){
+    Route:: get('/index','index')->name('index');
+    Route:: get('/create','create')->name('create');
+    Route:: post('/store','store')->name('store');
+        });
 });
 
 require __DIR__.'/auth.php';
+
 Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function(){
 Route:: get('/index','index')->name('index');
 Route:: get('/create','create')->name('create');

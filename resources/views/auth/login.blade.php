@@ -60,7 +60,7 @@
                             
                         </form>
                         <div class="row mt-3">
-                            <a href="#" class="btn btn-secondary btn-block"> {{ __('Register') }}</a>
+                            <a href="{{route('register')}}" class="btn btn-secondary btn-block"> {{ __('Register') }}</a>
                     </div>
                     </div>
                 </div>
