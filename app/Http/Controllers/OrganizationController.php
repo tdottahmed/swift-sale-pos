@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -56,6 +57,7 @@ class OrganizationController extends Controller
 
 
         Organization::create([
+            'uuid'=>Str::uuid(),
             'title'=>$request->title,
             'favicon'=>$request->favicon,
             'email'=>$request->email,
