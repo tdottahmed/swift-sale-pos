@@ -83,16 +83,14 @@
 
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link">Brand</a></li>
-                        <li class="nav-item"><a href="index.html" class="nav-link active">Layout 2</a></li>
-                        <li class="nav-item"><a href="../../../../layout_3/LTR/default/full/index.html"
-                                class="nav-link">Layout 3</a></li>
-                        <li class="nav-item"><a href="../../../../layout_4/LTR/default/full/index.html"
-                                class="nav-link">Layout 4</a></li>
-                        <li class="nav-item"><a href="../../../../layout_5/LTR/default/full/index.html"
-                                class="nav-link">Layout 5</a></li>
-                        <li class="nav-item"><a href="../../../../layout_6/LTR/default/full/index.html"
-                                class="nav-link disabled">Layout 6 <span
-                                    class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
+                        <li class="nav-item"><a href="{{ route('category.index') }}"
+                                class="nav-link active">Category</a></li>
+                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link">Unit</a></li>
+                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link">Size</a></li>
+                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link">Color</a></li>
+                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link">Barcode
+                                Type</a></li>
+
                     </ul>
                 </li>
 

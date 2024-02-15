@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\BarcodeTypeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SizeController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +42,11 @@ Route::middleware('auth')->group(function () {
     Route:: post('/update/{organization}','update')->name('update');
         });
     Route::resource('/brand', BrandController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/unit', UnitController::class);
+    Route::resource('/size', SizeController::class);
+    Route::resource('/color', ColorController::class);
+    Route::resource('/barcodeType', BarcodeTypeController::class);
 
 });
 
