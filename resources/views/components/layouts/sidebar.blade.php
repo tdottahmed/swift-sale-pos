@@ -90,6 +90,8 @@
                         <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link">Color</a></li>
                         <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link">Barcode
                                 Type</a></li>
+                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link">Sub
+                                Category</a></li>
 
                     </ul>
                 </li>
@@ -99,6 +101,17 @@
                         <span>Organization</span></a>
 
                 </li>
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link"><i class="icon-copy"></i> <span>Product</span></a>
+
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link">Product List</a>
+                        </li>
+                        <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link active">Product
+                                Add</a></li>
+                    </ul>
+                </li>
+
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Themes</span></a>
 

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\BarcodeTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UnitController;
@@ -8,7 +7,10 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // organization setting
     Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function(){
     Route:: get('/index','index')->name('index');
     Route:: get('/create','create')->name('create');
@@ -41,12 +44,18 @@ Route::middleware('auth')->group(function () {
     Route:: get('/edit/{organization}','edit')->name('edit');
     Route:: post('/update/{organization}','update')->name('update');
         });
+
+    // master table
     Route::resource('/brand', BrandController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/unit', UnitController::class);
     Route::resource('/size', SizeController::class);
     Route::resource('/color', ColorController::class);
     Route::resource('/barcodeType', BarcodeTypeController::class);
+    Route::resource('/subCategory', SubCategoryController::class);
+
+    // product table
+    Route::resource('/product', ProductController::class);
 
 });
 
