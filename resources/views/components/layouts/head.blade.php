@@ -41,6 +41,10 @@
 	<script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/heatmaps.js') }}"></script>
 	<script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/pies.js') }}"></script>
 	<script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/bullets.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+
 	<!-- /theme JS files -->
 
 </head>
