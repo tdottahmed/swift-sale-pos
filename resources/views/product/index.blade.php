@@ -11,21 +11,34 @@
                         <tr>
                             <th class="text-center">Sl</th>
                             <th class="text-center">Title</th>
+                            <th class="text-center">Image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    {{-- <tbody>
+                    <tbody>
                         @forelse ($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->title }}</td>
-                                <td><img src="{{ asset('storage/product') . '/' . $product->logo }}"
-                                        width="100" height="70" alt="no image">
+                                <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
+                                        height="70" alt="no image">
                                 </td>
-                              
+
                                 <td>
                                     <a href="{{ route('product.edit', $product->id) }}"
                                         class="btn btn-success btn-sm">edit</a>
+
+                                    <form style="display:inline" action="{{ route('product.destroy', $product->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')){ this.closest('form').submit(); }"
+                                            class="btn btn-icon btn-sm btn-danger btn-icon-mini d-flex align-items-center"
+                                            title="Delete product">
+                                            <i class="zmdi zmdi-delete mx-auto">delete</i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
@@ -35,14 +48,14 @@
                         @endforelse
 
 
-                    </tbody> --}}
+                    </tbody>
                 </table>
             </div>
         </div>
         <div class="card-footer text-center">
-           
-                <a href="{{ route('product.create') }}" class="btn btn-success btn-sm">Create</a>
-           
+
+            <a href="{{ route('product.create') }}" class="btn btn-success btn-sm">Create</a>
+
         </div>
 
 
