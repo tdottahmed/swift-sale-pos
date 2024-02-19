@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductImport;
 use App\Models\Size;
 use App\Models\Unit;
 use App\Models\Brand;
@@ -13,7 +14,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -119,5 +120,18 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect(route('product.index'))->with('success', 'Product Deleted Successfully');
+    }
+
+    public function import()
+    {
+        return view('product.import');
+    }
+
+    public function excelStore(Request $request)
+
+    {
+        $file = $request->excel;
+        Excel::import(new ProductImport, $file);
+        return redirect()->back();
     }
 }

@@ -109,6 +109,8 @@
                         </li>
                         <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link active">Product
                                 Add</a></li>
+                        <li class="nav-item"><a href="{{ route('excel.import') }}" class="nav-link">Product
+                                Import</a></li>
                     </ul>
                 </li>
 
