@@ -5,25 +5,30 @@
         </div>
 
         <div class="card-body">
+            
             <div class="table">
-                <table class="table table-bordered">
-                    <thead class="bg-teal">
+                <table class="table table-bordered datatable-basic">
+                    <thead>
                         <tr>
-                            <th class="text-center">Sl</th>
-                            <th class="text-center">Title</th>
-                            <th class="text-center">Image</th>
-                            <th class="text-center">Action</th>
+                            <th>SL</th>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Product Type</th>
+                            <th>Manage Stock</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($products as $product)
+                        @foreach ($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->title }}</td>
                                 <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
-                                        height="70" alt="no image">
-                                </td>
-
+                                        height="70" alt="no image"></td>
+                                <td>{{ $product->description }}</td>
+                                <td>{{ $product->product_type }}</td>
+                                <td>{{ $product->manage_stock }}</td>
                                 <td>
                                     <a href="{{ route('product.edit', $product->id) }}"
                                         class="btn btn-success btn-sm">edit</a>
@@ -41,11 +46,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <td colspan="6" class="text-center">
-                                No data
-                            </td>
-                        @endforelse
+                        @endforeach
 
 
                     </tbody>
