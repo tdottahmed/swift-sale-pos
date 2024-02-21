@@ -51,7 +51,6 @@
 
                     </tbody>
                 </table>
-            </div>
         </div>
         <div class="card-footer text-center">
 
@@ -62,6 +61,7 @@
 
 
     </div>
+   
 
 
 </x-layouts.master>
