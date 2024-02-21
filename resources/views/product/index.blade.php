@@ -5,8 +5,7 @@
         </div>
 
         <div class="card-body">
-            <div class="table">
-                <table class="table table-bordered">
+                {{-- <table class="table table-bordered dataTable-basic">
                     <thead class="bg-teal">
                         <tr>
                             <th class="text-center">Sl</th>
@@ -49,8 +48,88 @@
 
 
                     </tbody>
+                </table> --}}
+                <table class="table datatable-responsive-column-controlled" id="accesscontrolDatatable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="text-center">Sl</th>
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Image</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($products as $product)
+                            <tr>                              
+                                <td></td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $product->title }}</td>
+                                <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
+                                        height="70" alt="no image">
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('product.edit', $product->id) }}"
+                                        class="btn btn-success btn-sm">edit</a>
+
+                                    <form style="display:inline" action="{{ route('product.destroy', $product->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')){ this.closest('form').submit(); }"
+                                            class="btn btn-icon btn-sm btn-danger btn-icon-mini d-flex align-items-center"
+                                            title="Delete product">
+                                            <i class="zmdi zmdi-delete mx-auto">delete</i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        {{-- @empty
+                            <td colspan="6" class="text-center">
+                                No data
+                            </td>
+                        @endforelse --}}
+                    </tbody>
+
+                    {{-- <tbody>
+                        @forelse ($products as $product)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $product->title }}</td>
+                                <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
+                                        height="70" alt="no image">
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('product.edit', $product->id) }}"
+                                        class="btn btn-success btn-sm">edit</a>
+
+                                    <form style="display:inline" action="{{ route('product.destroy', $product->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button
+                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')){ this.closest('form').submit(); }"
+                                            class="btn btn-icon btn-sm btn-danger btn-icon-mini d-flex align-items-center"
+                                            title="Delete product">
+                                            <i class="zmdi zmdi-delete mx-auto">delete</i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <td colspan="6" class="text-center">
+                                No data
+                            </td>
+                        @endforelse
+
+
+                    </tbody> --}}
                 </table>
-            </div>
         </div>
         <div class="card-footer text-center">
 
@@ -61,6 +140,28 @@
 
 
     </div>
+    @push('js')
+    <script>
+        $(document).ready(function() {
+             $('#accesscontrolDatatable').DataTable({
+                 buttons: [
+                     {
+                         extend: 'colvis',
+                         text: '<i class="icon-grid3"></i>',
+                         className: 'btn bg-indigo-400 btn-icon dropdown-toggle'
+                     }
+                 ],
+                 stateSave: false,
+                 columnDefs: [
+                     {
+                         targets: 0,
+                         visible: true
+                     }
+                 ]
+             });
+         });
+     </script>
+    @endpush
 
 
 </x-layouts.master>
