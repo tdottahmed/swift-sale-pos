@@ -44,10 +44,15 @@
     <script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/pies.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/bullets.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-
-
-    <script src="{{ asset('limitless/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('limitless/global_assets/js/demo_pages/form_select2.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/form_checkboxes_radios.js') }}"></script>
 
 
     <!-- /theme JS files -->

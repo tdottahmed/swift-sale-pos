@@ -85,11 +85,6 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $image = $request->file('image');
-
-        // $request->validate([
-        //     'title'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
         if ($image) {
             $path = public_path('storage/product/' . $product->image);
             if (is_file($path)) {

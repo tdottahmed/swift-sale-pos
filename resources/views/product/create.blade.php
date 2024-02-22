@@ -6,11 +6,161 @@
         <x-slot name="body">
             <form action="{{ route('product.store') }} " method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
-                    <div class="col-lg-4">
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" name="title" id="title">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="sku">Sku Code:</label>
+                            <input type="text" class="form-control" name="sku" id="sku">
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Category') }}</label>
+                            <select name="category_id" id="category_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Sub Category') }}</label>
+                            <select name="sub_category_id" id="sub_category_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($subCategories as $subCategory)
+                                    <option value="{{ $subCategory->id }}">{{ $subCategory->title }}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Brand') }}</label>
+                        <select name="brand_id" id="brand_id" class="form-control select-search">
+                            <option value="">-- Please select --</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Color') }}</label>
+                            <select name="color_id" id="color_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($colors as $color)
+                                    <option value="{{ $color->id }}">{{ $color->title }}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Size') }}</label>
+                            <select name="size_id" id="size_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->title }}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Unit') }}</label>
+                        <select name="unit_id" id="unit_id" class="form-control select-search">
+                            <option value="">-- Please select --</option>
+                            @foreach ($units as $unit)
+                                <option value="{{ $unit->id }}">{{ $unit->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="">{{ __('Select Barcode Type') }}</label>
+                        <select name="barcode_type_id" id="barcode_type_id" class="form-control select-search">
+                            <option value="">-- Please select --</option>
+                            @foreach ($barcodeTypes as $barcodeType)
+                                <option value="{{ $barcodeType->id }}">{{ $barcodeType->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>  
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="alert_qty">Alert Quantity:</label>
+                        <input type="text" class="form-control" name="alert_qty" id="alert_qty">
+                    </div>  
+                    <div class="col-lg-6">
+                        <label for="expire_in">Expire In:</label>
+                        <input type="text" class="form-control" name="expire_in" id="expire_in">
+                    </div>  
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="expire_unit">Expire Unit:</label>
+                        <input type="text" class="form-control" name="expire_unit" id="expire_unit">
+                    </div>  
+                    <div class="col-lg-6">
+                        <label for="applicable_tax">Applicable Tax:</label>
+                        <select name="applicable_tax" id="applicable_tax" class="form-control select">
+                            <option value="">-- Please select --</option>
+                                <option value="none">None</option>
+                        </select>
+                    </div>  
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="applicable_tax_type">Applicable Tax:</label>
+                        <select name="applicable_tax_type" id="applicable_tax_type" class="form-control select">
+                            <option value="">-- Please select --</option>
+                                <option value="Exclusive">Exclusive</option>
+                                <option value="Inclusive">Inclusive</option>
+                        </select>                        
+                    </div>  
+                    <div class="col-lg-6">
+                        <label for="warranty">Warranty:</label>
+                        <input type="text" class="form-control" name="warranty" id="warranty">
+                    </div>  
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="profit_margin">Profite Margin:</label>
+                        <input type="text" class="form-control" name="profit_margin" id="profit_margin">                      
+                    </div>  
+                    <div class="col-lg-6">
+                        <label for="selling_price">Selling Price:</label>
+                        <input type="number" class="form-control" name="selling_price" id="selling_price">
+                    </div>  
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="opening_stock">Opening Stock:</label>
+                            <input type="text" class="form-control" name="opening_stock" id="opening_stock">                     
+                    </div>  
+                    <div class="col-lg-6">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" name="location" id="location">
+                    </div>  
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="product_locations">Product Location:</label>
+                        <input type="text" class="form-control" name="product_locations"id="product_locations">                   
+                    </div>   
+                    <div class="col-lg-6">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control h-auto" name="image" id="image">                
+                    </div>   
+                </div>
+                    {{-- <div class="col-lg-4">
                         <div class="mb-3">
                             <label for="">{{ __('Select Category') }}</label>
-                            <select name="category_id" id="category_id" class="form-control">
+                            <select name="category_id" id="category_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
@@ -19,7 +169,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Sub Category') }}</label>
-                            <select name="sub_category_id" id="sub_category_id" class="form-control">
+                            <select name="sub_category_id" id="sub_category_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($subCategories as $subCategory)
                                     <option value="{{ $subCategory->id }}">{{ $subCategory->title }}</option>
@@ -28,7 +178,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Brand') }}</label>
-                            <select name="brand_id" id="brand_id" class="form-control">
+                            <select name="brand_id" id="brand_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->title }}</option>
@@ -37,7 +187,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Color') }}</label>
-                            <select name="color_id" id="color_id" class="form-control">
+                            <select name="color_id" id="color_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->title }}</option>
@@ -46,7 +196,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Size') }}</label>
-                            <select name="size_id" id="size_id" class="form-control">
+                            <select name="size_id" id="size_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($sizes as $size)
                                     <option value="{{ $size->id }}">{{ $size->title }}</option>
@@ -55,7 +205,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Unit') }}</label>
-                            <select name="unit_id" id="unit_id" class="form-control">
+                            <select name="unit_id" id="unit_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($units as $unit)
                                     <option value="{{ $unit->id }}">{{ $unit->title }}</option>
@@ -64,7 +214,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">{{ __('Select Barcode Type') }}</label>
-                            <select name="barcode_type_id" id="barcode_type_id" class="form-control">
+                            <select name="barcode_type_id" id="barcode_type_id" class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($barcodeTypes as $barcodeType)
                                     <option value="{{ $barcodeType->id }}">{{ $barcodeType->title }}</option>
@@ -92,23 +242,24 @@
                             <input type="text" class="form-control" name="tax_type" id="tax_type">
                         </div>
                         <div class="mb-3">
-                            <label for="logo">Image</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control h-auto" name="image" id="image">
                         </div>
 
                     </div>
                     <div class="col-lg-4">
-
-
-
-
                         <div class="mb-3">
                             <label for="expire_date">Expire Date:</label>
                             <input type="date" class="form-control" name="expire_date" id="expire_date">
                         </div>
                         <div class="mb-3">
                             <label for="enable_imei">Enable IMEI:</label>
-                            <input type="text" class="form-control" name="enable_imei" id="enable_imei">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input-styled" name="enable_imei" data-fouc>
+                                    Unchecked styled
+                                </label>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="weight">Weight:</label>
@@ -213,8 +364,40 @@
                             <input type="text" class="form-control" name="product_locations"
                                 id="product_locations">
                         </div>
+                    </div> --}}
+                
+                <hr>
+                    <div class="card ">
+                        <div class="card-body " >
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="enable_imei" data-fouc>
+                                            Enable IMEI
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="enable_imei" data-fouc>
+                                            Not for Sale
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input-styled" name="enable_imei" data-fouc>
+                                            Manage Stock
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
-                </div>
 
                 <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">

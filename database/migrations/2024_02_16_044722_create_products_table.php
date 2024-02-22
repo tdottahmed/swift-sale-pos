@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable();
-            // $table->foreignId('brand_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('sub_category_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('barcode_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('unit_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('size_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            // $table->foreignId('color_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->unsignedBigInteger('barcode_type_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('size_id')->nullable();
+            $table->unsignedBigInteger('color_id')->nullable();
             $table->string('name');
             $table->string('brand');
             $table->string('unit');
