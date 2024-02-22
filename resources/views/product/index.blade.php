@@ -27,7 +27,7 @@
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
                                 <td>{{ $product->manage_stock }}</td>
-                                <td class="text-center">
+                               <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">
 											<a href="#" class="list-icons-item" data-toggle="dropdown">

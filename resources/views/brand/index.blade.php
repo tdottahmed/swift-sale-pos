@@ -1,66 +1,73 @@
 <x-layouts.master>
-    <div class="card">
-        <div class="card-header">
-            <h2>{{ __('Brand') }}</h2>
-        </div>
-
-        <div class="card-body">
+    <x-data-display.card>
+        <x-slot name="heading">
+            Brands
+        </x-slot>
+        <x-slot name="body">
             <div class="table">
-                <table class="table table-bordered datatable">
-                    <thead class="bg-teal">
+                <table class="table datatable-basic">
+                    <thead class="bg-indigo-600">
                         <tr>
-                            <th class="text-center">Sl</th>
-                            <th class="text-center">Title</th>
-                            <th class="text-center">Image</th>
+                            <th>SL</th>
+                            <th>Title</th>
+                            <th>Image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($brands as $brand)
+                        @foreach ($brands as $brand)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $brand->title }}</td>
                                 <td><img src="{{ asset('storage/brand') . '/' . $brand->image }}" width="100"
-                                        height="70" alt="no image">
-                                </td>
+                                        height="70" alt="no image"></td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                <i class="icon-menu9"></i>
+                                            </a>
 
-                                <td>
-                                    <a href="{{ route('brand.edit', $brand->id) }}"
-                                        class="btn btn-success btn-sm">edit</a>
-                                    <form style="display:inline" action="{{ route('brand.destroy', $brand->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button
-                                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this brand?')){ this.closest('form').submit(); }"
-                                            class="btn btn-icon btn-sm btn-danger btn-icon-mini d-flex align-items-center"
-                                            title="Delete Brand">
-                                            <i class="zmdi zmdi-delete mx-auto">delete</i>
-                                        </button>
-                                    </form>
-
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="{{ route('brand.edit', $brand->id) }}" class="dropdown-item"><i
+                                                        class="icon-pencil7"></i> Edit Brand</a>
+                                                <form style="display:inline"
+                                                    action="{{ route('brand.destroy', $brand->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this brand?')){ this.closest('form').submit(); }"
+                                                        class="dropdown-item" title="Delete brand">
+                                                        <i class="icon-trash-alt"></i>Delete
+                                                    </button>
+                                                </form>
+                                                {{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
+												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
-                        @empty
-                            <td colspan="6" class="text-center">
-                                No data
-                            </td>
-                        @endforelse
+                        @endforeach
 
 
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="card-footer text-center">
-
-            <a href="{{ route('brand.create') }}" class="btn btn-success btn-sm">Create</a>
-
-        </div>
-
-
-
-    </div>
-
-
+        </x-slot>
+        <x-slot name="cardFooterCenter">
+            <a href="{{ route('brand.create') }}"
+                class="btn 
+            btn-sm 
+            bg-success 
+            border-2 
+            border-success
+            btn-icon 
+            rounded-round 
+            legitRipple 
+            shadow 
+            mr-1"><i
+                    class="icon-plus2"></i></a>
+        </x-slot>
+    </x-data-display.card>
 </x-layouts.master>

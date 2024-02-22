@@ -1,12 +1,4 @@
 <x-layouts.master>
-    {{-- @push('css')
-        <style>
-            .col-lg-3 {
-                -ms-flex: 0 0 25% !important;
-                max-width: 22% !important;
-            }
-        </style>
-    @endpush --}}
     <x-data-display.card>
         <x-slot name="heading">
             {{ __('Insert Your Product Info') }}

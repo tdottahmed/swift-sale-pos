@@ -78,23 +78,6 @@
                                     class="badge bg-transparent align-self-center ml-auto">Coming soon</span></a></li>
                     </ul>
                 </li>
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-copy"></i> <span>Master Table</span></a>
-
-                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                        <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link">Brand</a></li>
-                        <li class="nav-item"><a href="{{ route('category.index') }}"
-                                class="nav-link active">Category</a></li>
-                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link">Unit</a></li>
-                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link">Size</a></li>
-                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link">Color</a></li>
-                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link">Barcode
-                                Type</a></li>
-                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link">Sub
-                                Category</a></li>
-
-                    </ul>
-                </li>
 
                 <li class="nav-item nav-item-submenu">
                     <a href={{ route('organization.index') }} class="nav-link"><i class="icon-copy"></i>
@@ -111,6 +94,13 @@
                                 Add</a></li>
                         <li class="nav-item"><a href="{{ route('excel.import') }}" class="nav-link">Product
                                 Import</a></li>
+                        <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link">Brand</a></li>
+                        <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link">Category</a></li>
+                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link">Sub Category</a></li>
+                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link">Unit</a></li>
+                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link">Barcode Type</a></li>
+                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link">Color</a></li>
+                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link">Size</a></li>
                     </ul>
                 </li>
 

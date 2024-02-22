@@ -1,10 +1,9 @@
 <x-layouts.master>
-    <div class="card ">
-        <div class="card-header bg-teal">
-            <h2>{{ __('Update Your Product Info') }}</h2>
-        </div>
-
-        <div class="card-body">
+    <x-data-display.card>
+        <x-slot name="heading">
+            {{ __('Edit Your Product Info') }}
+        </x-slot>
+        <x-slot name="body">
             <form action="{{ route('product.update', $product->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
@@ -268,16 +267,29 @@
 
 
 
-                <div class="mb-3">
-                    <input type="submit" class="form-control btn btn-info" value="Submit">
+               <div class="row justify-content-end">
+                    <div class="col-lg-4 text-right">
+                        <a class="btn btn-lg bg-danger-400 shadow-2" href=""><i
+                                class="icon-cross2 mr-1"></i>Cancel</a>
+                        <button type="submit" class="btn btn-lg bg-teal-400 shadow-2"><i
+                                class="icon-checkmark4 mr-1"></i>{{ __('Update') }}</button>
+                    </div>
                 </div>
 
             </form>
-        </div>
-        <div class="card-footer text-center">
-            <a href="{{ route('product.index') }}" class="btn btn-success btn-sm">List</a>
-        </div>
-    </div>
-
-
+        </x-slot>
+        <x-slot name="cardFooterCenter">
+            <a href="{{ route('brand.index') }}"
+                class="btn 
+            btn-sm bg-indigo 
+            border-2 
+            border-indigo 
+            btn-icon 
+            rounded-round 
+            legitRipple 
+            shadow 
+            mr-1"><i
+                    class="icon-list"></i></a>
+        </x-slot>
+    </x-data-display.card>
 </x-layouts.master>
