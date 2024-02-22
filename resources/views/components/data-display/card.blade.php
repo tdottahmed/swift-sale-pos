@@ -8,7 +8,7 @@
 
 <div {{ $attributes->class(['card']) }}>
     @isset($heading)
-    <div {{ $heading->attributes->class(['card-header bg-dark header-elements-inline']) }}>
+    <div {{ $heading->attributes->class(['card-header bg-teal-800 header-elements-inline']) }}>
         <h6 class="card-title">{{ $heading }}</h6>
         <div class="header-elements">
             <div class="list-icons">
