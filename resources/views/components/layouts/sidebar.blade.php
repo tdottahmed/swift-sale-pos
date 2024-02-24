@@ -22,7 +22,7 @@
             <div class="card-body">
                 <div class="media">
                     <div class="mr-3">
-                        <a href="#"><img src="global_assets/images/placeholders/placeholder.jpg" width="38"
+                        <a href="#"><img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="38"
                                 height="38" class="rounded-circle" alt=""></a>
                     </div>
 

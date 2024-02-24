@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CategoryTableSeeder::class);
         $this->call(BrandTableSeeder::class);
+        $this->call(BarcodeTypeTableSeeder::class);
+        $this->call(ColorTableSeeder::class);
+        $this->call(SizeTableSeeder::class);
+        $this->call(SubCategoryTableSeeder::class);
+        $this->call(UnitTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

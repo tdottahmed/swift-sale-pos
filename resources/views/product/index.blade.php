@@ -1,4 +1,18 @@
 <x-layouts.master>
+    @if(session('success'))
+    <script>
+        $(document).ready(function() {
+            new Noty({
+                theme: 'alert alert-success alert-styled-left p-0 bg-white',
+                text: '{{ session('success') }}',
+                type: 'success',
+                progressBar: false,
+                closeWith: ['button']
+            }).show();
+        });
+    </script>
+@endif
+
     <x-data-display.card>
         <x-slot name="heading">
             Products
@@ -21,7 +35,7 @@
                         @foreach ($products as $product)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->title }}</td>
+                                <td>{{ $product->name }}</td>
                                 <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
