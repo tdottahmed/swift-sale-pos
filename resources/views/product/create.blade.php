@@ -336,7 +336,7 @@
 
 
         $('#vriation_add').click(function(){
-            let html = ` <tr id = "${uniqueSl}">
+            let html = ` <tr>
                             <td>
                                 <input type="text" class="form-control" name="child[variation_sku][]" placeholder="Variation SKU">
                             </td>
