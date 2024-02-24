@@ -1,18 +1,4 @@
-<x-layouts.master>
-    @if(session('success'))
-    <script>
-        $(document).ready(function() {
-            new Noty({
-                theme: 'alert alert-success alert-styled-left p-0 bg-white',
-                text: '{{ session('success') }}',
-                type: 'success',
-                progressBar: false,
-                closeWith: ['button']
-            }).show();
-        });
-    </script>
-@endif
-
+<x-layouts.master>  
     <x-data-display.card>
         <x-slot name="heading">
             Products

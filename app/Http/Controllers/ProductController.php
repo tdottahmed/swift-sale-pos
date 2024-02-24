@@ -15,8 +15,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -40,13 +41,12 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
-
+        try {
+        if ($request->sku) {
+            Product::where('sku', $request->sku)->exists();
+            return back()->with('error','product SKU is already Exist');
+        }
         $image = $request->file('image');
-        // $request->validate([
-        //     'title'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
         $data = [];
         if ($image) {
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
@@ -58,34 +58,38 @@ class ProductController extends Controller
             'uuid' => Str::uuid()
         ] + $data);
 
-        if ($request->product_type == 'single') {
-            Variation::create([
-                'product_id' => $product->id,
-                'variation_sku' => $request->variation_sku,
-                'value' => $request->value,
-                'purchase_inc' => $request->purchase_inc,
-                'purchase_exc' => $request->purchase_exc,
-                'selling_price' => $request->selling_price,
-                'profit_marging' => $request->profit_marging,
-                'variation_image' => $request->variation_image,
-                
-            ]);
-        } else {
+        if ($request->product_type=='single') {
+           Variation::create([
+            'product_id'=>$product->id,
+            'variation_sku'=>$request->variation_sku ?? $data['sku'],
+            'value'=>$request->value,
+            'purchase_inc'=>$request->purchase_inc,
+            'purchase_exc'=>$request->purchase_exc,
+            'selling_price'=>$request->selling_price,
+            'profit_marging'=>$request->profit_marging,
+            'variation_image'=>$request->variation_image,
+           ]);
+        }else {
             $variationData = $request->child;
-            foreach ($variationData['variation_sku'] as $key => $sku) {
+            foreach ($variationData['value'] as $key => $value) {
                 Variation::create([
                     'product_id' => $product->id,
                     'product_variation'=>$request->product_variation,
-                    'variation_sku' => $sku,
                     'value' => $variationData['value'][$key] ?? null,
+                    'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'].'-'.$key,
+                    'value' => $value,
                     'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
                     'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
                     'selling_price' => $variationData['selling_price'][$key] ?? null,
                     'profit_marging' => $variationData['profit_marging'][$key] ?? null,
                 ]);
             }
-        }
-        return redirect(route('product.index'))->with('success', 'Category Create Successfully');
+        }        
+        return redirect(route('product.index'))->with('success','Product Created Successfully');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong');
+        }      
     }
 
     public function show(Product $product)
@@ -151,5 +155,12 @@ class ProductController extends Controller
         $file = $request->excel;
         Excel::import(new ProductImport, $file);
         return redirect()->back();
+    }
+
+
+    private function generateUniqueSKU()
+    {
+        $sku = mt_rand(1000, 99999);
+        return $sku;
     }
 }
