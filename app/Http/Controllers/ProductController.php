@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ProductImport;
 use App\Models\Size;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Variation;
 use App\Models\BarcodeType;
 use App\Models\SubCategory;
-use App\Models\Variation;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use App\Imports\ProductImport;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -49,30 +50,32 @@ class ProductController extends Controller
         $data = [];
         if ($image) {
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));            
+            Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
             $data['image'] = $image_name;
         }
-        $data += $request->except('child','variation_sku','purchase_inc','purchase_exc','profit_marging','product_variation','enable_imei');
+        $data += $request->except('child', 'variation_sku', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei');
         $product = Product::create([
             'uuid' => Str::uuid()
         ] + $data);
 
-        if ($request->product_type=='single') {
-           Variation::create([
-            'product_id'=>$product->id,
-            'variation_sku'=>$request->variation_sku,
-            'value'=>$request->value,
-            'purchase_inc'=>$request->purchase_inc,
-            'purchase_exc'=>$request->purchase_exc,
-            'selling_price'=>$request->selling_price,
-            'profit_marging'=>$request->profit_marging,
-            'variation_image'=>$request->variation_image,
-           ]);
-        }else {
+        if ($request->product_type == 'single') {
+            Variation::create([
+                'product_id' => $product->id,
+                'variation_sku' => $request->variation_sku,
+                'value' => $request->value,
+                'purchase_inc' => $request->purchase_inc,
+                'purchase_exc' => $request->purchase_exc,
+                'selling_price' => $request->selling_price,
+                'profit_marging' => $request->profit_marging,
+                'variation_image' => $request->variation_image,
+                
+            ]);
+        } else {
             $variationData = $request->child;
             foreach ($variationData['variation_sku'] as $key => $sku) {
                 Variation::create([
                     'product_id' => $product->id,
+                    'product_variation'=>$request->product_variation,
                     'variation_sku' => $sku,
                     'value' => $variationData['value'][$key] ?? null,
                     'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
@@ -81,13 +84,15 @@ class ProductController extends Controller
                     'profit_marging' => $variationData['profit_marging'][$key] ?? null,
                 ]);
             }
-        }        
-        return redirect(route('product.index'))->with('success','Category Create Successfully');
+        }
+        return redirect(route('product.index'))->with('success', 'Category Create Successfully');
     }
 
     public function show(Product $product)
     {
-        //
+        $variations = DB::table('variations')->where('product_id', $product->id)->get();
+        // dd($variations);
+        return view('product.show', compact('product', 'variations'));
     }
 
     public function edit(Product $product)
@@ -127,8 +132,6 @@ class ProductController extends Controller
 
 
         return redirect(route('product.index'))->with('success', 'Product Info Updated Successfully');
-
-
     }
 
     public function destroy(Product $product)
