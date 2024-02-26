@@ -59,8 +59,6 @@
                         </span>
                     </a>
                 </li>
-                
-
                 <li class="nav-item">
                     <a href={{ route('organization.index') }} class="nav-link"><i class="icon-copy"></i>
                         <span>Organization</span></a>

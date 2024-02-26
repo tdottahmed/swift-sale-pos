@@ -48,12 +48,13 @@ class ProductController extends Controller
         }
         $image = $request->file('image');
         $data = [];
+        $data['sku']=$request->sku ?? $this->generateUniqueSKU();
         if ($image) {
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
             $data['image'] = $image_name;
         }
-        $data += $request->except('child', 'variation_sku', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei');
+        $data += $request->except('child', 'variation_sku', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei','sku');
         $product = Product::create([
             'uuid' => Str::uuid()
         ] + $data);
@@ -95,7 +96,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $variations = DB::table('variations')->where('product_id', $product->id)->get();
-        // dd($variations);
         return view('product.show', compact('product', 'variations'));
     }
 

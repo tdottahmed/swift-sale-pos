@@ -13,7 +13,7 @@
                             <th>Image</th>
                             <th>Description</th>
                             <th>Product Type</th>
-                            <th>Manage Stock</th>
+                            <th>Barcode</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -26,7 +26,7 @@
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
-                                <td>{{ $product->manage_stock }}</td>
+                                <td><img src="{{ asset('storage/product/barcodes/'. app\Helper::generateBarcode($product->sku)) }}" alt="Barcode"></td>
                                <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">

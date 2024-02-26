@@ -8,7 +8,7 @@
             @csrf
             <div class="form-group">
                <label for="excel">Chose your Excel File</label>
-               <input type="file" name="excel" id="excel" class="form-control mt-2" required>
+               <input type="file" name="excel" id="excel" class="form-control h-auto" required>
             </div>
             <div class="text-center">
                <button class="btn btn-lg btn-block bg-indigo-600"><i class="icon-check mr-2"></i>Save</button>
