@@ -26,7 +26,7 @@
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
-                                <td><img src="{{ asset('storage/product/barcodes/'. app\Helper::generateBarcode($product->sku)) }}" alt="Barcode"></td>
+                                <td>--</td>
                                <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">
