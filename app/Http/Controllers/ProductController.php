@@ -157,6 +157,13 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
+    public function labelPrint($id)
+    {
+        $products = Variation::where('product_id',$id)->get();
+        $mainProduct = Product::find($id);
+         return view('product.label',compact('products','mainProduct'));
+    }
+
 
     private function generateUniqueSKU()
     {
