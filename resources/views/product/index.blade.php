@@ -26,7 +26,10 @@
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
-                                <td>--</td>
+                                <td>
+                                    <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($product->sku, 'C128')}}" alt="barcode" />
+                                    {{-- <img src="{{ asset('storage/product/barcodes/'. app\Helper::generateBarcode($product->sku)) }}" alt="Barcode"> --}}
+                                </td>
                                <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">
