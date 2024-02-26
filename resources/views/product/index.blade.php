@@ -28,7 +28,7 @@
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
-                                <td>
+                                <td class="bg-white">
                                     <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($product->sku, 'C128')}}" alt="barcode" />
                                     {{-- <img src="{{ asset('storage/product/barcodes/'. app\Helper::generateBarcode($product->sku)) }}" alt="Barcode"> --}}
                                 </td>
@@ -53,8 +53,8 @@
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
                                                 </form>
-												{{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
+												<a href="{{route('label.print', $product->id)}}" class="dropdown-item"><i class="icon-printer"></i> Print Label</a>
+												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
 											</div>
 										</div>
 									</div>

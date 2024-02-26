@@ -56,9 +56,9 @@ Route::middleware('auth')->group(function () {
 
     // product table
     Route::resource('/product', ProductController::class);
-    // Route::get('/product/import', [ProductController::class, 'import'])->name('product.import');
     Route::get('/excel/import', [ProductController::class, 'import'])->name('excel.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
+    Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
 
 });
 
