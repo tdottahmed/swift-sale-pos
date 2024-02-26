@@ -121,6 +121,7 @@
                         <tr>
                             <th>Variation</th>
                             <th>SKU</th>
+                            <th>Current Stock</th>
                             <th>Default Purchase Price (Exc. tax)</th>
                             <th>Default Purchase Price (Inc. tax)</th>
                             <th>X Margin(%)</th>
@@ -134,6 +135,7 @@
                             <tr>
                                 <td>{{ $variation->product_variation }} - {{ $variation->value }}</td>
                                 <td>{{ $variation->variation_sku }}</td>
+                                <td>{{ $variation->stock }}</td>
                                 <td>{{ $variation->purchase_exc }}</td>
                                 <td>{{ $variation->purchase_inc }}</td>
                                 <td>{{ $variation->profit_marging }}</td>

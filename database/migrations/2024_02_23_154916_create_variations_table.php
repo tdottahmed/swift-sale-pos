@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('product_variation')->nullable();
             $table->string('variation_sku');
             $table->string('value')->nullable();
+            $table->integer('stock');
             $table->integer('purchase_inc');
             $table->integer('purchase_exc');
             $table->integer('selling_price');

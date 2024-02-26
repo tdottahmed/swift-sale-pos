@@ -10,6 +10,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Title</th>
+                            <th>Current Stock</th>
                             <th>Image</th>
                             <th>Description</th>
                             <th>Product Type</th>
@@ -22,6 +23,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>{{ $stocks[$product->id] }}</td>
                                 <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>

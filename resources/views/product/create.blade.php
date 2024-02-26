@@ -377,7 +377,7 @@
                                 <input type="text" class="form-control" name="child[value][]" placeholder="value">
                             </td>
                             <td>
-                                <input type="text" class="form-control" name="child[stock][]" placeholder="stock">
+                                <input type="number" class="form-control" name="child[stock][]" placeholder="stock">
                             </td>
                             <td>
                                 <input type="number" class="form-control" name="child[purchase_inc][]" placeholder="Inc. Tax">

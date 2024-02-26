@@ -23,8 +23,16 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::get();
-        return view('product.index', compact('products'));
+        $products = Product::all();
+        $stocks = [];
+
+        foreach ($products as $product) {
+            $stockCount = Variation::where('product_id', $product->id)->sum('stock');
+            $stocks[$product->id] = $stockCount;
+        }
+
+
+        return view('product.index', compact('products', 'stocks'));
     }
 
     public function create()
@@ -42,55 +50,57 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-        if ($request->sku) {
-            Product::where('sku', $request->sku)->exists();
-            return back()->with('error','product SKU is already Exist');
-        }
-        $image = $request->file('image');
-        $data = [];
-        $data['sku']=$request->sku ?? $this->generateUniqueSKU();
-        if ($image) {
-            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
-            $data['image'] = $image_name;
-        }
-        $data += $request->except('child', 'variation_sku', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei','sku');
-        $product = Product::create([
-            'uuid' => Str::uuid()
-        ] + $data);
+            if ($request->sku) {
+                Product::where('sku', $request->sku)->exists();
+                return back()->with('error', 'product SKU is already Exist');
+            }
+            $image = $request->file('image');
+            $data = [];
+            $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
+            if ($image) {
+                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
+                $data['image'] = $image_name;
+            }
+            $data += $request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku');
+            $product = Product::create([
+                'uuid' => Str::uuid()
+            ] + $data);
 
-        if ($request->product_type=='single') {
-           Variation::create([
-            'product_id'=>$product->id,
-            'variation_sku'=>$request->variation_sku ?? $data['sku'],
-            'value'=>$request->value,
-            'purchase_inc'=>$request->purchase_inc,
-            'purchase_exc'=>$request->purchase_exc,
-            'selling_price'=>$request->selling_price,
-            'profit_marging'=>$request->profit_marging,
-            'variation_image'=>$request->variation_image,
-           ]);
-        }else {
-            $variationData = $request->child;
-            foreach ($variationData['value'] as $key => $value) {
+            if ($request->product_type == 'single') {
                 Variation::create([
                     'product_id' => $product->id,
-                    'product_variation'=>$request->product_variation,
-                    'value' => $variationData['value'][$key] ?? null,
-                    'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'].'-'.$key,
-                    'value' => $value,
-                    'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
-                    'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
-                    'selling_price' => $variationData['selling_price'][$key] ?? null,
-                    'profit_marging' => $variationData['profit_marging'][$key] ?? null,
+                    'variation_sku' => $request->variation_sku ?? $data['sku'],
+                    'value' => $request->value,
+                    'stock' => $request->stock,
+                    'purchase_inc' => $request->purchase_inc,
+                    'purchase_exc' => $request->purchase_exc,
+                    'selling_price' => $request->selling_price,
+                    'profit_marging' => $request->profit_marging,
+                    'variation_image' => $request->variation_image,
                 ]);
+            } else {
+                $variationData = $request->child;
+                foreach ($variationData['value'] as $key => $value) {
+                    Variation::create([
+                        'product_id' => $product->id,
+                        'product_variation' => $request->product_variation,
+                        'value' => $variationData['value'][$key] ?? null,
+                        'stock' => $variationData['stock'][$key] ?? null,
+                        'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'] . '-' . $key,
+                        'value' => $value,
+                        'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
+                        'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
+                        'selling_price' => $variationData['selling_price'][$key] ?? null,
+                        'profit_marging' => $variationData['profit_marging'][$key] ?? null,
+                    ]);
+                }
             }
-        }        
-        return redirect(route('product.index'))->with('success','Product Created Successfully');
+            return redirect(route('product.index'))->with('success', 'Product Created Successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return redirect()->back()->with('error', 'Something went wrong');
-        }      
+        }
     }
 
     public function show(Product $product)
