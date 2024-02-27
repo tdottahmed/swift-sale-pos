@@ -4,8 +4,8 @@
 		<!-- Header with logos -->
 		<div class="navbar-header sidebar-light bg-indigo-400 d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
-				<a href="index.html" class="d-inline-block">
-					<img src="{{asset('limitless/global_assets/images/logo_light.png')}}" alt="">
+				<a href="index.html">					
+					<img src="{{ asset('storage/organization') . '/' . organizationName()->logo }}"  height="200px" width="100%">
 				</a>
 			</div>
 			
