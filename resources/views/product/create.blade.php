@@ -165,7 +165,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input-styled" value="1"
-                                            name="enable_imei" data-fouc>
+                                            name="not_for_selling" data-fouc>
                                         Not for Sale
                                     </label>
                                 </div>
