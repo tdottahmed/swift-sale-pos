@@ -49,7 +49,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         try {
             if ($request->sku) {
                 Product::where('sku', $request->sku)->exists();
@@ -119,13 +118,25 @@ class ProductController extends Controller
         $sizes = Size::all();
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
-        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product'));
+        $variations = Variation::where('product_id',$product->id)->get();
+        
+        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product', 'variations'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $image = $request->file('image');
-        if ($image) {
+        try {
+            $product = Product::findOrFail($id);
+
+            if ($request->sku && $request->sku !== $product->sku) {
+                if (Product::where('sku', $request->sku)->exists()) {
+                    return back()->with('error', 'Product SKU already exists');
+                }
+                $product->sku = $request->sku;
+            }
+
+            $image = $request->file('image');
+            if ($image) {
             $path = public_path('storage/product/' . $product->image);
             if (is_file($path)) {
                 unlink($path);
@@ -138,16 +149,75 @@ class ProductController extends Controller
             $image_name = $product->image;
         }
 
-        $data = [];
-        $data['image'] = $image_name;
+            $product->update($request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku'));
 
-        $data += $request->all();
+            if ($request->product_type == 'single') {
+                $variation = Variation::where('product_id', $product->id)->first();
+                $variation->update([
+                    'variation_sku' => $request->variation_sku ?? $product->sku,
+                    'value' => $request->value,
+                    'stock' => $request->stock,
+                    'purchase_inc' => $request->purchase_inc,
+                    'purchase_exc' => $request->purchase_exc,
+                    'selling_price' => $request->selling_price,
+                    'profit_marging' => $request->profit_marging,
+                    'variation_image' => $request->variation_image,
+                ]);
+            } else {
+                $variationData = $request->child;
+                foreach ($variationData['value'] as $key => $value) {
+                    Variation::updateOrCreate(
+                        ['id' => $variationData['id'][$key] ?? null],
+                        [
+                            'product_id' => $product->id,
+                            'product_variation' => $request->product_variation,
+                            'value' => $variationData['value'][$key] ?? null,
+                            'stock' => $variationData['stock'][$key] ?? null,
+                            'variation_sku' => $variationData['variation_sku'][$key] ??  $product->sku . '-' . $key,
+                            'value' => $value,
+                            'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
+                            'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
+                            'selling_price' => $variationData['selling_price'][$key] ?? null,
+                            'profit_marging' => $variationData['profit_marging'][$key] ?? null,
+                        ]
+                    );
+                }
+            }
 
-        $product->update($data);
-
-
-        return redirect(route('product.index'))->with('success', 'Product Info Updated Successfully');
+            return redirect(route('product.index'))->with('success', 'Product updated successfully');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
+
+    // public function update(Request $request, Product $product)
+    // {
+    //     dd('hello');
+    //     $image = $request->file('image');
+    //     if ($image) {
+    //         $path = public_path('storage/product/' . $product->image);
+    //         if (is_file($path)) {
+    //             unlink($path);
+    //         }
+
+    //         $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+
+    //         Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
+    //     } else {
+    //         $image_name = $product->image;
+    //     }
+
+    //     $data = [];
+    //     $data['image'] = $image_name;
+
+    //     $data += $request->all();
+
+    //     $product->update($data);
+
+
+    //     return redirect(route('product.index'))->with('success', 'Product Info Updated Successfully');
+    // }
 
     public function destroy(Product $product)
     {
