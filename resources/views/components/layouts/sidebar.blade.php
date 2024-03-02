@@ -92,8 +92,8 @@
                         <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link"><i class="icon-align-top"></i>Size</a></li>
                     </ul>
                 </li>               
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
+                <li class="nav-item">
+                    <a href="{{route('pos.index')}}" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
                 </li>               
             </ul>
         </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\BarcodeTypeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SellController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/excel/import', [ProductController::class, 'import'])->name('excel.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
+
+    // Point of sell
+    Route::resource('pos', SellController::class);
 
 });
 
