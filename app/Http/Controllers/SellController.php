@@ -16,6 +16,8 @@ class SellController extends Controller
      */
     public function index()
     {
+        $customers = Customer::get();
+        $products = Product::all();
         $customers = Customer::all();
         $products = Product::all();
         $categories = Category::all();
@@ -27,7 +29,7 @@ class SellController extends Controller
         }
 
         $categoryWiseProducts['All'] = $products;
-        return view('pos.index', compact('categoryWiseProducts', 'customers', 'brands'));
+        return view('pos.index', compact('products','categoryWiseProducts', 'customers', 'brands'));
     }
 
     /**
