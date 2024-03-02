@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Sell;
 use Illuminate\Http\Request;
 
-class SellController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         $customers = Customer::all();
-        $products = Product::all();        
-        return view('pos.index',compact('products','customers'));
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -24,7 +22,7 @@ class SellController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer.create');
     }
 
     /**
@@ -38,7 +36,7 @@ class SellController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sell $sell)
+    public function show(Customer $customer)
     {
         //
     }
@@ -46,7 +44,7 @@ class SellController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sell $sell)
+    public function edit(Customer $customer)
     {
         //
     }
@@ -54,7 +52,7 @@ class SellController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sell $sell)
+    public function update(Request $request, Customer $customer)
     {
         //
     }
@@ -62,7 +60,7 @@ class SellController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sell $sell)
+    public function destroy(Customer $customer)
     {
         //
     }

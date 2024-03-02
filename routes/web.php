@@ -8,6 +8,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
@@ -63,6 +64,8 @@ Route::middleware('auth')->group(function () {
 
     // Point of sell
     Route::resource('pos', SellController::class);
+
+    Route::resource('customer', CustomerController::class);
 
 });
 

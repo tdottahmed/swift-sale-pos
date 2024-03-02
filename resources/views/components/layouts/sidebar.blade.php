@@ -70,7 +70,7 @@
                         <ul class="nav nav-group-sub" data-submenu-title="User Management">
                         <li class="nav-item"><a href="" class="nav-link"> <i class="icon-user-plus"></i>Add User</a></li>
                         <li class="nav-item"><a href="" class="nav-link"> <i class="icon-accessibility2"></i>Manage Permission</a></li>
-                        <li class="nav-item"><a href="" class="nav-link"> <i class="icon-list2"></i>Customers</a></li>
+                        <li class="nav-item"><a href="{{route('customer.index')}}" class="nav-link"> <i class="icon-list2"></i>Customers</a></li>
                         </ul>
                 </li>
                 <li class="nav-item nav-item-submenu">
@@ -97,6 +97,8 @@
                 </li>               
             </ul>
         </div>
+
+        <x-customer.create/>
         <!-- /main navigation -->
 
     </div>

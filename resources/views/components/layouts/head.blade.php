@@ -54,8 +54,11 @@
     <script src="{{ asset('limitless/global_assets/js/plugins/notifications/jgrowl.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/extra_jgrowl_noty.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/components_modals.js') }}"></script>
+
 
 
     <!-- /theme JS files -->
 
+    @stack('css')
 </head>
