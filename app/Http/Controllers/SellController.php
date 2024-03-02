@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\Product;
 use App\Models\Sell;
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class SellController extends Controller
@@ -15,8 +17,19 @@ class SellController extends Controller
     public function index()
     {
         $customers = Customer::get();
-        $products = Product::all();        
-        return view('pos.index',compact('products','customers'));
+        $products = Product::all();
+        $customers = Customer::all();
+        $products = Product::all();
+        $categories = Category::all();
+        $brands = Brand::all(); 
+        $categoryWiseProducts = [];
+
+        foreach ($categories as $category) {
+            $categoryWiseProducts[$category->title] = Product::where('category', $category->title)->get();
+        }
+
+        $categoryWiseProducts['All'] = $products;
+        return view('pos.index', compact('products','categoryWiseProducts', 'customers', 'brands'));
     }
 
     /**
