@@ -30,7 +30,12 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Customer::create($request->all());
+            return redirect()->back()->with('success', 'Customer created Successfully');
+        } catch (\Throwable $th) {
+           return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 
     /**

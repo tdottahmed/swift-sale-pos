@@ -180,4 +180,13 @@ class ProductController extends Controller
         $sku = mt_rand(1000, 99999);
         return $sku;
     }
+
+    public function filterProduct($sku)
+    {
+        $variations = Variation::with('product:name')
+                    ->where('variation_sku', 'like', '%' . $sku . '%')
+                    ->get();
+
+        return response()->json(['variations' => $variations]);
+    }
 }

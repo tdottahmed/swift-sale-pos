@@ -98,7 +98,6 @@
             </ul>
         </div>
 
-        <x-customer.create/>
         <!-- /main navigation -->
 
     </div>

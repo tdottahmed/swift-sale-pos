@@ -14,7 +14,7 @@ class SellController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::get();
         $products = Product::all();        
         return view('pos.index',compact('products','customers'));
     }
