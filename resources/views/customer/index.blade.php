@@ -35,8 +35,8 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right">
-                                       <a href="{{ route('customer.edit', $customer->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit customer</a>
-                                       <a href="{{ route('customer.show', $customer->id) }}" class="dropdown-item"><i class="icon-eye"></i> View customer</a>
+                                       <a href="{{ route('customer.edit', $customer->id) }}" class="dropdown-item " data-toggle="modal" data-target="#editCustomer"><i class="icon-pencil7"></i> Edit customer</a>
+                                       <a href="{{ route('customer.show', $customer->id) }}" class="dropdown-item" data-toggle="modal" data-target="#showCustomer"><i class="icon-eye"></i> View customer</a>
                                                    <form style="display:inline" action="{{ route('customer.destroy', $customer->id) }}"
                                                       method="POST">
                                                       @csrf
@@ -76,4 +76,6 @@
      </x-slot>
    </x-data-display.card>
    @include('customer.create-modal')
+   @include('customer.edit-modal')
+   @include('customer.show-modal')
 </x-layouts.master>

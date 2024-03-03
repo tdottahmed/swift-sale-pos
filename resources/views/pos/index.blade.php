@@ -125,60 +125,100 @@
     
     @push('scripts')
      <script>
-      $(document).ready(function() {
+    $(document).ready(function() {
         $('#product_sku').on('input', function() {
-          let sku = $(this).val().trim();
-          $.ajax({
-            url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
-            type: "GET",
-            success: function(response) {
-              $('#productTable tbody').empty();
-              if (response.variations.length > 0) {
-                $.each(response.variations, function(index, product) {
-                  let row = `<tr>
-                               <td>${product.name}</td>
-                               <td>${product.quantity}</td>
-                               <td>${product.subtotal}</td>
-                               <td>
-                                 <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
-                               </td>
-                             </tr>`;
-                  $('#productTable tbody').append(row);
-                });
-              } else {
-                let noResultsRow = `<tr><td colspan="4">No products found.</td></tr>`;
-                $('#productTable tbody').append(noResultsRow);
-              }
-            },
-            error: function(xhr) {
-              console.log(xhr.responseText);
-            }
-          });
-        }); 
-      
-            $("#filteredProducts tr").show();
-
-            $("#category, #brand").on("change", function() {
-                var selectedCategory = $("#category").val();
-                var selectedBrand = $("#brand").val();
-
-                $("#filteredProducts tr").hide().filter(function() {
-                    var categoryMatch = true;
-                    var brandMatch = true;
-
-                    if (selectedCategory !== "") {
-                        categoryMatch = $(this).data("category") === selectedCategory || selectedCategory === 'All';
+            let sku = $(this).val().trim();
+            
+            $.ajax({
+                url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
+                type: "GET",
+                success: function(response) {
+                    $('#productTable tbody').empty();
+                    if (response.variations.length > 0) {
+                        $.each(response.variations, function(index, product) {
+                            addProductToCart(product);
+                        });
+                    } else {
+                        let noResultsRow = `<tr><td colspan="4">No products found.</td></tr>`;
+                        $('#productTable tbody').append(noResultsRow);
                     }
-
-                    if (selectedBrand !== "") {
-                        brandMatch = $(this).data("brand") === selectedBrand;
-                    }
-
-                    return categoryMatch && brandMatch;
-                }).show();
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
             });
+        }); 
+
+        function addProductToCart(product) {
+            let row = `<tr data-id="${product.id}">
+                <td>${product.name}</td>
+                <td>
+                    <div class="input-group">
+                        <button class="btn btn-sm btn-secondary decrement-quantity">-</button>
+                        <span class="quantity mx-3 mt-1">${product.quantity}</span>
+                        <button class="btn btn-sm btn-secondary increment-quantity">+</button>
+                    </div>
+                </td>
+                <td>${product.subtotal}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
+                </td>
+            </tr>`;
+            $('#productTable tbody').append(row);
+        }
+
+        // Event listener for product click
+        $('#filteredProducts').on('click', 'tr', function() {
+            let productName = $(this).find('td:eq(1)').text().trim(); // Assuming the product name is in the second column (index 1)
+            let product = {
+                name: productName,
+                quantity: 1, // You can set the initial quantity here
+                subtotal: '', // You can calculate subtotal here if needed
+                id: $(this).data('productId') // Add product ID if needed
+            };
+            addProductToCart(product);
         });
-    </script>
+
+        // Event listener for increment button
+        $('#productTable').on('click', '.increment-quantity', function() {
+            let quantitySpan = $(this).siblings('.quantity');
+            let currentQuantity = parseInt(quantitySpan.text());
+            quantitySpan.text(currentQuantity + 1);
+        });
+
+        // Event listener for decrement button
+        $('#productTable').on('click', '.decrement-quantity', function() {
+            let quantitySpan = $(this).siblings('.quantity');
+            let currentQuantity = parseInt(quantitySpan.text());
+            if (currentQuantity > 1) {
+                quantitySpan.text(currentQuantity - 1);
+            }
+        });
+
+        $("#filteredProducts tr").show();
+
+        $("#category, #brand").on("change", function() {
+            var selectedCategory = $("#category").val();
+            var selectedBrand = $("#brand").val();
+
+            $("#filteredProducts tr").hide().filter(function() {
+                var categoryMatch = true;
+                var brandMatch = true;
+
+                if (selectedCategory !== "") {
+                    categoryMatch = $(this).data("category") === selectedCategory || selectedCategory === 'All';
+                }
+
+                if (selectedBrand !== "") {
+                    brandMatch = $(this).data("brand") === selectedBrand;
+                }
+
+                return categoryMatch && brandMatch;
+            }).show();
+        });
+    });
+</script>
+
 @endpush
 
 

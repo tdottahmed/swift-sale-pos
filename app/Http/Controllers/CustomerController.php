@@ -43,7 +43,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.show-modal', compact('customer'));
     }
 
     /**
@@ -51,7 +51,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit-modal',compact('customer'));
     }
 
     /**
@@ -59,7 +59,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        try {
+            $customer->update($request->all());
+            return redirect()->back()->with('success', 'Customer Updated Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 
     /**

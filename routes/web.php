@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pos', SellController::class);
 
     Route::resource('customer', CustomerController::class);
-    Route::get('poduct-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
+    Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
 
 });
 
