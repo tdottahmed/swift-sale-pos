@@ -254,7 +254,7 @@ class ProductController extends Controller
 
     public function filterProduct($sku)
     {
-        $variations = Variation::with('product:name')
+        $variations = Variation::with('product')
                     ->where('variation_sku', 'like', '%' . $sku . '%')
                     ->get();
 

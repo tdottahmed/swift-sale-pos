@@ -95,6 +95,17 @@
                 <li class="nav-item">
                     <a href="{{route('pos.index')}}" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
                 </li>               
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link"><i class="icon-minus3"></i> <span>Expense</span></a>
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item">
+                            <a href="{{ route('expense-category.index') }}" class="nav-link"><i class="icon-paragraph-left2"></i>Expense Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('expenses.index') }}" class="nav-link"><i class="icon-list2"></i>Expenses</a>
+                        </li>
+                    </ul>
+                </li>               
             </ul>
         </div>
 

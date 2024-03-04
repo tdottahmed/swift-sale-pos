@@ -125,29 +125,43 @@
     
     @push('scripts')
      <script>
-    $(document).ready(function() {
+        $(document).ready(function() {
         $('#product_sku').on('input', function() {
             let sku = $(this).val().trim();
-            
+
             $.ajax({
-                url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
-                type: "GET",
-                success: function(response) {
-                    $('#productTable tbody').empty();
-                    if (response.variations.length > 0) {
-                        $.each(response.variations, function(index, product) {
-                            addProductToCart(product);
-                        });
-                    } else {
-                        let noResultsRow = `<tr><td colspan="4">No products found.</td></tr>`;
-                        $('#productTable tbody').append(noResultsRow);
-                    }
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
+            url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
+            type: "GET",
+            success: function(response) {
+                $('#productTable tbody').empty();
+                if (response.variations.length > 0) {
+                $.each(response.variations, function(index, variation) {
+                    let productName = variation.product.name;
+
+                    // Create a table row for each variation
+                    let quantity =  1;
+                    console.log(quantity);
+                    let tableRow = `<tr>
+                        <td>${productName}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary decrement-quantity">-</button>
+                        <span class="quantity mx-3 mt-1">${quantity}</span>
+                        <button class="btn btn-sm btn-secondary increment-quantity">+</button>
+                        </td>
+                    </tr>`;
+
+                    $('#productTable tbody').append(tableRow);
+                });
+                } else {
+                let noResultsRow = `<tr><td colspan="4">No products found.</td></tr>`;
+                $('#productTable tbody').append(noResultsRow);
                 }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
             });
-        }); 
+        });
 
         function addProductToCart(product) {
             let row = `<tr data-id="${product.id}">

@@ -9,10 +9,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellController;
+use App\Models\ExpenseCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +70,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('customer', CustomerController::class);
     Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
+
+    //Expenses
+    Route::resource('expense-category', ExpenseCategoryController::class);
+    Route::resource('expenses', ExpenseController::class);
 
 });
 
