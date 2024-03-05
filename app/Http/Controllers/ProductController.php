@@ -35,6 +35,31 @@ class ProductController extends Controller
         return view('product.index', compact('products', 'stocks'));
     }
 
+    // public function indexApi(Request $request)
+    // {
+    //     $query = Product::query();
+
+    //     // Filter by category
+    //     if ($request->has('category')) {
+    //         $query->where('category', $request->category);
+    //     }
+
+    //     // Filter by brand
+    //     if ($request->has('brand')) {
+    //         $query->where('brand', $request->brand);
+    //     }
+
+    //     // Filter by SKU
+    //     if ($request->has('sku')) {
+    //         $query->where('sku', 'LIKE', '%' . $request->sku . '%');
+    //     }
+
+    //     $products = $query->get();
+
+
+    //     return response()->json($products);
+    // }
+
     public function create()
     {
         $categories = Category::all();
@@ -118,8 +143,8 @@ class ProductController extends Controller
         $sizes = Size::all();
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
-        $variations = Variation::where('product_id',$product->id)->get();
-        
+        $variations = Variation::where('product_id', $product->id)->get();
+
         return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product', 'variations'));
     }
 
@@ -137,17 +162,17 @@ class ProductController extends Controller
 
             $image = $request->file('image');
             if ($image) {
-            $path = public_path('storage/product/' . $product->image);
-            if (is_file($path)) {
-                unlink($path);
+                $path = public_path('storage/product/' . $product->image);
+                if (is_file($path)) {
+                    unlink($path);
+                }
+
+                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+
+                Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
+            } else {
+                $image_name = $product->image;
             }
-
-            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
-        } else {
-            $image_name = $product->image;
-        }
 
             $product->update($request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku'));
 
@@ -240,9 +265,9 @@ class ProductController extends Controller
 
     public function labelPrint($id)
     {
-        $products = Variation::where('product_id',$id)->get();
+        $products = Variation::where('product_id', $id)->get();
         $mainProduct = Product::find($id);
-         return view('product.label',compact('products','mainProduct'));
+        return view('product.label', compact('products', 'mainProduct'));
     }
 
 
@@ -252,12 +277,37 @@ class ProductController extends Controller
         return $sku;
     }
 
+//     public function filterProduct($sku)
+//     {
+//         $variations = Variation::with('product')
+//             ->where('variation_sku', 'like', '%' . $sku . '%')
+//             ->get();
+// dd($variations->product);
+//         return response()->json(['variations' => $variations]);
+//     }
+
     public function filterProduct($sku)
     {
-        $variations = Variation::with('product:name')
-                    ->where('variation_sku', 'like', '%' . $sku . '%')
-                    ->get();
+        $variations = Variation::with('product')
+            ->where('variation_sku', 'like', '%' . $sku . '%')
+            ->get();
 
-        return response()->json(['variations' => $variations]);
+        // Initialize an empty array to store products
+        $products = [];
+
+        // Loop through each variation to get its associated product
+        foreach ($variations as $variation) {
+            // Access the product relationship on each variation
+            $product = $variation->product;
+
+            // Add the product to the array if it exists
+            if ($product) {
+                $products[] = $product;
+            }
+        }
+
+        // Return the response with products
+        return response()->json(['products' => $products]);
     }
+
 }
