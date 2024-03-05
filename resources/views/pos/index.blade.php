@@ -134,116 +134,122 @@
     {{-- Create Employee Modal end --}}
 
     @push('scripts')
-     <script>
-        $(document).ready(function() {
-        $('#product_sku').on('input', function() {
-            let sku = $(this).val().trim();
+        <script>
+            $(document).ready(function() {
+                $('#product_sku').on('input', function() {
+                    let sku = $(this).val().trim();
 
-            $.ajax({
-            url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
-            type: "GET",
-            success: function(response) {
-                $('#productTable tbody').empty();
-                if (response.variations.length > 0) {
-                $.each(response.variations, function(index, variation) {
-                    let productName = variation.product.name;
+                    $.ajax({
+                        url: "{{ route('filterProduct', ':sku') }}".replace(':sku', sku),
+                        type: "GET",
+                        success: function(response) {
+                            console.log(response); // Log the response object to the console
+                            $('#productTable tbody').empty();
+                            if (response.products.length > 0) {
+                                $.each(response.products, function(index, product) {
+                                    addProductToCart(product);
+                                });
+                            } else {
+                                let noResultsRow =
+                                    `<tr><td colspan="4">No products found.</td></tr>`;
+                                $('#productTable tbody').append(noResultsRow);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
 
-                    // Create a table row for each variation
-                    let quantity =  1;
-                    console.log(quantity);
-                    let tableRow = `<tr>
-                        <td>${productName}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary decrement-quantity">-</button>
-                        <span class="quantity mx-3 mt-1">${quantity}</span>
-                        <button class="btn btn-sm btn-secondary increment-quantity">+</button>
-                        </td>
-                    </tr>`;
-
-                    $('#productTable tbody').append(tableRow);
                 });
-                } else {
-                let noResultsRow = `<tr><td colspan="4">No products found.</td></tr>`;
-                $('#productTable tbody').append(noResultsRow);
+
+                function addProductToCart(product) {
+                    let row = `<tr data-id="${product.id}">
+        <td>${product.name}</td>
+        <td>
+            <div class="input-group">
+                <button class="btn btn-sm btn-secondary decrement-quantity">-</button>
+                <span class="quantity mx-3 mt-1">${product.quantity}</span>
+                <button class="btn btn-sm btn-secondary increment-quantity">+</button>
+            </div>
+        </td>
+        <td>${product.selling_price}</td>
+        <td>
+            <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
+        </td>
+    </tr>`;
+                    $('#productTable tbody').append(row);
                 }
-            },
-            error: function(xhr) {
-                console.log(xhr.responseText);
-            }
+
+                // Event listener for product click
+                $('#filteredProducts').on('click', 'tr', function() {
+                    let productName = $(this).find('td:eq(1)').text()
+                        .trim(); // Assuming the product name is in the second column (index 1)
+                    let product = {
+                        name: productName,
+                        quantity: 1, // You can set the initial quantity here
+                        subtotal: '', // You can calculate subtotal here if needed
+                        id: $(this).data('productId') // Add product ID if needed
+                    };
+                    addProductToCart(product);
+                });
+
+                // Event listener for increment button
+                $('#productTable').on('click', '.increment-quantity', function() {
+                    let quantitySpan = $(this).siblings('.quantity');
+                    let currentQuantity = parseInt(quantitySpan.text());
+                    quantitySpan.text(currentQuantity + 1);
+                });
+
+                // Event listener for decrement button
+                $('#productTable').on('click', '.decrement-quantity', function() {
+                    let quantitySpan = $(this).siblings('.quantity');
+                    let currentQuantity = parseInt(quantitySpan.text());
+                    if (currentQuantity > 1) {
+                        quantitySpan.text(currentQuantity - 1);
+                    }
+                });
+
+                function filterProducts() {
+                    var selectedCategory = $("#category").val();
+                    var selectedBrand = $("#brand").val();
+                    var sku = $("#sku").val().trim();
+
+                    $("#filteredProducts tr").hide().filter(function() {
+                        var categoryMatch = true;
+                        var brandMatch = true;
+                        var skuMatch = true;
+
+                        if (selectedCategory !== "") {
+                            categoryMatch = $(this).data("category") === selectedCategory ||
+                                selectedCategory === 'All';
+                        }
+
+                        if (selectedBrand !== "") {
+                            brandMatch = $(this).data("brand") === selectedBrand;
+                        }
+
+                        if (sku !== "") {
+                            var rowSKU = $(this).find('td:eq(2)').text()
+                                .trim(); // Assuming SKU is in the third column (index 2)
+                            skuMatch = rowSKU.indexOf(sku) !== -
+                                1; // Check if the row's SKU contains the entered SKU
+                        }
+
+                        return categoryMatch && brandMatch && skuMatch;
+                    }).show();
+                }
+
+
+
+
+                // Initially show all products
+                $("#filteredProducts tr").show();
+
+                // Event listeners for category, brand, and SKU changes
+                $("#category, #brand, #sku").on("change keyup", filterProducts);
             });
-        });
-
-        function addProductToCart(product) {
-            let row = `<tr data-id="${product.id}">
-                <td>${product.name}</td>
-                <td>
-                    <div class="input-group">
-                        <button class="btn btn-sm btn-secondary decrement-quantity">-</button>
-                        <span class="quantity mx-3 mt-1">${product.quantity}</span>
-                        <button class="btn btn-sm btn-secondary increment-quantity">+</button>
-                    </div>
-                </td>
-                <td>${product.subtotal}</td>
-                <td>
-                    <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
-                </td>
-            </tr>`;
-            $('#productTable tbody').append(row);
-        }
-
-        // Event listener for product click
-        $('#filteredProducts').on('click', 'tr', function() {
-            let productName = $(this).find('td:eq(1)').text().trim(); // Assuming the product name is in the second column (index 1)
-            let product = {
-                name: productName,
-                quantity: 1, // You can set the initial quantity here
-                subtotal: '', // You can calculate subtotal here if needed
-                id: $(this).data('productId') // Add product ID if needed
-            };
-            addProductToCart(product);
-        });
-
-        // Event listener for increment button
-        $('#productTable').on('click', '.increment-quantity', function() {
-            let quantitySpan = $(this).siblings('.quantity');
-            let currentQuantity = parseInt(quantitySpan.text());
-            quantitySpan.text(currentQuantity + 1);
-        });
-
-        // Event listener for decrement button
-        $('#productTable').on('click', '.decrement-quantity', function() {
-            let quantitySpan = $(this).siblings('.quantity');
-            let currentQuantity = parseInt(quantitySpan.text());
-            if (currentQuantity > 1) {
-                quantitySpan.text(currentQuantity - 1);
-            }
-        });
-
-        $("#filteredProducts tr").show();
-
-        $("#category, #brand").on("change", function() {
-            var selectedCategory = $("#category").val();
-            var selectedBrand = $("#brand").val();
-
-            $("#filteredProducts tr").hide().filter(function() {
-                var categoryMatch = true;
-                var brandMatch = true;
-
-                if (selectedCategory !== "") {
-                    categoryMatch = $(this).data("category") === selectedCategory || selectedCategory === 'All';
-                }
-
-                if (selectedBrand !== "") {
-                    brandMatch = $(this).data("brand") === selectedBrand;
-                }
-
-                return categoryMatch && brandMatch;
-            }).show();
-        });
-    });
-</script>
-
-@endpush
+        </script>
+    @endpush
 
 
 </x-layouts.master>
