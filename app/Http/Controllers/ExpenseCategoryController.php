@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ExpenseCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ExpenseCategory;
 
 class ExpenseCategoryController extends Controller
 {
@@ -12,8 +13,8 @@ class ExpenseCategoryController extends Controller
      */
     public function index()
     {
-        $expenseCategory = ExpenseCategory::all();
-        return view('expense-category.index',compact('expenseCategory'));
+        $expenseCategories = ExpenseCategory::all();
+        return view('expense-category.index',compact('expenseCategories'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ExpenseCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('expense-category.create');
     }
 
     /**
@@ -29,7 +30,19 @@ class ExpenseCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'title'=>'required'
+        // ]);
+
+
+
+        ExpenseCategory::create([
+            'uuid' => Str::uuid(),
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return redirect(route('expense-category.index'))->with('success', 'Expense Category Insert Successfully');
     }
 
     /**
@@ -45,7 +58,7 @@ class ExpenseCategoryController extends Controller
      */
     public function edit(ExpenseCategory $expenseCategory)
     {
-        //
+        return view('expense-category.edit', compact('expenseCategory'));
     }
 
     /**
@@ -53,7 +66,16 @@ class ExpenseCategoryController extends Controller
      */
     public function update(Request $request, ExpenseCategory $expenseCategory)
     {
-        //
+        // $request->validate([
+        //     'title'=>'required'
+        // ]);
+
+        $expenseCategory->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return redirect(route('expense-category.index'))->with('success', 'Expense Category Updated Successfully');
     }
 
     /**
@@ -61,6 +83,8 @@ class ExpenseCategoryController extends Controller
      */
     public function destroy(ExpenseCategory $expenseCategory)
     {
-        //
+        $expenseCategory->delete();
+
+        return redirect(route('expense-category.index'))->with('success', 'Expense Category Deleted Successfully');
     }
 }
