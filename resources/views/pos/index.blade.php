@@ -1,4 +1,26 @@
 <x-layouts.master>
+    <div class="row w-full">
+       <div class="card">
+        <div class="card-body">
+           <div class="row">
+            <span class="col-lg-2 px-1"><kbd>Shift + W</kbd> Select Customer</span>
+            <span class="col-lg-2 px-1"><kbd>Shift + A</kbd> Create new Customer</span>
+            <span class="col-lg-2 px-1"><kbd>Shift + R</kbd> Product Select</span>
+            <span class="col-lg-2 px-1"><kbd>Shift + C</kbd> Close Selected Dropdown</span>
+            <span class="col-lg-2 px-1"><kbd>F2</kbd> Change Quantity </span>
+            <span class="col-lg-2 px-1"><kbd>Shift + Z</kbd> Category Wise Product</span>
+           </div>
+           <hr>
+           <div class="row">
+            <span class="col-lg-2 p-1"><kbd>Shift + B</kbd> Brand Wise Product</span>
+            <span class="col-lg-2 p-1"><kbd>Shift + S</kbd> Complete Order</span>
+           </div>
+           
+        </div>
+       </div>
+    </div>
+
+    
     <div class="row">
         <div class="col-lg-6">
             <div class="card">
@@ -121,7 +143,8 @@
 
     @push('scripts')
         <script>
-            $(document).ready(function() {                
+            $(document).ready(function() {       
+                calculateCartTotal();         
                 function addProductToCart(product) {
                     let row = `<tr data-id="${product.id}">
                         <td>${product.name}</td>
@@ -161,30 +184,31 @@
                     };
                     addProductToCart(product);
                     }
+                    calculateCartTotal();
                 });
                  // Function to calculate total price and quantity
                  function calculateCartTotal() {
                     let totalPrice = 0;
                     let totalQuantity = 0;
-                    $('#productTable tr:not(:last-child)').each(function() {
-                    let quantityElement = $(this).find('.quantity');
-                    let priceElement = $(this).find('td:eq(3)');
 
-                    if (quantityElement.length && priceElement.length) {
-                        let quantity = parseInt(quantityElement.text());
-                        let priceText = priceElement.text().trim().replace(/[^0-9.]/g, '');
-                        let price = parseFloat(priceText);
-                        totalPrice += (quantity * price);
-                        totalQuantity += quantity;
-                    } else {
-                        console.warn('Missing quantity or price element in a cart row.');
-                    }
+                    $('#productTable tbody tr').each(function() {
+                        let quantityElement = $(this).find('.quantity');
+                        let priceElement = $(this).find('td:eq(3)');
+
+                        if (quantityElement.length && priceElement.length) {
+                            let quantity = parseInt(quantityElement.text());
+                            let priceText = priceElement.text().trim().replace(/[^0-9.]/g, '');
+                            let price = parseFloat(priceText);
+                            let subtotal = quantity * price;
+                            totalPrice += subtotal;
+                            totalQuantity += quantity;
+                        } else {
+                            console.warn('Missing quantity or price element in a cart row.');
+                        }
                     });
-
                     $('#cartTotalPrice').text(totalPrice.toFixed(2));
                     $('#cartTotalQuantity').text(totalQuantity);
                 }
-
                 $('#productTable').on('click', '.increment-quantity, .decrement-quantity', function() {
                     let quantitySpan = $(this).siblings('.quantity');
                     let currentQuantity = parseInt(quantitySpan.text());
@@ -230,12 +254,11 @@
                 $('#productTable').on('click', '.delete-product', function() {
                     let rowToDelete = $(this).closest('tr');
                     rowToDelete.remove();
+                    calculateCartTotal();
                 });
                 $('#productTable').on('click', '.increment-quantity, .decrement-quantity, .delete-product', calculateCartTotal);
-
-                    // Ensure the total row elements (cartTotalPrice, cartTotalQuantity) exist before calling calculateCartTotal
                     if ($('#cartTotalPrice').length && $('#cartTotalQuantity').length) {
-                        calculateCartTotal(); // Calculate total on page load (assuming cart items exist)
+                        calculateCartTotal(); 
                     }
                     $('#productTable').append(`
                         <tr>
@@ -244,8 +267,6 @@
                             <td colspan="2" id="cartTotalPrice">0.00</td>
                         </tr>
                     `);
-                
-
             });
         </script>
     @endpush
