@@ -53,14 +53,14 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Expense Note</label>
                         <div class="col-sm-9">
-                            <textarea name="expense_note" id="expense_note" cols="50" rows="5"></textarea>
+                            <textarea name="expense_note" class="form-control" id="expense_note" cols="50" rows="5"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Payment Method</label>
                         <div class="col-sm-9">
-                            <select name="payment_method" id="payment_method" class="form-control select-search">
+                            <select name="payment_method" id="payment_method" class="form-control select select-search">
                                 <option disabled>--Please Select--</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Card">Card</option>
@@ -72,7 +72,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Payment Note</label>
                         <div class="col-sm-9">
-                            <textarea name="payment_note" id="payment_note" cols="50" rows="5"></textarea>
+                            <textarea name="payment_note" id="payment_note" class="form-control" cols="50" rows="5"></textarea>
                         </div>
                     </div>
                 </div>

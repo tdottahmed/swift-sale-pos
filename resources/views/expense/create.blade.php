@@ -33,7 +33,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="expense_note">Expense Note:</label>
-                    <textarea name="expense_note" id="expense_note" cols="30" rows="10"></textarea>
+                    <textarea name="expense_note" class="form-control" id="expense_note"></textarea>
 
                 </div>
                 <div class="mb-3">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="payment_method">Payment Note:</label>
-                    <textarea name="payment_note" id="payment_note" cols="30" rows="10"></textarea>
+                    <textarea name="payment_note" id="payment_note" class="form-control" cols="30" rows="10"></textarea>
                 </div>
 
 

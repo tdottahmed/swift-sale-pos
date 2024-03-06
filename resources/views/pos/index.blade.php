@@ -2,27 +2,36 @@
     <div class="row w-full">
        <div class="card">
         <div class="card-body">
-           <div class="row">
-            <span class="col-lg-2 px-1"><kbd>Shift + W</kbd> Select Customer</span>
-            <span class="col-lg-2 px-1"><kbd>Shift + A</kbd> Create new Customer</span>
-            <span class="col-lg-2 px-1"><kbd>Shift + R</kbd> Product Select</span>
-            <span class="col-lg-2 px-1"><kbd>Shift + C</kbd> Close Selected Dropdown</span>
-            <span class="col-lg-2 px-1"><kbd>F2</kbd> Change Quantity </span>
-            <span class="col-lg-2 px-1"><kbd>Shift + Z</kbd> Category Wise Product</span>
-           </div>
-           <hr>
-           <div class="row">
-            <span class="col-lg-2 p-1"><kbd>Shift + B</kbd> Brand Wise Product</span>
-            <span class="col-lg-2 p-1"><kbd>Shift + S</kbd> Complete Order</span>
-           </div>
-           
+            <span class="col-lg-2 "><kbd>Shift + W</kbd> Select Customer</span>
+            <span class="col-lg-2 "><kbd>Shift + A</kbd> Create new Customer</span>
+            <span class="col-lg-2 "><kbd>Shift + C</kbd> Close Selected Dropdown</span>
+            <span class="col-lg-2 "><kbd>Shift + Z</kbd> Category Wise Product</span>
+            <span class="col-lg-2 "><kbd>Shift + B</kbd> Brand Wise Product</span>
+            <span class="col-lg-2 "><kbd>Shift + S</kbd> Complete Order</span>
+           </div>           
         </div>
-       </div>
     </div>
-
+    <div class="card">
+        <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <button class="btn btn-sm bg-blue-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Note</button>
+                        <button class="btn btn-sm bg-indigo-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Expense</button>
+                        <button class="btn btn-sm bg-teal-800 mx-2"><i class="icon icon-wrench3 mr-2" ></i>Repair</button>
+                        <button class="btn btn-sm bg-danger-800 mx-2"><i class="icon icon-reset mr-2" ></i>Return</button>
+                        <button class="btn btn-sm bg-info-800 mx-2"><i class="icon icon-pause mr-2" ></i>suspended</button>
+                        <button class="btn btn-sm bg-success-800 mx-2"><i class="icon icon-portfolio mr-2" ></i>Registars</button>
+                        <button class="btn btn-sm bg-primary-800 mx-2"><i class="icon icon-calculator mr-2" ></i>Calculator</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <span class="nav-pills-bordered">{{today()}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="card">
                 <div class="card-body py-4 h-full">
                     <div class="form-group row justify-between">
@@ -67,7 +76,7 @@
 
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="card">
                 <div class="card-header">
                     Product
@@ -132,6 +141,39 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                        <button class="btn  bg-blue-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Note</button>
+                        <button class="btn  bg-indigo-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Expense</button>
+                        <button class="btn  bg-teal-800 mx-2"><i class="icon icon-wrench3 mr-2" ></i>Repair</button>
+                        <button class="btn bg-danger-800 mx-2"><i class="icon icon-reset mr-2" ></i>Return</button>
+                        <button class="btn  bg-info-800 mx-2"><i class="icon icon-pause mr-2" ></i>suspended</button>
+                        <button class="btn  bg-success-800 mx-2"><i class="icon icon-portfolio mr-2" ></i>Registars</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8 text-center">
+                           <div class="bg-indigo-800 p-2">
+                            <h5>Total paybale Ammount</h5>
+                            <h2>15000</h2>
+                           </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="btn  bg-info-800"><i class="icon icon-pause mr-2" ></i>Recent Sell</button>
                         </div>
                     </div>
                 </div>
