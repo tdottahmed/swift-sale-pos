@@ -46,14 +46,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="payment_method">Payment Method:</label>
-                    <select name="payment_method" id="payment_method" class="form-control select">
-                        <option disabled>--Please Select--</option>
-                        <option value="Cash" {{ $expense->payment_method == 'Cash' ? 'selected' : '' }}>Cash</option>
-                        <option value="Card" {{ $expense->payment_method == 'Card' ? 'selected' : '' }}>Card</option>
-                        <option value="Bank" {{ $expense->payment_method == 'Bank' ? 'selected' : '' }}>Bank Transfer
-                        </option>
-                        <option value="Other" {{ $expense->payment_method == 'Other' ? 'selected' : '' }}>Other
-                        </option>
+                    <select name="payment_method_id" id="payment_method_id" class="form-control select">
+                     
+                        @foreach ($paymentMethods as $payment)
+                            <option value="{{ $payment->id }}"
+                                {{ $payment->id == $expense->payment_method_id ? 'selected' : '' }}>
+                                {{ $payment->title }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">

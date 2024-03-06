@@ -38,12 +38,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="payment_method">Payment Method:</label>
-                    <select name="payment_method" id="payment_method">
+                    <select name="payment_method_id" id="payment_method_id">
                         <option disabled>--Please Select--</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Card">Card</option>
-                        <option value="Bank">Bank Transfer</option>
-                        <option value="Other">Other</option>
+                        @foreach ($paymentMethods as $payment)
+                            <option value="{{ $payment->id }}">{{ $payment->title }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">

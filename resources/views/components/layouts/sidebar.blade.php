@@ -99,6 +99,9 @@
                     <a href="#" class="nav-link"><i class="icon-minus3"></i> <span>Expense</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
+                            <a href="{{ route('payment-method.index') }}" class="nav-link"><i class="icon-paragraph-left2"></i>Payment Method</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('expense-category.index') }}" class="nav-link"><i class="icon-paragraph-left2"></i>Expense Category</a>
                         </li>
                         <li class="nav-item">
