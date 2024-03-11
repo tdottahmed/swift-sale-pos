@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
 
 class SellController extends Controller
@@ -22,6 +23,7 @@ class SellController extends Controller
         $products = Product::all();
         $categories = Category::all();
         $brands = Brand::all(); 
+        $expenseCategories = ExpenseCategory::all();
         $categoryWiseProducts = [];
 
         foreach ($categories as $category) {
@@ -29,7 +31,7 @@ class SellController extends Controller
         }
 
         $categoryWiseProducts['All'] = $products;
-        return view('pos.index', compact('products','categoryWiseProducts', 'customers', 'brands'));
+        return view('pos.index', compact('products','categoryWiseProducts', 'customers', 'brands','expenseCategories'));
     }
 
     /**
