@@ -1,4 +1,6 @@
 <x-layouts.master>
+    @include('expense.create-modal',compact('expenseCategories'))
+    @include('pos.discount')
     <div class="row w-full">
        <div class="card">
         <div class="card-body">
@@ -14,16 +16,16 @@
     <div class="card">
         <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <button class="btn btn-sm bg-blue-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Note</button>
-                        <button class="btn btn-sm bg-indigo-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Expense</button>
+                        <button class="btn btn-sm bg-indigo-800 mx-2" data-toggle="modal" data-target="#createExpense"><i class="icon icon-plus2 mr-2" ></i>Expense</button>
                         <button class="btn btn-sm bg-teal-800 mx-2"><i class="icon icon-wrench3 mr-2" ></i>Repair</button>
                         <button class="btn btn-sm bg-danger-800 mx-2"><i class="icon icon-reset mr-2" ></i>Return</button>
                         <button class="btn btn-sm bg-info-800 mx-2"><i class="icon icon-pause mr-2" ></i>suspended</button>
                         <button class="btn btn-sm bg-success-800 mx-2"><i class="icon icon-portfolio mr-2" ></i>Registars</button>
                         <button class="btn btn-sm bg-primary-800 mx-2"><i class="icon icon-calculator mr-2" ></i>Calculator</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <span class="nav-pills-bordered">{{today()}}</span>
                     </div>
                 </div>
@@ -55,7 +57,6 @@
                                     </div>
 								</div>
                 </div>
-                <div class="table">
                     <table class="table" id="productTable">
                         <thead class="bg-indigo-600">
                             <tr>
@@ -68,11 +69,24 @@
                             </tr>
                         </thead>
                         <tbody class="divide-gray-200 h-full">
-
-
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                        <button class="btn btn-sm bg-brown-800" data-toggle="modal" data-target="#createDiscount">Discount (-) <i class="icon icon-pencil7 ml-2"></i></button>
+                                </td>
+                                <td>
+                                    <input type="text" name="discount" class="form-control" id="discountAmount" value="0.00" disabled>
+                                </td>
+                                <td colspan="2" class="text-center">
+                                    <button class="btn btn-sm bg-brown-800"><i class="icon icon-pencil7 mr-2"></i>Discount</button>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm bg-brown-800"><i class="icon icon-pencil7 mr-2"></i>Discount</button>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
-                </div>
 
             </div>
         </div>
@@ -149,33 +163,23 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div class="card">
                 <div class="card-body">
-                        <button class="btn  bg-blue-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Note</button>
-                        <button class="btn  bg-indigo-800 mx-2"><i class="icon icon-plus2 mr-2" ></i>Expense</button>
-                        <button class="btn  bg-teal-800 mx-2"><i class="icon icon-wrench3 mr-2" ></i>Repair</button>
-                        <button class="btn bg-danger-800 mx-2"><i class="icon icon-reset mr-2" ></i>Return</button>
-                        <button class="btn  bg-info-800 mx-2"><i class="icon icon-pause mr-2" ></i>suspended</button>
-                        <button class="btn  bg-success-800 mx-2"><i class="icon icon-portfolio mr-2" ></i>Registars</button>
+                        <button class="btn  bg-blue-800 mx-2"><i class="icon icon-pencil mr-2" ></i>Draft</button>
+                        <button  class="btn  bg-indigo-800 mx-2"><i class="icon icon-pencil7 mr-2" ></i>Quotation</button>
+                        <button class="btn  bg-warning-800 mx-2"><i class="icon icon-pause mr-2" ></i>Suspend</button>
+                        <button class="btn  bg-info-800 mx-2"><i class="icon icon-check mr-2" ></i>Credit Sale</button>
+                        <button class="btn bg-danger-800 mx-2"><i class="icon icon-cross mr-2" ></i>Cancel</button>
+                        <button class="btn  bg-info-800"><i class="icon icon-history mr-2" ></i>Recent Sell</button>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-8 text-center">
-                           <div class="bg-indigo-800 p-2">
-                            <h5>Total paybale Ammount</h5>
-                            <h2>15000</h2>
-                           </div>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <button class="btn  bg-info-800"><i class="icon icon-pause mr-2" ></i>Recent Sell</button>
-                        </div>
-                    </div>
+                <div class="card-body bg-indigo-800 p-2 text-center display-block">
+                                <h5>Total paybale Ammount</h5>
+                                <h2>15000</h2>
                 </div>
             </div>
         </div>
@@ -309,9 +313,24 @@
                             <td colspan="2" id="cartTotalPrice">0.00</td>
                         </tr>
                     `);
+
+                    $('#discountForm').on('submit', function(event) {
+                        event.preventDefault(); 
+                        let amount = $('#amountInput').val();
+                        let discountType = $('#discountType').val();
+                        let totalPrice = $('#cartTotalPrice').text();
+                        let totalPriceNumber = parseFloat(totalPrice);
+                        if (discountType ==='parcent') {
+                            let discountPercentage = amount / 100;
+                            discountAmount =totalPriceNumber* discountPercentage;
+                            $('#discountAmount').val(discountAmount.toFixed(2));
+                        }else{
+                            $('#discountAmount').val(amount);
+                        }
+                        $('[data-dismiss="modal"]').trigger('click');                    
+                    });
             });
         </script>
     @endpush
-
 
 </x-layouts.master>
