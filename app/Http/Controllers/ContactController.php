@@ -81,7 +81,33 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        try {
+            $contact->update([
+                "contact_type"     => $request->contact_type,
+                "contact_id"       => $request->contact_id,
+                "prefix"           => $request->prefix,
+                "first_name"       => $request->first_name,
+                "middle_name"      => $request->middle_name,
+                "last_name"        => $request->last_name,
+                "mobile"           => $request->mobile,
+                "alternate_number" => $request->alternate_number,
+                "landline"         => $request->landline,
+                "email"            => $request->email,
+                "city"             => $request->city,
+                "state"            => $request->state,
+                "country"          => $request->country,
+                "zip"              => $request->zip,
+                "date_of_birth"    => $request->date_of_birth,
+                "assigned_to"      => $request->assigned_to,
+                "address"          => $request->address,
+                "address2"         => $request->address2,
+                "business_name"    => $request->business_name,
+                "shipping_address" => $request->shipping_address,
+            ]);
+            return redirect()->back()->with('success', 'Contact Updated Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 
     /**
@@ -89,6 +115,11 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        try {
+            $contact->delete();
+            return redirect()->back()->with('success', 'Contact Updated Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 }

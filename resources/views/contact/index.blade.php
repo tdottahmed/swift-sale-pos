@@ -9,11 +9,14 @@
                     <thead class="bg-indigo-600">
                         <tr>
                             <th>SL</th>
+                            <th>Contact Type</th>
+                            <th>Contact ID</th>
                             <th>Name</th>
+                            <th>Business Name</th>
+                            <th>Mobile</th>
                             <th>Email</th>
-                            <th>Phone</th>
                             <th>Address</th>
-                            <th>Level</th>
+                            <th>Shipping Address</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -21,11 +24,15 @@
                         @foreach ($contacts as $contact)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $contact->fname }}</td>
-                                <td>{{ $contact->lname }}</td>
-                                <td>{{ $contact->phone }}</td>
+                                <td>{{ $contact->contact_type }}</td>
+                                <td>{{ $contact->contact_id }}</td>
+                                <td>{{ $contact->prefix }} {{ $contact->first_name }} {{ $contact->middle_name }}
+                                    {{ $contact->last_name }}</td>
+                                <td>{{ $contact->business_name }}</td>
+                                <td>{{ $contact->mobile }}</td>
+                                <td>{{ $contact->email }}</td>
                                 <td>{{ $contact->address }}</td>
-                                <td>{{ $contact->city }}</td>
+                                <td>{{ $contact->shipping_address }}</td>
                                 >
                                 <td class="text-center">
                                     <div class="list-icons">
