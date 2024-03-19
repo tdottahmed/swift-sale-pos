@@ -17,6 +17,14 @@ class SellController extends Controller
      */
     public function index()
     {
+       
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
         $customers = Customer::get();
         $products = Product::all();
         $customers = Customer::all();
@@ -25,21 +33,11 @@ class SellController extends Controller
         $brands = Brand::all(); 
         $expenseCategories = ExpenseCategory::all();
         $categoryWiseProducts = [];
-
         foreach ($categories as $category) {
             $categoryWiseProducts[$category->title] = Product::where('category', $category->title)->get();
         }
-
         $categoryWiseProducts['All'] = $products;
-        return view('pos.index', compact('products','categoryWiseProducts', 'customers', 'brands','expenseCategories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('pos.create', compact('products','categoryWiseProducts', 'customers', 'brands','expenseCategories'));
     }
 
     /**
@@ -47,7 +45,7 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
