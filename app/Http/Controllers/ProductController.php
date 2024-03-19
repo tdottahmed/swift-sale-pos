@@ -23,15 +23,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::latest()->get();
         $stocks = [];
-
         foreach ($products as $product) {
             $stockCount = Variation::where('product_id', $product->id)->sum('stock');
             $stocks[$product->id] = $stockCount;
         }
-
-
         return view('product.index', compact('products', 'stocks'));
     }
 

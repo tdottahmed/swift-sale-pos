@@ -107,9 +107,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('pos.index') }}" class="nav-link"><i class="icon-store2"></i> <span>Point Of
-                            Sale</span></a>
-                </li>
+                    <a href="{{route('pos.create')}}" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
+                </li>               
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-minus3"></i> <span>Expense</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
