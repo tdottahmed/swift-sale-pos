@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
-use App\Models\ExpenseCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ExpenseCategory;
+use App\Models\PaymentMethod;
 
 class ExpenseController extends Controller
 {
@@ -14,8 +16,9 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::all();
+        $paymentMethods = PaymentMethod::all();
         $expenseCategories = ExpenseCategory::all();
-        return view('expense.index', compact('expenses', 'expenseCategories'));
+        return view('expense.index', compact('expenses', 'expenseCategories', 'paymentMethods'));
     }
 
     /**
@@ -24,8 +27,9 @@ class ExpenseController extends Controller
     public function create()
     {
         $expenseCategories = ExpenseCategory::all();
+        $paymentMethods = PaymentMethod::all();
 
-        return view('expense.create', compact('expenseCategories'));
+        return view('expense.create', compact('expenseCategories', 'paymentMethods'));
     }
 
     /**
@@ -34,13 +38,14 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         Expense::create([
+            'uuid' => Str::uuid(),
             'expense_category_id' => $request->expense_category_id,
+            'payment_method_id' => $request->payment_method_id,
             'reference_no' => $request->reference_no,
             'date' => $request->date,
             'expense_for' => $request->expense_for,
             'total_amount' => $request->total_amount,
             'expense_note' => $request->expense_note,
-            'payment_method' => $request->payment_method,
             'payment_note' => $request->payment_note,
         ]);
 
@@ -61,7 +66,9 @@ class ExpenseController extends Controller
     public function edit(Expense $expense)
     {
         $expenseCategories = ExpenseCategory::all();
-        return view('expense.edit', compact('expense', 'expenseCategories'));
+        $paymentMethods = PaymentMethod::all();
+
+        return view('expense.edit', compact('expense', 'expenseCategories', 'paymentMethods'));
     }
 
     /**
@@ -71,12 +78,12 @@ class ExpenseController extends Controller
     {
         $expense->update([
             'expense_category_id' => $request->expense_category_id,
+            'payment_method_id' => $request->payment_method_id,
             'reference_no' => $request->reference_no,
             'date' => $request->date,
             'expense_for' => $request->expense_for,
             'total_amount' => $request->total_amount,
             'expense_note' => $request->expense_note,
-            'payment_method' => $request->payment_method,
             'payment_note' => $request->payment_note,
         ]);
 

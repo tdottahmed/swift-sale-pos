@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->nullable();
             $table->unsignedBigInteger('expense_category_id')->nullable();
+            $table->unsignedBigInteger('payment_method_id')->nullable();
             $table->string('reference_no')->nullable();
             $table->date('date')->nullable();
             $table->string('expense_for')->nullable();
             $table->string('total_amount')->nullable();
             $table->string('expense_note')->nullable();
-            $table->string('payment_method')->nullable();
             $table->string('payment_note')->nullable();
             $table->timestamps();
         });

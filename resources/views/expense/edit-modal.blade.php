@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form action="{{ route('expenses.update',$expense->id) }}" class="form-horizontal" method="POST">
+            <form action="{{ route('expenses.update', $expense->id) }}" class="form-horizontal" method="POST">
                 @csrf
                 @method('put')
                 <div class="modal-body">
@@ -17,11 +17,11 @@
                                 class="form-control select-search">
                                 <option value="">-- Please select --</option>
                                 @foreach ($expenseCategories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ $category->id == $expense->expense_category_id ? 'selected' : '' }}>
-                                {{ $category->title }}
-                            </option>
-                        @endforeach
+                                    <option value="{{ $category->id }}"
+                                        {{ $category->id == $expense->expense_category_id ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -29,56 +29,60 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Reference No</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="reference_no" id="reference_no" value="{{ $expense->reference_no }}">
+                            <input type="text" class="form-control" name="reference_no" id="reference_no"
+                                value="{{ $expense->reference_no }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Date</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" name="date" id="date" value="{{ $expense->date }}">
+                            <input type="date" class="form-control" name="date" id="date"
+                                value="{{ $expense->date }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Expense For</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="expense_for" id="expense_for" value="{{ $expense->expense_for }}">
+                            <input type="text" class="form-control" name="expense_for" id="expense_for"
+                                value="{{ $expense->expense_for }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Total Amount</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="total_amount" id="total_amount" value="{{ $expense->total_amount }}">
+                            <input type="text" class="form-control" name="total_amount" id="total_amount"
+                                value="{{ $expense->total_amount }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Expense Note</label>
                         <div class="col-sm-9">
-                            <textarea name="expense_note" id="expense_note" cols="50" rows="5">{{ $expense->expense_note }}</textarea>
+                            <textarea name="expense_note" id="expense_note" class="form-control" cols="50" rows="5">{{ $expense->expense_note }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Payment Method</label>
                         <div class="col-sm-9">
-                            <select name="payment_method" id="payment_method" class="form-control select-search">
-                                <option disabled>--Please Select--</option>
-                        <option value="Cash" {{ $expense->payment_method == 'Cash' ? 'selected' : '' }}>Cash</option>
-                        <option value="Card" {{ $expense->payment_method == 'Card' ? 'selected' : '' }}>Card</option>
-                        <option value="Bank" {{ $expense->payment_method == 'Bank' ? 'selected' : '' }}>Bank Transfer
-                        </option>
-                        <option value="Other" {{ $expense->payment_method == 'Other' ? 'selected' : '' }}>Other
-                        </option>
+                            <select name="payment_method_id" id="payment_method_id" class="form-control select-search">
+
+                                @foreach ($paymentMethods as $payment)
+                                    <option value="{{ $payment->id }}"
+                                        {{ $payment->id == $expense->payment_method_id ? 'selected' : '' }}>
+                                        {{ $payment->title }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Payment Note</label>
                         <div class="col-sm-9">
-                            <textarea name="payment_note" id="payment_note" cols="50" rows="5">{{ $expense->payment_note }}</textarea>
+                            <textarea name="payment_note" id="payment_note" class="form-control" cols="50" rows="5">{{ $expense->payment_note }}</textarea>
                         </div>
                     </div>
                 </div>

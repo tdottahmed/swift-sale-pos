@@ -22,8 +22,9 @@
             <div class="card-body">
                 <div class="media">
                     <div class="mr-3">
-                        <a href="#"><img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="38"
-                                height="38" class="rounded-circle" alt=""></a>
+                        <a href="#"><img
+                                src="{{ asset('limitless/global_assets/images/placeholders/placeholder.jpg') }}"
+                                width="38" height="38" class="rounded-circle" alt=""></a>
                     </div>
 
                     <div class="media-body">
@@ -67,31 +68,44 @@
                 <li class="nav-item nav-item-submenu">
                     <a href={{ route('organization.index') }} class="nav-link"><i class="icon-users"></i>
                         <span>User ManageMent</span></a>
-                        <ul class="nav nav-group-sub" data-submenu-title="User Management">
-                        <li class="nav-item"><a href="" class="nav-link"> <i class="icon-user-plus"></i>Add User</a></li>
-                        <li class="nav-item"><a href="" class="nav-link"> <i class="icon-accessibility2"></i>Manage Permission</a></li>
-                        <li class="nav-item"><a href="{{route('customer.index')}}" class="nav-link"> <i class="icon-list2"></i>Customers</a></li>
-                        </ul>
+                    <ul class="nav nav-group-sub" data-submenu-title="User Management">
+                        <li class="nav-item"><a href="" class="nav-link"> <i class="icon-user-plus"></i>Add
+                                User</a></li>
+                        <li class="nav-item"><a href="" class="nav-link"> <i
+                                    class="icon-accessibility2"></i>Manage Permission</a></li>
+                        <li class="nav-item"><a href="{{ route('customer.index') }}" class="nav-link"> <i
+                                    class="icon-list2"></i>Customers</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-versions"></i> <span>Product</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                        <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link"><i class="icon-list"></i>Product List</a>
+                        <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link"><i
+                                    class="icon-list"></i>Product List</a>
                         </li>
-                        <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link"><i class="icon-add-to-list"></i>Product
+                        <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link"><i
+                                    class="icon-add-to-list"></i>Product
                                 Add</a></li>
-                        <li class="nav-item"><a href="{{ route('excel.import') }}" class="nav-link"><i class="icon-file-upload"></i>Product
+                        <li class="nav-item"><a href="{{ route('excel.import') }}" class="nav-link"><i
+                                    class="icon-file-upload"></i>Product
                                 Import</a></li>
-                        <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link"><i class="icon-certificate"></i>Brand</a></li>
-                        <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link"><i class="icon-align-left"></i>Category</a></li>
-                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link"><i class="icon-align-left"></i>Sub Category</a></li>
-                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link"><i class="icon-meter-fast"></i>Unit</a></li>
-                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link"><i class="icon-file-upload"></i>Barcode Type</a></li>
-                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link"><i class="icon-paint-format"></i>Color</a></li>
-                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link"><i class="icon-align-top"></i>Size</a></li>
+                        <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link"><i
+                                    class="icon-certificate"></i>Brand</a></li>
+                        <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link"><i
+                                    class="icon-align-left"></i>Category</a></li>
+                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link"><i
+                                    class="icon-align-left"></i>Sub Category</a></li>
+                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link"><i
+                                    class="icon-meter-fast"></i>Unit</a></li>
+                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link"><i
+                                    class="icon-file-upload"></i>Barcode Type</a></li>
+                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link"><i
+                                    class="icon-paint-format"></i>Color</a></li>
+                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link"><i
+                                    class="icon-align-top"></i>Size</a></li>
                     </ul>
-                </li>               
+                </li>
                 <li class="nav-item">
                     <a href="{{route('pos.create')}}" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
                 </li>               
@@ -99,13 +113,29 @@
                     <a href="#" class="nav-link"><i class="icon-minus3"></i> <span>Expense</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-                            <a href="{{ route('expense-category.index') }}" class="nav-link"><i class="icon-paragraph-left2"></i>Expense Category</a>
+                            <a href="{{ route('payment-method.index') }}" class="nav-link"><i
+                                    class="icon-paragraph-left2"></i>Payment Method</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expenses.index') }}" class="nav-link"><i class="icon-list2"></i>Expenses</a>
+                            <a href="{{ route('expense-category.index') }}" class="nav-link"><i
+                                    class="icon-paragraph-left2"></i>Expense Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('expenses.index') }}" class="nav-link"><i
+                                    class="icon-list2"></i>Expenses</a>
                         </li>
                     </ul>
-                </li>               
+                </li>
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link"><i class="icon-users"></i> <span>Contacts</span></a>
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item">
+                            <a href="{{ route('contacts.index') }}" class="nav-link"><i
+                                    class="icon-paragraph-left2"></i>Contacts</a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         </div>
 

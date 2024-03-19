@@ -8,11 +8,13 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellController;
 use App\Models\ExpenseCategory;
@@ -74,6 +76,10 @@ Route::middleware('auth')->group(function () {
     //Expenses
     Route::resource('expense-category', ExpenseCategoryController::class);
     Route::resource('expenses', ExpenseController::class);
+    Route::resource('payment-method', PaymentMethodController::class);
+
+    //Contacts
+    Route::resource('contacts', ContactController::class);
 
 });
 

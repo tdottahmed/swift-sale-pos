@@ -21,7 +21,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $expense->expense_for }}</td>
                                 <td>{{ $expense->total_amount }}</td>
-                                <td>{{ $expense->payment_method }}</td>
+                                <td>{{ $expense->payment_method_id }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -31,7 +31,9 @@
 
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="{{ route('expenses.edit', $expense->id) }}"
-                                                    class="dropdown-item " data-toggle="modal" data-target="#editExpense"><i class="icon-pencil7"></i> Edit expense</a>
+                                                    class="dropdown-item " data-toggle="modal"
+                                                    data-target="#editExpense"><i class="icon-pencil7"></i> Edit
+                                                    expense</a>
                                                 <form style="display:inline"
                                                     action="{{ route('expenses.destroy', $expense->id) }}"
                                                     method="POST">
@@ -68,8 +70,8 @@
             rounded-round 
             legitRipple 
             shadow 
-            mr-1" data-toggle="modal" data-target="#createExpense"><i
-                    class="icon-plus2"></i></a>
+            mr-1"
+                data-toggle="modal" data-target="#createExpense"><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
     @include('expense.create-modal')
