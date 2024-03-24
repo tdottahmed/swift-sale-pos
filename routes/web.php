@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
@@ -79,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('payment-method', PaymentMethodController::class);
 
     //Contacts
+    Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
 
 });

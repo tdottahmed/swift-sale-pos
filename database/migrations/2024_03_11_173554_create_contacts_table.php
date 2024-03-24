@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('contact_type')->nullable();
+            $table->foreignId('contact_type')->nullable();
             $table->string('contact_id')->nullable();
             $table->string('prefix')->nullable();
             $table->string('first_name')->nullable();

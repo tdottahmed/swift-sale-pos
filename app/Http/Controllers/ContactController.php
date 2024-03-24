@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\ContactType;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('contact.index', compact('contacts'));
+        $contactTypes = ContactType::all();
+        return view('contact.index', compact('contacts', 'contactTypes'));
     }
 
     /**

@@ -133,6 +133,10 @@
                             <a href="{{ route('contacts.index') }}" class="nav-link"><i
                                     class="icon-paragraph-left2"></i>Contacts</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('contact-type.index') }}" class="nav-link"><i
+                                    class="icon-paragraph-left2"></i>Contact Type</a>
+                        </li>
 
                     </ul>
                 </li>

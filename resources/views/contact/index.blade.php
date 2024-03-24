@@ -24,7 +24,15 @@
                         @foreach ($contacts as $contact)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $contact->contact_type }}</td>
+                                <td>
+                                    @foreach ($contactTypes as $contactType)
+                                        @if ($contactType->id == $contact->contact_type)
+                                            {{ $contactType->title }}
+                                        @endif
+                                    @endforeach
+                                </td>
+
+
                                 <td>{{ $contact->contact_id }}</td>
                                 <td>{{ $contact->prefix }} {{ $contact->first_name }} {{ $contact->middle_name }}
                                     {{ $contact->last_name }}</td>
@@ -44,11 +52,13 @@
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="{{ route('contacts.edit', $contact->id) }}"
                                                     class="dropdown-item " data-toggle="modal"
-                                                    data-target="#editContact"><i class="icon-pencil7"></i> Edit
+                                                    data-target="#editContact"><i class="icon-pencil7"></i>
+                                                    Edit
                                                     Contact</a>
                                                 <a href="{{ route('contacts.show', $contact->id) }}"
                                                     class="dropdown-item" data-toggle="modal"
-                                                    data-target="#showContact"><i class="icon-eye"></i> View contact</a>
+                                                    data-target="#showContact"><i class="icon-eye"></i> View
+                                                    contact</a>
                                                 <form style="display:inline"
                                                     action="{{ route('contacts.destroy', $contact->id) }}"
                                                     method="POST">
@@ -90,5 +100,5 @@
     </x-data-display.card>
     @include('contact.create-modal')
     @include('contact.edit-modal')
-    @include('contact.show-modal')
+    {{-- @include('contact.show-modal') --}}
 </x-layouts.master>

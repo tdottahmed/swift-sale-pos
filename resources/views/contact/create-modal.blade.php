@@ -14,11 +14,17 @@
                             <div class="form-group row">
                                 <label class="col-form-label col-sm-3">Contact Type</label>
                                 <div class="col-sm-9">
-                                    <select name="contact_type" id="contact_type" class="form-control select-search">
+                                    {{-- <select name="contact_type" id="contact_type" class="form-control select-search">
                                         <option value="" disabled selected>--Please Select--</option>
                                         <option value="Suppliers">Suppliers</option>
                                         <option value="Customers">Customers</option>
                                         <option value="Both">Both(Supplier & Customer)</option>
+                                    </select> --}}
+                                    <select name="contact_type" id="contact_type" class="form-control select-search">
+                                       @foreach ( $contactTypes as $contactType)
+                                           
+                                       <option value="{{ $contactType->id }}">{{ $contactType->title }}</option>
+                                       @endforeach
                                     </select>
                                 </div>
                             </div>
