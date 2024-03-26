@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
 
     // Point of sell
     Route::resource('pos', SellController::class);
+    Route::get('pos/invoice', [SellController::class, 'invoice'])->name('pos.invoice');
 
     Route::resource('customer', CustomerController::class);
     Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');

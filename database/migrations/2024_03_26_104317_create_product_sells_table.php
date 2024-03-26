@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sells', function (Blueprint $table) {
+        Schema::create('product_sells', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
+            $table->unsignedBigInteger('sell_id');
+            $table->unsignedBigInteger('product_id');
             $table->string('product_sku');
-            $table->unsignedBigInteger('customerId')->nullable();
-            $table->double('totalAmount');
-            $table->double('totalQuantity');
-            $table->float('discountedAmount')->nullable();
-            $table->float('totalPayableAmount');
+            $table->string('product_name');
+            $table->integer('quantity');
+            $table->decimal('subTotal', 8, 2);
+            $table->decimal('total', 8, 2);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sells');
+        Schema::dropIfExists('product_sells');
     }
 };

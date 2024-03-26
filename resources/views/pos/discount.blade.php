@@ -14,7 +14,7 @@
                                 class="form-control select-search">
                                 <option value="" disabled selected>-- Please select --</option>
                                     <option value="plain">Plain ammount</option>
-                                    <option value="parcent">Percentage</option>
+                                    <option value="percent">Percentage</option>
                             </select>
                         </div>
                     </div>

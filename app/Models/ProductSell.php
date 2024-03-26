@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sell extends Model
+class ProductSell extends Model
 {
+
     protected $guarded = [];
     use HasFactory;
 
-    public function saleProduct(){
-        return $this->hasMany(ProductSell::class,'sell_id');
+    public function sale(){
+        return $this->belongsTo(Sell::class);
     }
 }

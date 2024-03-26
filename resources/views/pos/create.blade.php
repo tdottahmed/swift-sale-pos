@@ -44,7 +44,7 @@
                                         <div class="col-lg-7">
                                             <div class="input-group">
                                                 <select name="customer" id="customer_id" class="form-control select-search">
-                                                    <option value="" selected disabled>Select Customer</option>
+                                                    <option value="0" selected>Walk in Customer</option>
                                                     @foreach ($customers as $customer)
                                                         <option value="{{ $customer->id}}">{{ $customer->fname }}</option>
                                                     @endforeach
@@ -171,11 +171,30 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                            <button class="btn  bg-blue-800 mx-2"><i class="icon icon-pencil mr-2" ></i>Draft</button>
-                            <button  class="btn  bg-indigo-800 mx-2"><i class="icon icon-pencil7 mr-2" ></i>Quotation</button>
-                            <button class="btn  bg-warning-800 mx-2"><i class="icon icon-pause mr-2" ></i>Suspend</button>
-                            <button type="submit" class="btn  bg-info-800 mx-2"><i class="icon icon-check mr-2"></i>Credit Sale</button>
-                            <button class="btn  bg-info-800"><i class="icon icon-history mr-2" ></i>Recent Sell</button>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <button class="btn  bg-blue-800 mx-2"><i class="icon icon-pencil mr-2" ></i>Draft</button>
+                                <button  class="btn  bg-indigo-800 mx-2"><i class="icon icon-pencil7 mr-2" ></i>Quotation</button>
+                                <button class="btn  bg-warning-800 mx-2"><i class="icon icon-pause mr-2" ></i>Suspend</button>
+                                {{-- <button type="submit" class="btn  bg-info-800 mx-2"><i class="icon icon-check mr-2"></i>Credit Sale</button> --}}
+                                <button class="btn  bg-info-800"><i class="icon icon-history mr-2" ></i>Recent Sell</button>
+                            </div>
+                            <div class="col-lg-3">
+                                <form id="saleForm" action="{{route('pos.store')}}" target="_blank" method="post">
+                                    @csrf
+                                    <input type="hidden" id="product_sku" name="product_sku">
+                                    <input type="hidden" id="product_quantity" name="product_quantity">
+                                    <input type="hidden" id="product_subtotal" name="product_subtotal">
+                                    <input type="hidden" id="product_total" name="product_total">
+                                    <input type="hidden" id="PayableAmount" name="totalPayableAmount">
+                                    <input type="hidden" id="discountedAmount" name="discountedAmount">
+                                    <input type="hidden" id="totalAmount" name="totalAmount">
+                                    <input type="hidden" id="totalQuantity" name="totalQuantity">
+                                    <input type="hidden" id="customerId" name="customerId">        
+                                    <button type="submit" class="btn  bg-info-800 mx-2"><i class="icon icon-check mr-2"></i>Credit Sale</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -188,171 +207,10 @@
                 </div>
             </div>
         </div>
-        <form action="{{route('pos.store')}}" method="post">
-            @csrf
-            <input type="text" name="product_sku" id="product_sku">
-        </form>
- 
     @include('customer.create-modal')
 
     @push('scripts')
-        <script>
-            $(document).ready(function() {       
-                calculateCartTotal();
-                payableAmount();         
-                function addProductToCart(product) {
-                    let row = `<tr data-id="${product.id}">
-                        <td>${product.name}</td>
-                        <td>${product.sku}</td>
-                        <td>
-                            <div class="input-group">
-                                <button type="button" class="btn btn-sm btn-secondary decrement-quantity">-</button>
-                                <span class="quantity mx-3 mt-1">${product.quantity}</span>
-                                <button type="button" class="btn btn-sm btn-secondary increment-quantity">+</button>
-                            </div>
-                        </td>
-                        <td>${product.subtotal}</td>
-                        <td>${product.total}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
-                        </td>
-                    </tr>`;
-                    $('#productTable tbody').append(row);
-                }
-
-                $('#filteredProducts').on('click', 'tr', function() {
-                    let productName = $(this).find('td:eq(1)').text().trim(); 
-                    let price = $(this).find('td:eq(4)').text().trim(); 
-                    let initialTotal = price;
-                    let variationSku = $(this).find('td:eq(2)').text().trim();
-                    let existingRow = $('#productTable tr').find(`td:eq(1):contains("${variationSku}")`);
-                    if (existingRow.length > 0) {
-                    return false; 
-                    } else {
-                    let product = {
-                        name: productName,
-                        sku : variationSku,
-                        quantity: 1, 
-                        subtotal: price,
-                        total: initialTotal,
-                        id: $(this).data('productId')
-                    };
-                    addProductToCart(product);
-                    formData(product);
-                    }
-                    calculateCartTotal();
-                    payableAmount();
-                });
-                 function calculateCartTotal() {
-                    let totalPrice = 0;
-                    let totalQuantity = 0;
-
-                    $('#productTable tbody tr').each(function() {
-                        let quantityElement = $(this).find('.quantity');
-                        let priceElement = $(this).find('td:eq(3)');
-
-                        if (quantityElement.length && priceElement.length) {
-                            let quantity = parseInt(quantityElement.text());
-                            let priceText = priceElement.text().trim().replace(/[^0-9.]/g, '');
-                            let price = parseFloat(priceText);
-                            let subtotal = quantity * price;
-                            totalPrice += subtotal;
-                            totalQuantity += quantity;
-                        } else {
-                            console.warn('Missing quantity or price element in a cart row.');
-                        }
-                    });
-                    $('#cartTotalPrice').val(totalPrice.toFixed(2));
-                    $('#cartTotalQuantity').val(totalQuantity);
-                }
-                $('#productTable').on('click', '.increment-quantity, .decrement-quantity', function() {
-                    let quantitySpan = $(this).siblings('.quantity');
-                    let currentQuantity = parseInt(quantitySpan.text());
-                    let price = $(this).closest('tr').find('td:eq(3)').text().trim();
-                    let subtotalSpan = $(this).closest('tr').find('td:eq(4)'); 
-                    if (currentQuantity > 0 || $(this).hasClass('increment-quantity')) { 
-                        quantitySpan.text(currentQuantity + (($(this).hasClass('increment-quantity') ? 1 : -1)));
-                        let newSubtotal = parseFloat(price) * parseInt(quantitySpan.text());
-                        subtotalSpan.text(newSubtotal.toFixed(2));
-                    }
-                    calculateCartTotal();
-                    payableAmount();
-                });
-
-                function filterProducts() {
-                    var selectedCategory = $("#category").val();
-                    var selectedBrand = $("#brand").val();
-                    var sku = $("#sku").val().trim();
-                    $("#filteredProducts tr").hide().filter(function() {
-                        var categoryMatch = true;
-                        var brandMatch = true;
-                        var skuMatch = true;
-                        if (selectedCategory !== "") {
-                            categoryMatch = $(this).data("category") === selectedCategory ||
-                                selectedCategory === 'All';
-                        }
-                        if (selectedBrand !== "") {
-                            brandMatch = $(this).data("brand") === selectedBrand;
-                        }
-                        if (sku !== "") {
-                            var rowSKU = $(this).find('td:eq(2)').text().trim();
-                            skuMatch = rowSKU.indexOf(sku) !== -1; 
-                        }
-                        return categoryMatch && brandMatch && skuMatch;
-                    }).show();
-                }
-
-                $("#filteredProducts tr").show();
-                $("#category, #brand, #sku").on("change keyup", filterProducts);
-                $('#productTable').on('click', '.delete-product', function() {
-                    let rowToDelete = $(this).closest('tr');
-                    rowToDelete.remove();
-                    calculateCartTotal();
-                    payableAmount();
-                });
-                $('#productTable').on('click', '.increment-quantity, .decrement-quantity, .delete-product', calculateCartTotal);
-                    if ($('#cartTotalPrice').length && $('#cartTotalQuantity').length) {
-                        calculateCartTotal(); 
-                        payableAmount();
-                    }
-                    $('#productTable').append(`
-                        <tr>
-                            <td colspan="2"><strong>Total:</strong></td>
-                            <td colspan="2"><input type ="button" name="quantity" id="cartTotalQuantity" class="btn btn-outline btn-info" disabled/></td>
-                            <td colspan="2" ><input type ="button" name="totalPrice" id="cartTotalPrice" class="btn btn-outline" disabled/></td>
-                        </tr>
-                    `);
-
-                    $('#discountForm').on('submit', function(event) {
-                        event.preventDefault();
-                        let amount = $('#amountInput').val();
-                        let discountType = $('#discountType').val();
-                        let totalPrice = $('#cartTotalPrice').val();
-                        let totalPriceNumber = parseFloat(totalPrice);
-                        if (discountType ==='parcent') {
-                            let discountPercentage = amount / 100;
-                            discountAmount =totalPriceNumber* discountPercentage;
-                            $('#discountAmount').val(discountAmount.toFixed(2));
-                        }else{
-                            $('#discountAmount').val(amount);
-                        }
-                        $('[data-dismiss="modal"]').trigger('click');                    
-                        payableAmount(); 
-                    });
-
-                   function payableAmount(){
-                    let totalAmount = $('#cartTotalPrice').val();
-                    let discountAmount = $('#discountAmount').val();
-                    let payableAmount = totalAmount-discountAmount;
-                    $('#totalPayableAmount').text(payableAmount);
-                   }
-                   function formData(product){
-                    $('#product_sku').val(product.sku);
-                    let quantity = $('#cartTotalQuantity').text();
-                    console.log(quantity);
-                   }
-            });
-        </script>
+        @include('pos.script')
     @endpush
 
 </x-layouts.master>

@@ -60,12 +60,12 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Payment Method</label>
                         <div class="col-sm-9">
-                            <select name="payment_method_id" id="payment_method_id" class="form-control select-search">
+                            {{-- <select name="payment_method_id" id="payment_method_id" class="form-control select-search">
                                 <option disabled>--Please Select--</option>
                                 @foreach ($paymentMethods as $payment)
                                     <option value="{{ $payment->id }}">{{ $payment->title }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
                     <div class="form-group row">
