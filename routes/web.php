@@ -17,6 +17,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SellController;
 use App\Models\ExpenseCategory;
 
@@ -83,6 +84,9 @@ Route::middleware('auth')->group(function () {
     //Contacts
     Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
+
+    //Repair
+    Route::resource('repair', RepairController::class);
 
 });
 

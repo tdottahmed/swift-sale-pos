@@ -140,6 +140,10 @@
 
                     </ul>
                 </li>
+                <li class="nav-item nav-item-submenu">
+                    <a href="{{ route('repair.index') }}" class="nav-link"><i class="icon-users"></i> <span>Repair</span></a>
+                    
+                </li>
             </ul>
         </div>
 
