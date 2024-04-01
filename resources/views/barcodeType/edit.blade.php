@@ -4,12 +4,14 @@
             {{ __('Edit Your Barcode Type Info') }}
         </x-slot>
         <x-slot name="body">
-            <form action="{{ route('barcodeType.update', $barcodeType->id) }} " method="POST" enctype="multipart/form-data">
+            <form action="{{ route('barcodeType.update', $barcodeType->id) }} " method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{ $barcodeType->title }}">
+                    <input type="text" class="form-control" name="title" id="title"
+                        value="{{ $barcodeType->title }}">
                 </div>
 
 

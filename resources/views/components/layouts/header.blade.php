@@ -129,6 +129,9 @@
 			<span class="badge bg-pink-400 badge-pill my-3 my-md-0 ml-md-3 mr-md-auto">16 orders</span>
 
 			<ul class="navbar-nav">
+				<li class="nav-item dropdown mt-2">
+					<button type="button" class="btn btn-sm bg-primary-800 mx-2" data-toggle="modal" data-target="#calculatorModal"><i class="icon icon-calculator mr-2" ></i>Calculator</button>
+				</li>
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
 						<img src="{{asset('limitless/global_assets/images/lang/gb.png')}}" class="img-flag mr-2" alt="">

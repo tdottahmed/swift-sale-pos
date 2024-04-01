@@ -63,7 +63,6 @@ class BarcodeTypeController extends Controller
     public function destroy(BarcodeType $barcodeType)
     {
         $barcodeType->delete();
-
         return redirect(route('barcodeType.index'))->with('success','BarcodeType Deleted Successfully');
 
     }

@@ -23,7 +23,6 @@
                         <button class="btn btn-sm bg-danger-800 mx-2"><i class="icon icon-reset mr-2" ></i>Return</button>
                         <button class="btn btn-sm bg-info-800 mx-2"><i class="icon icon-pause mr-2" ></i>suspended</button>
                         <button class="btn btn-sm bg-success-800 mx-2"><i class="icon icon-portfolio mr-2" ></i>Registars</button>
-                        <button class="btn btn-sm bg-primary-800 mx-2"><i class="icon icon-calculator mr-2" ></i>Calculator</button>
                     </div>
                     <div class="col-lg-2">
                         <span class="nav-pills-bordered">{{today()}}</span>

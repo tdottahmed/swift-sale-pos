@@ -6,6 +6,7 @@
 	<x-layouts.header/>
 	<!-- /main navbar -->
 
+	<x-calculator/>
 					
 	<!-- Page content -->
 	<div class="page-content">
