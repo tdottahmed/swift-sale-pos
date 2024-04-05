@@ -132,7 +132,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <table class="table">
+                            <table class="table data-table">
                                 <thead>
                                     <tr>
                                         <th>SL</th>

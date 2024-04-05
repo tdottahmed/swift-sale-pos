@@ -107,6 +107,15 @@
             }).show();
         }
 
+        $('#productTable').on('click', '.delete-product', function() {
+                    let rowToDelete = $(this).closest('tr');
+                    rowToDelete.remove();
+                    calculateCartTotal();
+                    payableAmount();
+                    updateFormData();
+
+                });
+
         $("#filteredProducts tr").show();
         $("#category, #brand, #sku").on("change keyup", filterProducts);
         $('#productTable').on('click', '.increment-quantity, .decrement-quantity, .delete-product', function() {
