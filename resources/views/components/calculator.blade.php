@@ -1,6 +1,6 @@
 <style>
     @import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Pacifico|Oxygen);
-    p {
+    .calc-title {
         margin: 0;
         font-family: Pacifico;
         position: relative;
@@ -67,7 +67,7 @@
             </div>
             <div class="modal-body">
                 <div class="calculator">
-                    <p>FreeCodeCalc</p>
+                    <p class="calc-title">Swift Sale</p>
                     <div class="calc-row">
                         <div class="screen">0123456789</div>
                     </div>
