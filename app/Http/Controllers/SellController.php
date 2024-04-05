@@ -76,6 +76,7 @@ class SellController extends Controller
         }
         return view('pos.invoice',compact('sale'))->with('success', 'Order Stored Successfully');
        } catch (\Throwable $th) {
+        // dd($th->getMessage());
         return redirect()->back()->with('error','Something Went Wrong');
        }
         
