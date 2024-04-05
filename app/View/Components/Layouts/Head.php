@@ -21,6 +21,7 @@ class Head extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layouts.head');
+        $mode = auth()->user()->personalizeSettings->theme ?? 'default';
+        return view('components.layouts.head', compact('mode'));
     }
 }

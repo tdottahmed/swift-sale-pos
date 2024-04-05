@@ -273,6 +273,21 @@
 							<button class="dropdown-item"><i class="icon-switch2"></i> Logout
 							</button> 
 						</form>
+						@if (auth()->user()->personalizeSettings->theme=='default')							
+							<form  action="{{route('theme.update')}}" method="POST"> 
+								@csrf
+								<input type="hidden" value="dark" name="theme">
+								<button class="dropdown-item"><i class="icon-enter2"></i> Switch Dark Mode
+								</button> 
+							</form>
+							@else
+							<form  action="{{route('theme.update')}}" method="POST"> 
+								@csrf
+								<input type="hidden" value="default" name="theme">
+								<button class="dropdown-item"><i class="icon-enter2"></i> Switch Light Mode
+								</button> 
+							</form>
+						@endif
 					</div>
 				</li>
 			</ul>

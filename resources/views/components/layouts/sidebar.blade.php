@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-light sidebar-main sidebar-expand-md">
+<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
 
     <!-- Sidebar mobile toggler -->
     <div class="sidebar-mobile-toggler text-center">
@@ -46,40 +46,54 @@
         <!-- Main navigation -->
         <div class="card card-sidebar-mobile">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-
+        
                 <!-- Main -->
                 <li class="nav-item-header">
                     <div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu"
                         title="Main"></i>
                 </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link active">
+                <li class="nav-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="icon-home4"></i>
                         <span>
                             Dashboard
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href={{ route('organization.index') }} class="nav-link"><i class="icon-copy"></i>
-                        <span>Organization</span></a>
-
+                <li class="nav-item {{ request()->is('organization*') ? 'active' : '' }}">
+                    <a href="{{ route('organization.index') }}" class="nav-link">
+                        <i class="icon-copy"></i>
+                        <span>Organization</span>
+                    </a>
                 </li>
                 <li class="nav-item nav-item-submenu">
-                    <a href={{ route('organization.index') }} class="nav-link"><i class="icon-users"></i>
-                        <span>User ManageMent</span></a>
+                    <a href="" class="nav-link ">
+                        <i class="icon-users"></i>
+                        <span>User Management</span>
+                    </a>
                     <ul class="nav nav-group-sub" data-submenu-title="User Management">
-                        <li class="nav-item"><a href="" class="nav-link"> <i class="icon-user-plus"></i>Add
-                                User</a></li>
-                        <li class="nav-item"><a href="" class="nav-link"> <i
-                                    class="icon-accessibility2"></i>Manage Permission</a></li>
-                        <li class="nav-item"><a href="{{ route('customer.index') }}" class="nav-link"> <i
-                                    class="icon-list2"></i>Customers</a></li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link ">
+                                <i class="icon-user-plus"></i>Add User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link ">
+                                <i class="icon-accessibility2"></i>Manage Permission
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link ">
+                                <i class="icon-list2"></i>Customers
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-item-submenu">
+                
+                <!-- Uncomment the following section -->
+        
+                <li class="nav-item nav-item-submenu {{ request()->is('product*') ? 'active' : '' }}">
                     <a href="#" class="nav-link"><i class="icon-versions"></i> <span>Product</span></a>
-
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link"><i
                                     class="icon-list"></i>Product List</a>
@@ -87,7 +101,7 @@
                         <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link"><i
                                     class="icon-add-to-list"></i>Product
                                 Add</a></li>
-                        <li class="nav-item"><a href="{{ route('excel.import') }}" class="nav-link"><i
+                        <li class="nav-item"><a href="{{ route('product.import') }}" class="nav-link"><i
                                     class="icon-file-upload"></i>Product
                                 Import</a></li>
                         <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link"><i
@@ -106,47 +120,65 @@
                                     class="icon-align-top"></i>Size</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('pos.create')}}" class="nav-link"><i class="icon-store2"></i> <span>Point Of Sale</span></a>
-                </li>               
+        
+                <!-- End of uncommented section -->
+        
+                <li class="nav-item {{ request()->is('pos*') ? 'active' : '' }}">
+                    <a href="{{ route('pos.create') }}" class="nav-link">
+                        <i class="icon-store2"></i>
+                        <span>Point Of Sale</span>
+                    </a>
+                </li>
                 <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-minus3"></i> <span>Expense</span></a>
+                    <a href="#" class="nav-link {{ request()->is('expense*') ? 'active' : '' }}">
+                        <i class="icon-minus3"></i>
+                        <span>Expense</span>
+                    </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-                            <a href="{{ route('payment-method.index') }}" class="nav-link"><i
-                                    class="icon-paragraph-left2"></i>Payment Method</a>
+                            <a href="{{ route('payment-method.index') }}" class="nav-link {{ request()->is('payment-method*') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Payment Method
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expense-category.index') }}" class="nav-link"><i
-                                    class="icon-paragraph-left2"></i>Expense Category</a>
+                            <a href="{{ route('expense-category.index') }}" class="nav-link {{ request()->is('expense-category*') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Expense Category
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expenses.index') }}" class="nav-link"><i
-                                    class="icon-list2"></i>Expenses</a>
+                            <a href="{{ route('expenses.index') }}" class="nav-link {{ request()->is('expenses*') ? 'active' : '' }}">
+                                <i class="icon-list2"></i>Expenses
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-users"></i> <span>Contacts</span></a>
+                    <a href="#" class="nav-link {{ request()->is('contacts*') ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>Contacts</span>
+                    </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-                            <a href="{{ route('contacts.index') }}" class="nav-link"><i
-                                    class="icon-paragraph-left2"></i>Contacts</a>
+                            <a href="{{ route('contacts.index') }}" class="nav-link {{ request()->is('contacts*') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Contacts
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('contact-type.index') }}" class="nav-link"><i
-                                    class="icon-paragraph-left2"></i>Contact Type</a>
+                            <a href="{{ route('contact-type.index') }}" class="nav-link {{ request()->is('contact-type*') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Contact Type
+                            </a>
                         </li>
-
                     </ul>
                 </li>
-                <li class="nav-item nav-item-submenu">
-                    <a href="{{ route('repair.index') }}" class="nav-link"><i class="icon-users"></i> <span>Repair</span></a>
-                    
+                <li class="nav-item {{ request()->is('repair*') ? 'active' : '' }}">
+                    <a href="{{ route('repair.index') }}" class="nav-link">
+                        <i class="icon-users"></i>
+                        <span>Repair</span>
+                    </a>
                 </li>
             </ul>
         </div>
-
+        
         <!-- /main navigation -->
 
     </div>

@@ -9,16 +9,19 @@ use Intervention\Image\Facades\Image;
 
 class OrganizationController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $organizations = Organization::get();
-        return view('organization.index',compact('organizations'));
+        return view('organization.index', compact('organizations'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('organization.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $image = $request->file('logo');
         $footer_logo = $request->file('footer_logo');
@@ -39,116 +42,127 @@ class OrganizationController extends Controller
         //     'image' => 'required|mimes:png,jpg,jpeg',
         // ]);
 
-        if($image){
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
+        if ($image) {
+            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
 
-            Image::make($image)->resize(200,250)->save(public_path('storage/organization/'.$image_name));
+            Image::make($image)->resize(200, 250)->save(public_path('storage/organization/' . $image_name));
         }
-        if($footer_logo){
-            $footer_logo_name = uniqid().'.'.$footer_logo->getClientOriginalExtension();
+        if ($footer_logo) {
+            $footer_logo_name = uniqid() . '.' . $footer_logo->getClientOriginalExtension();
 
-            Image::make($footer_logo)->resize(200,250)->save(public_path('storage/organization/'.$footer_logo_name));
+            Image::make($footer_logo)->resize(200, 250)->save(public_path('storage/organization/' . $footer_logo_name));
         }
-        if($favicon){
-            $favicon_name = uniqid().'.'.$favicon->getClientOriginalExtension();
+        if ($favicon) {
+            $favicon_name = uniqid() . '.' . $favicon->getClientOriginalExtension();
 
-            Image::make($favicon)->resize(200,250)->save(public_path('storage/organization/'.$favicon_name));
+            Image::make($favicon)->resize(200, 250)->save(public_path('storage/organization/' . $favicon_name));
         }
 
 
         Organization::create([
-            'uuid'=>Str::uuid(),
-            'title'=>$request->title,
-            'favicon'=>$request->favicon,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'telephone_no'=>$request->telephone_no,
-            'address'=>$request->address,
-            'facebook'=>$request->facebook,
-            'twitter'=>$request->twitter,
-            'skype'=>$request->skype,
-            'linkdein'=>$request->linkdein,
-            'currency'=>$request->currency,
-            'time_zone'=>$request->time_zone,
-            'logo'=>$image_name,
-            'footer_logo'=>$footer_logo_name,
-            'favicon'=>$favicon_name,
+            'uuid' => Str::uuid(),
+            'title' => $request->title,
+            'favicon' => $request->favicon,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'telephone_no' => $request->telephone_no,
+            'address' => $request->address,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'skype' => $request->skype,
+            'linkdein' => $request->linkdein,
+            'currency' => $request->currency,
+            'time_zone' => $request->time_zone,
+            'logo' => $image_name,
+            'footer_logo' => $footer_logo_name,
+            'favicon' => $favicon_name,
         ]);
 
-        return redirect(route('organization.index'))->with('success','Organization Info Create Successfully');
-
+        return redirect(route('organization.index'))->with('success', 'Organization Info Create Successfully');
     }
-    public function edit(Organization $organization){
+    public function edit(Organization $organization)
+    {
 
-        return view('organization.edit',compact('organization'));
+        return view('organization.edit', compact('organization'));
     }
 
 
-    public function update(Organization $organization,Request $request){
+    public function update(Organization $organization, Request $request)
+    {
         $image = $request->file('logo');
-         $footer_logo = $request->file('footer_logo');
+        $footer_logo = $request->file('footer_logo');
         $favicon = $request->file('favicon');
-        
-        if($image){
-            $path = public_path('storage/organization/'.$organization->logo);
+
+        if ($image) {
+            $path = public_path('storage/organization/' . $organization->logo);
             if (is_file($path)) {
-        unlink($path);
-    }
+                unlink($path);
+            }
 
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
+            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
 
-            Image::make($image)->resize(200,250)->save(public_path('storage/organization/'.$image_name));
-        }else{
+            Image::make($image)->resize(200, 250)->save(public_path('storage/organization/' . $image_name));
+        } else {
             $image_name = $organization->logo;
         }
 
-        if($footer_logo){
-            $path = public_path('storage/organization/'.$organization->footer_logo);
+        if ($footer_logo) {
+            $path = public_path('storage/organization/' . $organization->footer_logo);
             if (is_file($path)) {
-        unlink($path);
-    }
+                unlink($path);
+            }
 
-            $footer_logo_name = uniqid().'.'.$footer_logo->getClientOriginalExtension();
+            $footer_logo_name = uniqid() . '.' . $footer_logo->getClientOriginalExtension();
 
-            Image::make($footer_logo)->resize(200,250)->save(public_path('storage/organization/'.$footer_logo_name));
-        }else{
+            Image::make($footer_logo)->resize(200, 250)->save(public_path('storage/organization/' . $footer_logo_name));
+        } else {
             $footer_logo_name = $organization->footer_logo;
         }
 
-        if($favicon){
-            $path = public_path('storage/organization/'.$organization->favicon);
+        if ($favicon) {
+            $path = public_path('storage/organization/' . $organization->favicon);
             if (is_file($path)) {
-        unlink($path);
-    }
+                unlink($path);
+            }
 
-            $favicon_name = uniqid().'.'.$favicon->getClientOriginalExtension();
+            $favicon_name = uniqid() . '.' . $favicon->getClientOriginalExtension();
 
-            Image::make($favicon)->resize(200,250)->save(public_path('storage/organization/'.$favicon_name));
-        }else{
+            Image::make($favicon)->resize(200, 250)->save(public_path('storage/organization/' . $favicon_name));
+        } else {
             $favicon_name = $organization->favicon;
         }
 
         $organization->update([
-            'title'=>$request->title,
-            'favicon'=>$request->favicon,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'telephone_no'=>$request->telephone_no,
-            'address'=>$request->address,
-            'facebook'=>$request->facebook,
-            'twitter'=>$request->twitter,
-            'skype'=>$request->skype,
-            'linkdein'=>$request->linkdein,
-            'currency'=>$request->currency,
-            'time_zone'=>$request->time_zone,
-            'logo'=>$image_name,
-            'footer_logo'=>$footer_logo_name,
-            'favicon'=>$favicon_name,
+            'title' => $request->title,
+            'favicon' => $request->favicon,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'telephone_no' => $request->telephone_no,
+            'address' => $request->address,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'skype' => $request->skype,
+            'linkdein' => $request->linkdein,
+            'currency' => $request->currency,
+            'time_zone' => $request->time_zone,
+            'logo' => $image_name,
+            'footer_logo' => $footer_logo_name,
+            'favicon' => $favicon_name,
         ]);
 
-        return redirect(route('organization.index'))->with('success','Product Updated Successfully');
-    
+        return redirect(route('organization.index'))->with('success', 'Product Updated Successfully');
     }
 
-
+    public function updateTheme(Request $request)
+    {
+        try {
+            $user = auth()->user()->personalizeSettings;
+            $user->update([
+                'theme' => $request->theme
+            ]);
+            return redirect()->back()->with('success', 'Theme Switched Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went Wrong');
+        }
+    }
 }

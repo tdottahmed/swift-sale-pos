@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
     Route:: get('/edit/{organization}','edit')->name('edit');
     Route:: post('/update/{organization}','update')->name('update');
         });
+    Route::post('update/theme', [OrganizationController::class, 'updateTheme'])->name('theme.update');
+    
 
     // master table
     Route::resource('/brand', BrandController::class);
@@ -65,7 +67,7 @@ Route::middleware('auth')->group(function () {
 
     // product table
     Route::resource('/product', ProductController::class);
-    Route::get('/excel/import', [ProductController::class, 'import'])->name('excel.import');
+    Route::get('/excel/import', [ProductController::class, 'import'])->name('product.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
 
