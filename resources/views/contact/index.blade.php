@@ -21,18 +21,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($contacts as $contact)
+                        @forelse ($contacts as $contact)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    @foreach ($contactTypes as $contactType)
-                                        @if ($contactType->id == $contact->contact_type)
-                                            {{ $contactType->title }}
-                                        @endif
-                                    @endforeach
+                                    @if ($contact->contactType)
+                                        {{ $contact->contactType->title }}
+                                    @endif
                                 </td>
-
-
                                 <td>{{ $contact->contact_id }}</td>
                                 <td>{{ $contact->prefix }} {{ $contact->first_name }} {{ $contact->middle_name }}
                                     {{ $contact->last_name }}</td>
@@ -41,7 +37,6 @@
                                 <td>{{ $contact->email }}</td>
                                 <td>{{ $contact->address }}</td>
                                 <td>{{ $contact->shipping_address }}</td>
-                                >
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -76,7 +71,12 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+
+                        @empty
+                            <tr>
+                                <td colspan="10">No contacts found.</td>
+                            </tr>
+                        @endforelse
 
 
                     </tbody>
@@ -99,6 +99,6 @@
         </x-slot>
     </x-data-display.card>
     @include('contact.create-modal')
-    @include('contact.edit-modal')
+    {{-- @include('contact.edit-modal') --}}
     {{-- @include('contact.show-modal') --}}
 </x-layouts.master>

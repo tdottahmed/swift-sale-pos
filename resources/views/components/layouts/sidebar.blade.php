@@ -46,7 +46,7 @@
         <!-- Main navigation -->
         <div class="card card-sidebar-mobile">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-        
+
                 <!-- Main -->
                 <li class="nav-item-header">
                     <div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu"
@@ -89,9 +89,9 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <!-- Uncomment the following section -->
-        
+
                 <li class="nav-item nav-item-submenu {{ request()->is('product*') ? 'active' : '' }}">
                     <a href="#" class="nav-link"><i class="icon-versions"></i> <span>Product</span></a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
@@ -120,9 +120,9 @@
                                     class="icon-align-top"></i>Size</a></li>
                     </ul>
                 </li>
-        
+
                 <!-- End of uncommented section -->
-        
+
                 <li class="nav-item {{ request()->is('pos*') ? 'active' : '' }}">
                     <a href="{{ route('pos.create') }}" class="nav-link">
                         <i class="icon-store2"></i>
@@ -136,17 +136,20 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-                            <a href="{{ route('payment-method.index') }}" class="nav-link {{ request()->is('payment-method*') ? 'active' : '' }}">
+                            <a href="{{ route('payment-method.index') }}"
+                                class="nav-link {{ request()->is('payment-method*') ? 'active' : '' }}">
                                 <i class="icon-paragraph-left2"></i>Payment Method
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expense-category.index') }}" class="nav-link {{ request()->is('expense-category*') ? 'active' : '' }}">
+                            <a href="{{ route('expense-category.index') }}"
+                                class="nav-link {{ request()->is('expense-category*') ? 'active' : '' }}">
                                 <i class="icon-paragraph-left2"></i>Expense Category
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('expenses.index') }}" class="nav-link {{ request()->is('expenses*') ? 'active' : '' }}">
+                            <a href="{{ route('expenses.index') }}"
+                                class="nav-link {{ request()->is('expenses*') ? 'active' : '' }}">
                                 <i class="icon-list2"></i>Expenses
                             </a>
                         </li>
@@ -159,17 +162,26 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-                            <a href="{{ route('contacts.index') }}" class="nav-link {{ request()->is('contacts*') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Contacts
+                            <a href="{{ route('contacts.index', ['type' => 'supplier']) }}"
+                                class="nav-link {{ request()->input('type') === 'supplier' ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Supplier
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('contact-type.index') }}" class="nav-link {{ request()->is('contact-type*') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Contact Type
+                            <a href="{{ route('contacts.index', ['type' => 'customer']) }}"
+                                class="nav-link {{ request()->input('type') === 'customer' ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>Customer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('contacts.index') }}"
+                                class="nav-link {{ !request()->input('type') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>All Contacts
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item {{ request()->is('repair*') ? 'active' : '' }}">
                     <a href="{{ route('repair.index') }}" class="nav-link">
                         <i class="icon-users"></i>
@@ -178,7 +190,7 @@
                 </li>
             </ul>
         </div>
-        
+
         <!-- /main navigation -->
 
     </div>
