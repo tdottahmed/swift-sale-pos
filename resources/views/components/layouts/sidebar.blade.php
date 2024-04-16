@@ -52,20 +52,21 @@
                     <div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu"
                         title="Main"></i>
                 </li>
-                <li class="nav-item {{ request()->is('dashboard*') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>
                             Dashboard
                         </span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('organization*') ? 'active' : '' }}">
-                    <a href="{{ route('organization.index') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('organization.index') }}" class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
                         <i class="icon-copy"></i>
                         <span>Organization</span>
                     </a>
                 </li>
+
                 <li class="nav-item nav-item-submenu">
                     <a href="" class="nav-link ">
                         <i class="icon-users"></i>
@@ -92,39 +93,80 @@
 
                 <!-- Uncomment the following section -->
 
-                <li class="nav-item nav-item-submenu {{ request()->is('product*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link"><i class="icon-versions"></i> <span>Product</span></a>
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link {{ request()->is('product*') ? 'active' : '' }}">
+                        <i class="icon-versions"></i>
+                        <span>Product</span>
+                    </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                        <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link"><i
-                                    class="icon-list"></i>Product List</a>
+                        <li class="nav-item">
+                            <a href="{{ route('product.index') }}"
+                                class="nav-link {{ request()->routeIs('product.index') ? 'active' : '' }}">
+                                <i class="icon-list"></i>Product List
+                            </a>
                         </li>
-                        <li class="nav-item"><a href="{{ route('product.create') }}" class="nav-link"><i
-                                    class="icon-add-to-list"></i>Product
-                                Add</a></li>
-                        <li class="nav-item"><a href="{{ route('product.import') }}" class="nav-link"><i
-                                    class="icon-file-upload"></i>Product
-                                Import</a></li>
-                        <li class="nav-item"><a href="{{ route('brand.index') }}" class="nav-link"><i
-                                    class="icon-certificate"></i>Brand</a></li>
-                        <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link"><i
-                                    class="icon-align-left"></i>Category</a></li>
-                        <li class="nav-item"><a href="{{ route('subCategory.index') }}" class="nav-link"><i
-                                    class="icon-align-left"></i>Sub Category</a></li>
-                        <li class="nav-item"><a href="{{ route('unit.index') }}" class="nav-link"><i
-                                    class="icon-meter-fast"></i>Unit</a></li>
-                        <li class="nav-item"><a href="{{ route('barcodeType.index') }}" class="nav-link"><i
-                                    class="icon-file-upload"></i>Barcode Type</a></li>
-                        <li class="nav-item"><a href="{{ route('color.index') }}" class="nav-link"><i
-                                    class="icon-paint-format"></i>Color</a></li>
-                        <li class="nav-item"><a href="{{ route('size.index') }}" class="nav-link"><i
-                                    class="icon-align-top"></i>Size</a></li>
+                        <li class="nav-item">
+                            <a href="{{ route('product.create') }}"
+                                class="nav-link {{ request()->routeIs('product.create') ? 'active' : '' }}">
+                                <i class="icon-add-to-list"></i>Product Add
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('product.import') }}"
+                                class="nav-link {{ request()->routeIs('product.import') ? 'active' : '' }}">
+                                <i class="icon-file-upload"></i>Product Import
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('brand.index') }}"
+                                class="nav-link {{ request()->routeIs('brand.index') ? 'active' : '' }}">
+                                <i class="icon-certificate"></i>Brand
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('category.index') }}"
+                                class="nav-link {{ request()->routeIs('category.index') ? 'active' : '' }}">
+                                <i class="icon-align-left"></i>Category
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('subCategory.index') }}"
+                                class="nav-link {{ request()->routeIs('subCategory.index') ? 'active' : '' }}">
+                                <i class="icon-align-left"></i>Sub Category
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('unit.index') }}"
+                                class="nav-link {{ request()->routeIs('unit.index') ? 'active' : '' }}">
+                                <i class="icon-meter-fast"></i>Unit
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('barcodeType.index') }}"
+                                class="nav-link {{ request()->routeIs('barcodeType.index') ? 'active' : '' }}">
+                                <i class="icon-file-upload"></i>Barcode Type
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('color.index') }}"
+                                class="nav-link {{ request()->routeIs('color.index') ? 'active' : '' }}">
+                                <i class="icon-paint-format"></i>Color
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('size.index') }}"
+                                class="nav-link {{ request()->routeIs('size.index') ? 'active' : '' }}">
+                                <i class="icon-align-top"></i>Size
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
+
                 <!-- End of uncommented section -->
 
-                <li class="nav-item {{ request()->is('pos*') ? 'active' : '' }}">
-                    <a href="{{ route('pos.create') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('pos.create') }}" class="nav-link {{ request()->is('pos*') ? 'active' : '' }}">
                         <i class="icon-store2"></i>
                         <span>Point Of Sale</span>
                     </a>
@@ -182,8 +224,8 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{ request()->is('repair*') ? 'active' : '' }}">
-                    <a href="{{ route('repair.index') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('repair.index') }}" class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
                         <span>Repair</span>
                     </a>
