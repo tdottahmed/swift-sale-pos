@@ -273,7 +273,7 @@
 							<button class="dropdown-item"><i class="icon-switch2"></i> Logout
 							</button> 
 						</form>
-						@if (auth()->user()->personalizeSettings->theme=='default')							
+						@if (auth()->user()->personalizeSettings->theme=='default' ?? '')							
 							<form  action="{{route('theme.update')}}" method="POST"> 
 								@csrf
 								<input type="hidden" value="dark" name="theme">
