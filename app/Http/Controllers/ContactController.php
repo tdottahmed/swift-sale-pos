@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendInstantMail;
 use App\Models\Contact;
 use App\Models\ContactType;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -128,4 +130,42 @@ class ContactController extends Controller
             return redirect()->back()->with('error', 'Something Went Wrong');
         }
     }
+
+    public function composeEmail(Contact $contact)
+    {
+        return view('contact.compose-email',compact('contact'));
+    }
+
+    public function sendEmail(Request $request)
+    {
+        try {
+            $subject = $request->subject;
+            $to = $request->to;
+            $body = $request->body;
+            $recipientFirstName  = $request->recipientFirstName;            
+            $mail = new SendInstantMail($subject, $body, $recipientFirstName);
+            
+            if ($request->hasFile('attachment')) {
+                $attachment = $request->file('attachment');
+                
+                // Generate a unique file name
+                $attachmentName = uniqid() . '_' . $attachment->getClientOriginalName();
+                
+                $attachmentPath = $attachment->storeAs('public/attachments', $attachmentName);
+                
+                $mail->attach(storage_path('app/' . $attachmentPath), [
+                    'as' => $attachmentName,
+                    'mime' => $attachment->getMimeType(),
+                ]);
+            }            
+            Mail::to($to)->send($mail);
+            return redirect()->back()->with('success', 'Email sent successfully!');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to send email: ' . $e->getMessage());
+        }
+        
+        
+    }
+    
 }

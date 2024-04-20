@@ -86,9 +86,13 @@ Route::middleware('auth')->group(function () {
     //Contacts
     Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
+    Route::get('/compose-mail/{contact}',[ContactController::class, 'composeEmail'])->name('contact.composeEmail');
+    Route::post('/send-mail',[ContactController::class, 'sendEmail'])->name('contact.sendEmail');
 
     //Repair
     Route::resource('repair', RepairController::class);
+
+
 
 });
 
