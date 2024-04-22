@@ -14,21 +14,14 @@ class CampaignController extends Controller
         $campaigns = Campaign::all();
         return view('campaign.index', compact('campaigns'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        dd($request->all());
         try {
             $file = $request->file('attachment');
             if ($file) {
@@ -36,6 +29,7 @@ class CampaignController extends Controller
 
                 Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
             }
+
 
             Campaign::create([
                 'uuid'        => Str::uuid(),
@@ -52,39 +46,31 @@ class CampaignController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Campaign $campaign)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Campaign $campaign)
     {
         return view('campaign.edit', compact('campaign'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Campaign $campaign)
     {
         try {
             $file = $request->file('attachment');
 
             if ($file) {
+                
                 $path = public_path('storage/campaign/' . $campaign->attachment);
-                if (file_exists($path)) {
+                if ($campaign->attachment && is_file($path)) {
                     unlink($path);
                 }
 
                 $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
 
-                Image::make($file)->resize(200, 250)->save(public_path('storage/products/' . $file_name));
+                Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
             } else {
                 $file_name = $campaign->attachment;
             }
@@ -102,9 +88,6 @@ class CampaignController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Campaign $campaign)
     {
         $campaign->delete();

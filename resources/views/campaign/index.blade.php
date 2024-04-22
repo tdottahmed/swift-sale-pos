@@ -24,7 +24,7 @@
                                 <td>{{ $campaign->title }}</td>
                                 <td>{{ $campaign->description }}</td>
                                 <td>{{ $campaign->body }}</td>
-                                <td>{{ $campaign->attachment }}</td>
+                                <td><img src="{{asset('storage/campaign').'/'.$campaign->attachment}}" width="150" height="100" alt="no file"></td>
                                 <td>{{ $campaign->campagin_type }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">

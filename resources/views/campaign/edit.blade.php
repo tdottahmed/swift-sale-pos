@@ -25,7 +25,7 @@
                 <div class="mb-3">
                     <label for="description">Attachment :</label>
                     <input type="file" class="form-control" name="attachment" id="attachment"
-                        value="{{ $campaign->description }}">
+                        value="{{ $campaign->attachment }}">
                 </div>
                 <div class="mb-3">
                     <label for="description">Campagin Type :</label>

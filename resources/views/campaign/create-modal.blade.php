@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <form action="{{ route('campaign.store') }}" class="form-horizontal" method="POST">
+            <form action="{{ route('campaign.store') }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group row">
