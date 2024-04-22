@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group">
                     <label for="to">To</label>
-                    <input type="text" name="to" id="to"  class="form-control">
+                    <input type="email" name="to" id="to" value="{{$contact->email}}"  class="form-control">
                     <input type="hidden" name="recipientFirstName" value="{{$contact->first_name}}">
                 </div>
                 <div class="form-group">

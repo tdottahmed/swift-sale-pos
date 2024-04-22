@@ -5,7 +5,7 @@
 		<div class="navbar-header sidebar-light bg-indigo-400 d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
 				<a href="index.html">					
-					<img src="{{ asset('storage/organization/' . (optional(organizationName())->logo ?? ' ')) }}" height="200px" width="100%">
+					{{-- <img src="{{ asset('storage/organization/' . (optional(organizationName())->logo ?? ' ')) }}" height="200px" width="100%"> --}}
 
 				</a>
 			</div>

@@ -38,15 +38,12 @@ class SendInstantMail extends Mailable
      */
     public function build()
     {
-        $mail = $this->subject($this->subject)->view('contact.send-instant-mail')->with(['body' => $this->body, 'recipientFirstName'=>$this->recipientFirstName ]);
-        
-        // Check if $this->attachment is a file object before proceeding
+        $mail = $this->subject($this->subject)->view('contact.send-instant-mail')->with(['body' => $this->body, 'recipientFirstName'=>$this->recipientFirstName ]);        
         if ($this->attachment instanceof \Illuminate\Http\UploadedFile) {
             $attachmentPath = $this->attachment->getRealPath();
             $attachmentName = $this->attachment->getClientOriginalName();
             $attachmentMime = $this->attachment->getMimeType();
             
-            // Attach the file using its real path
             $mail->attach($attachmentPath, [
                 'as' => $attachmentName,
                 'mime' => $attachmentMime,
