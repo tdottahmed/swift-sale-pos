@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SizeTableSeeder::class);
         $this->call(SubCategoryTableSeeder::class);
         $this->call(UnitTableSeeder::class);
+        $this->call(PersonalizeSettingsTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
