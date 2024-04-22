@@ -14,30 +14,14 @@ class CampaignController extends Controller
         $campaigns = Campaign::all();
         return view('campaign.index', compact('campaigns'));
     }
-<<<<<<< HEAD
     
-=======
-
-    /**
-     * Show the form for creating a new resource.
-     */
->>>>>>> dade5fc
     public function create()
     {
         //
     }
 
-<<<<<<< HEAD
     public function store(Request $request)
     {
-=======
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        dd($request->all());
->>>>>>> dade5fc
         try {
             $file = $request->file('attachment');
             if ($file) {
@@ -46,10 +30,6 @@ class CampaignController extends Controller
                 Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
             }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dade5fc
             Campaign::create([
                 'uuid'        => Str::uuid(),
                 "title"       => $request->title,
@@ -65,58 +45,31 @@ class CampaignController extends Controller
         }
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Display the specified resource.
-     */
->>>>>>> dade5fc
     public function show(Campaign $campaign)
     {
         //
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Show the form for editing the specified resource.
-     */
->>>>>>> dade5fc
     public function edit(Campaign $campaign)
     {
         return view('campaign.edit', compact('campaign'));
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Update the specified resource in storage.
-     */
->>>>>>> dade5fc
     public function update(Request $request, Campaign $campaign)
     {
         try {
             $file = $request->file('attachment');
 
             if ($file) {
-<<<<<<< HEAD
                 
                 $path = public_path('storage/campaign/' . $campaign->attachment);
                 if ($campaign->attachment && is_file($path)) {
-=======
-                $path = public_path('storage/campaign/' . $campaign->attachment);
-                if (file_exists($path)) {
->>>>>>> dade5fc
                     unlink($path);
                 }
 
                 $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
 
-<<<<<<< HEAD
                 Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
-=======
-                Image::make($file)->resize(200, 250)->save(public_path('storage/products/' . $file_name));
->>>>>>> dade5fc
             } else {
                 $file_name = $campaign->attachment;
             }
@@ -134,12 +87,6 @@ class CampaignController extends Controller
         }
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Remove the specified resource from storage.
-     */
->>>>>>> dade5fc
     public function destroy(Campaign $campaign)
     {
         $campaign->delete();
