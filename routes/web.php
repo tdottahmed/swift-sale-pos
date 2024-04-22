@@ -8,6 +8,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
@@ -94,7 +95,8 @@ Route::middleware('auth')->group(function () {
     //Repair
     Route::resource('repair', RepairController::class);
 
-
+    //Campaign
+    Route::resource('campaign', CampaignController::class);
 
 });
 
