@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('contacts', ContactController::class);
     Route::get('/compose-mail/{contact}',[ContactController::class, 'composeEmail'])->name('contact.composeEmail');
     Route::post('/send-mail',[ContactController::class, 'sendEmail'])->name('contact.sendEmail');
+    Route::get('/compose-sms/{contact}',[ContactController::class, 'composeSms'])->name('contact.composeSms');
+    Route::post('/send-sms',[ContactController::class, 'sendSms'])->name('contact.sendSms');
 
     //Repair
     Route::resource('repair', RepairController::class);

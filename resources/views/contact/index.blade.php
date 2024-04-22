@@ -55,7 +55,10 @@
                                                     data-target="#showContact"><i class="icon-eye"></i> View
                                                     contact</a>
                                                 <a href="{{ route('contact.composeEmail', $contact->id) }}"
-                                                    class="dropdown-item"><i class="icon-eye"></i> Instant Mail
+                                                    class="dropdown-item"><i class="icon-envelop3"></i> Instant Mail
+                                                </a>
+                                                <a href="{{ route('contact.composeSms', $contact->id) }}"
+                                                    class="dropdown-item"><i class="icon-envelop2"></i> Instant SMS
                                                 </a>
                                                 <form style="display:inline"
                                                     action="{{ route('contacts.destroy', $contact->id) }}"

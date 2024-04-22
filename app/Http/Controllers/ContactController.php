@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\SendInstantMail;
 use App\Models\Contact;
 use App\Models\ContactType;
 use Illuminate\Support\Str;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
+use App\Mail\SendInstantMail;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-   
+    protected $smsService;
+
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
+    
     public function index(Request $request)
     {
         $contactTypes = ContactType::all();
-
-        // Map input value to contact type ID
         $typeMap = [
             'supplier' => 1,
             'customer' => 2,
-            // Add more mappings as needed
         ];
-
-        // Get the contact type ID based on the input value
         $selectedType = $typeMap[$request->input('type')] ?? null;
-
-        // Fetch contacts based on the selected type from the sidebar
         $contactsQuery = Contact::query();
 
         if ($selectedType !== null) {
@@ -34,7 +34,6 @@ class ContactController extends Controller
         }
 
         $contacts = $contactsQuery->get();
-
         return view('contact.index', compact('contacts', 'contactTypes'));
     }
 
@@ -147,12 +146,8 @@ class ContactController extends Controller
             
             if ($request->hasFile('attachment')) {
                 $attachment = $request->file('attachment');
-                
-                // Generate a unique file name
-                $attachmentName = uniqid() . '_' . $attachment->getClientOriginalName();
-                
-                $attachmentPath = $attachment->storeAs('public/attachments', $attachmentName);
-                
+                $attachmentName = uniqid() . '_' . $attachment->getClientOriginalName();               
+                $attachmentPath = $attachment->storeAs('public/attachments', $attachmentName);               
                 $mail->attach(storage_path('app/' . $attachmentPath), [
                     'as' => $attachmentName,
                     'mime' => $attachment->getMimeType(),
@@ -163,9 +158,27 @@ class ContactController extends Controller
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Failed to send email: ' . $e->getMessage());
+        }      
+    }
+
+    public function composeSms(Contact $contact)
+    {
+        return view('contact.compose-sms', compact('contact'));
+    }
+
+    public function sendSms(Request $request)
+    {
+        $body = $request->body;
+        $to = $request->to;
+        $greeting = "Hello Mr/Mrs ".$request->recipientFirstName;
+        $salutationBefore = "Regards,";
+        $salutationAfter = "Team ".env('APP_NAME');
+        $message = $greeting . "\n\n" . $body . "\n\n" . $salutationBefore . "\n" . $salutationAfter;
+        if ($this->smsService->sendSms($to, $message)) {
+            return redirect()->back()->with('success','SMS Sent Successfully!');
+        } else {
+            return redirect()->back()->with('error','Something Went wrong, Please check your twilio credentials!');
         }
-        
-        
     }
     
 }
