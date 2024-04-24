@@ -9,7 +9,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                               <x-auth-session-status class="mb-4" :status="session('status')" />      
-                              <form method="POST" action="{{ route('password.email') }}">
+                              <form method="POST" action="{{ route('user.register') }}" enctype="multipart/form-data">
                                   @csrf
                                   <div>
                                       <div class="form-group">
@@ -22,6 +22,23 @@
                                           <input type="email" class="form-control" name="email" :value="old('email')" required autofocus>
                                           <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                       </div>
+                                      <div class="form-group image-preview">
+
+                                        <label for="image">{{__('Image')}}</label>
+                                        <div style="width: 250px;
+                                        height: 250px;
+                                        overflow: auto;
+                                        border: 1px solid #ccc;" id="preview">
+                                            <img style=" display: block;
+                                            max-width: 100%;
+                                            height: auto;" src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="" class="object-cover rounded-3xl">
+                                        </div>
+                                        
+                                        
+                                          
+                                        <input type="file" id="upload" class="form-control" name="image" :value="old('image')"  class="image-upload-input px-4 py-2 border focus:border-gray-900 w-full">
+                                        <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                                    </div>
                                       <div class="form-group">
                                           <label for="password">{{__('Password')}}</label>
                                           <input type="password" class="form-control" name="password" :value="old('password')" required autofocus>
@@ -46,4 +63,57 @@
             </div>
         </div>
     </div>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+    <script>
+        $(document).ready(()=>{
+            $('.image-upload-input').change(function(){
+                const file = this.files[0];
+                const previewer = $(this).closest('.image-preview').find('img');
+
+                if(file)(
+                    let reader = new FileReader();
+                    reader.onload = function(event){
+                        previewer.attr('src', event.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                )
+            });
+        });
+    </script>
+
+
+
+{{-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload and Display</title>
+<style>
+  #preview {
+    max-width: 300px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body> --}}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('#upload').on('change', function(e){
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e){
+      $('#preview').html('<img src="'+e.target.result+'" alt="Image preview">');
+    }
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+
+
+
 </x-layouts.guest>

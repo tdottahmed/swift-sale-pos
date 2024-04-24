@@ -71,11 +71,11 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            if ($request->sku) {
-                Product::where('sku', $request->sku)->exists();
-                return back()->with('error', 'product SKU is already Exist');
-            }
+        // try {
+            // if ($request->sku) {
+            //     Product::where('sku', $request->sku)->exists();
+            //     return back()->with('error', 'product SKU is already Exist');
+            // }
             $image = $request->file('image');
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
@@ -119,10 +119,10 @@ class ProductController extends Controller
                 }
             }
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            return redirect()->back()->with('error', 'Something went wrong');
-        }
+        // } catch (\Throwable $th) {
+        //     Log::error($th->getMessage());
+        //     return redirect()->back()->with('error', 'Something went wrong');
+        // }
     }
 
     public function show(Product $product)

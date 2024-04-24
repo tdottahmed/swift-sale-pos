@@ -132,7 +132,7 @@
 				<li class="nav-item dropdown mt-2">
 					<button type="button" class="btn btn-sm bg-primary-800 mx-2" data-toggle="modal" data-target="#calculatorModal"><i class="icon icon-calculator mr-2" ></i>Calculator</button>
 				</li>
-				<li class="nav-item dropdown">
+				{{-- <li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
 						<img src="{{asset('limitless/global_assets/images/lang/gb.png')}}" class="img-flag mr-2" alt="">
 						English
@@ -145,14 +145,14 @@
 						<a href="#" class="dropdown-item espana"><img src="{{asset('limitless/global_assets/images/lang/es.png')}}" class="img-flag" alt=""> España</a>
 						<a href="#" class="dropdown-item russian"><img src="{{asset('limitless/global_assets/images/lang/ru.png')}}" class="img-flag" alt=""> Русский</a>
 					</div>
-				</li>
+				</li> --}}
 
 				<li class="nav-item dropdown">
-					<a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+					{{-- <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
 						<i class="icon-bubbles4"></i>
 						<span class="d-md-none ml-2">Messages</span>
 						<span class="badge badge-mark border-pink-400 ml-auto ml-md-0"></span>
-					</a>
+					</a> --}}
 					
 					<div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350">
 						<div class="dropdown-content-header">
@@ -263,11 +263,11 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
+						<a href="{{route('profile.show')}}" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
 						<a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
 						<a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-indigo-400 ml-auto">58</span></a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+						<a href="{{route('profile.edit')}}" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
 						<form  action="{{route('logout')}}" method="POST"> 
 							@csrf
 							<button class="dropdown-item"><i class="icon-switch2"></i> Logout
