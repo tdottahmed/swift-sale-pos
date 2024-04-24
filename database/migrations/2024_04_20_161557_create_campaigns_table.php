@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable();;
+            $table->uuid('uuid')->nullable();
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('body')->nullable();
             $table->string('attachment')->nullable();
-            $table->string('campagin_type')->nullable();
+            $table->string('cc')->nullable();
+            $table->string('bcc')->nullable();
+            $table->string('campaign_type')->nullable();
+            $table->unsignedBigInteger('contact_type_id')->nullable();
             $table->timestamps();
         });
     }

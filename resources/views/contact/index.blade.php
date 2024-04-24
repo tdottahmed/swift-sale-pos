@@ -25,10 +25,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    @if ($contact->contactType)
-                                        {{ $contact->contactType->title }}
-                                    @endif
-                                </td>
+                                    {{ $contact->contact_type == 2 ? 'Customer' : 'Supplier' }}
+                                </td>                                   
                                 <td>{{ $contact->contact_id }}</td>
                                 <td>{{ $contact->prefix }} {{ $contact->first_name }} {{ $contact->middle_name }}
                                     {{ $contact->last_name }}</td>

@@ -16,7 +16,6 @@ class ContactTypeSeeder extends Seeder
         $contactTypes = [
             ['title' => 'Suppliers'],
             ['title' => 'Customers'],
-            ['title' => 'Both(Supplier & Customer)'],
         ];
         ContactType::insert($contactTypes);
     }

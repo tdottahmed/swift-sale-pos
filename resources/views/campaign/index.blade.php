@@ -12,7 +12,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Body</th>
-                            <th>Attachment</th>
+                            <th>Audience</th>
                             <th>Campaign Type</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -24,8 +24,8 @@
                                 <td>{{ $campaign->title }}</td>
                                 <td>{{ $campaign->description }}</td>
                                 <td>{{ $campaign->body }}</td>
-                                <td><img src="{{asset('storage/campaign').'/'.$campaign->attachment}}" width="150" height="100" alt="no file"></td>
-                                <td>{{ $campaign->campagin_type }}</td>
+                                <td>{{\App\Models\ContactType::find($campaign->contact_type_id)->title}}</td>
+                                <td>{{ $campaign->campaign_type}}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -38,6 +38,14 @@
                                                     class="dropdown-item"
                                                     ><i class="icon-pencil7"></i> Edit
                                                     Campaign</a>
+                                                <a href="{{ route('campaign.sendEmail', $campaign->id) }}"
+                                                    class="dropdown-item"
+                                                    ><i class="icon-pencil7"></i> Send
+                                                    Email</a>
+                                                <a href="{{ route('campaign.sendSms', $campaign->id) }}"
+                                                    class="dropdown-item"
+                                                    ><i class="icon-pencil7"></i> Send
+                                                    SMS</a>
                                                 <form style="display:inline"
                                                     action="{{ route('campaign.destroy', $campaign->id) }}"
                                                     method="POST">
@@ -75,8 +83,8 @@
             legitRipple 
             shadow 
             mr-1"
-                data-toggle="modal" data-target="#createCampaign"><i class="icon-plus2"></i></a>
+               ><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
-    @include('campaign.create-modal')
+    {{-- @include('campaign.create-modal') --}}
 </x-layouts.master>

@@ -22,19 +22,20 @@ class ContactController extends Controller
     public function index(Request $request)
     {
         $contactTypes = ContactType::all();
-        $typeMap = [
-            'supplier' => 1,
-            'customer' => 2,
-        ];
-        $selectedType = $typeMap[$request->input('type')] ?? null;
-        $contactsQuery = Contact::query();
+        $contacts = Contact::all();
+        // $typeMap = [
+        //     'supplier' => 1,
+        //     'customer' => 2,
+        // ];
+        // $selectedType = $typeMap[$request->input('type')] ?? null;
+        // $contactsQuery = Contact::query();
 
-        if ($selectedType !== null) {
-            $contactsQuery->where('contact_type', $selectedType);
-        }
-
-        $contacts = $contactsQuery->get();
-        return view('contact.index', compact('contacts', 'contactTypes'));
+        // if ($selectedType !== null) {
+        //     $contactsQuery->where('contact_type', $selectedType);
+        // }
+        // $contacts = Contact::find(7);
+        // dd($contacts->contactType()->contactType);
+        return view('contact.index', compact('contacts','contactTypes'));
     }
 
 
@@ -141,18 +142,23 @@ class ContactController extends Controller
             $subject = $request->subject;
             $to = $request->to;
             $body = $request->body;
-            $recipientFirstName  = $request->recipientFirstName;            
+            $recipientFirstName = $request->recipientFirstName;
+            $cc = $request->cc ? $request->cc : null;            
+            $bcc = $request->bcc ? $request->bcc : null; 
             $mail = new SendInstantMail($subject, $body, $recipientFirstName);
-            
+
             if ($request->hasFile('attachment')) {
                 $attachment = $request->file('attachment');
                 $attachmentName = uniqid() . '_' . $attachment->getClientOriginalName();               
                 $attachmentPath = $attachment->storeAs('public/attachments', $attachmentName);               
-                $mail->attach(storage_path('app/' . $attachmentPath), [
+                
+                $attachmentFullPath = public_path('storage/attachments/' . $attachmentName);
+                
+                $mail->attach($attachmentFullPath, [
                     'as' => $attachmentName,
                     'mime' => $attachment->getMimeType(),
                 ]);
-            }            
+            }          
             Mail::to($to)->send($mail);
             return redirect()->back()->with('success', 'Email sent successfully!');
         } catch (\Exception $e) {
