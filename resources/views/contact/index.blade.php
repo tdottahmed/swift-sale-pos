@@ -25,10 +25,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    @if ($contact->contactType)
-                                        {{ $contact->contactType->title }}
-                                    @endif
-                                </td>
+                                    {{ $contact->contact_type == 2 ? 'Customer' : 'Supplier' }}
+                                </td>                                   
                                 <td>{{ $contact->contact_id }}</td>
                                 <td>{{ $contact->prefix }} {{ $contact->first_name }} {{ $contact->middle_name }}
                                     {{ $contact->last_name }}</td>
@@ -54,6 +52,12 @@
                                                     class="dropdown-item" data-toggle="modal"
                                                     data-target="#showContact"><i class="icon-eye"></i> View
                                                     contact</a>
+                                                <a href="{{ route('contact.composeEmail', $contact->id) }}"
+                                                    class="dropdown-item"><i class="icon-envelop3"></i> Instant Mail
+                                                </a>
+                                                <a href="{{ route('contact.composeSms', $contact->id) }}"
+                                                    class="dropdown-item"><i class="icon-envelop2"></i> Instant SMS
+                                                </a>
                                                 <form style="display:inline"
                                                     action="{{ route('contacts.destroy', $contact->id) }}"
                                                     method="POST">

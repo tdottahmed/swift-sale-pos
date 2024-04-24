@@ -230,6 +230,22 @@
                         <span>Repair</span>
                     </a>
                 </li>
+
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                        <i class="icon-minus3"></i>
+                        <span>Campaign</span>
+                    </a>
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item">
+                            <a href="{{ route('campaign.index') }}"
+                                class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                                <i class="icon-paragraph-left2"></i>All Campaign
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
             </ul>
         </div>
 

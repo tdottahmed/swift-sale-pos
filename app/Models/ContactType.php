@@ -9,4 +9,9 @@ class ContactType extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function contact()
+    {
+        return $this->hasMany(Contact::class, 'contact_type');
+    }
 }

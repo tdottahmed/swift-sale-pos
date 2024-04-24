@@ -8,6 +8,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SellController;
-use App\Models\ExpenseCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,9 +87,18 @@ Route::middleware('auth')->group(function () {
     //Contacts
     Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
+    Route::get('/compose-mail/{contact}',[ContactController::class, 'composeEmail'])->name('contact.composeEmail');
+    Route::post('/send-mail',[ContactController::class, 'sendEmail'])->name('contact.sendEmail');
+    Route::get('/compose-sms/{contact}',[ContactController::class, 'composeSms'])->name('contact.composeSms');
+    Route::post('/send-sms',[ContactController::class, 'sendSms'])->name('contact.sendSms');
 
     //Repair
     Route::resource('repair', RepairController::class);
+
+    //Campaign
+    Route::resource('campaign', CampaignController::class);
+    Route::get('send-campaign-email/{campaign}',[CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
+    Route::get('send-campaign-sms/{campaign}',[CampaignController::class, 'sendSms'])->name('campaign.sendSms');
 
 });
 
