@@ -15,9 +15,9 @@ return [
     */
 
     'twilio' => [
-        'sid' => env('TWILIO_SID'),
-        'token' => env('TWILIO_TOKEN'),
-        'phone_number' => env('TWILIO_FROM'),
+        'sid' => env('TWILIO_SID', '12'),
+        'token' => env('TWILIO_TOKEN', '112'),
+        'phone_number' => env('TWILIO_FROM', '125'),
     ],
     
     'mailgun' => [
