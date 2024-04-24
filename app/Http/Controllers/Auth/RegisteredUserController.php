@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +19,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        
+        // dd("heelo");
+
         return view('auth.register');
     }
 
@@ -44,11 +44,16 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->personalizeSettings()->create([
+                'user_id'=>$user->id,
+                'background_color'=>null,
+                'font_family'=>null,
+                'theme'=>'default',
+        ]);
+        
         event(new Registered($user));
-
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        
+        return redirect()->route('login');
     }
 }
