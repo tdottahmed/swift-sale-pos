@@ -55,6 +55,10 @@ Route::middleware('auth')->group(function () {
     Route:: post('/update/{organization}','update')->name('update');
         });
     Route::post('update/theme', [OrganizationController::class, 'updateTheme'])->name('theme.update');
+    Route::get('swift-sale/setup/smtp',[OrganizationController::class, 'createSmtp'])->name('smtp.create');
+    Route::post('swift-sale/setup/smtp',[OrganizationController::class, 'storeSmtp'])->name('smtp.store');
+    Route::get('swift-sale/setup/sms',[OrganizationController::class, 'createSmsGateway'])->name('sms.create');
+    Route::post('swift-sale/setup/sms',[OrganizationController::class, 'storeSmsGateway'])->name('sms.store');
     
 
     // master table
@@ -74,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     // Point of sell
     Route::resource('pos', SellController::class);
+    Route::get('single/product/{id}', [SellController::class, 'singleProduct']);
     Route::get('pos/invoice', [SellController::class, 'invoice'])->name('pos.invoice');
 
     Route::resource('customer', CustomerController::class);

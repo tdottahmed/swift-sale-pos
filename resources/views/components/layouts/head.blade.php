@@ -27,7 +27,6 @@
     <!-- Theme JS files -->
     <script src="{{ asset('limitless/global_assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
-    <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 
@@ -55,6 +54,8 @@
     <script src="{{ asset('limitless/global_assets/js/plugins/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/extra_jgrowl_noty.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/components_modals.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/media/fancybox.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/ecommerce_product_list.js') }}"></script>
 
 
 

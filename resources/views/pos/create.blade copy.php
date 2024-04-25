@@ -98,79 +98,79 @@
             </div>
         </div>
         <div class="col-lg-5">
-    <div class="card">
-        <div class="card-header">
-            Product
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-4">
-                    <select name="category" id="category" class="form-control select-search">
-                        <option value="">Select Category</option>
-                        @foreach ($categoryWiseProducts as $category => $products)
-                            <option value="{{ $category }}">{{ $category }}</option>
-                        @endforeach
-                    </select>
+            <div class="card">
+                <div class="card-header">
+                    Product
                 </div>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search Product by sku" id="sku">
-                        <span class="input-group-append bg-indigo-600">
-                            <span class="input-group-text"><i class="icon-search4"></i></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <select name="brand" id="brand" class="form-control select-search">
-                        <option value="">Select Brand</option>
-                        @foreach ($brands as $brand)
-                            <option value="{{ $brand->title }}">{{ $brand->title }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                @foreach ($products as $product)
-                    <div class="col-lg-4">
-                        <div class="card card-flush flex-row-fluid p-6 pb-5 mw-25"
-                            data-category="{{ $product->category }}" data-brand="{{ $product->brand }}">
-                            <div class="card-body text-center">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn_CilQfREZOfjsqd98omCmcsUz9dQ3hzMQQ&usqp=CAU"
-                                    alt="no_image" height="120" width="120">
-                                <div class="mb-2">
-                                    <div class="text-center">
-                                        <span
-                                            class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">{{ $product->name }}</span>
-                                        @if (isset($product->variations->first()->variation_sku))
-                                            <span class="text-gray-500 fw-semibold d-block fs-6 mt-n1">SKU:
-                                                {{ $product->variations->first()->variation_sku }}</span>
-                                        @endif
-                                    </div>
-                                    <span
-                                        class="text-success text-end fw-bold fs-1">{{ $product->selling_price }}</span>
-                                </div>
-                                <button class="btn btn-primary mt-3" onclick="addToCart('{{ $product->id }}')">
-                                    Add to Cart
-                                </button>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <select name="category" id="category" class="form-control select-search">
+                                <option value="">Select Category</option>
+                                @foreach ($categoryWiseProducts as $category => $products)
+                                    <option value="{{ $category }}">{{ $category }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Product by sku"
+                                    id="sku">
+                                <span class="input-group-append bg-indigo-600">
+                                    <span class="input-group-text"><i class="icon-search4"></i></span>
+                                </span>
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            <select name="brand" id="brand" class="form-control select-search">
+                                <option value="">Select Brand</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->title }}">{{ $brand->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                @endforeach
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table data-table">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Product Title</th>
+                                        <th>Product Variation SKU</th>
+                                        <th>Product Variation</th>
+                                        <th>Price</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="filteredProducts">
+                                    @php
+                                        $ser = 1;
+                                    @endphp
+                                    @foreach ($products as $product)
+                                        @foreach ($product->variations as $item)
+                                            <tr data-category="{{ $product->category }}"
+                                                data-brand="{{ $product->brand }}">
+                                                <td>{{ $ser++ }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $item->variation_sku }}</td>
+                                                <td>{{ $item->product_variation }}-{{ $item->value }}</td>
+                                                <td>{{ $product->selling_price }}</td>
+                                                <td>
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn_CilQfREZOfjsqd98omCmcsUz9dQ3hzMQQ&usqp=CAU"
+                                                        alt="no_image" height="50" width="50">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<script>
-    function addToCart(productId) {
-        // Implement your logic to add the product to cart
-        console.log('Product added to cart:', productId);
-    }
-</script>
-
-
-
     </div>
 
     <div class="row">

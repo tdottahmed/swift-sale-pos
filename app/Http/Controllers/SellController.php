@@ -48,8 +48,8 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-       try {
+        dd($request->all());
+    //    try {
         $product_sku = explode(', ',$request->product_sku);
         $quantity = explode(', ', $request->product_quantity);
         $subTotal = explode(', ', $request->product_subtotal);
@@ -74,11 +74,11 @@ class SellController extends Controller
                 ]);
             }
         }
-        return view('pos.invoice',compact('sale'))->with('success', 'Order Stored Successfully');
-       } catch (\Throwable $th) {
-        // dd($th->getMessage());
-        return redirect()->back()->with('error','Something Went Wrong');
-       }
+    //     return view('pos.invoice',compact('sale'))->with('success', 'Order Stored Successfully');
+    //    } catch (\Throwable $th) {
+    //     // dd($th->getMessage());
+    //     return redirect()->back()->with('error','Something Went Wrong');
+    //    }
         
     }
 
@@ -116,5 +116,11 @@ class SellController extends Controller
     public function destroy(Sell $sell)
     {
         //
+    }
+
+    public function singleProduct($id)
+    {
+        $product = Product::with('variations')->find($id);
+        return response()->json($product);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Dotenv\Dotenv;
+use Illuminate\Support\Env;
 use Illuminate\Support\Str;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Artisan;
 
 class OrganizationController extends Controller
 {
@@ -163,6 +166,54 @@ class OrganizationController extends Controller
             return redirect()->back()->with('success', 'Theme Switched Successfully');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Something went Wrong');
+        }
+    }
+
+    public function createSmtp()
+    {
+        return view('organization.create-smtpServer');
+    }
+    public function storeSmtp(Request $request)
+    {
+        $credentials=$request->except('_token');
+        try {
+            foreach ($credentials as $key => $type) {
+                
+                $this->changeEnv($type, $request[$type]);
+            }
+            // $this->changeEnv('MAIL_HOST', $request->mail_host);
+            // overWriteEnvFile('MAIL_HOST', $request->mail_host);
+            // overWriteEnvFile('MAIL_PORT', $request->mail_port);
+            // overWriteEnvFile('MAIL_USERNAME', $request->mail_user_name);
+            // overWriteEnvFile('MAIL_PASSWORD', $request->mail_password);
+            // overWriteEnvFile('MAIL_ENCRYPTION', $request->mail_encryption);
+            // overWriteEnvFile('MAIL_FROM_ADDRESS', $request->mail_from);
+            // overWriteEnvFile('MAIL_FROM_NAME', $request->mail_from_name);
+            Artisan::call('optimize:clear');
+            return redirect()->back()->with('success','Application Set up Successfully');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->back()->with('error',$th->getMessage());            
+        }
+    }
+    public function createSmsGateway()
+    {
+        return view('organization.create-smsGateway');
+    }
+    public function storeSmsGateway(Request $request)
+    {
+        dd($request->all());
+    }
+
+    function changeEnv($key, $value)
+    {
+        $path = base_path('.env');
+    
+        if (file_exists($path)) {
+    
+            file_put_contents($path, str_replace(
+                $key . '=' . env($key), $key . '=' . $value, file_get_contents($path)
+            ));
         }
     }
 }

@@ -53,6 +53,7 @@
                         title="Main"></i>
                 </li>
                 <li class="nav-item">
+                    
                     <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>
@@ -60,11 +61,32 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('organization.index') }}" class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
-                        <i class="icon-copy"></i>
-                        <span>Organization</span>
+                <li class="nav-item nav-item-submenu">
+                    <a href="" class="nav-link {{ request()->is('swift-sale*') ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>Application Settings</span>
                     </a>
+                    <ul class="nav nav-group-sub" data-submenu-title="User Management">
+                        <li  class="nav-item">
+                            <a href="{{ route('organization.index') }}" class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
+                                <i class="icon-copy"></i>
+                                <span>Organization</span>
+                            </a>
+                        </li>
+                        <li  class="nav-item">
+                            <a href="{{ route('smtp.create') }}" class="nav-link {{ request()->routeIs('smtp.create') ? 'active' : '' }}">
+                                <i class="icon-copy"></i>
+                                <span>Application Smtp</span>
+                            </a>
+                        </li>
+                        <li  class="nav-item">
+                            <a href="{{ route('sms.create') }}" class="nav-link {{ request()->routeIs('sms.create') ? 'active' : '' }}">
+                                <i class="icon-copy"></i>
+                                <span>SMS Gateway</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
                 </li>
 
                 <li class="nav-item nav-item-submenu">
