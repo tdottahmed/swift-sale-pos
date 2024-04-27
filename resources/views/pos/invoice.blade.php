@@ -77,17 +77,17 @@
             <p><strong>Order ID:</strong> {{$sale->uuid}}</p>
             <p><strong>Date:</strong> {{$sale->created_at}}</p>
         </div>
-         {{-- <div class="invoice-details">
+         <div class="invoice-details">
            <h2>Customer Details</h2>
-            <p><strong>Order ID:</strong> {{$sale->uuid}}</p>
-            <p><strong>Date:</strong> {{$sale->created_at}}</p>
-        </div> --}}
+            <p><strong>Custumer:</strong> {{$customersInfos['name']}}</p>
+            <p><strong>Phone:</strong> {{$customersInfos['phone']}}</p>
+        </div>
         <table class="invoice-table">
             <thead>
                 <tr>
                     <th>Sl</th>
-                    <th>Product SKU</th>
-                    <th>Product</th>
+                    <th>Product Nme</th>
+                    <th>Product Variation</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
                     <th>Total</th>
@@ -97,20 +97,25 @@
                @foreach ($sale->saleProduct as $product)
                   <tr>
                      <td>{{$loop->iteration}}</td>
-                     <td>{{$product->product_sku}}</td>
-                     <td>{{$product->product_name}}</td>
+                     <td>{{\App\Models\Product::find($product->product_id)->name}}</td>
+                     <td>
+                        @php
+                            $variation = \App\Models\Variation::find($product->variation_id)
+                        @endphp
+                        {{$variation->product_variation}} - {{$variation->value}}
+                    </td>
                      <td>{{$product->quantity}}</td>
-                     <td>{{$product->subTotal}}</td>
-                     <td>{{$product->total}}</td>
+                     <td>{{$product->unit_total}}</td>
+                     <td>{{$product->sub_total}}</td>
                   </tr>                   
                @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2" class="total">Total Quantity:</td>
-                    <td>{{$sale->totalQuantity}}</td>
+                    <td>{{$sale->total_quantity}}</td>
                     <td colspan="2" class="total">Total Amount:</td>
-                    <td><strong>{{$sale->totalAmount}}</strong></td>
+                    <td><strong>{{$sale->total_price}}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="5" class="total">Discount Amount:</td>
@@ -118,7 +123,7 @@
                 </tr>
                 <tr>
                     <td colspan="5" class="total">Total Paid Amount:</td>
-                    <td colspan="2"><strong>{{$sale->totalPayableAmount}}</strong></td>
+                    <td colspan="2"><strong>{{$sale->paid_amount}}</strong></td>
                 </tr>
             </tfoot>
         </table>

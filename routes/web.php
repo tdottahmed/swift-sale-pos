@@ -19,6 +19,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RepairController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 
 /*
@@ -77,9 +78,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
 
     // Point of sell
-    Route::resource('pos', SellController::class);
-    Route::get('single/product/{id}', [SellController::class, 'singleProduct']);
-    Route::get('pos/invoice', [SellController::class, 'invoice'])->name('pos.invoice');
+    // Route::resource('pos', SellController::class);
+    Route::get('pos-create', [SaleController::class,'create'])->name('pos.create');
+    Route::post('pos-store', [SaleController::class,'store'])->name('pos.store');
+    Route::get('single/product/{id}', [SaleController::class, 'singleProduct']);
+    Route::get('pos-list',[SaleController::class,'index'])->name('pos.index');
+    Route::get('pos/invoice/{id}', [SaleController::class, 'invoice'])->name('pos.invoice');
 
     Route::resource('customer', CustomerController::class);
     Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
