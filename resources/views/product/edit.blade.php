@@ -328,6 +328,7 @@
                             </div>
                         </div>
                         <table class="table table-bordered" id="single_product">
+                            {{-- @dd($variations) --}}
                             <thead class="bg-indigo-600">
                                 <tr>
                                     <th>SKU</th>
@@ -339,8 +340,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
-                                    
                                
                                 <tr>
                                      @foreach ($variations as $variation)
