@@ -11,43 +11,53 @@
                     variationOptions +=
                         `<option value="${variation.id}">${variation.product_variation}-${variation.value}</option>`;
                 });
-                let row = `
-                    <tr data-id="${product.id}" id="pro-${product.id}">
-                        <td>
-                            ${product.name}
-                            <input type="hidden" name="product_ids[]" value="${product.id}">
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-sm btn-outline-secondary" type="button" onclick="decrementQuantity(${product.id})">-</button>
+                var index = ids.indexOf(product.id);
+                flus = index != -1 ? true : false;
+                $(".data option:selected").removeAttr("selected");
+                if (flus) {
+                    var q = $("#proQuantity-" + product.id).val();
+                    $("#proQuantity-" + product.id).val(parseInt(q) + 1);
+                    proMultiPur(product.id);
+                }
+                else{
+                    let row = `
+                        <tr data-id="${product.id}" id="pro-${product.id}">
+                            <td>
+                                ${product.name}
+                                <input type="hidden" name="product_ids[]" value="${product.id}">
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="decrementQuantity(${product.id})">-</button>
+                                    </div>
+                                    <input id="proQuantity-${product.id}" class="form-control form-control-sm" type="number" min="1" onchange="proMultiPur(${product.id})" name="proQuantity[]" value="1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="incrementQuantity(${product.id})">+</button>
+                                    </div>
                                 </div>
-                                <input id="proQuantity-${product.id}" class="form-control form-control-sm" type="number" min="1" onchange="proMultiPur(${product.id})" name="proQuantity[]" value="1">
-                                <div class="input-group-append">
-                                    <button class="btn btn-sm btn-outline-secondary" type="button" onclick="incrementQuantity(${product.id})">+</button>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>
-                            <select name="variation[]">
-                                ${variationOptions}
-                            </select>
-                        </td>
-                        <td>
-                            <input name="unit_price[]" type="number"step="0.01" class="form-control" id="proUnitPrice-${product.id}" value="${product.selling_price}">
-                        </td>
-                        <td>
-                            <input name="sub_total[]" type="number"step="0.01" class="form-control" id="proSubPrice-${product.id}" value="${product.selling_price}">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="removeProductPur(${product.id})">Delete</button>
-                        </td>
-                    </tr>`;
-                $('#productTbody').append(row);
-                ids.push(product.id);
-                totalPur();
-                updateHiddenFields();
+    
+                            </td>
+                            <td>
+                                <select name="variation[]">
+                                    ${variationOptions}
+                                </select>
+                            </td>
+                            <td>
+                                <input name="unit_price[]" type="number"step="0.01" class="form-control" id="proUnitPrice-${product.id}" value="${product.selling_price}">
+                            </td>
+                            <td>
+                                <input name="sub_total[]" type="number"step="0.01" class="form-control" id="proSubPrice-${product.id}" value="${product.selling_price}">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="removeProductPur(${product.id})">Delete</button>
+                            </td>
+                        </tr>`;
+                    $('#productTbody').append(row);
+                    ids.push(product.id);
+                    totalPur();
+                    updateHiddenFields();
+                }
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);

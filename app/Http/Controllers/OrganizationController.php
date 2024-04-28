@@ -175,20 +175,10 @@ class OrganizationController extends Controller
     }
     public function storeSmtp(Request $request)
     {
-        $credentials=$request->except('_token');
         try {
-            foreach ($credentials as $key => $type) {
-                
-                $this->changeEnv($type, $request[$type]);
+            foreach ($request->types as $type) {      
+                $this->overWriteEnvFile($type, $request->$type);
             }
-            // $this->changeEnv('MAIL_HOST', $request->mail_host);
-            // overWriteEnvFile('MAIL_HOST', $request->mail_host);
-            // overWriteEnvFile('MAIL_PORT', $request->mail_port);
-            // overWriteEnvFile('MAIL_USERNAME', $request->mail_user_name);
-            // overWriteEnvFile('MAIL_PASSWORD', $request->mail_password);
-            // overWriteEnvFile('MAIL_ENCRYPTION', $request->mail_encryption);
-            // overWriteEnvFile('MAIL_FROM_ADDRESS', $request->mail_from);
-            // overWriteEnvFile('MAIL_FROM_NAME', $request->mail_from_name);
             Artisan::call('optimize:clear');
             return redirect()->back()->with('success','Application Set up Successfully');
         } catch (\Throwable $th) {
@@ -202,18 +192,31 @@ class OrganizationController extends Controller
     }
     public function storeSmsGateway(Request $request)
     {
-        dd($request->all());
-    }
-
-    function changeEnv($key, $value)
-    {
-        $path = base_path('.env');
-    
-        if (file_exists($path)) {
-    
-            file_put_contents($path, str_replace(
-                $key . '=' . env($key), $key . '=' . $value, file_get_contents($path)
-            ));
+        try {
+            foreach ($request->types as $type) {      
+                $this->overWriteEnvFile($type, $request->$type);
+            }
+            Artisan::call('optimize:clear');
+            return redirect()->back()->with('success','Application Set up Successfully');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->back()->with('error',$th->getMessage());            
         }
     }
+
+    public function overWriteEnvFile($type, $val)
+    {
+        $path = base_path('.env');
+        if (file_exists($path)) {
+            $val = '"'.trim($val).'"';
+            $envContent = file_get_contents($path);
+            if (preg_match("/\b{$type}\b/", $envContent)) {
+                $envContent = preg_replace("/\b{$type}\b=.*/", "{$type}={$val}", $envContent);
+            } else {
+                $envContent .= "\n{$type}={$val}";
+            }
+            file_put_contents($path, $envContent);
+        }
+    }
+
 }

@@ -75,13 +75,13 @@
                         </li>
                         <li  class="nav-item">
                             <a href="{{ route('smtp.create') }}" class="nav-link {{ request()->routeIs('smtp.create') ? 'active' : '' }}">
-                                <i class="icon-copy"></i>
+                                <i class="icon-cogs"></i>
                                 <span>Application Smtp</span>
                             </a>
                         </li>
                         <li  class="nav-item">
                             <a href="{{ route('sms.create') }}" class="nav-link {{ request()->routeIs('sms.create') ? 'active' : '' }}">
-                                <i class="icon-copy"></i>
+                                <i class="icon-puzzle2"></i>
                                 <span>SMS Gateway</span>
                             </a>
                         </li>
@@ -255,7 +255,7 @@
 
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
-                        <i class="icon-minus3"></i>
+                        <i class="icon-target2"></i>
                         <span>Campaign</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">

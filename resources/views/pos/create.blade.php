@@ -1,9 +1,8 @@
 <x-layouts.master>
     @include('expense.create-modal', compact('expenseCategories'))
     @include('pos.discount')
-    <div class="card-body">
-        <div class="row">
-            <div class="col-lg-10">
+        <div class="d-flex justify-between align-items-center ">
+            <div class="buttons">
                 <a href="{{route('pos.index')}}" class="btn btn-sm bg-blue-800 mr-2"><i class="icon icon-list2 mr-2"></i>Pos List</a>
                 <button class="btn btn-sm bg-indigo-800 mx-2" data-toggle="modal" data-target="#createExpense"><i
                         class="icon icon-plus2 mr-2"></i>Expense</button>
@@ -14,11 +13,11 @@
                 <button class="btn btn-sm bg-success-800 mx-2"><i
                         class="icon icon-portfolio mr-2"></i>Registars</button>
             </div>
-            <div class="col-lg-2">
-                <span class="nav-pills-bordered">{{ today() }}</span>
+            <div class="clock-items ml-auto">                
+                <x-clock/>                  
             </div>
         </div>
-    </div>
+    <hr>
 
     <div class="row">
         <div class="col-lg-6">
@@ -162,31 +161,31 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center mt-2">
-                                <div class="card-body bg-teal-600 rounded-lg">
+                                <div class="card-body ">
                                     <table class="table">
                                         <tr>
                                             <td>
-                                                <p class=" text-bold text-white">Total Item :</p>
+                                                <h6 class=" text-bold ">Total Item :</h6>
                                             </td>
                                             <td>
-                                                <p class=" text-bold text-white" id="total">0</p>
+                                                <p class="text-bold " id="total">0</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p class=" text-bold text-white">Total Price :</p>
+                                                <p class=" text-bold ">Total Price :</p>
                                             </td>
                                             <td>
-                                                <p class=" text-bold text-white"id="totalPrice">0.0</p>
+                                                <p class=" text-bold "id="totalPrice">0.0</p>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>
-                                                <p class=" text-bold text-white">Payable Amount :</p>
+                                                <p class=" text-bold ">Payable Amount :</p>
                                             </td>
                                             <td>
-                                                <p class=" text-bold text-white"id="payable_amount">0.0</p>
+                                                <p class=" text-bold "id="payable_amount">0.0</p>
                                             </td>
                                         </tr>
                                     </table>
@@ -234,7 +233,7 @@
     @include('repair.create-modal')
 
     @push('scripts')
-        @include('pos.script')
+        @include('pos.script')        
     @endpush
 
 </x-layouts.master>
