@@ -44,13 +44,11 @@
 
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="{{ route('contacts.edit', $contact->id) }}"
-                                                    class="dropdown-item " data-toggle="modal"
-                                                    data-target="#editContact"><i class="icon-pencil7"></i>
+                                                    class="dropdown-item "><i class="icon-pencil7"></i>
                                                     Edit
                                                     Contact</a>
                                                 <a href="{{ route('contacts.show', $contact->id) }}"
-                                                    class="dropdown-item" data-toggle="modal"
-                                                    data-target="#showContact"><i class="icon-eye"></i> View
+                                                    class="dropdown-item" ><i class="icon-eye"></i> View
                                                     contact</a>
                                                 <a href="{{ route('contact.composeEmail', $contact->id) }}"
                                                     class="dropdown-item"><i class="icon-envelop3"></i> Instant Mail
@@ -103,6 +101,4 @@
         </x-slot>
     </x-data-display.card>
     @include('contact.create-modal')
-    {{-- @include('contact.edit-modal') --}}
-    {{-- @include('contact.show-modal') --}}
 </x-layouts.master>

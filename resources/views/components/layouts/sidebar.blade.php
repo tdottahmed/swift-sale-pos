@@ -53,8 +53,9 @@
                         title="Main"></i>
                 </li>
                 <li class="nav-item">
-                    
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
+
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>
                             Dashboard
@@ -67,26 +68,29 @@
                         <span>Application Settings</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="User Management">
-                        <li  class="nav-item">
-                            <a href="{{ route('organization.index') }}" class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('organization.index') }}"
+                                class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
                                 <i class="icon-copy"></i>
                                 <span>Organization</span>
                             </a>
                         </li>
-                        <li  class="nav-item">
-                            <a href="{{ route('smtp.create') }}" class="nav-link {{ request()->routeIs('smtp.create') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('smtp.create') }}"
+                                class="nav-link {{ request()->routeIs('smtp.create') ? 'active' : '' }}">
                                 <i class="icon-cogs"></i>
                                 <span>Application Smtp</span>
                             </a>
                         </li>
-                        <li  class="nav-item">
-                            <a href="{{ route('sms.create') }}" class="nav-link {{ request()->routeIs('sms.create') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('sms.create') }}"
+                                class="nav-link {{ request()->routeIs('sms.create') ? 'active' : '' }}">
                                 <i class="icon-puzzle2"></i>
                                 <span>SMS Gateway</span>
                             </a>
                         </li>
                     </ul>
-                    
+
                 </li>
 
                 <li class="nav-item nav-item-submenu">
@@ -188,7 +192,8 @@
                 <!-- End of uncommented section -->
 
                 <li class="nav-item">
-                    <a href="{{ route('pos.create') }}" class="nav-link {{ request()->is('pos*') ? 'active' : '' }}">
+                    <a href="{{ route('pos.create') }}"
+                        class="nav-link {{ request()->is('pos*') ? 'active' : '' }}">
                         <i class="icon-store2"></i>
                         <span>Point Of Sale</span>
                     </a>
@@ -246,8 +251,10 @@
                     </ul>
                 </li>
 
+
                 <li class="nav-item">
-                    <a href="{{ route('repair.index') }}" class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
+                    <a href="{{ route('repair.index') }}"
+                        class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
                         <span>Repair</span>
                     </a>
@@ -265,7 +272,7 @@
                                 <i class="icon-paragraph-left2"></i>All Campaign
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
             </ul>

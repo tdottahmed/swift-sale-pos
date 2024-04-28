@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            {{ __('Edit Your Contuct Type') }}
+            {{ __('Edit Your Campaign') }}
         </x-slot>
         <x-slot name="body">
             <form action="{{ route('campaign.update', $campaign->id) }} " method="POST" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
                     <input type="text" class="form-control" name="campagin_type" id="campagin_type"
                         value="{{ $campaign->campagin_type }}">
                 </div>
-                
+
                 <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">
                         <a class="btn btn-lg bg-danger-400 shadow-2" href=""><i

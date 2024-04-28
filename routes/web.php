@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('payment-method', PaymentMethodController::class);
 
     //Contacts
-    Route::resource('contact-type', ContactTypeController::class);
+    // Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
     Route::get('/compose-mail/{contact}',[ContactController::class, 'composeEmail'])->name('contact.composeEmail');
     Route::post('/send-mail',[ContactController::class, 'sendEmail'])->name('contact.sendEmail');
