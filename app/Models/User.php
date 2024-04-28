@@ -25,6 +25,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -47,8 +48,15 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
+    public function getImageUrlAttribute(): string
+    {
+       return $this->hasMedia() ? $this->getFirstMedia() : self::PLACEHOLDER_IMAGE_PATH;
+    }
+    
     public function personalizeSettings()
     {
         return $this->hasOne(UserPersonalizeSettings::class);
     }
+
+    
 }

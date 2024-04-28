@@ -29,14 +29,16 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ): RedirectResponse
     {
         // dd("hello");
         
+       
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $user = User::create([
@@ -44,12 +46,17 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        // dd($user);
         $user->personalizeSettings()->create([
                 'user_id'=>$user->id,
                 'background_color'=>null,
                 'font_family'=>null,
                 'theme'=>'default',
         ]);
+        
+          if ($request->hasFile('image')) {
+            $user->addMediaFromRequest('image')->toMediaCollection('avatars'); 
+          }
         
         event(new Registered($user));
         Auth::login($user);

@@ -34,9 +34,13 @@
                                             height: auto;" src="{{ asset(\App\Models\User::PLACEHOLDER_IMAGE_PATH) }}" alt="" class="object-cover rounded-3xl">
                                         </div>
                                         
-                                        
+                                        {{-- <div class="form-group image-preview">
+                                          <label for="image">{{__('Image')}} (Optional)</label>
+                                          <input type="file" id="upload" class="form-control" name="image" accept="image/*">
+                                          <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                                      </div> --}}
                                           
-                                        <input type="file" id="upload" class="form-control" name="image" :value="old('image')"  class="image-upload-input px-4 py-2 border focus:border-gray-900 w-full">
+                                        <input type="file" id="upload" class="form-control" name="image" :value="old('image')"  class="image-upload-input px-4 py-2 border focus:border-gray-900 w-full" accept="image/*">
                                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                                     </div>
                                       <div class="form-group">

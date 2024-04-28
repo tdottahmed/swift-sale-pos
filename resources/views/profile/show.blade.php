@@ -1,4 +1,7 @@
 <x-layouts.master>
+    {{-- @dd(auth()->user()->getMedia('default')) --}}
+    
+
     <x-data-display.card>
         <x-slot name="heading">
             {{ Auth::user()->name }}
@@ -6,7 +9,14 @@
         <x-slot name="body">
             <div style="width: 30%; margin-left: 45%;">
                 <div class="mr-3" style="width: 200px; height: 200px;">
-                    <a href="#"><img src="https://images.app.goo.gl/qjd4R8QUHUiw3TwJ6" width="200" height="200" class="rounded-circle" alt=""></a>
+                    <a href="#"><img src="{{ asset(Auth::user()->image_url) }}" width="200" height="200" class="rounded-circle" alt=""></a>
+                    {{-- @if (auth()->user()->getFirstMedia('avatars'))
+                    <img src="{{ storage_path(auth()->user()->getFirstMedia('avatars')->getUrl()) }}" alt="Avatar">
+                @else
+                    <p>No avatar found</p>
+                @endif --}}
+                
+                   
                 </div>
 
                 <div class="" style="margin-top: 70px;">
