@@ -40,11 +40,11 @@
                                                     Campaign</a>
                                                 <a href="{{ route('campaign.sendEmail', $campaign->id) }}"
                                                     class="dropdown-item"
-                                                    ><i class="icon-pencil7"></i> Send
+                                                    ><i class="icon-envelop2"></i> Send
                                                     Email</a>
                                                 <a href="{{ route('campaign.sendSms', $campaign->id) }}"
                                                     class="dropdown-item"
-                                                    ><i class="icon-pencil7"></i> Send
+                                                    ><i class="icon-comment"></i> Send
                                                     SMS</a>
                                                 <form style="display:inline"
                                                     action="{{ route('campaign.destroy', $campaign->id) }}"

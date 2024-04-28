@@ -56,7 +56,7 @@
 
                     <div class="row my-3">
                         @foreach ($products as $product)
-                            <div class="col-xl-3 col-sm-4 col-lg-3">
+                            <div class="col-xl-4 col-sm-4 col-lg-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="card-img-actions">
@@ -72,16 +72,18 @@
                                             </a>
                                         </div>
                                     </div>
-
                                     <div class="card-body bg-light text-center">
                                         <div class="mb-2">
                                             <h6 class="font-weight-semibold mb-0">
-                                                <a href="#" class="text-default">{{ $product->name }}</a>
+                                                <a href="#" class="text-default">{{ $product->name }}-({{ $product->category }})</a>
                                             </h6>
-                                            <a href="#" class="text-muted">{{ $product->category }}</a>
+                                            <span>Variation</span>
+                                            @foreach ($product->variations as $varitaion)
+                                            <span  class="badge badge-success">{{ $varitaion->product_variation }}-{{$varitaion->value}}</span>
+                                            @endforeach
                                         </div>
 
-                                        <h3 class="mb-0 font-weight-semibold">{{ $product->price }}</h3>
+                                        <h3 class="mb-0 font-weight-semibold">Price: {{ $product->selling_price }}/-</h3>
 
                                         <button type="button" onclick="addProductToCart({{ $product->id }})"
                                             class="btn bg-teal-400 addToCartBtn"><i class="icon-cart-add mr-2"></i> Add

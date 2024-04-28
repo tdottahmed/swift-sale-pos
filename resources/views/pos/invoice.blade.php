@@ -75,11 +75,11 @@
          <div class="invoice-details">
            <h2>Order Details</h2>
             <p><strong>Order ID:</strong> {{$sale->uuid}}</p>
-            <p><strong>Date:</strong> {{$sale->created_at}}</p>
+            <p><strong>Date:</strong> {{$sale->created_at->format('jS F, Y h:i:s A')}}</p>
         </div>
          <div class="invoice-details">
            <h2>Customer Details</h2>
-            <p><strong>Custumer:</strong> {{$customersInfos['name']}}</p>
+            <p><strong>Custumer:</strong> {{$customersInfos['fname']}} {{$customersInfos['lname']}}</p>
             <p><strong>Phone:</strong> {{$customersInfos['phone']}}</p>
         </div>
         <table class="invoice-table">
