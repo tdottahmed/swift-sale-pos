@@ -20,7 +20,7 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::with('saleProduct')->latest()->get();
-        return view('pos.index',compact('sales'));
+        return view('pos.index', compact('sales'));
     }
 
     /**
@@ -49,7 +49,7 @@ class SaleController extends Controller
     {
         try {
             $salesInfos = $request->only('customer_id', 'total_price', 'paid_amount', 'total_quantity', 'discountedAmount', 'payment_type');
-            
+
             $data = array_merge(['uuid' => Str::uuid()], $salesInfos);
             $sale = Sale::create($data);
             $productIds = $request->product_ids;
@@ -75,14 +75,15 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         if ($sale->customer_id == 0) {
             $customersInfos = [
-                'name' => 'Walked by Customer',
+                'fname' => 'Walked by Customer',
+                'lname' => '',
                 'phone' => 'N/A'
             ];
         } else {
             $customer = Customer::find($sale->customer_id);
             $customersInfos = [
                 'fname' => $customer->fname,
-                'lname' =>$customer->lname,
+                'lname' => $customer->lname,
                 'phone' => $customer->phone
             ];
         }
