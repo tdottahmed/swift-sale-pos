@@ -1,23 +1,7 @@
 <x-layouts.master>
-    @include('expense.create-modal', compact('expenseCategories'))
-    @include('pos.discount')
-        <div class="d-flex justify-between align-items-center ">
-            <div class="buttons">
-                <a href="{{route('pos.index')}}" class="btn btn-sm bg-blue-800 mr-2"><i class="icon icon-list2 mr-2"></i>Pos List</a>
-                <button class="btn btn-sm bg-indigo-800 mx-2" data-toggle="modal" data-target="#createExpense"><i
-                        class="icon icon-plus2 mr-2"></i>Expense</button>
-                <button class="btn btn-sm bg-indigo-800 mx-2" data-toggle="modal" data-target="#createRepair"><i
-                        class="icon icon-plus2 mr-2"></i>Repair</button>
-                <button class="btn btn-sm bg-danger-800 mx-2"><i class="icon icon-reset mr-2"></i>Return</button>
-                <button class="btn btn-sm bg-info-800 mx-2"><i class="icon icon-pause mr-2"></i>suspended</button>
-                <button class="btn btn-sm bg-success-800 mx-2"><i
-                        class="icon icon-portfolio mr-2"></i>Registars</button>
-            </div>
-            <div class="clock-items ml-auto">                
-                <x-clock/>                  
-            </div>
-        </div>
-    <hr>
+    <x-expense.create-modal/>
+    <x-pos.discount/>
+    <x-pos.quick-access/>
 
     <div class="row">
         <div class="col-lg-6">
@@ -26,34 +10,7 @@
                     Product
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <select name="category" id="category" class="form-control select-search">
-                                <option value="">Select Category</option>
-                                @foreach ($categoryWiseProducts as $category => $products)
-                                    <option value="{{ $category }}">{{ $category }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Product by sku"
-                                    id="sku">
-                                <span class="input-group-append bg-indigo-600">
-                                    <span class="input-group-text"><i class="icon-search4"></i></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <select name="brand" id="brand" class="form-control select-search">
-                                <option value="">Select Brand</option>
-                                @foreach ($brands as $brand)
-                                    <option value="{{ $brand->title }}">{{ $brand->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
+                    <x-pos.filter-box/>
                     <div class="row my-3">
                         @foreach ($products as $product)
                             <div class="col-xl-4 col-sm-4 col-lg-4">
@@ -93,34 +50,13 @@
                             </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body py-4 h-full">
-                    <div class="form-group row justify-between">
-                        <div class="col-lg-1">
-                            <button class="btn btn-light btn-icon" type="button"><i class="icon-user"></i></button>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="input-group">
-                                <select name="selected_customer" id="selected_customer"
-                                    class="form-control select-search">
-                                    <option value="0" selected>Walk in Customer</option>
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->fname }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <span class="input-group-append" data-toggle="modal" data-target="#createCustomer">
-                                <span class="input-group-text"><i class="icon-plus3 px-2"></i> Add Cutomer</span>
-                            </span>
-                        </div>
-                    </div>
+                    <x-pos.chose-customer/>
                 </div>
                 <form action="{{ route('pos.store') }}" target="_blank" method="post">
                     @csrf
@@ -142,10 +78,8 @@
                                     </tr>
                                 </thead>
                                 <tbody id="productTbody">
-
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                     <div class="card shadow-lg height-full">
@@ -181,7 +115,6 @@
                                                 <p class=" text-bold "id="totalPrice">0.0</p>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td>
                                                 <p class=" text-bold ">Payable Amount :</p>
@@ -191,7 +124,6 @@
                                             </td>
                                         </tr>
                                     </table>
-
                                 </div>
                             </div>
                             <div class="row justify-content-between mx-4 card-body">
@@ -230,12 +162,6 @@
             </div>
         </div>
     </div>
-
-    @include('customer.create-modal')
-    @include('repair.create-modal')
-
-    @push('scripts')
-        @include('pos.script')        
-    @endpush
-
+    <x-repair.create-modal/>
+    <x-pos.scripts/>
 </x-layouts.master>

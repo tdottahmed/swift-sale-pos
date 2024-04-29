@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Category;
 use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\ExpenseCategory;
 use App\Models\ProductSale;
 use App\Models\Sale;
+use App\Models\Variation;
 
 class SaleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * pos index and list actions
      */
     public function index()
     {
@@ -24,37 +22,25 @@ class SaleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Pos Create 
      */
     public function create()
     {
-        $customers = Customer::get();
-        $products = Product::all();
-        $products = Product::all();
-        $categories = Category::all();
-        $brands = Brand::all();
-        $expenseCategories = ExpenseCategory::all();
-        $categoryWiseProducts = [];
-        foreach ($categories as $category) {
-            $categoryWiseProducts[$category->title] = Product::where('category', $category->title)->get();
-        }
-        $categoryWiseProducts['All'] = $products;
-        return view('pos.create', compact('products', 'categoryWiseProducts', 'customers', 'brands', 'expenseCategories'));
+        $products = Product::with('variations')->get();
+        return view('pos.create', compact('products'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Pos Store and calculation 
+
     public function store(Request $request)
     {
         try {
             $salesInfos = $request->only('customer_id', 'total_price', 'paid_amount', 'total_quantity', 'discountedAmount', 'payment_type');
-
             $data = array_merge(['uuid' => Str::uuid()], $salesInfos);
             $sale = Sale::create($data);
             $productIds = $request->product_ids;
             foreach ($productIds as $key => $id) {
-                ProductSale::create([
+                $productSale = ProductSale::create([
                     'sale_id' => $sale->id,
                     'product_id' => $id,
                     'variation_id' => $request->variation[$key],
@@ -62,6 +48,9 @@ class SaleController extends Controller
                     'unit_total' => $request->unit_price[$key],
                     'sub_total' => $request->sub_total[$key]
                 ]);
+                $variation = Variation::find($productSale->variation_id);
+                $newStock = ($variation->stock - $productSale->quantity);
+                $variation->update(['stock'=>$newStock]);
             }
             return $this->invoice($sale->id)->with('success', 'Order Stored Successfully');
         } catch (\Throwable $th) {
@@ -70,6 +59,7 @@ class SaleController extends Controller
         }
     }
 
+    // Generate Invoice for Pos 
     public function invoice($id)
     {
         $sale = Sale::find($id);
@@ -90,10 +80,59 @@ class SaleController extends Controller
         return view('pos.invoice', compact('sale', 'customersInfos'));
     }
 
-
+    // Product add to pos Card 
     public function singleProduct($id)
     {
         $product = Product::with('variations')->find($id);
         return response()->json($product);
+    }
+
+   // sale stored as suspended 
+    public function suspendSale(Sale $sale)
+    {
+        try {
+            foreach ($sale->saleProduct as $product) {
+                $productVariation= Variation::find($product->variation_id);
+                $updateQuantity =($product->quantity + $productVariation->stock);
+                $productVariation->update(['stock'=>$updateQuantity]);
+            }
+            $sale->update([
+                'is_suspended'=>true
+            ]);
+            return redirect()->back()->with('success', 'Sale marked as suspended successfully!!');
+        } catch (\Throwable $th) {
+           return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    // Suspended List
+    public function suspendedList()
+    {
+        $sales = Sale::with('saleProduct')->where('is_suspended',true)->latest()->get();
+        return view('pos.suspended',compact('sales'));
+    }
+
+    // Return Sale form pos list
+    public function returnSale(Sale $sale)
+    {
+        try {
+            foreach ($sale->saleProduct as $product) {
+                $productVariation= Variation::find($product->variation_id);
+                $updateQuantity =($product->quantity + $productVariation->stock);
+                $productVariation->update(['stock'=>$updateQuantity]);
+            }
+            $sale->update([
+                'is_return'=>true
+            ]);
+            return redirect()->back()->with('success', 'Sale marked as returned successfully!!');
+        } catch (\Throwable $th) {
+           return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function returnedList()
+    {
+        $sales = Sale::with('saleProduct')->where('is_return',true)->latest()->get();
+        return view('pos.returned',compact('sales'));
     }
 }

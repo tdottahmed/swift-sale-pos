@@ -84,7 +84,11 @@ Route::middleware('auth')->group(function () {
     Route::get('single/product/{id}', [SaleController::class, 'singleProduct']);
     Route::get('pos-list',[SaleController::class,'index'])->name('pos.index');
     Route::get('pos/invoice/{id}', [SaleController::class, 'invoice'])->name('pos.invoice');
-
+    Route::get('suspend-sale/{sale}',[SaleController::class, 'suspendSale'])->name('sale.suspend');
+    Route::get('pos/suspended-list',[SaleController::class,'suspendedList'])->name('suspended.list');
+    Route::get('pos/return/{sale}',[SaleController::class,'returnSale'])->name('return.sale');
+    Route::get('pos/returned-list',[SaleController::class,'returnedList'])->name('returned.list');
+ 
     Route::resource('customer', CustomerController::class);
     Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->boolean('is_walking_customer')->default(true);
-            $table->boolean('is_draft')->default(false);
+            $table->boolean('is_return')->default(false);
             $table->boolean('is_suspended')->default(false);
             $table->string('payment_type')->nullable();
             $table->double('total_price');

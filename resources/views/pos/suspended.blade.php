@@ -60,7 +60,7 @@
 
                              <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{route('sale.suspend', $sale->id)}}" class="dropdown-item"><i class="icon-pause"></i> Suspend Sale</a>
-                                <a href="" class="dropdown-item"><i class="icon-reset"></i> Return Sale</a>
+                                <a href="{{route('returned.list',$sale->id)}}" class="dropdown-item"><i class="icon-reset"></i> Return Sale</a>
                                             <form style="display:inline" action=""
                                                 method="POST">
                                                 @csrf
@@ -75,8 +75,8 @@
                                 <a href="{{route('pos.invoice',$sale->id)}}" class="dropdown-item"><i class="icon-printer"></i> Print Label</a>
                              </div>
                           </div>
-                       </div>
-                    </td>
+                        </div>
+                        </td>
                         </tr>
                     @endforeach
 

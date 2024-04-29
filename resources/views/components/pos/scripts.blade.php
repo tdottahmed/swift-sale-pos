@@ -1,3 +1,4 @@
+@push('scripts')
 <script>
     var ids = [];
     function addProductToCart(productId) {
@@ -8,8 +9,10 @@
             success: function(product) {
                 let variationOptions = '';
                 product.variations.forEach(variation => {
-                    variationOptions +=
-                        `<option value="${variation.id}">${variation.product_variation}-${variation.value}</option>`;
+                    if (variation.stock>0) {                        
+                        variationOptions +=
+                            `<option value="${variation.id}">${variation.product_variation}-${variation.value}</option>`;
+                    }
                 });
                 var index = ids.indexOf(product.id);
                 flus = index != -1 ? true : false;
@@ -173,3 +176,4 @@
         }, 200);
     });
 </script>
+@endpush
