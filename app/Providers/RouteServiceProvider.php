@@ -35,6 +35,13 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+          if(env('ACTIVE_ECOMMARCE') == true){
+            Route::middleware('web')
+            ->group(base_path('routes/frontend.php'));
+          }
+            
         });
+
     }
 }
