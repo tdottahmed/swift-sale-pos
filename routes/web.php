@@ -33,7 +33,7 @@ use App\Http\Controllers\SellController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('auth.login');
 });
 
