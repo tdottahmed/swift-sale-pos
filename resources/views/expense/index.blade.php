@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            expense
+            Expense List
         </x-slot>
         <x-slot name="body">
             <div class="table">
@@ -9,9 +9,11 @@
                     <thead class="bg-indigo-600">
                         <tr>
                             <th>SL</th>
+                            <th>Expense Category</th>
                             <th>Expense For</th>
                             <th>Expense Amount</th>
                             <th>Payment Method</th>
+                            <th>Date</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -19,9 +21,11 @@
                         @foreach ($expenses as $expense)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $expense->expenseCategory->title }}</td>
                                 <td>{{ $expense->expense_for }}</td>
                                 <td>{{ $expense->total_amount }}</td>
-                                <td>{{ $expense->payment_method_id }}</td>
+                                <td>{{ $expense->paymentMethod->title }}</td>
+                                <td>{{ $expense->date }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -31,8 +35,7 @@
 
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="{{ route('expenses.edit', $expense->id) }}"
-                                                    class="dropdown-item " data-toggle="modal"
-                                                    data-target="#editExpense"><i class="icon-pencil7"></i> Edit
+                                                    class="dropdown-item "><i class="icon-pencil7"></i> Edit
                                                     expense</a>
                                                 <form style="display:inline"
                                                     action="{{ route('expenses.destroy', $expense->id) }}"
@@ -75,5 +78,4 @@
         </x-slot>
     </x-data-display.card>
     @include('expense.create-modal')
-    @include('expense.edit-modal')
 </x-layouts.master>

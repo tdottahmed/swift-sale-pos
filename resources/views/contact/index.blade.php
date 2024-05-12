@@ -1,4 +1,5 @@
 <x-layouts.master>
+    @section('page-title', 'Contact')
     <x-data-display.card>
         <x-slot name="Heading">
             {{ __('Contacts') }}
