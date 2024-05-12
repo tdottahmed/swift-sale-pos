@@ -2,6 +2,7 @@
     <x-expense.create-modal/>
     <x-pos.discount/>
     <x-pos.quick-access/>
+    <hr>
 
     <div class="row">
         <div class="col-lg-6">

@@ -9,7 +9,7 @@
     </div>
     <div class="col-lg-4">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Product by sku"
+            <input type="text" class="form-control" placeholder="Search Product by Product name or SKU"
                 id="sku">
             <span class="input-group-append bg-indigo-600">
                 <span class="input-group-text"><i class="icon-search4"></i></span>

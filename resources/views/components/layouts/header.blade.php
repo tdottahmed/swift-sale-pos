@@ -164,7 +164,7 @@
 							<ul class="media-list">
 								<li class="media">
 									<div class="mr-3 position-relative">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 
 									<div class="media-body">
@@ -181,7 +181,7 @@
 
 								<li class="media">
 									<div class="mr-3 position-relative">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 
 									<div class="media-body">
