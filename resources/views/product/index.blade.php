@@ -24,7 +24,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $stocks[$product->id] }}</td>
-                                <td><img src="{{ asset('storage/product') . '/' . $product->image }}" width="100"
+                                <td><img src="{{imagePath($product->image)}}" width="100"
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>

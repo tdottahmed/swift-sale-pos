@@ -19,7 +19,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $category->title }}</td>
-                                <td><img src="{{ asset('storage/brand') . '/' . $category->image }}" width="100"
+                                <td><img src="{{imagePath($category->image)}}" width="100"
                                     height="70" alt="no image"></td>
                                <td class="text-center">
 									<div class="list-icons">

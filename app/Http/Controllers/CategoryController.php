@@ -10,38 +10,35 @@ use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $categories = Category::get();
-        return view('category.index',compact('categories'));
+        return view('category.index', compact('categories'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('category.create');
     }
 
-  public function store(Request $request){
+    public function store(Request $request)
+    {
 
         // $request->validate([
         //     'title'=>'required'
         // ]);
-        $image = $request->file('image');
-        // dd($image);
-
-        if($image){
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
+        $productImagePath = null;
+        if ($request->file('image')) {
+            $productImagePath = uploadImage($request->file('image'), 'categories/images');
         }
 
-
         category::create([
-            'uuid'=>Str::uuid(),
-            'title'=>$request->title,
-            'image'=>$image_name,
+            'uuid' => Str::uuid(),
+            'title' => $request->title,
+            'image' => $productImagePath,
         ]);
 
-        return redirect(route('category.index'))->with('success','Category Insert Successfully');
-
+        return redirect(route('category.index'))->with('success', 'Category Insert Successfully');
     }
 
     public function show(category $category)
@@ -49,50 +46,32 @@ class CategoryController extends Controller
         //
     }
 
-     public function edit(category $category){
+    public function edit(category $category)
+    {
 
-        return view('category.edit',compact('category'));
+        return view('category.edit', compact('category'));
     }
 
-   public function update(Request $request, category $category){
+    public function update(Request $request, category $category)
+    {
 
-        // $request->validate([
-        //     'title'=>'required'
-        // ]);
-        $image = $request->file('image');
-        // $request->validate([
-        //     'title'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
-
-         if($image){
-            $path = public_path('storage/brand/'.$category->image);
-            if (is_file($path)) {
-        unlink($path);
-    }
-
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
-        }else{
-            $image_name = $category->image;
+        $productImagePath = null;
+        if ($request->file('image')) {
+            $productImagePath = uploadImage($request->file('image'), 'categories/images');
         }
 
-
-         $category->update([
-            'title'=>$request->title,
-            'image'=>$image_name,
+        $category->update([
+            'title' => $request->title,
+            'image' => $productImagePath,
         ]);
 
-        return redirect(route('category.index'))->with('success','Category Updated Successfully');
-
+        return redirect(route('category.index'))->with('success', 'Category Updated Successfully');
     }
 
     public function destroy(category $category)
     {
         $category->delete();
 
-        return redirect(route('category.index'))->with('success','Category Deleted Successfully');
-
+        return redirect(route('category.index'))->with('success', 'Category Deleted Successfully');
     }
 }

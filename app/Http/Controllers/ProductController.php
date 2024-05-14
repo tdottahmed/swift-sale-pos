@@ -71,22 +71,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // try {
-            // if ($request->sku) {
-            //     Product::where('sku', $request->sku)->exists();
-            //     return back()->with('error', 'product SKU is already Exist');
-            // }
-            $image = $request->file('image');
+        // dd($request->all());
+        try {
+            $image = null;
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
-            if ($image) {
-                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
-                $data['image'] = $image_name;
+            if ( $request->file('image')) {
+                $image =  uploadImage($request->file('image'), 'products/images');
             }
             $data += $request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku');
             $product = Product::create([
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
+                'sku'  => $request->sku ? $request->sku : $this->generateProductSKU(),
+                'image' => $image
             ] + $data);
 
             if ($request->product_type == 'single') {
@@ -119,10 +116,10 @@ class ProductController extends Controller
                 }
             }
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
-        // } catch (\Throwable $th) {
-        //     Log::error($th->getMessage());
-        //     return redirect()->back()->with('error', 'Something went wrong');
-        // }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     public function show(Product $product)
@@ -305,6 +302,16 @@ class ProductController extends Controller
 
         // Return the response with products
         return response()->json(['products' => $products]);
+    }
+
+    public function generateProductSKU()
+    {
+        do {
+            $randomNumber = str_pad(mt_rand(100000, 999999), 6, '0', STR_PAD_LEFT);
+            $sku = 'SKU-' . $randomNumber;
+            $existingProduct = Product::where('sku', $sku)->first();
+        } while ($existingProduct);
+        return $sku;
     }
 
 }
