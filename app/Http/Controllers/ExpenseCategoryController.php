@@ -8,6 +8,15 @@ use App\Models\ExpenseCategory;
 
 class ExpenseCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view expense-category', ['only' => ['index']]);
+        $this->middleware('permission:create expense-category', ['only' => ['create','store']]);
+        $this->middleware('permission:update expense-category', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete expense-category', ['only' => ['destroy']]);
+    }
+
+    
     public function index()
     {
         $expenseCategories = ExpenseCategory::all();

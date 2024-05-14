@@ -13,6 +13,14 @@ class ExpenseController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:view expense', ['only' => ['index']]);
+        $this->middleware('permission:create expense', ['only' => ['create','store']]);
+        $this->middleware('permission:update expense', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete expense', ['only' => ['destroy']]);
+    }
+    
     public function index()
     {
         $expenses = Expense::all();

@@ -11,6 +11,22 @@
                     <input type="text" class="form-control" name="title" id="title">
                 </div>
 
+                {{-- category --}}
+
+                <label for="category">Select Category</label>
+                <div class="input-group mb-3"> 
+                    <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                    </div>
+                    
+                    <select name="category_id" class="form-control custom-select">
+                    @foreach ($categories as $category )
+                    <option value="{{ $category->id }}"name="title">{{ $category->title }}</option>
+                                        
+                    @endforeach
+                    </select>
+                </div>
+
 
  <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">

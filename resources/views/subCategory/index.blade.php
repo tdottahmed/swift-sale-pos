@@ -9,7 +9,8 @@
                     <thead class="bg-indigo-600">
                         <tr>
                             <th>SL</th>
-                            <th>Title</th>
+                            <th>Sub Category</th>
+                            <th>Category</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -18,6 +19,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $subCategory->title }}</td>
+                                <td>{{ $subCategory->category->title }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">

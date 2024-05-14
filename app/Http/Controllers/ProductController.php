@@ -21,6 +21,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view product', ['only' => ['index']]);
+        $this->middleware('permission:create product', ['only' => ['create','store']]);
+        $this->middleware('permission:update product', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete product', ['only' => ['destroy']]);
+        $this->middleware('permission:import product', ['only' => ['import','excelStore','labelPrint','generateUniqueSKU','filterProduct']]);
+    }
+    
     public function index()
     {
         $products = Product::latest()->get();

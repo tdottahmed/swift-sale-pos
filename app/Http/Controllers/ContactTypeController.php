@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class ContactTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view contact-type', ['only' => ['index']]);
+        $this->middleware('permission:create contact-type', ['only' => ['create','store']]);
+        $this->middleware('permission:update contact-type', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete contact-type', ['only' => ['destroy']]);
+    }
+    
     public function index()
     {
         $contactTypes = ContactType::all();

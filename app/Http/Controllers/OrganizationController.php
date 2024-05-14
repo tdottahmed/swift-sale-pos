@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Artisan;
 
 class OrganizationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view organization', ['only' => ['index']]);
+        $this->middleware('permission:create organization', ['only' => ['create','store']]);
+        $this->middleware('permission:update organization', ['only' => ['update','edit']]);
+        $this->middleware('permission:updateTheme organization', ['only' => ['updateTheme']]);
+    }
+    
     public function index()
     {
         $organizations = Organization::get();

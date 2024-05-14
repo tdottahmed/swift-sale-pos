@@ -10,6 +10,14 @@ use Intervention\Image\Facades\Image;
 
 class UnitController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view unit', ['only' => ['index']]);
+        $this->middleware('permission:create unit', ['only' => ['create','store']]);
+        $this->middleware('permission:update unit', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete unit', ['only' => ['destroy']]);
+    } 
+    
     public function index(){
         $units = Unit::get();
         return view('unit.index',compact('units'));

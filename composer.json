@@ -17,6 +17,7 @@
         "maatwebsite/excel": "^3.1",
         "milon/barcode": "^10.0",
         "spatie/laravel-medialibrary": "^11.4",
+        "spatie/laravel-permission": "^6.7",
         "twilio/sdk": "^8.0"
     },
     "require-dev": {

@@ -10,6 +10,15 @@ use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view category', ['only' => ['index']]);
+        $this->middleware('permission:create category', ['only' => ['create','store']]);
+        $this->middleware('permission:update category', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete category', ['only' => ['destroy']]);
+    }
+
+
     public function index(){
         $categories = Category::get();
         return view('category.index',compact('categories'));

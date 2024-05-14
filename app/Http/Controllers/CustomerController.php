@@ -10,6 +10,16 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('permission:view customer', ['only' => ['index']]);
+         $this->middleware('permission:create customer', ['only' => ['create','store']]);
+         $this->middleware('permission:update customer', ['only' => ['update','edit']]);
+         $this->middleware('permission:delete customer', ['only' => ['destroy']]);
+     } 
+
+     
     public function index()
     {
 

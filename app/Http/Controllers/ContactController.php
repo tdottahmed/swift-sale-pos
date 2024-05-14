@@ -16,8 +16,16 @@ class ContactController extends Controller
 
     public function __construct(SmsService $smsService)
     {
+        $this->middleware('permission:view contact', ['only' => ['index']]);
+        $this->middleware('permission:create contact', ['only' => ['create','store']]);
+        $this->middleware('permission:update contact', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete contact', ['only' => ['destroy']]);
         $this->smsService = $smsService;
     }
+    // public function __construct(SmsService $smsService)
+    // {
+    //     $this->smsService = $smsService;
+    // }
 
     public function index(Request $request)
     {
