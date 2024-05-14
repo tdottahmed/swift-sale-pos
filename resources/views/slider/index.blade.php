@@ -33,7 +33,7 @@
                                 <td>{{ $slider->starting_text }}</td>
                                 <td>{{ $slider->highlighted_text }}</td>
                                 <td>{{ $slider->button_text }}</td>
-                                <td><img src="{{ asset('storage/brand') . '/' . $slider->image }}" width="100"
+                                <td><img src="{{imagePath($slider->image)}}" width="100"
                                         height="70" alt="no image"></td>
                                 <td class="text-center">
                                     <div class="list-icons">

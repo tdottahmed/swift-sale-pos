@@ -31,15 +31,10 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->file('image');
-
-        if($image){
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
+        $image_name = null;
+        if ( $request->file('image')) {
+            $image_name =  uploadImage($request->file('image'), 'sliders/images');
         }
-        
-
         Slider::create([
             'uuid'=>Str::uuid(),
             'sub_title'=>$request->sub_title,
@@ -75,21 +70,10 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
-        $image = $request->file('image');
-      
-         if($image){
-            $path = public_path('storage/brand/'.$slider->image);
-            if (is_file($path)) {
-        unlink($path);
-    }
-
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
-        }else{
-            $image_name = $slider->image;
+        $image_name = null;
+        if ( $request->file('image')) {
+            $image_name =  uploadImage($request->file('image'), 'sliders/images');
         }
-        
          $slider->update([
             'uuid'=>Str::uuid(),
             'sub_title'=>$request->sub_title,

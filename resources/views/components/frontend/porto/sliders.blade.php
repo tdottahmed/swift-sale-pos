@@ -3,9 +3,9 @@
             }">
             @foreach ($sliders as $slider)
                 {{-- @dd($slider) --}}
-            <div class="home-slide home-slide1 banner">
+            <div class="home-slide {{$loop->first ? 'home-slide1' : 'home-slide2'}}  banner">
 
-                <img class="slide-bg" src="{{ asset('storage/brand') . '/' . $slider->image }}" width="1903" height="499" alt="slider image">
+                <img class="slide-bg" src="{{ imagePath($slider->image) }}" width="1903" height="499" alt="slider image">
                 <div class="container d-flex align-items-center">
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                         <h4 class="text-transform-none m-b-3">{{$slider->heading}}</h4>
