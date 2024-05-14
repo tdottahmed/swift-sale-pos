@@ -10,6 +10,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Title</th>
+                            <th>Image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -18,6 +19,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $category->title }}</td>
+                                <td><img src="{{ asset('storage/brand') . '/' . $category->image }}" width="100"
+                                    height="70" alt="no image"></td>
                                <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">

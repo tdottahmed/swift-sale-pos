@@ -10,6 +10,10 @@
                     <label for="title">Title:</label>
                     <input type="text" class="form-control" name="title" id="title">
                 </div>
+                <div class="mb-3">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
 
 
  <div class="row justify-content-end">

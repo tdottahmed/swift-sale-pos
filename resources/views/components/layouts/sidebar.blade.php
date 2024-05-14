@@ -143,6 +143,14 @@
                                 <i class="icon-file-upload"></i>Product Import
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('slider.index') }}"
+                                class="nav-link {{ request()->routeIs('slider.index') ? 'active' : '' }}">
+                                <i class="icon-certificate"></i>Slider
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('brand.index') }}"
                                 class="nav-link {{ request()->routeIs('brand.index') ? 'active' : '' }}">

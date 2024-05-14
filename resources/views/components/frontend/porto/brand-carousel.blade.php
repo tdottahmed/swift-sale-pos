@@ -2,7 +2,12 @@
                 data-animation-name="fadeIn" data-animation-duration="500"
                 data-owl-options="{
                 'margin': 0}">
-                <img src="{{ asset('porto') }}/assets/images/brands/brand1.png" width="130" height="56"
+
+                @foreach ($brands as $brand)
+                <img src="{{ asset('storage/brand') . '/' . $brand->image }}" width="130" height="56" alt="brand">
+
+                @endforeach
+                {{-- <img src="{{ asset('porto') }}/assets/images/brands/brand1.png" width="130" height="56"
                     alt="brand">
                 <img src="{{ asset('porto') }}/assets/images/brands/brand2.png" width="130" height="56"
                     alt="brand">
@@ -13,5 +18,5 @@
                 <img src="{{ asset('porto') }}/assets/images/brands/brand5.png" width="130" height="56"
                     alt="brand">
                 <img src="{{ asset('porto') }}/assets/images/brands/brand6.png" width="130" height="56"
-                    alt="brand">
+                    alt="brand"> --}}
             </div>

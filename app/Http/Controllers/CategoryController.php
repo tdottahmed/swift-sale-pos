@@ -24,12 +24,20 @@ class CategoryController extends Controller
         // $request->validate([
         //     'title'=>'required'
         // ]);
-        
+        $image = $request->file('image');
+        // dd($image);
+
+        if($image){
+            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
+
+            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
+        }
 
 
         category::create([
             'uuid'=>Str::uuid(),
             'title'=>$request->title,
+            'image'=>$image_name,
         ]);
 
         return redirect(route('category.index'))->with('success','Category Insert Successfully');
@@ -51,9 +59,29 @@ class CategoryController extends Controller
         // $request->validate([
         //     'title'=>'required'
         // ]);
+        $image = $request->file('image');
+        // $request->validate([
+        //     'title'=>'required',
+        //     'image' => 'required|mimes:png,jpg,jpeg',
+        // ]);
+
+         if($image){
+            $path = public_path('storage/brand/'.$category->image);
+            if (is_file($path)) {
+        unlink($path);
+    }
+
+            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
+
+            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
+        }else{
+            $image_name = $category->image;
+        }
+
 
          $category->update([
             'title'=>$request->title,
+            'image'=>$image_name,
         ]);
 
         return redirect(route('category.index'))->with('success','Category Updated Successfully');

@@ -11,6 +11,13 @@
                     <label for="title">Title:</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ $category->title }}">
                 </div>
+                <div class="mb-3">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                    <img class="mt-1" src="{{ asset('storage/brand') . '/' . $category->image }}" width="100"
+                        height="70" alt="no image">
+
+                </div>
 
 
                 <div class="row justify-content-end">

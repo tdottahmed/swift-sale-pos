@@ -2,6 +2,7 @@
             'loop': false
             }">
             <div class="home-slide home-slide1 banner">
+
                 <img class="slide-bg" src="{{asset('porto')}}/assets/images/demoes/demo4/slider/slide-1.jpg" width="1903" height="499" alt="slider image">
                 <div class="container d-flex align-items-center">
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">

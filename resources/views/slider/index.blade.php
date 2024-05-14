@@ -1,25 +1,39 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Brands
+            Slider
         </x-slot>
         <x-slot name="body">
             <div class="table">
                 <table class="table datatable-basic">
                     <thead class="bg-indigo-600">
+
+
                         <tr>
                             <th>SL</th>
+                            <th>Sub Title</th>
                             <th>Title</th>
+                            <th>Heading</th>
+                            <th>Starting Text</th>
+                            <th>Highlighted Text</th>
+                            <th>Button Text</th>
                             <th>Image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($brands as $brand)
+                          {{-- image, sub_title, title, heading, starting_text, highlighted_text, button_text --}}
+
+                        @foreach ($sliders as $slider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $brand->title }}</td>
-                                <td><img src="{{ asset('storage/brand') . '/' . $brand->image }}" width="100"
+                                <td>{{ $slider->sub_title }}</td>
+                                <td>{{ $slider->title }}</td>
+                                <td>{{ $slider->heading }}</td>
+                                <td>{{ $slider->starting_text }}</td>
+                                <td>{{ $slider->highlighted_text }}</td>
+                                <td>{{ $slider->button_text }}</td>
+                                <td><img src="{{ asset('storage/brand') . '/' . $slider->image }}" width="100"
                                         height="70" alt="no image"></td>
                                 <td class="text-center">
                                     <div class="list-icons">
@@ -29,20 +43,19 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('brand.edit', $brand->id) }}" class="dropdown-item"><i
-                                                        class="icon-pencil7"></i> Edit Brand</a>
+                                                <a href="{{ route('slider.edit', $slider->id) }}" class="dropdown-item"><i
+                                                        class="icon-pencil7"></i> Edit Slider</a>
                                                 <form style="display:inline"
-                                                    action="{{ route('brand.destroy', $brand->id) }}" method="POST">
+                                                    action="{{ route('slider.destroy', $slider->id) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this brand?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item" title="Delete brand">
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Slider?')){ this.closest('form').submit(); }"
+                                                        class="dropdown-item" title="Delete Slider">
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
                                                 </form>
-                                                {{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +69,7 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('brand.create') }}"
+            <a href="{{ route('slider.create') }}"
                 class="btn 
             btn-sm 
             bg-success 

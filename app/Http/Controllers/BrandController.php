@@ -27,6 +27,8 @@ class BrandController extends Controller
         //     'image' => 'required|mimes:png,jpg,jpeg',
         // ]);
 
+        // dd($image);
+
         if($image){
             $image_name = uniqid().'.'.$image->getClientOriginalExtension();
 

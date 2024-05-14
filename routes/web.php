@@ -21,6 +21,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/color', ColorController::class);
     Route::resource('/barcodeType', BarcodeTypeController::class);
     Route::resource('/subCategory', SubCategoryController::class);
+    Route::resource('customer', CustomerController::class);
+    Route::resource('slider', SliderController::class);
 
     // product table
     Route::resource('/product', ProductController::class);
