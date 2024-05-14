@@ -1,6 +1,6 @@
 <x-frontend.porto.layout.master>
 
-    <x-frontend.porto.slider />
+    <x-frontend.porto.sliders />
     <x-frontend.porto.promo />
     <x-frontend.porto.featured-product />
 

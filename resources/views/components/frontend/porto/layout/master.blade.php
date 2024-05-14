@@ -13,7 +13,7 @@
             <!-- End .container -->
         </div>
         <!-- End .top-notice -->
-        <x-frontend.porto.layout.partials.header />
+        <x-frontend.porto.layout.partials.navbar />
 
        
         <!-- End .header -->

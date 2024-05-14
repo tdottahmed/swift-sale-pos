@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend\Porto;
 
+use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -11,9 +12,10 @@ class OurCategory extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+   public $category;
+    public function __construct(Category $category)
     {
-        //
+        $this->category = $category;
     }
 
     /**
@@ -21,6 +23,8 @@ class OurCategory extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.frontend.porto.our-category');
+        $categories = $this->category->all();
+
+        return view('components.frontend.porto.our-category', ['categories'=>$categories]);
     }
 }
