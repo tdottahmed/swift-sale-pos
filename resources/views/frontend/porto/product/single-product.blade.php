@@ -28,8 +28,8 @@
                             <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
                                 <div class="product-item">
                                     <img class="product-single-image" src="{{ imagePath($product->image) }}"
-                                        data-zoom-image="porto/images/products/zoom/product-1-big.jpg" width="468"
-                                        height="468" alt="product" />
+                                        data-zoom-image="{{ imagePath($product->image) }}" width="468" height="468"
+                                        alt="product" />
                                 </div>
                                 <div class="product-item">
                                     <img class="product-single-image"

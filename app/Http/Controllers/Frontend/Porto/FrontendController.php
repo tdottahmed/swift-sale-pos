@@ -14,26 +14,27 @@ class FrontendController extends Controller
         return view('frontend.porto.index');
     }
 
-    public function singleProduct()
+    public function singleProduct(Product $product)
     {
 
-        // $product=Product::first('uuid',$product->uuid);
-        // $relatedProduct=Product::where('category',$product->category)->get();
-
-        $product = Product::first();
+        $product = Product::where('id', $product->id)->first();
+        $relatedProduct = Product::where('category', $product->category)->get();
         return view('frontend.porto.product.single-product', compact('product'));
     }
 
     public function products()
     {
-        return view('frontend.porto.product.products');
+        $products = Product::all();
+        return view('frontend.porto.product.products', compact('products'));
     }
 
-    public function cart(){
+    public function cart()
+    {
         return view('frontend.porto.cart');
     }
 
-    public function checkout(){
+    public function checkout()
+    {
         return view('frontend.porto.checkout');
     }
 }
