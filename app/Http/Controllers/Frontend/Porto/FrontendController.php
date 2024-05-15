@@ -28,4 +28,12 @@ class FrontendController extends Controller
     {
         return view('frontend.porto.product.products');
     }
+
+    public function cart(){
+        return view('frontend.porto.cart');
+    }
+
+    public function checkout(){
+        return view('frontend.porto.checkout');
+    }
 }
