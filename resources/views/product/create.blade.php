@@ -143,12 +143,20 @@
                         <label for="product_locations">Product Location:</label>
                         <input type="text" class="form-control" name="product_locations"id="product_locations">
                     </div>
-                    <div class="col-lg-6">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control h-auto" name="image" id="image">
-                    </div>
                 </div>
                 <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row my-2">
+                            @for ($i = 1; $i <= 6; $i++)
+                                <div class="col-lg-4">
+                                    <label for="image{{ $i }}">Image - {{ $i }}</label>
+                                    <input type="file" class="form-control h-auto" name="image_{{ $i }}" id="image{{ $i }}">
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
                 <div class="card ">
                     <div class="card-body ">
                         <div class="row">

@@ -14,6 +14,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
@@ -80,20 +81,30 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        try {
-            $image = null;
+        // dd($request->image);
+        try {            
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
-            if ( $request->file('image')) {
-                $image =  uploadImage($request->file('image'), 'products/images');
+            if ( $request->file('image_1')) {
+                $image =  uploadImage($request->file('image_1'), 'products/images');
             }
-            $data += $request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku');
+            $data += $request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku','image_1','image_2','image_3','image_4','image_5','image_6');
             $product = Product::create([
                 'uuid' => Str::uuid(),
                 'sku'  => $request->sku ? $request->sku : $this->generateProductSKU(),
                 'image' => $image
             ] + $data);
+
+            $images = [];
+            foreach (range(1, 7) as $index) {
+                if ($request->hasFile('image_' . $index)) {
+                    $imagePath = uploadImage($request->file('image_'.$index), 'products/images');
+                    $images['image_'.$index] = $imagePath; 
+                }
+            }
+            ProductImage::create([
+                'product_id' => $product->id,
+            ] + $images);            
 
             if ($request->product_type == 'single') {
                 Variation::create([
