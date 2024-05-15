@@ -3,17 +3,20 @@
 namespace App\View\Components\Frontend\Porto;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use App\Models\Product;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class FeaturedProduct extends Component
 {
     /**
      * Create a new component instance.
      */
+    public $products;
     public function __construct()
     {
-        //
+        $this->products = Product::where('is_featured', '1')->latest()->get();
+        
     }
 
     /**
@@ -21,6 +24,6 @@ class FeaturedProduct extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.frontend.porto.featured-product');
+        return view('components.frontend.porto.featured-product',  ['products'=>$this->products]);
     }
 }

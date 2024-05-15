@@ -378,6 +378,18 @@
 
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input-styled" value="1"
+                                            {{ $product->is_featured == 1 ? 'checked' : '' }} name="is_featured"
+                                            data-fouc>
+                                Is Featured
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">

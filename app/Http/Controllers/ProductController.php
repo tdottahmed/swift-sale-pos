@@ -117,6 +117,7 @@ class ProductController extends Controller
                     'selling_price' => $request->selling_price,
                     'profit_marging' => $request->profit_marging,
                     'variation_image' => $request->variation_image,
+                    'is_featured' => $request->is_featured == true ? '1':'0',
                 ]);
             } else {
                 $variationData = $request->child;
@@ -132,6 +133,7 @@ class ProductController extends Controller
                         'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
                         'selling_price' => $variationData['selling_price'][$key] ?? null,
                         'profit_marging' => $variationData['profit_marging'][$key] ?? null,
+                        
                     ]);
                 }
             }
@@ -201,6 +203,8 @@ class ProductController extends Controller
                     'selling_price' => $request->selling_price,
                     'profit_marging' => $request->profit_marging,
                     'variation_image' => $request->variation_image,
+                    'is_featured' => $request->is_featured == true ? '1':'0',
+
                 ]);
             } else {
                 $variationData = $request->child;

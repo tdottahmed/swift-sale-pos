@@ -16,7 +16,7 @@
                             <li><a href="blog.html">Blog</a></li>
                             <li><a href="wishlist.html">My Wishlist</a></li>
                             <li><a href="cart.html">Cart</a></li>
-                            <li><a href="login.html" class="login-link">Log In</a></li>
+                            <li><a href="{{route('login')}}" class="login-link">Log In</a></li>
                         </ul>
                     </div>
                     <!-- End .header-menu -->
@@ -121,7 +121,7 @@
                     <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
                 </div>
 
-                <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                <a href="{{route('login')}}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
                 <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
 
