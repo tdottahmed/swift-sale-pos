@@ -15,6 +15,14 @@ class SaleController extends Controller
     /**
      * pos index and list actions
      */
+    public function __construct()
+    {
+        // $this->middleware('permission:view invoice', ['only' => ['index']]);
+        $this->middleware('permission:create sell-invoice', ['only' => ['create','store','invoice']]);
+        // $this->middleware('permission:update invoice', ['only' => ['update','edit']]);
+        // $this->middleware('permission:delete invoice', ['only' => ['destroy']]);
+    } 
+    
     public function index()
     {
         $sales = Sale::with('saleProduct')->latest()->get();

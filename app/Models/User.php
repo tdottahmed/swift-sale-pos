@@ -10,10 +10,15 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+use Spatie\Permission\Traits\HasRoles;
+
+
+
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use InteractsWithMedia;
+    use HasRoles;
 
     public const PLACEHOLDER_IMAGE_PATH = 'images/placeholder.jpeg';
     /**

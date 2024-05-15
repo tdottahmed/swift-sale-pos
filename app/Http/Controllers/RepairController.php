@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class RepairController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view repair', ['only' => ['index']]);
+        $this->middleware('permission:create repair', ['only' => ['create','store']]);
+        $this->middleware('permission:update repair', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete repair', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $repairs = Repair::all();

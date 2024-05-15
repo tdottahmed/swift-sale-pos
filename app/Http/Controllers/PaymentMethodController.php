@@ -8,6 +8,14 @@ use App\Models\PaymentMethod;
 
 class PaymentMethodController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view payment-method', ['only' => ['index']]);
+        $this->middleware('permission:create payment-method', ['only' => ['create','store']]);
+        $this->middleware('permission:update payment-method', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete payment-method', ['only' => ['destroy']]);
+    }
+    
     public function index()
     {
         $paymentMethods = PaymentMethod::get();

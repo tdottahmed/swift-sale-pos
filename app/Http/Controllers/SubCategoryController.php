@@ -11,6 +11,15 @@ use Intervention\Image\Facades\Image;
 
 class SubCategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:view subCategory', ['only' => ['index']]);
+        $this->middleware('permission:create subCategory', ['only' => ['create','store']]);
+        $this->middleware('permission:update subCategory', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete subCategory', ['only' => ['destroy']]);
+    } 
+    
     public function index(){
         $subCategorys = SubCategory::get();
         return view('subCategory.index',compact('subCategorys',));

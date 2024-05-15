@@ -10,6 +10,15 @@ use Intervention\Image\Facades\Image;
 
 class BrandController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:view brand', ['only' => ['index']]);
+        $this->middleware('permission:create brand', ['only' => ['create','store']]);
+        $this->middleware('permission:update brand', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete brand', ['only' => ['destroy']]);
+    }
+    
     public function index(){
         $brands = Brand::get();
         return view('brand.index',compact('brands'));

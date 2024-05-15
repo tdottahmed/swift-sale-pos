@@ -259,7 +259,11 @@
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
 						<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" class="rounded-circle mr-2" height="34" alt="">
-						<span>Victoria</span>
+						<span>{{auth()->user()->name ?? ''}}</span>
+
+						{{-- <img src="{{ url(auth()->user()->image ?? '') }}" class="user-image img-profil"
+                            alt="User Image">
+                        <span class="hidden-xs">{{ auth()->user()->name }}</span> --}}
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
@@ -273,7 +277,9 @@
 							<button class="dropdown-item"><i class="icon-switch2"></i> Logout
 							</button> 
 						</form>
-						@if (auth()->user()->personalizeSettings->theme=='default' ?? 'default')							
+
+
+						{{-- @if (auth()->user()->personalizeSettings->theme=='default' ?? 'default')							
 							<form  action="{{route('theme.update')}}" method="POST"> 
 								@csrf
 								<input type="hidden" value="dark" name="theme">
@@ -287,7 +293,7 @@
 								<button class="dropdown-item"><i class="icon-enter2"></i> Switch Light Mode
 								</button> 
 							</form>
-						@endif
+						@endif --}}
 					</div>
 				</li>
 			</ul>

@@ -10,6 +10,15 @@ use Intervention\Image\Facades\Image;
 
 class SizeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view size', ['only' => ['index']]);
+        $this->middleware('permission:create size', ['only' => ['create','store']]);
+        $this->middleware('permission:update size', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete size', ['only' => ['destroy']]);
+    } 
+
+    
     public function index(){
         $sizes = Size::get();
         return view('size.index',compact('sizes'));

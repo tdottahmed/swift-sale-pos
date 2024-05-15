@@ -10,6 +10,14 @@ use Intervention\Image\Facades\Image;
 
 class ColorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view color', ['only' => ['index']]);
+        $this->middleware('permission:create color', ['only' => ['create','store']]);
+        $this->middleware('permission:update color', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete color', ['only' => ['destroy']]);
+    } 
+    
     public function index(){
         $colors = Color::get();
         return view('color.index',compact('colors'));

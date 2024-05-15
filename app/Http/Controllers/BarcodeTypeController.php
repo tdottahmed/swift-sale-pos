@@ -10,6 +10,14 @@ use Intervention\Image\Facades\Image;
 
 class BarcodeTypeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:view barcodeType', ['only' => ['index']]);
+        $this->middleware('permission:create barcodeType', ['only' => ['create','store']]);
+        $this->middleware('permission:update barcodeType', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete barcodeType', ['only' => ['destroy']]);
+    }
     public function index(){
         $barcodeTypes = BarcodeType::get();
         return view('barcodeType.index',compact('barcodeTypes'));
