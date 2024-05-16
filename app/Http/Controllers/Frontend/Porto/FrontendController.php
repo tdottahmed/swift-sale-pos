@@ -16,10 +16,8 @@ class FrontendController extends Controller
 
     public function singleProduct(Product $product)
     {
-
-        $product = Product::where('id', $product->id)->first();
-        $relatedProduct = Product::where('category', $product->category)->get();
-        return view('frontend.porto.product.single-product', compact('product'));
+        $relatedProducts = Product::where('category', $product->category)->get();
+        return view('frontend.porto.product.single-product', compact('product','relatedProducts'));
     }
 
     public function products()

@@ -2,18 +2,19 @@
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
                     data-animation-delay="200">
                     <h4 class="section-sub-title">Featured Products</h4>
+                    @foreach ($featureProducts as $featureProduct)                       
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-1.jpg"
+                            <a href="{{route('frontend.single-product',$featureProduct->id)}}">
+                                <img src="{{imagePath($featureProduct->image)}}"
                                     width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-1-2.jpg"
+                                <img src="{{$featureProduct->images ? imagePath($featureProduct->images->image_2):''}}"
                                     width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                            <h3 class="product-title"> <a href="{{route('frontend.single-product',$featureProduct->id)}}">{{$featureProduct->name}}</a>
                             </h3>
 
                             <div class="ratings-container">
@@ -27,94 +28,32 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">$ {{$featureProduct->selling_price}}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-2.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-2-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown Women Casual HandBag</a>
-                            </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-3.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-3-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Circled Ultimate 3D Speaker</a>
-                            </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
+                    @endforeach                   
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
                     data-animation-delay="500">
                     <h4 class="section-sub-title">Best Selling Products</h4>
+                    @foreach ($bestSellingProducts as $bestSellingProduct)
+                        
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-4.jpg"
+                            <a href="{{route('frontend.single-product',$bestSellingProduct->id)}}">
+                                <img src="{{$bestSellingProduct->image ? imagePath($bestSellingProduct->image):''}}"
                                     width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-4-2.jpg"
+                                <img src="{{$bestSellingProduct->images ? imagePath($bestSellingProduct->images->image_2):''}}"
                                     width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                    S</a> </h3>
+                            <h3 class="product-title"> <a href="{{route('frontend.single-product',$featureProduct->id)}}">{{$bestSellingProduct->name}}</a> </h3>
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -127,190 +66,73 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">$ {{$bestSellingProduct->selling_price}}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
+                    @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-5.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-5-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-6.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-6-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Men Black Gentle Belt</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
+                    
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
                     data-animation-delay="800">
                     <h4 class="section-sub-title">Latest Products</h4>
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-7.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-7-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
+                    @foreach ($latestProducts as $latestProduct)                        
+                        <div class="product-default left-details product-widget">
+                            <figure>
+                                <a href="{{route('frontend.single-product',$latestProduct->id)}}">
+                                    <img src="{{imagePath($latestProduct->image)}}"
+                                        width="84" height="84" alt="product">
+                                    <img src="{{$latestProduct->images ? imagepath($latestProduct->images->image_2):''}}"
+                                        width="84" height="84" alt="product">
+                                </a>
+                            </figure>
 
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown-Black Men Casual Glasses</a>
-                            </h3>
+                            <div class="product-details">
+                                <h3 class="product-title"> <a href="{{route('frontend.single-product',$latestProduct->id)}}">{{$latestProduct->name}}</a>
+                                </h3>
 
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:100%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                    <!-- End .product-ratings -->
                                 </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
+                                <!-- End .product-container -->
 
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-8.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-8-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown-Black Men Casual Glasses</a>
-                            </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                <div class="price-box">
+                                    <span class="product-price">$ {{$latestProduct->images}}</span>
                                 </div>
-                                <!-- End .product-ratings -->
+                                <!-- End .price-box -->
                             </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
+                            <!-- End .product-details -->
                         </div>
-                        <!-- End .product-details -->
-                    </div>
+                    @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-9.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-9-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Black Men Casual Glasses</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
                     data-animation-delay="1100">
                     <h4 class="section-sub-title">Top Rated Products</h4>
+                    @foreach ($topRatedProducts as $topRatedProduct)
+                        
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-10.jpg"
+                            <a href="{{route('frontend.single-product',$topRatedProduct->id)}}">
+                                <img src="{{imagePath($topRatedProduct->image)}}"
                                     width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-10-2.jpg"
+                                <img src="{{$topRatedProduct->images ? imagePath($topRatedProduct->images->image_2):''}}"
                                     width="84" height="84" alt="product">
                             </a>
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Basketball Sports Blue Shoes</a>
+                            <h3 class="product-title"> <a href="{{route('frontend.single-product',$topRatedProduct->id)}}">{{$topRatedProduct->name}}</a>
                             </h3>
 
                             <div class="ratings-container">
@@ -324,73 +146,14 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <span class="product-price">$49.00</span>
+                                <span class="product-price">$ {{$topRatedProduct->selling_price}}</span>
                             </div>
                             <!-- End .price-box -->
                         </div>
                         <!-- End .product-details -->
                     </div>
+                    @endforeach
 
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-11.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-11-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Men Sports Travel Bag</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top">5.00</span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
-
-                    <div class="product-default left-details product-widget">
-                        <figure>
-                            <a href="product.html">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-12.jpg"
-                                    width="84" height="84" alt="product">
-                                <img src="{{ asset('porto') }}/assets/images/products/small/product-12-2.jpg"
-                                    width="84" height="84" alt="product">
-                            </a>
-                        </figure>
-
-                        <div class="product-details">
-                            <h3 class="product-title"> <a href="product.html">Brown HandBag</a> </h3>
-
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:100%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <!-- End .product-ratings -->
-                            </div>
-                            <!-- End .product-container -->
-
-                            <div class="price-box">
-                                <span class="product-price">$49.00</span>
-                            </div>
-                            <!-- End .price-box -->
-                        </div>
-                        <!-- End .product-details -->
-                    </div>
+                   
                 </div>
             </div>

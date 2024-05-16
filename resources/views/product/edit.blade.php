@@ -293,7 +293,7 @@
                                         <label for="image{{ $i }}" class="form-label">Image - {{ $i }}</label>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <img src="{{ imagePath($product->images->{'image_'.$i}) }}" alt="Image {{ $i }}" class="img-fluid" style="max-height: 150px;">
+                                        <img src="{{ $product->images ? imagePath($product->images->{'image_'.$i}):'' }}" alt="Image {{ $i }}" class="img-fluid" style="max-height: 150px;">
                                     </div>
                                     <div class="text-center">
                                         <input type="file" class="form-control" name="image_{{ $i }}" id="image{{ $i }}">
