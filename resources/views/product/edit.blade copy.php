@@ -39,7 +39,7 @@
                                 <option value="">-- Please select --</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}"
-                                        {{ $brand->id == $product->brand_id ? 'selected' : '' }}>{{ $brand->title }}
+                                        {{ $brand->id == $product->brand_id || $brand->title == $product->brand 'selected' : '' }}>{{ $brand->title }}
                                     </option>
                                 @endforeach
                             </select>

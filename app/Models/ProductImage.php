@@ -11,5 +11,9 @@ class ProductImage extends Model
 
     protected $guarded =[];
 
+    public function product(){
+
+        $this->belongsTo(Product::class);
+    }
 
 }

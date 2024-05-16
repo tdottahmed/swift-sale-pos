@@ -101,8 +101,8 @@
                 <div class="col-lg-3">
                     <div>
                         @if ($product->image)
-                            <img src="{{ asset('storage/products') . '/' . $product->image }}" width="150"
-                                height="100" alt="Product Image">
+                            <img src="{{ imagePath($product->image)}}" 
+                                 alt="Product Image" width="100%" height="auto">
                         @else
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDpYgKX6Na9EAfhKgjLD4iyPugeNE0wggdkw&usqp=CAU"
                                 width="250" height="200" alt="Default Image">
