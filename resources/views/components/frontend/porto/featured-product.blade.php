@@ -1,19 +1,18 @@
 <section class="featured-products-section">
-        <div class="container">
-            <h2 class="section-title heading-border ls-20 border-0">Featured Products</h2>
+    <div class="container">
+        <h2 class="section-title heading-border ls-20 border-0">Featured Products</h2>
 
-            <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
-                data-owl-options="{
+        <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center"
+            data-owl-options="{
                     'dots': false,
                     'nav': true
                 }">
-                @foreach ($products as $product)
-                    {{-- @dd($product); --}}
+            @foreach ($products as $product)
+                {{-- @dd($product); --}}
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="product.html">
-                            <img src="{{imagePath($product->image)}}" width="280"
-                                height="280" alt="product">
+                        <a href="{{ route('frontend.single-product', $product->id) }}">
+                            <img src="{{ imagePath($product->image) }}" width="280" height="280" alt="product">
                             {{-- <img src="{{ asset('porto') }}/assets/images/products/product-1-2.jpg" width="280"
                                 height="280" alt="product"> --}}
                         </a>
@@ -27,7 +26,7 @@
                             <a href="category.html" class="product-category">Category</a>
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">{{$product->name}}</a>
+                            <a href="product.html">{{ $product->name }}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -40,7 +39,7 @@
                         <!-- End .product-container -->
                         <div class="price-box">
                             <del class="old-price">$59.00</del>
-                            <span class="product-price">{{$product->price}}</span>
+                            <span class="product-price">{{ $product->selling_price }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -55,9 +54,9 @@
                     </div>
                     <!-- End .product-details -->
                 </div>
-                @endforeach
+            @endforeach
 
-                {{-- <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
+            {{-- <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
                         <a href="product.html">
                             <img src="{{ asset('porto') }}/assets/images/products/product-2.jpg" width="280"
@@ -234,7 +233,7 @@
                     </div>
                     <!-- End .product-details -->
                 </div> --}}
-            </div>
-            <!-- End .featured-proucts -->
         </div>
-    </section>
+        <!-- End .featured-proucts -->
+    </div>
+</section>

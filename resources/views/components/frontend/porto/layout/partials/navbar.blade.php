@@ -16,7 +16,7 @@
                             <li><a href="blog.html">Blog</a></li>
                             <li><a href="wishlist.html">My Wishlist</a></li>
                             <li><a href="cart.html">Cart</a></li>
-                            <li><a href="{{route('login')}}" class="login-link">Log In</a></li>
+                            <li><a href="{{ route('login') }}" class="login-link">Log In</a></li>
                         </ul>
                     </div>
                     <!-- End .header-menu -->
@@ -71,7 +71,7 @@
                 <button class="mobile-menu-toggler text-primary mr-2" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="demo4.html" class="logo">
+                <a href="{{ route('frontend.index') }}" class="logo">
                     <img src="{{ asset('porto') }}/assets/images/logo.png" width="111" height="44"
                         alt="Porto Logo">
                 </a>
@@ -121,7 +121,7 @@
                     <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
                 </div>
 
-                <a href="{{route('login')}}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                <a href="{{ route('login') }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
                 <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
 
@@ -247,17 +247,18 @@
             <nav class="main-nav w-100">
                 <ul class="menu">
                     <li class="active">
-                        <a href="demo4.html">Home</a>
+                        <a href="{{ route('frontend.index') }}">Home</a>
                     </li>
                     <li>
-                        <a href="category.html">Categories</a>
+                        <a href="">Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <a href="#" class="nolink">VARIATION 1</a>
                                     <ul class="submenu">
                                         @foreach ($categories as $category)
-                                            <li><a href="category.html">{{ $category->title }}</a></li>
+                                            <li><a
+                                                    href="{{ route('frontend.category-wise-product', $category->id) }}">{{ $category->title }}</a>
+                                            </li>
                                         @endforeach
 
                                     </ul>
