@@ -106,7 +106,7 @@
                                 <!-- End .product-container -->
 
                                 <div class="price-box">
-                                    <span class="product-price">$ {{$latestProduct->images}}</span>
+                                    <span class="product-price">$ {{$latestProduct->selling_price}}</span>
                                 </div>
                                 <!-- End .price-box -->
                             </div>
