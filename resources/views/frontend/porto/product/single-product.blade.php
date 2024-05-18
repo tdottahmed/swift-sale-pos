@@ -31,7 +31,7 @@
                                     <img class="product-single-image" src="{{ imagePath($product->image) }}"
                                         data-zoom-image="{{ imagePath($product->image) }}" width="468" height="468"
                                         alt="product" />
-                                </div>                                
+                                </div>
                             </div>
                             <!-- End .product-single-carousel -->
                             <span class="prod-full-screen">
@@ -40,9 +40,10 @@
                         </div>
 
                         <div class="prod-thumbnail owl-dots">
-                            @foreach (range(1,6) as $image)                                
+                            @foreach (range(1, 6) as $image)
                                 <div class="owl-dot">
-                                    <img src="{{ imagePath($product->images->{'image_' . $loop->iteration}) }}" width="110" height="110" alt="product-thumbnail" />
+                                    <img src="{{ imagePath($product->images->{'image_' . $loop->iteration}) }}"
+                                        width="110" height="110" alt="product-thumbnail" />
                                 </div>
                             @endforeach
                         </div>
@@ -102,10 +103,12 @@
                             </div>
                             <!-- End .product-single-qty -->
 
-                            <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
+                            <a href="#" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart"
+                                data-product-id="{{ $product->id }}">Add to
                                 Cart</a>
 
-                            <a href="{{ route('frontend.cart') }}" class="btn btn-gray view-cart d-none">View cart</a>
+                            <a href="{{ route('frontend.cart', Auth::user()->id) }}"
+                                class="btn btn-gray view-cart d-none">View cart</a>
                         </div>
                         <!-- End .product-action -->
 
@@ -119,10 +122,10 @@
                                     title="Facebook"></a>
                                 <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"
                                     title="Twitter"></a>
-                                <a href="#" class="social-icon social-linkedin fab fa-linkedin-in"
-                                    target="_blank" title="Linkedin"></a>
-                                <a href="#" class="social-icon social-gplus fab fa-google-plus-g"
-                                    target="_blank" title="Google +"></a>
+                                <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank"
+                                    title="Linkedin"></a>
+                                <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank"
+                                    title="Google +"></a>
                                 <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank"
                                     title="Mail"></a>
                             </div>
@@ -143,9 +146,8 @@
             <div class="product-single-tabs">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="product-tab-desc" data-toggle="tab"
-                            href="#product-desc-content" role="tab" aria-controls="product-desc-content"
-                            aria-selected="true">Description</a>
+                        <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content"
+                            role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
                     </li>
 
                     <li class="nav-item">
@@ -401,52 +403,54 @@
                 <h2 class="section-title">Related Products</h2>
 
                 <div class="products-slider owl-carousel owl-theme dots-top dots-small">
-                    @foreach ($relatedProducts as $relatedProduct)                        
-                    <div class="product-default">
-                        <figure>
-                            <a href="{{route('frontend.single-product',$relatedProduct->id)}}">
-                                <img src="{{imagePath($relatedProduct->image)}}" width="280" height="280"
-                                    alt="product">
-                                <img src="{{imagePath($relatedProduct->images->image_2)}}" width="280" height="280"
-                                    alt="product">
-                            </a>
-                            <div class="label-group">
-                                <div class="product-label label-hot">HOT</div>
-                                <div class="product-label label-sale">-20%</div>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="category-list">
-                                <a href="category.html" class="product-category">Category</a>
-                            </div>
-                            <h3 class="product-title">
-                                <a href="{{route('frontend.single-product',$relatedProduct->id)}}">{{$relatedProduct->name}}</a>
-                            </h3>
-                            <div class="ratings-container">
-                                <div class="product-ratings">
-                                    <span class="ratings" style="width:80%"></span>
-                                    <!-- End .ratings -->
-                                    <span class="tooltiptext tooltip-top"></span>
+                    @foreach ($relatedProducts as $relatedProduct)
+                        <div class="product-default">
+                            <figure>
+                                <a href="{{ route('frontend.single-product', $relatedProduct->id) }}">
+                                    <img src="{{ imagePath($relatedProduct->image) }}" width="280" height="280"
+                                        alt="product">
+                                    <img src="{{ imagePath($relatedProduct->images->image_2) }}" width="280"
+                                        height="280" alt="product">
+                                </a>
+                                <div class="label-group">
+                                    <div class="product-label label-hot">HOT</div>
+                                    <div class="product-label label-sale">-20%</div>
                                 </div>
-                                <!-- End .product-ratings -->
+                            </figure>
+                            <div class="product-details">
+                                <div class="category-list">
+                                    <a href="category.html" class="product-category">Category</a>
+                                </div>
+                                <h3 class="product-title">
+                                    <a
+                                        href="{{ route('frontend.single-product', $relatedProduct->id) }}">{{ $relatedProduct->name }}</a>
+                                </h3>
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:80%"></span>
+                                        <!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                    <!-- End .product-ratings -->
+                                </div>
+                                <!-- End .product-container -->
+                                <div class="price-box">
+                                    <del class="old-price">$ {{ $relatedProduct->selling_price }}</del>
+                                    <span class="product-price">$ {{ $relatedProduct->selling_price }}</span>
+                                </div>
+                                <!-- End .price-box -->
+                                <div class="product-action">
+                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                            class="icon-heart"></i></a>
+                                    <a href="{{ route('frontend.single-product', $relatedProduct->id) }}"
+                                        class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>Vew
+                                            Details</span></a>
+                                    <a href="ajax/product-quick-view.html" class="btn-quickview"
+                                        title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                </div>
                             </div>
-                            <!-- End .product-container -->
-                            <div class="price-box">
-                                <del class="old-price">$ {{$relatedProduct->selling_price}}</del>
-                                <span class="product-price">$ {{$relatedProduct->selling_price}}</span>
-                            </div>
-                            <!-- End .price-box -->
-                            <div class="product-action">
-                                <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
-                                        class="icon-heart"></i></a>
-                                <a href="{{route('frontend.single-product',$relatedProduct->id)}}" class="btn-icon btn-add-cart"><i
-                                        class="fa fa-arrow-right"></i><span>Vew Details</span></a>
-                                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                        class="fas fa-external-link-alt"></i></a>
-                            </div>
+                            <!-- End .product-details -->
                         </div>
-                        <!-- End .product-details -->
-                    </div>
                     @endforeach
                 </div>
                 <!-- End .products-slider -->
@@ -455,7 +459,7 @@
 
             <hr class="mt-0 m-b-5" />
 
-            <x-frontend.porto.product-widget/>
+            <x-frontend.porto.product-widget />
 
             {{-- <div class="product-widgets-container row pb-2">
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">

@@ -15,7 +15,7 @@
         <!-- End .top-notice -->
         <x-frontend.porto.layout.partials.navbar />
 
-       
+
         <!-- End .header -->
 
         <main class="main">
@@ -24,10 +24,10 @@
         <!-- End .main -->
         <x-frontend.porto.layout.partials.footer />
 
-        
+
         <!-- End .footer -->
     </div>
-    
+
     <!-- End .page-wrapper -->
 
     <div class="loading-overlay">
@@ -53,14 +53,15 @@
                             <li><a href="category.html">Full Width Banner</a></li>
                             <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a></li>
                             <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a></li>
-                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/category-sidebar-left.html">Left Sidebar</a></li>
+                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/category-sidebar-left.html">Left
+                                    Sidebar</a></li>
                             <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
                             <li><a href="category-off-canvas.html">Off Canvas Filter</a></li>
                             <li><a href="category-horizontal-filter1.html">Horizontal Filter 1</a></li>
                             <li><a href="category-horizontal-filter2.html">Horizontal Filter 2</a></li>
                             <li><a href="#">List Types</a></li>
                             <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll<span
-										class="tip tip-new">New</span></a></li>
+                                        class="tip tip-new">New</span></a></li>
                             <li><a href="category.html">3 Columns Products</a></li>
                             <li><a href="category-4col.html">4 Columns Products</a></li>
                             <li><a href="category-5col.html">5 Columns Products</a></li>
@@ -149,14 +150,14 @@
                 <ul class="mobile-menu mt-2 mb-2">
                     <li class="border-0">
                         <a href="#">
-							Special Offer!
-						</a>
+                            Special Offer!
+                        </a>
                     </li>
                     <li class="border-0">
                         <a href="#" target="_blank">
-							Buy Porto!
-							<span class="tip tip-hot">Hot</span>
-						</a>
+                            Buy Porto!
+                            <span class="tip tip-hot">Hot</span>
+                        </a>
                     </li>
                 </ul>
 
@@ -213,8 +214,8 @@
         <div class="sticky-info">
             <a href="cart.html" class="">
                 <i class="icon-shopping-cart position-relative">
-					<span class="cart-count badge-circle">3</span>
-				</i>Cart
+                    <span class="cart-count badge-circle">3</span>
+                </i>Cart
             </a>
         </div>
     </div>
@@ -254,16 +255,37 @@
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
     <!-- Plugins JS File -->
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{asset('porto')}}/assets/js/jquery.min.js"></script>
-    <script src="{{asset('porto')}}/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('porto')}}/assets/js/optional/isotope.pkgd.min.js"></script>
-    <script src="{{asset('porto')}}/assets/js/plugins.min.js"></script>
-    <script src="{{asset('porto')}}/assets/js/jquery.appear.min.js"></script>
+    {{-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
+    <script src="{{ asset('porto') }}/assets/js/jquery.min.js"></script>
+    <script src="{{ asset('porto') }}/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('porto') }}/assets/js/optional/isotope.pkgd.min.js"></script>
+    <script src="{{ asset('porto') }}/assets/js/plugins.min.js"></script>
+    <script src="{{ asset('porto') }}/assets/js/jquery.appear.min.js"></script>
 
     <!-- Main JS File -->
-    <script src="{{asset('porto')}}/assets/js/main.min.js"></script>
+    <script src="{{ asset('porto') }}/assets/js/main.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.btn-add-cart').click(function(e) {
+                e.preventDefault();
+                var productId = $(this).data('product-id');
+                $.ajax({
+                    url: '{{ route('frontend.cart.add') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 
 <!-- Mirrored from portotheme.com/html/porto_ecommerce/demo4.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 May 2024 17:38:17 GMT -->
+
 </html>

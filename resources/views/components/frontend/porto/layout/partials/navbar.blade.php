@@ -126,12 +126,20 @@
                 <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
+                    @php
+                        $cartCount = Auth::user() ? Auth::user()->cart()->count() : 0;
+                    @endphp
+                    <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
+                       >
+                        <i class="minicart-icon"></i>
+                        <span class="cart-count badge-circle">{{ $cartCount }}</span>
+                    </a>
+                    {{-- <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-display="static">
                         <i class="minicart-icon"></i>
-                        <span class="cart-count badge-circle">3</span>
-                    </a>
+                        <span class="cart-count badge-circle">5</span>
+                    </a> --}}
 
                     <div class="cart-overlay"></div>
 
@@ -223,11 +231,11 @@
                             </div>
                             <!-- End .dropdown-cart-total -->
 
-                            <div class="dropdown-cart-action">
+                            {{-- <div class="dropdown-cart-action">
                                 <a href="cart.html" class="btn btn-gray btn-block view-cart">View
                                     Cart</a>
                                 <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
-                            </div>
+                            </div> --}}
                             <!-- End .dropdown-cart-total -->
                         </div>
                         <!-- End .dropdownmenu-wrapper -->

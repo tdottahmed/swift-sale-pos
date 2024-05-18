@@ -6,7 +6,7 @@
 
             <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
                 <li>
-                    <a href="{{ route('frontend.cart') }}">Shopping Cart -></a>
+                    <a href="{{ route('frontend.cart',Auth::user()->id) }}">Shopping Cart -></a>
                 </li>
                 <li>
                     <a href="{{ route('frontend.checkout') }}">Checkout -></a>
@@ -23,7 +23,7 @@
                         <table class="table table-cart">
                             <thead>
                                 <tr>
-                                    <th class="thumbnail-col"></th>
+                                    <th class="thumbnail-col">Image</th>
                                     <th class="product-col">Product</th>
                                     <th class="price-col">Price</th>
                                     <th class="qty-col">Quantity</th>
@@ -31,109 +31,57 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach ($cartItems as $cartItem)
+                                @php
+                                    $product = $products->where('id', $cartItem->product_id)->first();
+                                @endphp
                                 <tr class="product-row">
                                     <td>
                                         <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{{ asset('porto') }}/assets/images/products/product-4.jpg"
-                                                    alt="product" height="120" width="120">
+                                            <a href="{{ route('frontend.single-product', $product->id) }}" class="product-image">
+                                                <img src="{{ imagePath($product->image) }}" alt="product" height="120" width="120">
                                             </a>
-
                                             <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
                                         </figure>
                                     </td>
                                     <td class="product-col">
                                         <h5 class="product-title">
-                                            <a href="product.html">Men Watch</a>
+                                            <a href="{{ route('frontend.single-product', $product->id) }}">{{ $product->name }}</a>
                                         </h5>
                                     </td>
-                                    <td>$17.90</td>
+                                    <td>${{ $product->selling_price }}</td>
                                     <td>
                                         <div class="product-single-qty">
-                                            <input class="horizontal-quantity form-control" type="text">
-                                        </div><!-- End .product-single-qty -->
+                                            <input class="horizontal-quantity form-control" type="number" value="{{ $cartItem->quantity }}" min="1">
+                                        </div>
                                     </td>
-                                    <td class="text-right"><span class="subtotal-price">$17.90</span></td>
+                                    <td class="text-right"><span class="subtotal-price">${{ $product->selling_price * $cartItem->quantity }}</span></td>
                                 </tr>
-
-                                <tr class="product-row">
-                                    <td>
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{{ asset('porto') }}/assets/images/products/product-3.jpg"
-                                                    alt="product" height="120" width="120">
-                                            </a>
-
-                                            <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                        </figure>
-                                    </td>
-                                    <td class="product-col">
-                                        <h5 class="product-title">
-                                            <a href="product.html">Men Watch</a>
-                                        </h5>
-                                    </td>
-                                    <td>$17.90</td>
-                                    <td>
-                                        <div class="product-single-qty">
-                                            <input class="horizontal-quantity form-control" type="text">
-                                        </div><!-- End .product-single-qty -->
-                                    </td>
-                                    <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                                </tr>
-
-                                <tr class="product-row">
-                                    <td>
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{{ asset('porto') }}/assets/images/products/product-6.jpg"
-                                                    alt="product" height="120" width="120">
-                                            </a>
-
-                                            <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                        </figure>
-                                    </td>
-                                    <td class="product-col">
-                                        <h5 class="product-title">
-                                            <a href="product.html">Men Black Gentle Belt</a>
-                                        </h5>
-                                    </td>
-                                    <td>$17.90</td>
-                                    <td>
-                                        <div class="product-single-qty">
-                                            <input class="horizontal-quantity form-control" type="text">
-                                        </div><!-- End .product-single-qty -->
-                                    </td>
-                                    <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                                </tr>
-                            </tbody>
+                            @endforeach
+                        </tbody>
 
 
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5" class="clearfix">
-                                        <div class="float-left">
-                                            <div class="cart-discount">
-                                                <form action="#">
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            placeholder="Coupon Code" required>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-sm" type="submit">Apply
-                                                                Coupon</button>
-                                                        </div>
-                                                    </div><!-- End .input-group -->
-                                                </form>
-                                            </div>
-                                        </div><!-- End .float-left -->
-
-                                        <div class="float-right">
-                                            <button type="submit" class="btn btn-shop btn-update-cart">
-                                                Update Cart
-                                            </button>
-                                        </div><!-- End .float-right -->
-                                    </td>
-                                </tr>
-                            </tfoot>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="clearfix">
+                                    <div class="float-left">
+                                        <div class="cart-discount">
+                                            <form action="#">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-sm" placeholder="Coupon Code" required>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-sm" type="submit">Apply Coupon</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-shop btn-update-cart">Update Cart</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
 
 
                         </table>
