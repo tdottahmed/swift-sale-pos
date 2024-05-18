@@ -3,6 +3,7 @@
 namespace App\View\Components\Frontend\Porto;
 
 use Closure;
+use App\Models\Frontend\Blog;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -11,9 +12,11 @@ class LatestNews extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $blog;
+
+    public function __construct(Blog $blog)
     {
-        //
+        $this->blog = $blog;  
     }
 
     /**
@@ -21,6 +24,7 @@ class LatestNews extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.frontend.porto.latest-news');
+        $blogs = $this->blog->all();
+        return view('components.frontend.porto.latest-news',['blogs'=>$blogs]);
     }
 }

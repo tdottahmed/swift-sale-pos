@@ -313,6 +313,16 @@
             @endcan
                 </li>
 
+                <li class="nav-item">
+            {{-- @can('view product') --}}
+                    <a href="{{ route('blog.index') }}"
+                        class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>Blog</span>
+                    </a>
+            {{-- @endcan --}}
+                </li>
+
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
                         <i class="icon-target2"></i>

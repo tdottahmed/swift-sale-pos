@@ -22,12 +22,13 @@
                         }
                     }
                 }">
+                @foreach ($blogs as $blog )
                 <article class="post">
+
+                        
+                    
                     <div class="post-media">
-                        <a href="single.html">
-                            <img src="assets/images/blog/home/post-1.jpg" alt="Post" width="225"
-                                height="280">
-                        </a>
+                        <img class="slide-bg" src="{{ imagePath($blog->image) }}" width="200" height="200" alt="slider image">
                         <div class="post-date">
                             <span class="day">26</span>
                             <span class="month">Feb</span>
@@ -37,7 +38,7 @@
 
                     <div class="post-body">
                         <h2 class="post-title">
-                            <a href="single.html">Top New Collection</a>
+                            <a href="single.html">{{$blog->title}}</a>
                         </h2>
                         <div class="post-content">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non
@@ -47,90 +48,10 @@
                         <a href="single.html" class="post-comment">0 Comments</a>
                     </div>
                     <!-- End .post-body -->
+                 
                 </article>
-                <!-- End .post -->
+                @endforeach
 
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="{{ asset('porto') }}/assets/images/blog/home/post-2.jpg" alt="Post"
-                                width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
-                    <!-- End .post-media -->
 
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Fashion Trends</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Leap into electronic typesetting, remaining essentially unchanged. It was popularised in
-                                the 1960s with the release of...</p>
-                        </div>
-                        <!-- End .post-content -->
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                    <!-- End .post-body -->
-                </article>
-                <!-- End .post -->
-
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="{{ asset('porto') }}/assets/images/blog/home/post-3.jpg" alt="Post"
-                                width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
-                    <!-- End .post-media -->
-
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Right Choices</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the...</p>
-                        </div>
-                        <!-- End .post-content -->
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                    <!-- End .post-body -->
-                </article>
-                <!-- End .post -->
-
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="{{ asset('porto') }}/assets/images/blog/home/post-4.jpg" alt="Post"
-                                width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
-                    <!-- End .post-media -->
-
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Perfect Accessories</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Leap into electronic typesetting, remaining essentially unchanged. It was popularised in
-                                the 1960s with the release of...</p>
-                        </div>
-                        <!-- End .post-content -->
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                    <!-- End .post-body -->
-                </article>
-                <!-- End .post -->
+ 
             </div>
