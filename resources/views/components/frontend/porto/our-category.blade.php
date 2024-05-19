@@ -6,13 +6,13 @@
             </h2>
 
 
-            @foreach ($categories as $category)
             {{-- @dd($category) --}}
             <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
+                @foreach ($categories as $category)
                 <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
                     <a href="category.html">
                         <figure>
-                            <img src="{{ asset('storage/brand') . '/' . $category->image }}"
+                            <img src="{{ imagePath($category->image) }}"
                                 alt="category" width="280" height="240" />
                         </figure>
                         <div class="category-content">
@@ -21,11 +21,8 @@
                         </div>
                     </a>
                 </div>
-
-
-               
+                @endforeach
             </div>
-            @endforeach
             
         </div>
     </section>

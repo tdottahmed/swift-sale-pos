@@ -16,7 +16,7 @@
                 @foreach ($products as $product)
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="product.html">
+                        <a href="{{ route('frontend.single-product', $product->id) }}">
                             <img src="{{imagePath($product->image)}}" width="220"
                                 height="220" alt="product">
                             {{-- <img src="{{ asset('porto') }}/assets/images/products/product-6-2.jpg" width="220"

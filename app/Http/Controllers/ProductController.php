@@ -14,6 +14,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
@@ -24,12 +25,12 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('permission:view product', ['only' => ['index']]);
-        $this->middleware('permission:create product', ['only' => ['create','store']]);
-        $this->middleware('permission:update product', ['only' => ['update','edit']]);
+        $this->middleware('permission:create product', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update product', ['only' => ['update', 'edit']]);
         $this->middleware('permission:delete product', ['only' => ['destroy']]);
-        $this->middleware('permission:import product', ['only' => ['import','excelStore','labelPrint','generateUniqueSKU','filterProduct']]);
+        $this->middleware('permission:import product', ['only' => ['import', 'excelStore', 'labelPrint', 'generateUniqueSKU', 'filterProduct']]);
     }
-    
+
     public function index()
     {
         $products = Product::latest()->get();
@@ -40,31 +41,6 @@ class ProductController extends Controller
         }
         return view('product.index', compact('products', 'stocks'));
     }
-
-    // public function indexApi(Request $request)
-    // {
-    //     $query = Product::query();
-
-    //     // Filter by category
-    //     if ($request->has('category')) {
-    //         $query->where('category', $request->category);
-    //     }
-
-    //     // Filter by brand
-    //     if ($request->has('brand')) {
-    //         $query->where('brand', $request->brand);
-    //     }
-
-    //     // Filter by SKU
-    //     if ($request->has('sku')) {
-    //         $query->where('sku', 'LIKE', '%' . $request->sku . '%');
-    //     }
-
-    //     $products = $query->get();
-
-
-    //     return response()->json($products);
-    // }
 
     public function create()
     {
@@ -80,54 +56,52 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
-            $image = null;
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
-            if ( $request->file('image')) {
-                $image =  uploadImage($request->file('image'), 'products/images');
+            if ($request->file('image_1')) {
+                $image =  uploadImage($request->file('image_1'), 'products/images');
             }
-            $data += $request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku');
+            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6',);
             $product = Product::create([
                 'uuid' => Str::uuid(),
                 'sku'  => $request->sku ? $request->sku : $this->generateProductSKU(),
                 'image' => $image
             ] + $data);
 
-            if ($request->product_type == 'single') {
+            $images = [];
+            foreach (range(1, 7) as $index) {
+                if ($request->hasFile('image_' . $index)) {
+                    $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
+                    $images['image_' . $index] = $imagePath;
+                }
+            }
+            ProductImage::create([
+                'product_id' => $product->id,
+            ] + $images);
+
+            $variationData = $request->child;
+            foreach ($variationData['value'] as $key => $value) {
                 Variation::create([
                     'product_id' => $product->id,
-                    'variation_sku' => $request->variation_sku ?? $data['sku'],
-                    'value' => $request->value,
-                    'stock' => $request->stock,
-                    'purchase_inc' => $request->purchase_inc,
-                    'purchase_exc' => $request->purchase_exc,
-                    'selling_price' => $request->selling_price,
-                    'profit_marging' => $request->profit_marging,
-                    'variation_image' => $request->variation_image,
+                    'product_variation' => $request->variation_name,
+                    'value' => $variationData['value'][$key] ?? null,
+                    'stock' => $variationData['stock'][$key] ?? null,
+                    'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'] . '-' . $key,
+                    'value' => $value,
+                    'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
+                    'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
+                    'selling_price' => $variationData['selling_price'][$key] ?? null,
+                    'profit_marging' => $variationData['profit_marging'][$key] ?? null,
+                    'variation_image' => $variationData['variation_image'][$key] ?? null,
+
+
                 ]);
-            } else {
-                $variationData = $request->child;
-                foreach ($variationData['value'] as $key => $value) {
-                    Variation::create([
-                        'product_id' => $product->id,
-                        'product_variation' => $request->product_variation,
-                        'value' => $variationData['value'][$key] ?? null,
-                        'stock' => $variationData['stock'][$key] ?? null,
-                        'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'] . '-' . $key,
-                        'value' => $value,
-                        'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
-                        'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
-                        'selling_price' => $variationData['selling_price'][$key] ?? null,
-                        'profit_marging' => $variationData['profit_marging'][$key] ?? null,
-                    ]);
-                }
             }
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -146,106 +120,69 @@ class ProductController extends Controller
         $sizes = Size::all();
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
-        $variations = Variation::where('product_id', $product->id)->get();
-
-        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product', 'variations'));
+        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         try {
-            $product = Product::findOrFail($id);
 
             if ($request->sku && $request->sku !== $product->sku) {
-                if (Product::where('sku', $request->sku)->exists()) {
-                    return back()->with('error', 'Product SKU already exists');
-                }
-                $product->sku = $request->sku;
+                return back()->with('error', 'Product SKU already exists');
             }
-
-            $image = $request->file('image');
-            if ($image) {
-                $path = public_path('storage/product/' . $product->image);
-                if (is_file($path)) {
-                    unlink($path);
-                }
-
-                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-
-                Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
-            } else {
-                $image_name = $product->image;
+            $data = [];
+            $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
+            if ($request->file('image_1')) {
+                $image =  uploadImage($request->file('image_1'), 'products/images');
+                $data['image'] = $image;
             }
+            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6',);
+            $product->update($data);
 
-            $product->update($request->except('child', 'variation_sku', 'stock', 'purchase_inc', 'purchase_exc', 'profit_marging', 'product_variation', 'enable_imei', 'sku'));
-
-            if ($request->product_type == 'single') {
-                $variation = Variation::where('product_id', $product->id)->first();
-                $variation->update([
-                    'variation_sku' => $request->variation_sku ?? $product->sku,
-                    'value' => $request->value,
-                    'stock' => $request->stock,
-                    'purchase_inc' => $request->purchase_inc,
-                    'purchase_exc' => $request->purchase_exc,
-                    'selling_price' => $request->selling_price,
-                    'profit_marging' => $request->profit_marging,
-                    'variation_image' => $request->variation_image,
-                ]);
-            } else {
-                $variationData = $request->child;
-                foreach ($variationData['value'] as $key => $value) {
-                    Variation::updateOrCreate(
-                        ['id' => $variationData['id'][$key] ?? null],
-                        [
-                            'product_id' => $product->id,
-                            'product_variation' => $request->product_variation,
-                            'value' => $variationData['value'][$key] ?? null,
-                            'stock' => $variationData['stock'][$key] ?? null,
-                            'variation_sku' => $variationData['variation_sku'][$key] ??  $product->sku . '-' . $key,
-                            'value' => $value,
-                            'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
-                            'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
-                            'selling_price' => $variationData['selling_price'][$key] ?? null,
-                            'profit_marging' => $variationData['profit_marging'][$key] ?? null,
-                        ]
-                    );
+            $images = [];
+            foreach (range(1, 7) as $index) {
+                if ($request->hasFile('image_' . $index)) {
+                    $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
+                    $images['image_' . $index] = $imagePath;
                 }
             }
-
+            $product->images()->updateOrCreate(
+                ['product_id' => $product->id],
+                $images
+            );
+            $variationData = $request->child;
+            foreach ($variationData['value'] as $key => $value) {
+                $variation = $product->variations()->where('variation_sku', $variationData['variation_sku'][$key])->first();
+                if ($variation) {
+                    $variation->update([
+                        'product_variation' => $request->variation_name,
+                        'value' => $variationData['value'][$key],
+                        'stock' => $variationData['stock'][$key],
+                        'variation_sku' => $variationData['variation_sku'][$key] ?? $data['sku'] . '-' . $key,
+                        'purchase_inc' => $variationData['purchase_inc'][$key],
+                        'purchase_exc' => $variationData['purchase_exc'][$key],
+                        'selling_price' => $variationData['selling_price'][$key],
+                        'profit_marging' => $variationData['profit_marging'][$key],
+                    ]);
+                } else {
+                    $product->variations()->create([
+                        'product_variation' => $request->variation_name,
+                        'value' => $variationData['value'][$key],
+                        'stock' => $variationData['stock'][$key],
+                        'variation_sku' => $variationData['variation_sku'][$key] ?? $data['sku'] . '-' . $key,
+                        'purchase_inc' => $variationData['purchase_inc'][$key],
+                        'purchase_exc' => $variationData['purchase_exc'][$key],
+                        'selling_price' => $variationData['selling_price'][$key],
+                        'profit_marging' => $variationData['profit_marging'][$key],
+                    ]);
+                }
+            }
             return redirect(route('product.index'))->with('success', 'Product updated successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
         }
     }
-
-    // public function update(Request $request, Product $product)
-    // {
-    //     dd('hello');
-    //     $image = $request->file('image');
-    //     if ($image) {
-    //         $path = public_path('storage/product/' . $product->image);
-    //         if (is_file($path)) {
-    //             unlink($path);
-    //         }
-
-    //         $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-
-    //         Image::make($image)->resize(200, 250)->save(public_path('storage/product/' . $image_name));
-    //     } else {
-    //         $image_name = $product->image;
-    //     }
-
-    //     $data = [];
-    //     $data['image'] = $image_name;
-
-    //     $data += $request->all();
-
-    //     $product->update($data);
-
-
-    //     return redirect(route('product.index'))->with('success', 'Product Info Updated Successfully');
-    // }
 
     public function destroy(Product $product)
     {
@@ -280,20 +217,11 @@ class ProductController extends Controller
         return $sku;
     }
 
-//     public function filterProduct($sku)
-//     {
-//         $variations = Variation::with('product')
-//             ->where('variation_sku', 'like', '%' . $sku . '%')
-//             ->get();
-// dd($variations->product);
-//         return response()->json(['variations' => $variations]);
-//     }
-
     public function filterProduct($sku)
     {
         $variations = Variation::with('product')
-                    ->where('variation_sku', 'like', '%' . $sku . '%')
-                    ->get();
+            ->where('variation_sku', 'like', '%' . $sku . '%')
+            ->get();
 
         // Initialize an empty array to store products
         $products = [];
@@ -322,5 +250,4 @@ class ProductController extends Controller
         } while ($existingProduct);
         return $sku;
     }
-
 }
