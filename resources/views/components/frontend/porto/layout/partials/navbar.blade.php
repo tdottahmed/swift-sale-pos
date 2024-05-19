@@ -300,7 +300,7 @@
 
                     <li><a href="blog.html">Blog</a></li>
 
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
                     <li class="float-right"><a href="https://1.envato.market/DdLk5" rel="noopener" class="pl-5"
                             target="_blank">Buy Porto!</a></li>
                     <li class="float-right"><a href="#" class="pl-5">Special Offer!</a></li>
