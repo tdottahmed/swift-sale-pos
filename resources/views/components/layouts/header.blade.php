@@ -63,7 +63,7 @@
 							<ul class="media-list">
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Jordana Ansley</a>
@@ -74,7 +74,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Will Brason</a>
@@ -85,7 +85,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Hanna Walden</a>
@@ -96,7 +96,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Dori Laperriere</a>
@@ -107,7 +107,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<a href="#" class="media-title text-white font-weight-semibold">Vanessa Aurelius</a>
@@ -198,7 +198,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -214,7 +214,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -230,7 +230,7 @@
 
 								<li class="media">
 									<div class="mr-3">
-										<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
+										<img src="{{avatar()}}" width="36" height="36" class="rounded-circle" alt="">
 									</div>
 									<div class="media-body">
 										<div class="media-title">
@@ -258,7 +258,7 @@
 
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="{{asset('limitless/global_assets/images/placeholders/placeholder.jpg')}}" class="rounded-circle mr-2" height="34" alt="">
+						<img src="{{avatar()}}" class="rounded-circle mr-2" height="34" alt="">
 						<span>{{auth()->user()->name ?? ''}}</span>
 
 						{{-- <img src="{{ url(auth()->user()->image ?? '') }}" class="user-image img-profil"
@@ -279,7 +279,7 @@
 						</form>
 
 
-						{{-- @if (auth()->user()->personalizeSettings->theme=='default' ?? 'default')							
+						@if (auth()->user()->personalizeSettings->theme=='default' ?? 'default')							
 							<form  action="{{route('theme.update')}}" method="POST"> 
 								@csrf
 								<input type="hidden" value="dark" name="theme">
@@ -293,7 +293,7 @@
 								<button class="dropdown-item"><i class="icon-enter2"></i> Switch Light Mode
 								</button> 
 							</form>
-						@endif --}}
+						@endif
 					</div>
 				</li>
 			</ul>

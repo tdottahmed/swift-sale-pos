@@ -1,70 +1,4 @@
 <header class="header">
-    <div class="header-top">
-        <div class="container">
-            <div class="header-left d-none d-sm-block">
-                <p class="top-message text-uppercase">FREE Returns. Standard Shipping Orders $99+</p>
-            </div>
-            <!-- End .header-left -->
-
-            <div class="header-right header-dropdowns ml-0 ml-sm-auto w-sm-100">
-                <div class="header-dropdown dropdown-expanded d-none d-lg-block">
-                    <a href="#">Links</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="dashboard.html">My Account</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="wishlist.html">My Wishlist</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="{{ route('login') }}" class="login-link">Log In</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <span class="separator"></span>
-
-                <div class="header-dropdown">
-                    <a href="#"><i class="flag-us flag"></i>ENG</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="#"><i class="flag-us flag mr-2"></i>ENG</a>
-                            </li>
-                            <li><a href="#"><i class="flag-fr flag mr-2"></i>FRA</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
-                    <a href="#">USD</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="#">EUR</a></li>
-                            <li><a href="#">USD</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <span class="separator"></span>
-
-                <div class="social-icons">
-                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"></a>
-                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"></a>
-                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank"></a>
-                </div>
-                <!-- End .social-icons -->
-            </div>
-            <!-- End .header-right -->
-        </div>
-        <!-- End .container -->
-    </div>
-    <!-- End .header-top -->
-
     <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
@@ -115,6 +49,9 @@
                 </div>
                 <!-- End .header-search -->
 
+                @if (auth()->user()->roles =="admin")
+                    Hello
+                @endif
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                     <img alt="phone" src="{{ asset('porto') }}/assets/images/phone.png" width="30" height="30"
                         class="pb-1">
@@ -129,11 +66,13 @@
                     @php
                         $cartCount = Auth::user() ? Auth::user()->cart()->count() : 0;
                     @endphp
-                    <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
-                       >
-                        <i class="minicart-icon"></i>
-                        <span class="cart-count badge-circle">{{ $cartCount }}</span>
-                    </a>
+                   @auth
+                   <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
+                    >
+                     <i class="minicart-icon"></i>
+                     <span class="cart-count badge-circle">{{ $cartCount }}</span>
+                 </a>
+                   @endauth
                     {{-- <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-display="static">

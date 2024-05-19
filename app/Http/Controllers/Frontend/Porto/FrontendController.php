@@ -11,6 +11,7 @@ use App\Models\ContactUs;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ProductReview;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -93,5 +94,17 @@ class FrontendController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Message sent successfully!');
+    }
+    
+    public function reviewStore(Request $request)
+    {
+       $data = $request->except('_token');
+        try {
+            ProductReview::create($data);
+            return redirect()->back()->with('success', 'review posted successfully!');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->back()->with('success', $th->getMessage());
+        }
     }
 }
