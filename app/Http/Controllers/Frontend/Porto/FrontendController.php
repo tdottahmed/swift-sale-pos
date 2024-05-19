@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ContactUs;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ProductReview;
@@ -65,12 +67,35 @@ class FrontendController extends Controller
     {
         return view('frontend.porto.checkout');
     }
+    public function contact()
+    {
+        return view('frontend.porto.contact');
+    }
     public function categoryWiseProduct(Category $category)
     {
         $products = Product::where('category', $category->title)->get();
 
         return view('frontend.porto.product.category-wise', compact('products'));
     }
+
+    public function storeContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        ContactUs::create([
+            'uuid' => Str::uuid(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->back()->with('success', 'Message sent successfully!');
+    }
+    
     public function reviewStore(Request $request)
     {
        $data = $request->except('_token');
