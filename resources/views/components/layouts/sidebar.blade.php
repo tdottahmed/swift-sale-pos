@@ -23,7 +23,7 @@
                 <div class="media">
                     <div class="mr-3">
                         <a href="#"><img
-                                src="{{ asset('limitless/global_assets/images/placeholders/placeholder.jpg') }}"
+                                src="{{ avatar() }}"
                                 width="38" height="38" class="rounded-circle" alt=""></a>
                     </div>
 

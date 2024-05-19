@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use App\Services\Avatar;
 use Illuminate\Support\Str;
 use App\Models\Organization;
@@ -41,3 +42,17 @@ use Illuminate\Support\Facades\Storage;
     return $image;
  }
    
+
+ function customAvatar($name)
+ {
+    return Avatar::create(Str::upper($name));
+ }
+
+ function readableDate($date)
+    {
+        $date = Carbon::parse($date);
+        $day = $date->format('jS');
+        $month = $date->format('F');
+        $year = $date->format('Y');
+        return "$day $month, $year";
+    }

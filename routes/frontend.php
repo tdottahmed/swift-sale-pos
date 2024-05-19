@@ -12,3 +12,4 @@ Route::get('/cart/{user}', [FrontendController::class, 'cart'])->name('frontend.
 Route::post('/add-to-cart', [FrontendController::class, 'addToCart'])->name('frontend.cart.add');
 //checkout
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+Route::post('/review/store', [FrontendController::class, 'reviewStore'])->name('review.post');

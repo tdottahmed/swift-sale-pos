@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ProductReview;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -69,5 +70,16 @@ class FrontendController extends Controller
         $products = Product::where('category', $category->title)->get();
 
         return view('frontend.porto.product.category-wise', compact('products'));
+    }
+    public function reviewStore(Request $request)
+    {
+       $data = $request->except('_token');
+        try {
+            ProductReview::create($data);
+            return redirect()->back()->with('success', 'review posted successfully!');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->back()->with('success', $th->getMessage());
+        }
     }
 }
