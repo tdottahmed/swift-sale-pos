@@ -29,8 +29,8 @@
 											</a>
 
 											<div class="dropdown-menu dropdown-menu-right">
-												<a href="{{ route('blog.edit', $blog->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit blog</a>
-                                                <form style="display:inline" action="{{ route('blog.destroy', $blog->id) }}"
+												<a href="{{ route('blogs.edit', $blog->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit blog</a>
+                                                <form style="display:inline" action="{{ route('blogs.destroy', $blog->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
@@ -56,7 +56,7 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('blog.create') }}" class="btn 
+            <a href="{{ route('blogs.create') }}" class="btn 
             btn-sm 
             bg-success 
             border-2 

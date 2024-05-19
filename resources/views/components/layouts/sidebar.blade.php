@@ -315,7 +315,7 @@
 
                 <li class="nav-item">
             {{-- @can('view product') --}}
-                    <a href="{{ route('blog.index') }}"
+                    <a href="{{ route('blogs.index') }}"
                         class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
                         <span>Blog</span>

@@ -4,7 +4,7 @@
             {{ __('Insert Your Blog Info') }}
         </x-slot>
         <x-slot name="body">
-            <form action="{{ route('blog.store') }} " method="POST" enctype="multipart/form-data">
+            <form action="{{ route('blogs.store') }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title">Title:</label>
@@ -26,7 +26,7 @@
             </form>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('blog.index') }}" class="btn 
+            <a href="{{ route('blogs.index') }}" class="btn 
             btn-sm bg-indigo 
             border-2 
             border-indigo 

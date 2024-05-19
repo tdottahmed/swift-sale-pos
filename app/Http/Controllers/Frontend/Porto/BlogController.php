@@ -53,7 +53,7 @@ class BlogController extends Controller
             'image' => $productImagePath,
         ]);
 
-        return redirect(route('blog.index'))->with('success', 'Blog Insert Successfully');
+        return redirect(route('blogs.index'))->with('success', 'Blog Insert Successfully');
 
     }
 
@@ -88,7 +88,7 @@ class BlogController extends Controller
             'image' => $productImagePath,
         ]);
 
-        return redirect(route('blog.index'))->with('success', 'blog Updated Successfully');
+        return redirect(route('blogs.index'))->with('success', 'blog Updated Successfully');
     }
     
     /**
@@ -98,6 +98,6 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return redirect(route('blog.index'))->with('success', 'Category Deleted Successfully');
+        return redirect(route('blogs.index'))->with('success', 'Category Deleted Successfully');
     }
 }

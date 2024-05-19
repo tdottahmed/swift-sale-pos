@@ -45,13 +45,15 @@
                                 tellus sem. Aenean...</p>
                         </div>
                         <!-- End .post-content -->
-                        <a href="single.html" class="post-comment">0 Comments</a>
+                        <a class="text" class="post-comment">Total Comments{{$blog->comment->count()}}</a>
+                        
+                        <a class="text-end" href="{{route('comments.index',$blog->id)}}" class="post-comment">Show Comments</a>
                     </div>
                     <!-- End .post-body -->
                  
                 </article>
                 @endforeach
+</div>
 
 
- 
-            </div>
+  
