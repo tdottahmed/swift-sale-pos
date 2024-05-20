@@ -19,8 +19,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $brand->title }}</td>
-                                <td><img src="{{ asset('storage/brand') . '/' . $brand->image }}" width="100"
-                                        height="70" alt="no image"></td>
+                                <td><img src="{{ imagePath($brand->image) }}" width="100" height="70" alt="no image">
+                                </td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -67,7 +67,7 @@
             legitRipple 
             shadow 
             mr-1">
-            <i class="icon-plus2"></i></a>
+                <i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

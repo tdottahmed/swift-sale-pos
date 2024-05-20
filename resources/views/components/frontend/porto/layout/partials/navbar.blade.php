@@ -49,9 +49,7 @@
                 </div>
                 <!-- End .header-search -->
 
-                @if (auth()->user()->roles =="admin")
-                    Hello
-                @endif
+            
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                     <img alt="phone" src="{{ asset('porto') }}/assets/images/phone.png" width="30" height="30"
                         class="pb-1">

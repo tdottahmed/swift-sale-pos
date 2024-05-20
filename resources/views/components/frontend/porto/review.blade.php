@@ -2,8 +2,8 @@
     <div class="product-reviews-content">
         <h3 class="reviews-title">{{count($reviews)}} Review of <strong>{{$product->name}}</strong></h3>
 
+        @forelse ($reviews as $review)
         <div class="comment-list">
-            @forelse ($reviews as $review)
             <div class="comments">
                 <figure class="img-thumbnail">
 
@@ -14,9 +14,9 @@
                     <div class="comment-header">
                         <div class="comment-arrow"></div>
 
-                        <div class="ratings-container float-sm-right">
+                        <div class="ratings-container">
                             <div class="product-ratings">
-                                <span class="ratings" style="width:60%"></span>
+                                <span class="ratings" style="width:{{($review->rating)*20}}%;" ></span>
                                 <!-- End .ratings -->
                                 <span class="tooltiptext tooltip-top"></span>
                             </div>
@@ -33,13 +33,17 @@
                     </div>
                 </div>
             </div>
-            @empty
-                
-            @endforelse
-           
         </div>
-
         <div class="divider"></div>
+       
+
+            @empty
+            <div class="comment-content">
+                <p>No reviews Found</p>
+            </div>
+            @endforelse
+
+        
 
         <div class="add-product-review">
             <h3 class="review-title">Add a review</h3>

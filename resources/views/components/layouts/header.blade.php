@@ -1,18 +1,18 @@
+
 	<!-- Main navbar -->
 	<div class="navbar navbar-expand-md navbar-light bg-body navbar-static">
 
 		<!-- Header with logos -->
-		<div class="navbar-header sidebar-light bg-indigo-400 d-none d-md-flex align-items-md-center">
+		<div class="navbar-header bg-white-800 sidebar-light d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
 				<a href="index.html">					
-					{{-- <img src="{{ asset('storage/organization/' . (optional(organizationName())->logo ?? ' ')) }}" height="200px" width="100%"> --}}
-
+					<img src="{{ asset('logo/logo-no-background.png') }}" >
 				</a>
 			</div>
 			
 			<div class="navbar-brand navbar-brand-xs">
 				<a href="index.html" class="d-inline-block">
-					<img src="{{asset('limitless/global_assets/images/logo_icon_light.png')}}" alt="">
+					<img src="{{asset('shopping.png')}}" style="margin-left: 0px !important" alt="">
 				</a>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 		<div class="d-flex flex-1 d-md-none">
 			<div class="navbar-brand mr-auto">
 				<a href="index.html" class="d-inline-block">
-					<img src="{{asset('limitless/global_assets/images/logo_light.png')}}" alt="">
+					<img src="{{ asset('logo/logo-no-background.png') }}" alt="">
 				</a>
 			</div>	
 

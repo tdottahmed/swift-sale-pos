@@ -50,18 +50,23 @@
                     </div>
                     <!-- End .product-single-gallery -->
 
+                    @php
+                       $totalRatings = $product->reviews->sum('rating');
+                       $totalReview = count($product->reviews);
+                        $ratingWidth= $totalRatings/$totalReview;
+                    @endphp
                     <div class="col-lg-7 col-md-6 product-single-details">
                         <h1 class="product-title">{{ $product->name }}</h1>
 
                         <div class="ratings-container">
                             <div class="product-ratings">
-                                <span class="ratings" style="width:60%"></span>
+                                <span class="ratings" style="width:{{$ratingWidth ? $ratingWidth*20: 0}}%"></span>
                                 <!-- End .ratings -->
                                 <span class="tooltiptext tooltip-top"></span>
                             </div>
                             <!-- End .product-ratings -->
 
-                            <a href="#" class="rating-link">( 6 Reviews )</a>
+                            <a href="#" class="rating-link">( {{$totalReview ? $totalReview : 0}} Reviews )</a>
                         </div>
                         <!-- End .ratings-container -->
 
@@ -107,8 +112,10 @@
                                 data-product-id="{{ $product->id }}">Add to
                                 Cart</a>
 
+                            @auth
                             <a href="{{ route('frontend.cart', Auth::user()->id) }}"
                                 class="btn btn-gray view-cart d-none">View cart</a>
+                            @endauth
                         </div>
                         <!-- End .product-action -->
 
@@ -164,7 +171,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="product-tab-reviews" data-toggle="tab"
                             href="#product-reviews-content" role="tab" aria-controls="product-reviews-content"
-                            aria-selected="false">Reviews (1)</a>
+                            aria-selected="false">Reviews ({{$totalReview ? $totalReview : 0}})</a>
                     </li>
                 </ul>
 

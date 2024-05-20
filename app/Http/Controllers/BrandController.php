@@ -30,28 +30,16 @@ class BrandController extends Controller
 
   public function store(Request $request){
 
-        $image = $request->file('image');
-        // $request->validate([
-        //     'title'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
-
-        // dd($image);
-
-        if($image){
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
+        $productImagePath = null;
+        if ($request->file('image')) {
+            $productImagePath = uploadImage($request->file('image'), 'brand/images');
         }
-        
-
-
+    
         Brand::create([
             'uuid'=>Str::uuid(),
             'title'=>$request->title,
-            'image'=>$image_name,
+            'image'=>$productImagePath,
         ]);
-
         return redirect(route('brand.index'))->with('success','Brand Info Insert Successfully');
 
     }
@@ -68,28 +56,14 @@ class BrandController extends Controller
 
    public function update(Request $request, Brand $brand){
 
-        $image = $request->file('image');
-        // $request->validate([
-        //     'title'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
-
-         if($image){
-            $path = public_path('storage/brand/'.$brand->image);
-            if (is_file($path)) {
-        unlink($path);
-    }
-
-            $image_name = uniqid().'.'.$image->getClientOriginalExtension();
-
-            Image::make($image)->resize(200,250)->save(public_path('storage/brand/'.$image_name));
-        }else{
-            $image_name = $brand->image;
+        $productImagePath = null;
+        if ($request->file('image')) {
+            $productImagePath = uploadImage($request->file('image'), 'brand/images');
         }
         
          $brand->update([
             'title'=>$request->title,
-            'image'=>$image_name,
+            'image'=>$productImagePath,
         ]);
 
         return redirect(route('brand.index'))->with('success','Brand Updated Successfully');
