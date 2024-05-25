@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable();
-            $table->foreignId('branch_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            // $table->foreignId('branch_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('department_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->string('name')->nullable();

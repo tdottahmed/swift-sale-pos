@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->nullable();
             $table->foreignId('department_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('employee_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            $table->foreignId('leavetype_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('leave_type_id')->constrained('leave_types')->nullable();
             $table->string('title')->nullable();
             $table->date('from')->nullable();
             $table->date('to')->nullable();
