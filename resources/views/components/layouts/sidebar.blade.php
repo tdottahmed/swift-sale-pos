@@ -319,6 +319,15 @@
                         </a>
                     @endcan
                 </li>
+                <li class="nav-item">
+                    @can('view employee')
+                        <a href="{{ route('employee.index') }}"
+                            class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
+                            <i class="icon-users"></i>
+                            <span>Employee</span>
+                        </a>
+                    @endcan
+                </li>
 
                 <li class="nav-item">
                     {{-- @can('view product') --}}

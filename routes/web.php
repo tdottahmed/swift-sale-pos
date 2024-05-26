@@ -13,6 +13,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SubCategoryController;
@@ -76,6 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class);
     Route::resource('slider', SliderController::class);
     Route::resource('/department', DepartmentController::class);
+
+    Route::resource('/employee', EmployeeController::class);
 
 
     // product table

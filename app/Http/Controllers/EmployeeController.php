@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Department;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view employee', ['only' => ['index']]);
+        $this->middleware('permission:create employee', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update employee', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete employee', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        //
+        $employees = Employee::all();
+        $departments = Department::all();
+        return view('employee.index', compact('employees', 'departments'));
     }
 
     /**
@@ -28,7 +37,35 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        try {
+            $productImagePath = null;
+            if ($request->file('image')) {
+                $productImagePath = uploadImage($request->file('image'), 'employees/images');
+            }
+
+            Employee::create([
+                'uuid'          => Str::uuid(),
+                'department_id' => $request->department_id,
+                'role_id'       => 2,
+                'name'          => $request->name,
+                'phone_number'  => $request->phone_number,
+                'email'         => $request->email,
+                'dob'           => $request->dob,
+                'nid'           => $request->nid,
+                'address'       => $request->address,
+                'city'          => $request->city,
+                'country'       => $request->country,
+                'staff_id'      => $request->staff_id,
+                'user_name'     => $request->user_name,
+                'password'      => $request->password,
+                'image'         => $productImagePath,
+            ]);
+            return redirect()->back()->with('success', 'Employee created Successfully');
+        } catch (\Throwable $th) {
+            dd($th);
+            return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 
     /**
@@ -44,7 +81,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('employee.edit', compact('employee'));
     }
 
     /**
@@ -52,7 +89,32 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        try {
+            $productImagePath = null;
+            if ($request->file('image')) {
+                $productImagePath = uploadImage($request->file('image'), 'employees/images');
+            }
+
+            $employee->update([
+                'department_id' => $request->department_id,
+                'role_id'       => 2,
+                'name'          => $request->name,
+                'phone_number'  => $request->phone_number,
+                'email'         => $request->email,
+                'dob'           => $request->dob,
+                'nid'           => $request->nid,
+                'address'       => $request->address,
+                'city'          => $request->city,
+                'country'       => $request->country,
+                'staff_id'      => $request->staff_id,
+                'user_name'     => $request->user_name,
+                'password'      => $request->password,
+                'image'         => $productImagePath,
+            ]);
+            return redirect()->back()->with('success', 'Employee Updated Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something Went Wrong');
+        }
     }
 
     /**
@@ -60,6 +122,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect(route('employee.index'))->with('success', 'Employee Deleted Successfully');
     }
 }
