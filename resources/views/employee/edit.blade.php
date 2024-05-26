@@ -67,7 +67,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">Address</label>
                     <div class="col-sm-9">
-                        <textarea name="address" id="address" class="form-control" cols="50" rows="5">value="{{ $employee->address }}"</textarea>
+                        <textarea name="address" id="address" class="form-control" cols="50" rows="5">{{ $employee->address }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">

@@ -81,7 +81,9 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employee.edit', compact('employee'));
+        $departments = Department::all();
+
+        return view('employee.edit', compact('employee', 'departments'));
     }
 
     /**
