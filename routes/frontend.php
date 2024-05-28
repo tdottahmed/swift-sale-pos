@@ -14,6 +14,15 @@ Route::get('/single-product/{product}', [FrontendController::class, 'singleProdu
 // Route::get('/cart/{user}', [FrontendController::class, 'cart'])->name('frontend.cart');
 // Route::post('/add-to-cart', [FrontendController::class, 'addToCart'])->name('frontend.cart.add');
 //checkout
+Route::get('/cart/{user}', [FrontendController::class, 'cart'])->name('frontend.cart');
+Route::post('/add-to-cart', [FrontendController::class, 'addToCart'])->name('frontend.cart.add');
+//checkout
+Route::get('/checkouts', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
+Route::post('/contact-us', [FrontendController::class, 'storeContact'])->name('frontend.contact-us.store');
+// Route::get('/cart/{user}', [FrontendController::class, 'cart'])->name('frontend.cart');
+// Route::post('/add-to-cart', [FrontendController::class, 'addToCart'])->name('frontend.cart.add');
+//checkout
 // Route::get('/checkouts', [FrontendController::class, 'checkout'])->name('frontend.checkout');
 
 
@@ -21,6 +30,10 @@ Route::get('/single-product/{product}', [FrontendController::class, 'singleProdu
 Route::resource('/blogs', BlogController::class);
 
 // Route::middleware('auth')->group(function () {
+Route::resource('comments', CommentController::class);
+// });
+Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+Route::post('/review/store', [FrontendController::class, 'reviewStore'])->name('review.post');
     Route::resource('comments', CommentController::class);
 // });
 

@@ -22,9 +22,8 @@
             <div class="card-body">
                 <div class="media">
                     <div class="mr-3">
-                        <a href="#"><img
-                                src="{{ asset('limitless/global_assets/images/placeholders/placeholder.jpg') }}"
-                                width="38" height="38" class="rounded-circle" alt=""></a>
+                        <a href="#"><img src="{{ avatar() }}" width="38" height="38"
+                                class="rounded-circle" alt=""></a>
                     </div>
 
                     <div class="media-body">
@@ -69,16 +68,16 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="User Management">
                         <li class="nav-item">
-            @can('view organization')
-                            <a href="{{ route('organization.index') }}"
-                                class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
-                                <i class="icon-copy"></i>
-                                <span>Organization</span>
-                            </a>
-            @endcan
+                            @can('view organization')
+                                <a href="{{ route('organization.index') }}"
+                                    class="nav-link {{ request()->routeIs('organization.index') ? 'active' : '' }}">
+                                    <i class="icon-copy"></i>
+                                    <span>Organization</span>
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-                            
+
                             <a href="{{ route('smtp.create') }}"
                                 class="nav-link {{ request()->routeIs('smtp.create') ? 'active' : '' }}">
                                 <i class="icon-cogs"></i>
@@ -98,30 +97,30 @@
 
                 <li class="nav-item nav-item-submenu">
                     <a href="" class="nav-link ">
-                        <i class="icon-users"></i>  
+                        <i class="icon-users"></i>
                         <span>User Management</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="User Management">
-            @can('view user')
+                        @can('view user')
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link ">
+                                    <i class="icon-user-plus"></i>Add User
+                                </a>
+                            </li>
+                        @endcan
                         <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link ">
-                                <i class="icon-user-plus"></i>Add User
-                            </a>
-                        </li>
-            @endcan
+                            @can('view role')
+                                <a href="{{ route('roles.index') }}" class="nav-link ">
+                                    <i class="icon-accessibility2"></i>Manage Role
+                                </a>
+                            </li>
+                        @endcan
                         <li class="nav-item">
-            @can('view role')
-                            <a href="{{route('roles.index')}}" class="nav-link ">
-                                <i class="icon-accessibility2"></i>Manage Role
-                            </a>
-                        </li>
-            @endcan
-                        <li class="nav-item">
-            @can('view permission')
-                            <a href="{{route('permissions.index')}}" class="nav-link ">
-                                <i class="icon-list2"></i>Manage Permission
-                            </a>
-            @endcan
+                            @can('view permission')
+                                <a href="{{ route('permissions.index') }}" class="nav-link ">
+                                    <i class="icon-list2"></i>Manage Permission
+                                </a>
+                            @endcan
                         </li>
                     </ul>
                 </li>
@@ -135,28 +134,28 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-            @can('view product')
-                            <a href="{{ route('product.index') }}"
-                                class="nav-link {{ request()->routeIs('product.index') ? 'active' : '' }}">
-                                <i class="icon-list"></i>Product List
-                            </a>
-            @endcan
+                            @can('view product')
+                                <a href="{{ route('product.index') }}"
+                                    class="nav-link {{ request()->routeIs('product.index') ? 'active' : '' }}">
+                                    <i class="icon-list"></i>Product List
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('create product')
-                            <a href="{{ route('product.create') }}"
-                                class="nav-link {{ request()->routeIs('product.create') ? 'active' : '' }}">
-                                <i class="icon-add-to-list"></i>Product Add
-                            </a>
-            @endcan
+                            @can('create product')
+                                <a href="{{ route('product.create') }}"
+                                    class="nav-link {{ request()->routeIs('product.create') ? 'active' : '' }}">
+                                    <i class="icon-add-to-list"></i>Product Add
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view product')
-                            <a href="{{ route('product.import') }}"
-                                class="nav-link {{ request()->routeIs('product.import') ? 'active' : '' }}">
-                                <i class="icon-file-upload"></i>Product Import
-                            </a>
-            @endcan
+                            @can('view product')
+                                <a href="{{ route('product.import') }}"
+                                    class="nav-link {{ request()->routeIs('product.import') ? 'active' : '' }}">
+                                    <i class="icon-file-upload"></i>Product Import
+                                </a>
+                            @endcan
                         </li>
 
                         <li class="nav-item">
@@ -167,60 +166,68 @@
                         </li>
 
                         <li class="nav-item">
-            @can('view brand')
-                            <a href="{{ route('brand.index') }}"
-                                class="nav-link {{ request()->routeIs('brand.index') ? 'active' : '' }}">
-                                <i class="icon-certificate"></i>Brand
-                            </a>
-            @endcan
-                        </li>
-                        <li class="nav-item">
-            @can('view product')
-                            <a href="{{ route('category.index') }}"
-                                class="nav-link {{ request()->routeIs('category.index') ? 'active' : '' }}">
-                                <i class="icon-align-left"></i>Category
-                            </a>
+                            @can('view brand')
+                                <a href="{{ route('brand.index') }}"
+                                    class="nav-link {{ request()->routeIs('brand.index') ? 'active' : '' }}">
+                                    <i class="icon-certificate"></i>Brand
+                                </a>
                             @endcan
                         </li>
                         <li class="nav-item">
-            @can('view subCategory')
-                            <a href="{{ route('subCategory.index') }}"
-                                class="nav-link {{ request()->routeIs('subCategory.index') ? 'active' : '' }}">
-                                <i class="icon-align-left"></i>Sub Category
-                            </a>
-            @endcan
+                            @can('view product')
+                                <a href="{{ route('category.index') }}"
+                                    class="nav-link {{ request()->routeIs('category.index') ? 'active' : '' }}">
+                                    <i class="icon-align-left"></i>Category
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view unit')
-                            <a href="{{ route('unit.index') }}"
-                                class="nav-link {{ request()->routeIs('unit.index') ? 'active' : '' }}">
-                                <i class="icon-meter-fast"></i>Unit
-                            </a>
-            @endcan
+                            @can('view subCategory')
+                                <a href="{{ route('subCategory.index') }}"
+                                    class="nav-link {{ request()->routeIs('subCategory.index') ? 'active' : '' }}">
+                                    <i class="icon-align-left"></i>Sub Category
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view barcodeType')
-                            <a href="{{ route('barcodeType.index') }}"
-                                class="nav-link {{ request()->routeIs('barcodeType.index') ? 'active' : '' }}">
-                                <i class="icon-file-upload"></i>Barcode Type
-                            </a>
-            @endcan
+                            @can('view unit')
+                                <a href="{{ route('unit.index') }}"
+                                    class="nav-link {{ request()->routeIs('unit.index') ? 'active' : '' }}">
+                                    <i class="icon-meter-fast"></i>Unit
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view color')
-                            <a href="{{ route('color.index') }}"
-                                class="nav-link {{ request()->routeIs('color.index') ? 'active' : '' }}">
-                                <i class="icon-paint-format"></i>Color
-                            </a>
-            @endcan
+                            @can('view barcodeType')
+                                <a href="{{ route('barcodeType.index') }}"
+                                    class="nav-link {{ request()->routeIs('barcodeType.index') ? 'active' : '' }}">
+                                    <i class="icon-file-upload"></i>Barcode Type
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view size')
-                            <a href="{{ route('size.index') }}"
-                                class="nav-link {{ request()->routeIs('size.index') ? 'active' : '' }}">
-                                <i class="icon-align-top"></i>Size
-                            </a>
-            @endcan
+                            @can('view color')
+                                <a href="{{ route('color.index') }}"
+                                    class="nav-link {{ request()->routeIs('color.index') ? 'active' : '' }}">
+                                    <i class="icon-paint-format"></i>Color
+                                </a>
+                            @endcan
+                        </li>
+                        <li class="nav-item">
+                            @can('view size')
+                                <a href="{{ route('size.index') }}"
+                                    class="nav-link {{ request()->routeIs('size.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Size
+                                </a>
+                            @endcan
+                        </li>
+                        <li class="nav-item">
+                            @can('view department')
+                                <a href="{{ route('department.index') }}"
+                                    class="nav-link {{ request()->routeIs('department.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Department
+                                </a>
+                            @endcan
                         </li>
 
                         <li class="nav-item">
@@ -238,13 +245,13 @@
                 <!-- End of uncommented section -->
 
                 <li class="nav-item">
-            {{-- @can('view ') --}}
+                    {{-- @can('view ') --}}
                     <a href="{{ route('pos.create') }}"
                         class="nav-link {{ request()->is('pos*') ? 'active' : '' }}">
                         <i class="icon-store2"></i>
                         <span>Point Of Sale</span>
                     </a>
-            {{-- @endcan --}}
+                    {{-- @endcan --}}
                 </li>
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link {{ request()->is('expense*') ? 'active' : '' }}">
@@ -253,28 +260,28 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-            @can('view payment-method')
-                            <a href="{{ route('payment-method.index') }}"
-                                class="nav-link {{ request()->is('payment-method*') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Payment Method
-                            </a>
-            @endcan
+                            @can('view payment-method')
+                                <a href="{{ route('payment-method.index') }}"
+                                    class="nav-link {{ request()->is('payment-method*') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Payment Method
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view expense-category')
-                            <a href="{{ route('expense-category.index') }}"
-                                class="nav-link {{ request()->is('expense-category*') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Expense Category
-                            </a>
-            @endcan
+                            @can('view expense-category')
+                                <a href="{{ route('expense-category.index') }}"
+                                    class="nav-link {{ request()->is('expense-category*') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Expense Category
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view expense')
-                            <a href="{{ route('expenses.index') }}"
-                                class="nav-link {{ request()->is('expenses*') ? 'active' : '' }}">
-                                <i class="icon-list2"></i>Expenses
-                            </a>
-            @endcan
+                            @can('view expense')
+                                <a href="{{ route('expenses.index') }}"
+                                    class="nav-link {{ request()->is('expenses*') ? 'active' : '' }}">
+                                    <i class="icon-list2"></i>Expenses
+                                </a>
+                            @endcan
                         </li>
                     </ul>
                 </li>
@@ -285,51 +292,60 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-            @can('view contact')
-                            <a href="{{ route('contacts.index', ['type' => 'supplier']) }}"
-                                class="nav-link {{ request()->input('type') === 'supplier' ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Supplier
-                            </a>
-            @endcan
+                            @can('view contact')
+                                <a href="{{ route('contacts.index', ['type' => 'supplier']) }}"
+                                    class="nav-link {{ request()->input('type') === 'supplier' ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Supplier
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view customer')
-                            <a href="{{ route('contacts.index', ['type' => 'customer']) }}"
-                                class="nav-link {{ request()->input('type') === 'customer' ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>Customer
-                            </a>
-            @endcan
+                            @can('view customer')
+                                <a href="{{ route('contacts.index', ['type' => 'customer']) }}"
+                                    class="nav-link {{ request()->input('type') === 'customer' ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Customer
+                                </a>
+                            @endcan
                         </li>
                         <li class="nav-item">
-            @can('view contact')
-                            <a href="{{ route('contacts.index') }}"
-                                class="nav-link {{ !request()->input('type') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>All Contacts
-                            </a>
-            @endcan
+                            @can('view contact')
+                                <a href="{{ route('contacts.index') }}"
+                                    class="nav-link {{ !request()->input('type') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>All Contacts
+                                </a>
+                            @endcan
                         </li>
                     </ul>
                 </li>
 
 
                 <li class="nav-item">
-            @can('view product')
-                    <a href="{{ route('repair.index') }}"
-                        class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
-                        <i class="icon-users"></i>
-                        <span>Repair</span>
-                    </a>
-            @endcan
+                    @can('view product')
+                        <a href="{{ route('repair.index') }}"
+                            class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
+                            <i class="icon-users"></i>
+                            <span>Repair</span>
+                        </a>
+                    @endcan
+                </li>
+                <li class="nav-item">
+                    @can('view employee')
+                        <a href="{{ route('employee.index') }}"
+                            class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
+                            <i class="icon-users"></i>
+                            <span>Employee</span>
+                        </a>
+                    @endcan
                 </li>
 
                 <li class="nav-item">
-            {{-- @can('view product') --}}
+                    {{-- @can('view product') --}}
                     <a href="{{ route('blogs.index') }}"
                         class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
                         <span>Blog</span>
                     </a>
-            {{-- @endcan --}}
+                    {{-- @endcan --}}
                 </li>
 
                 <li class="nav-item nav-item-submenu">
@@ -339,12 +355,12 @@
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
-            @can('view product')
-                            <a href="{{ route('campaign.index') }}"
-                                class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
-                                <i class="icon-paragraph-left2"></i>All Campaign
-                            </a>
-            @endcan
+                            @can('view product')
+                                <a href="{{ route('campaign.index') }}"
+                                    class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>All Campaign
+                                </a>
+                            @endcan
                         </li>
 
                     </ul>

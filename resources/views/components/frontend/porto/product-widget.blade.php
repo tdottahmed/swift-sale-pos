@@ -2,6 +2,7 @@
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter"
                     data-animation-delay="200">
                     <h4 class="section-sub-title">Featured Products</h4>
+                 
                     @foreach ($featureProducts as $featureProduct)                       
                     <div class="product-default left-details product-widget">
                         <figure>

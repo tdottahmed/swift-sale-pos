@@ -12,6 +12,8 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\SubCategoryController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SliderController;
+use App\Models\Department;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,19 +53,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // organization setting
-    Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function(){
-    Route:: get('/index','index')->name('index');
-    Route:: get('/create','create')->name('create');
-    Route:: post('/store','store')->name('store');
-    Route:: get('/edit/{organization}','edit')->name('edit');
-    Route:: post('/update/{organization}','update')->name('update');
-        });
+    Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function () {
+        Route::get('/index', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{organization}', 'edit')->name('edit');
+        Route::post('/update/{organization}', 'update')->name('update');
+    });
     Route::post('update/theme', [OrganizationController::class, 'updateTheme'])->name('theme.update');
-    Route::get('swift-sale/setup/smtp',[OrganizationController::class, 'createSmtp'])->name('smtp.create');
-    Route::post('swift-sale/setup/smtp',[OrganizationController::class, 'storeSmtp'])->name('smtp.store');
-    Route::get('swift-sale/setup/sms',[OrganizationController::class, 'createSmsGateway'])->name('sms.create');
-    Route::post('swift-sale/setup/sms',[OrganizationController::class, 'storeSmsGateway'])->name('sms.store');
-    
+    Route::get('swift-sale/setup/smtp', [OrganizationController::class, 'createSmtp'])->name('smtp.create');
+    Route::post('swift-sale/setup/smtp', [OrganizationController::class, 'storeSmtp'])->name('smtp.store');
+    Route::get('swift-sale/setup/sms', [OrganizationController::class, 'createSmsGateway'])->name('sms.create');
+    Route::post('swift-sale/setup/sms', [OrganizationController::class, 'storeSmsGateway'])->name('sms.store');
+
 
     // master table
     Route::resource('/brand', BrandController::class);
@@ -74,6 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subCategory', SubCategoryController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('slider', SliderController::class);
+    Route::resource('/department', DepartmentController::class);
+
+    Route::resource('/employee', EmployeeController::class);
+
+
 
 
     // product table
@@ -96,18 +104,18 @@ Route::middleware('auth')->group(function () {
 
     // Point of sell
     // Route::resource('pos', SellController::class);
-    Route::get('pos-create', [SaleController::class,'create'])->name('pos.create');
-    Route::post('pos-store', [SaleController::class,'store'])->name('pos.store');
+    Route::get('pos-create', [SaleController::class, 'create'])->name('pos.create');
+    Route::post('pos-store', [SaleController::class, 'store'])->name('pos.store');
     Route::get('single/product/{id}', [SaleController::class, 'singleProduct']);
-    Route::get('pos-list',[SaleController::class,'index'])->name('pos.index');
+    Route::get('pos-list', [SaleController::class, 'index'])->name('pos.index');
     Route::get('pos/invoice/{id}', [SaleController::class, 'invoice'])->name('pos.invoice');
-    Route::get('suspend-sale/{sale}',[SaleController::class, 'suspendSale'])->name('sale.suspend');
-    Route::get('pos/suspended-list',[SaleController::class,'suspendedList'])->name('suspended.list');
-    Route::get('pos/return/{sale}',[SaleController::class,'returnSale'])->name('return.sale');
-    Route::get('pos/returned-list',[SaleController::class,'returnedList'])->name('returned.list');
- 
+    Route::get('suspend-sale/{sale}', [SaleController::class, 'suspendSale'])->name('sale.suspend');
+    Route::get('pos/suspended-list', [SaleController::class, 'suspendedList'])->name('suspended.list');
+    Route::get('pos/return/{sale}', [SaleController::class, 'returnSale'])->name('return.sale');
+    Route::get('pos/returned-list', [SaleController::class, 'returnedList'])->name('returned.list');
+
     Route::resource('customer', CustomerController::class);
-    Route::get('product-filter/{sku}', [ProductController::class,'filterProduct'])->name('filterProduct');
+    Route::get('product-filter/{sku}', [ProductController::class, 'filterProduct'])->name('filterProduct');
 
     //Expenses
     Route::resource('expense-category', ExpenseCategoryController::class);
@@ -117,25 +125,24 @@ Route::middleware('auth')->group(function () {
     //Contacts
     // Route::resource('contact-type', ContactTypeController::class);
     Route::resource('contacts', ContactController::class);
-    Route::get('/compose-mail/{contact}',[ContactController::class, 'composeEmail'])->name('contact.composeEmail');
-    Route::post('/send-mail',[ContactController::class, 'sendEmail'])->name('contact.sendEmail');
-    Route::get('/compose-sms/{contact}',[ContactController::class, 'composeSms'])->name('contact.composeSms');
-    Route::post('/send-sms',[ContactController::class, 'sendSms'])->name('contact.sendSms');
+    Route::get('/compose-mail/{contact}', [ContactController::class, 'composeEmail'])->name('contact.composeEmail');
+    Route::post('/send-mail', [ContactController::class, 'sendEmail'])->name('contact.sendEmail');
+    Route::get('/compose-sms/{contact}', [ContactController::class, 'composeSms'])->name('contact.composeSms');
+    Route::post('/send-sms', [ContactController::class, 'sendSms'])->name('contact.sendSms');
 
     //Repair
     Route::resource('repair', RepairController::class);
 
     //Campaign
     Route::resource('campaign', CampaignController::class);
-    Route::get('send-campaign-email/{campaign}',[CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
-    Route::get('send-campaign-sms/{campaign}',[CampaignController::class, 'sendSms'])->name('campaign.sendSms');
-
+    Route::get('send-campaign-email/{campaign}', [CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
+    Route::get('send-campaign-sms/{campaign}', [CampaignController::class, 'sendSms'])->name('campaign.sendSms');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
-Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function() {
+Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function () {
 
     Route::resource('permissions', App\Http\Controllers\PermissionController::class);
     Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
@@ -147,5 +154,4 @@ Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function()
 
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
-
 });

@@ -59,7 +59,13 @@
     <script src="{{ asset('limitless/global_assets/js/demo_pages/ecommerce_product_list.js') }}"></script>
 
 
-
+    <style>
+		.navbar-brand img {
+			height: 35px !important;
+			display: block;
+            margin-left: 25px;
+		}
+    </style>
     <!-- /theme JS files -->
 
     @stack('css')
