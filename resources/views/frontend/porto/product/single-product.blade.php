@@ -108,8 +108,7 @@
                             </div>
                             <!-- End .product-single-qty -->
 
-                            <a href="#" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart"
-                                data-product-id="{{ $product->id }}">Add to
+                            <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart">Add to
                                 Cart</a>
 
                             @auth

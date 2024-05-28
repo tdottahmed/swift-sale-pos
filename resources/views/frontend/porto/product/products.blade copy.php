@@ -15,7 +15,7 @@
                                 <div class="product-label label-sale">-20%</div>
                             </div>
                             <div class="btn-icon-group">
-                                <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple" title="add to cart">
+                                <a href="#" class="btn-icon btn-add-cart product-type-simple" data-product-id="{{ $product->id }}" title="add to cart">
                                     <i class="icon-shopping-cart"></i>
                                 </a>
                                 <a href="#" class="btn-icon btn-icon-wish product-type-simple" title="wishlist"><i class="icon-heart"></i></a>
@@ -49,7 +49,4 @@
             @endforeach
         </div>
     </div>
-
-
 </x-frontend.porto.layout.master>
-

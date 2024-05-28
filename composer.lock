@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7168f5943743037b1da78426c987cc07",
+    "content-hash": "f4bdddb9151099e17fb7ddb8f5fedf0a",
     "packages": [
         {
             "name": "brick/math",
@@ -1191,6 +1191,70 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "hardevine/shoppingcart",
+            "version": "3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hardevine/LaravelShoppingcart.git",
+                "reference": "0785c08a0771957070ae1ade48cf70449771ec83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hardevine/LaravelShoppingcart/zipball/0785c08a0771957070ae1ade48cf70449771ec83",
+                "reference": "0785c08a0771957070ae1ade48cf70449771ec83",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/events": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11",
+                "illuminate/session": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0",
+                "orchestra/testbench": "~3.1",
+                "phpunit/phpunit": "~5.0 || ~6.0 || ~7.0 || ~10.0"
+            },
+            "suggest": {
+                "gloudemans/notify": "Simple flash notifications for Laravel"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cart": "Gloudemans\\Shoppingcart\\Facades\\Cart"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gloudemans\\Shoppingcart\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Gloudemans",
+                    "email": "info@robgloudemans.nl"
+                }
+            ],
+            "description": "Laravel Shoppingcart",
+            "keywords": [
+                "laravel",
+                "shoppingcart"
+            ],
+            "support": {
+                "issues": "https://github.com/hardevine/LaravelShoppingcart/issues",
+                "source": "https://github.com/hardevine/LaravelShoppingcart/tree/3.3"
+            },
+            "time": "2024-03-30T10:42:21+00:00"
         },
         {
             "name": "intervention/image",
@@ -3850,6 +3914,7 @@
         },
         {
             "name": "spatie/image",
+<<<<<<< HEAD
             "version": "3.6.3",
             "source": {
                 "type": "git",
@@ -3860,6 +3925,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/spatie/image/zipball/1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
                 "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+=======
+            "version": "3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image.git",
+                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image/zipball/e1423322494d5f5f00fa518756a87b6e7b19bd19",
+                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19",
+>>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
                 "shasum": ""
             },
             "require": {
@@ -3906,7 +3983,11 @@
                 "spatie"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/spatie/image/tree/3.6.3"
+=======
+                "source": "https://github.com/spatie/image/tree/3.6.1"
+>>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
             },
             "funding": [
                 {
@@ -3918,7 +3999,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-05-24T14:08:59+00:00"
+=======
+            "time": "2024-05-17T15:18:24+00:00"
+>>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
         },
         {
             "name": "spatie/image-optimizer",
@@ -9438,5 +9523,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

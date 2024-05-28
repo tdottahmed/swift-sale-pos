@@ -261,10 +261,9 @@
     <script src="{{ asset('porto') }}/assets/js/optional/isotope.pkgd.min.js"></script>
     <script src="{{ asset('porto') }}/assets/js/plugins.min.js"></script>
     <script src="{{ asset('porto') }}/assets/js/jquery.appear.min.js"></script>
-
     <!-- Main JS File -->
     <script src="{{ asset('porto') }}/assets/js/main.min.js"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.btn-add-cart').click(function(e) {
                 e.preventDefault();
@@ -282,7 +281,287 @@
                 });
             });
         });
+    </script> --}}
+    {{-- <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]'.attr('content'))
+            }
+        });
+    </script> --}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     </script>
+    <script type="text/javascript">
+        function addToCart(id) {  
+            $.ajax({
+                url: '{{ route("frontend.addToCart") }}',
+                type: 'POST',
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) { 
+                    if(response.status == true){
+                        window.location.href= "{{ route('frontend.cart') }}";
+                    }else{
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+    </script>
+    
+    {{-- <script type="text/javascript">
+        function addToCart(id) {  
+         $.ajax({
+            url: '{{route("frontend.addToCart")}}',
+            type: 'post',
+            data: {id:id},
+            dataType: 'json',
+            success: function (response) { 
+              
+             }
+         })
+        }
+   </script> --}}
+
+   <script>
+    $('.add').click(function(){
+      var qtyElement = $(this).parent().prev(); // Qty Input
+      var qtyValue = parseInt(qtyElement.val());
+      if (qtyValue < 10) {
+        qtyElement.val(qtyValue+1);
+        var rowId = $(this).data('id');
+        var newQty = qtyElement.val();
+        updateCart(rowId,newQty)
+      }            
+  });
+
+  $('.sub').click(function(){
+      var qtyElement = $(this).parent().next(); 
+      var qtyValue = parseInt(qtyElement.val());
+      if (qtyValue > 1) {
+          qtyElement.val(qtyValue-1);
+          var rowId = $(this).data('id');
+          var newQty = qtyElement.val();
+
+          updateCart(rowId,newQty)
+      }        
+  });
+
+  function updateCart(rowId,qty) { 
+      $.ajax({
+         url: '{{route("frontend.updateCart")}}',
+         data: {rowId : rowId, qty : qty},
+         type: 'post',
+         dataType: 'json',
+         success: function(response){
+            window.location.href = '{{ route("frontend.cart")}}'
+
+        //    if(response.status == true){
+        //     window.location.href = '{{ route("frontend.cart")}}'
+        //    }
+         }
+      });
+
+   }
+
+   function deleteItem(rowId) { 
+    if(confirm("Are You Sure You Want To Delete?")){
+        $.ajax({
+         url: '{{route("frontend.deleteItem.cart")}}',
+         data: {rowId : rowId},
+         type: 'post',
+         dataType: 'json',
+         success: function(response){
+            window.location.href = '{{ route("frontend.cart")}}'
+
+        //    if(response.status == true){
+        //     window.location.href = '{{ route("frontend.cart")}}'
+        //    }
+         }
+      });
+    }
+     
+
+   }
+
+   
+
+   </script>
+
+   <script>
+     $("#payment_one").click(function(){
+        if ($(this).is(":checked") == true){
+         $("#card-payment-form").addClass('d-none'); 
+        }
+     });
+
+     $("#payment_two").click(function(){
+        if($(this).is(":checked") == true){
+         $("#card-payment-form").removeClass('d-none'); 
+        }
+     });
+
+     $("#orderForms").submit(function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: '{{ route("frontend.processCheckout") }}',
+            type: 'post',
+            data: $(this).serializeArray(),
+            dataType: 'json',
+            success: function(response){
+               var errors = response.errors;
+               $('button[type="submit"]').prop('disabled',false);
+               
+               //frontend.thankyou
+
+               if(response.status == false){
+
+                if(errors.first_name){
+                  $("#first_name").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.first_name);
+               }else{
+                $("#first_name").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+
+               if(errors.last_name){
+                  $("#last_name").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.last_name);
+               }else{
+                $("#last_name").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+
+               if(errors.email){
+                  $("#email").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.email);
+               }else{
+                $("#email").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+               if(errors.country){
+                  $("#country").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.country);
+               }else{
+                $("#country").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+               if(errors.address){
+                  $("#address").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.address);
+               }else{
+                $("#address").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+               if(errors.state){
+                  $("#state").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.state);
+               }else{
+                $("#state").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+               if(errors.city){
+                  $("#city").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.city);
+               }else{
+                $("#city").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+
+               if(errors.mobile){
+                  $("#mobile").addClass('is-invalid')
+                     .siblings("p").addClass('invalid-feedback')
+                     .html(errors.mobile);
+               }else{
+                $("#mobile").removeClass('is-invalid')
+                     .siblings("p").removeClass('invalid-feedback')
+                     .html('');
+               }
+               }else{
+                window.location.href = "{{ url('thanks/') }}/"+response.orderId;
+               }
+
+
+
+
+
+            }
+
+        });
+     });
+
+    //  $("#country").change(function () {
+    //     $.ajax({
+    //         url: '{{ route("frontend.getOrderSummary") }}',
+    //         type: 'post',
+    //         data: {country_id: $(this).val()},
+    //         dataType: 'json',
+    //         success: function(response){
+    //           if(response.status == true){
+    //             $("#shippingAmount").html('$'+response.shippingCharge);
+    //             $("#grandTotal").html('$'+response.grandTotal);
+    //           }
+    //         }
+    //     });
+
+    //    });
+
+
+    $("#country").change(function () {
+    $.ajax({
+        url: '{{ route("frontend.getOrderSummary") }}',
+        type: 'post',
+        data: {
+            country_id: $(this).val(),
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        success: function(response){
+            if(response.status === true){
+                $("#shippingAmount").html('$' + response.shippingCharge);
+                $("#grandTotal").html('$' + response.grandTotal);
+            } else {
+                $("#shippingAmount").html('$0');
+                $("#grandTotal").html('$0'); // Adjust this if the grand total is not 0
+            }
+        },
+        error: function(xhr, status, error){
+            console.error('Error:', error);
+            $("#shippingAmount").html('$0');
+            $("#grandTotal").html('$0');
+        }
+    });
+});
+
+   </script>
+
+
 </body>
 
 
