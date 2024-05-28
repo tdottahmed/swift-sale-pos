@@ -10,6 +10,8 @@
                         <tr>
                             <th>SL</th>
                             <th>Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
                             <th>Email</th>
                             <th>Date Of Birth</th>
                             <th>Address</th>
@@ -21,6 +23,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employee->name }}</td>
+                                <td>{{ $employee->department->title }}</td>
+                                <td>{{ $employee->role->name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->dob }}</td>
                                 <td>{{ $employee->address }}</td>

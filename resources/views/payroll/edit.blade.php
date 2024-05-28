@@ -34,14 +34,7 @@
                 <div class="form-group row">
                         <label class="col-form-label col-sm-3">Amount</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" name="amount" id="date" value="{{ $payroll->amount }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-sm-3">Check In</label>
-                        <div class="col-sm-9">
-                            <input type="time" class="form-control" name="check_in" id="check_in" value="{{ $payroll->check_in }}">
+                            <input type="text" class="form-control" name="amount" id="date" value="{{ $payroll->amount }}">
                         </div>
                     </div>
 

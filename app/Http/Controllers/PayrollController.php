@@ -21,7 +21,7 @@ class PayrollController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        $payrolls = Payroll::all();
+        $payrolls = Payroll::with('employee','payment_method')->get();
         $payments = PaymentMethod::all();
         return view('payroll.index', compact('employees', 'payrolls', 'payments'));
     }

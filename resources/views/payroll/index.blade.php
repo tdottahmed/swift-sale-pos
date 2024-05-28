@@ -21,8 +21,8 @@
                         @foreach ($payrolls as $payroll)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $payroll->employee_id }}</td>
-                                <td>{{ $payroll->payment_method_id }}</td>
+                                <td>{{ $payroll->employee->name }}</td>
+                                <td>{{ $payroll->payment_method->title }}</td>
                                 <td>{{ $payroll->amount }}</td>
                                 <td>{{ $payroll->reference }}</td>
                                 <td>{{ $payroll->created_at }}</td>

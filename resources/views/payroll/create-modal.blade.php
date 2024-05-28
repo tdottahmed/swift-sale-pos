@@ -37,7 +37,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Amount</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="amount" id="date">
+                            <input type="number" class="form-control" name="amount" id="amount">
                         </div>
                     </div>
 
