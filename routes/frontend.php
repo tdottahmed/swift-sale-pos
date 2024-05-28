@@ -24,5 +24,5 @@ Route::resource('/blogs', BlogController::class);
 // Route::middleware('auth')->group(function () {
 Route::resource('comments', CommentController::class);
 // });
-Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+// Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
 Route::post('/review/store', [FrontendController::class, 'reviewStore'])->name('review.post');
