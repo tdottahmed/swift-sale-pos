@@ -149,6 +149,34 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update organization']);
         Permission::create(['name' => 'updateTheme organization']);
 
+
+        // Create Permissions for department
+        Permission::create(['name' => 'view department']);
+        Permission::create(['name' => 'create department']);
+        Permission::create(['name' => 'update department']);
+        Permission::create(['name' => 'delete department']);
+
+
+        // Create Permissions for holiday
+        Permission::create(['name' => 'view holiday']);
+        Permission::create(['name' => 'create holiday']);
+        Permission::create(['name' => 'update holiday']);
+        Permission::create(['name' => 'delete holiday']);
+
+
+        // Create Permissions for leaveType
+        Permission::create(['name' => 'view leaveType']);
+        Permission::create(['name' => 'create leaveType']);
+        Permission::create(['name' => 'update leaveType']);
+        Permission::create(['name' => 'delete leaveType']);
+
+
+        // Create Permissions for leaves
+        Permission::create(['name' => 'view leave']);
+        Permission::create(['name' => 'create leave']);
+        Permission::create(['name' => 'update leave']);
+        Permission::create(['name' => 'delete leave']);
+
         
         // Create Permissions for import product
         Permission::create(['name' => 'import product']);

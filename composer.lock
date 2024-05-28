@@ -3915,14 +3915,19 @@
         {
             "name": "spatie/image",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "3.6.1",
+=======
+            "version": "3.6.3",
+>>>>>>> aaa6c80 (Holiday, Leave Type & Leave crud)
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19"
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99"
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/spatie/image/zipball/e1423322494d5f5f00fa518756a87b6e7b19bd19",
                 "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19",
 =======
@@ -3950,6 +3955,10 @@
                 "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19",
 >>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
 >>>>>>> 582e794
+=======
+                "url": "https://api.github.com/repos/spatie/image/zipball/1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+>>>>>>> aaa6c80 (Holiday, Leave Type & Leave crud)
                 "shasum": ""
             },
             "require": {
@@ -3997,6 +4006,7 @@
             ],
             "support": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "source": "https://github.com/spatie/image/tree/3.6.1"
 =======
 <<<<<<< HEAD
@@ -4005,6 +4015,9 @@
                 "source": "https://github.com/spatie/image/tree/3.6.1"
 >>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
 >>>>>>> 582e794
+=======
+                "source": "https://github.com/spatie/image/tree/3.6.3"
+>>>>>>> aaa6c80 (Holiday, Leave Type & Leave crud)
             },
             "funding": [
                 {
@@ -4017,6 +4030,7 @@
                 }
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2024-05-17T15:18:24+00:00"
 =======
 <<<<<<< HEAD
@@ -4025,6 +4039,9 @@
             "time": "2024-05-17T15:18:24+00:00"
 >>>>>>> 3817b3c (complete add to cart,checkout, place order and shipping)
 >>>>>>> 582e794
+=======
+            "time": "2024-05-24T14:08:59+00:00"
+>>>>>>> aaa6c80 (Holiday, Leave Type & Leave crud)
         },
         {
             "name": "spatie/image-optimizer",

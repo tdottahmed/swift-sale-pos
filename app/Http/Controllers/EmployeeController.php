@@ -63,7 +63,7 @@ class EmployeeController extends Controller
             ]);
             return redirect()->back()->with('success', 'Employee created Successfully');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             return redirect()->back()->with('error', 'Something Went Wrong');
         }
     }

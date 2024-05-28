@@ -238,6 +238,33 @@
                                             </a>
                             @endcan
                                         </li>
+
+                        <li class="nav-item">
+                            @can('view holiday')
+                                <a href="{{ route('holiday.index') }}"
+                                    class="nav-link {{ request()->routeIs('holiday.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Holiday
+                                </a>
+                            @endcan
+                        </li>
+
+                        <li class="nav-item">
+                            @can('view leaveType')
+                                <a href="{{ route('leaveType.index') }}"
+                                    class="nav-link {{ request()->routeIs('leaveType.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Leave Type
+                                </a>
+                            @endcan
+                        </li>
+
+                        <li class="nav-item">
+                            @can('view leave')
+                                <a href="{{ route('leave.index') }}"
+                                    class="nav-link {{ request()->routeIs('leave.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Leave
+                                </a>
+                            @endcan
+                        </li>
                     </ul>
                 </li>
 
