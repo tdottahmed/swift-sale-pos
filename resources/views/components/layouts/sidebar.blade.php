@@ -328,15 +328,7 @@
                         </a>
                     @endcan
                 </li>
-                <li class="nav-item">
-                    @can('view employee')
-                        <a href="{{ route('employee.index') }}"
-                            class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
-                            <i class="icon-users"></i>
-                            <span>Employee</span>
-                        </a>
-                    @endcan
-                </li>
+               
 
                 <li class="nav-item">
                     {{-- @can('view product') --}}
@@ -359,6 +351,42 @@
                                 <a href="{{ route('campaign.index') }}"
                                     class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
                                     <i class="icon-paragraph-left2"></i>All Campaign
+                                </a>
+                            @endcan
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item nav-item-submenu">
+                    <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                        <i class="icon-target2"></i>
+                        <span>HRM</span>
+                    </a>
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                         <li class="nav-item">
+                            @can('view employee')
+                                <a href="{{ route('employee.index') }}"
+                                    class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
+                                    <i class="icon-users"></i>
+                                    <span>Employee</span>
+                                </a>
+                            @endcan
+                        </li>
+                        <li class="nav-item">
+                            @can('view attendance')
+                                <a href="{{ route('attendance.index') }}"
+                                    class="nav-link {{ request()->is('attendance*') ? 'active' : '' }}">
+                                    <i class="icon-users"></i>
+                                    <span>Attendance</span>
+                                </a>
+                            @endcan
+                        </li>
+                        <li class="nav-item">
+                            @can('view payroll')
+                                <a href="{{ route('payroll.index') }}"
+                                    class="nav-link {{ request()->is('payroll*') ? 'active' : '' }}">
+                                    <i class="icon-users"></i>
+                                    <span>Payroll</span>
                                 </a>
                             @endcan
                         </li>
