@@ -129,11 +129,11 @@
                     @php
                         $cartCount = Auth::user() ? Auth::user()->cart()->count() : 0;
                     @endphp
-                    <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
-                       >
+                    {{-- <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
+                       > --}}
                         <i class="minicart-icon"></i>
                         <span class="cart-count badge-circle">{{ $cartCount }}</span>
-                    </a>
+                    {{-- </a> --}}
                     {{-- <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-display="static">

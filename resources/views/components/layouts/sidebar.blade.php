@@ -222,6 +222,15 @@
                             </a>
             @endcan
                         </li>
+
+                        <li class="nav-item">
+                            @can('view size')
+                                            <a href="{{ route('shipping.index') }}"
+                                                class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
+                                                <i class="icon-align-top"></i>shipping
+                                            </a>
+                            @endcan
+                                        </li>
                     </ul>
                 </li>
 

@@ -6,7 +6,7 @@
 
             <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
                 <li>
-                    {{-- <a href="{{ route('frontend.cart',Auth::user()->id) }}">Shopping Cart -></a> --}}
+                    <a href="{{ route('frontend.cart',Auth::user()->id) }}">Shopping Cart -></a>
                 </li>
                 <li>
                     <a href="{{ route('frontend.checkout') }}">Checkout -></a>
@@ -17,28 +17,6 @@
             </ul>
 
             <div class="row">
-              {{-- <div class=""> --}}
-                 @if (Session::has('success'))
-                     <div class="col-lg-12">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                           {!! Session::get('success') !!}
-                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                     </div>
-                 @endif
-
-
-                 @if (Session::has('error'))
-                 <div class="col-lg-12">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                       {{ Session::get('error') }}
-                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                 </div>
-             @endif
-
-              {{-- </div> --}}
-              @if(Cart::count() > 0)
 
                 <div class="col-lg-8">
                     <div class="cart-table-container">
@@ -50,65 +28,41 @@
                                     <th class="price-col">Price</th>
                                     <th class="qty-col">Quantity</th>
                                     <th class="text-right">Subtotal</th>
-                                    <th class="text-right">Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($cartContent as $item)
-                            {{-- @dd($item); --}}
-                                {{-- @php
-                                    $product = $products->where('id', $item->product_id)->first();
-                                @endphp --}}
+                            @foreach ($cartItems as $cartItem)
+                                @php
+                                    $product = $products->where('id', $cartItem->product_id)->first();
+                                @endphp
                                 <tr class="product-row">
                                     <td>
                                         <figure class="product-image-container">
-                                            {{-- <a href="{{ route('frontend.single-product', $product->id) }}" class="product-image"> --}}
-                                                @if (!empty($item->options->productImage->image_1))
-                                                <img src="{{ imagePath($item->options->productImage->image_1) }}" alt="product" height="120" width="120">            
-                                                @else
-                                                <img src="{{ imagePath($item->options->productImage->image_1) }}" alt="product" height="120" width="120">            
-                                                @endif
-                                            {{-- </a> --}}
-                                            {{-- <a href="#" class="btn-remove icon-cancel" title="Remove Product" ></a> --}}
+                                            <a href="{{ route('frontend.single-product', $product->id) }}" class="product-image">
+                                                <img src="{{ imagePath($product->image) }}" alt="product" height="120" width="120">
+                                            </a>
+                                            <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
                                         </figure>
                                     </td>
                                     <td class="product-col">
                                         <h5 class="product-title">
-                                            <a href="">{{ $item->name }}</a>
+                                            <a href="{{ route('frontend.single-product', $product->id) }}">{{ $product->name }}</a>
                                         </h5>
                                     </td>
-                                    <td>${{ $item->price }}</td>
+                                    <td>${{ $product->selling_price }}</td>
                                     <td>
                                         <div class="product-single-qty">
-                                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                                                <span class="input-group-btn input-group-prepend">
-                                                    
-                                                    <button class="btn btn-outline btn-down-icon bootstrap-touchspin-down sub" type="button" data-id="{{$item->rowId}}"></button>
-                                                </span>
-                                                <input class="form-control" type="number" value="{{$item->qty}}" min="1">
-                                                <span class="input-group-btn input-group-append">
-                                                    <button class="btn btn-outline btn-up-icon bootstrap-touchspin-up add" type="button" data-id="{{$item->rowId}}"></button>
-                                                
-                                                </span>
-                                            </div>
+                                            <input class="horizontal-quantity form-control" type="number" value="{{ $cartItem->quantity }}" min="1">
                                         </div>
-                                        {{-- <div class="product-single-qty">
-                                            <input class="horizontal-quantity add sub form-control" type="number" value="{{ $item->qty }}" min="1">
-                                        </div> --}}
                                     </td>
-                                    <td class="text-right"><span class="subtotal-price">${{ $item->price * $item->qty }}</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger" onclick="deleteItem('{{$item->rowId}}')"><i class="fa fa-times"></i></button>
-                                    </td>
+                                    <td class="text-right"><span class="subtotal-price">${{ $product->selling_price * $cartItem->quantity }}</span></td>
                                 </tr>
-                                @endforeach
-                             
-                           
+                            @endforeach
                         </tbody>
 
 
                         <tfoot>
-                            {{-- <tr>
+                            <tr>
                                 <td colspan="5" class="clearfix">
                                     <div class="float-left">
                                         <div class="cart-discount">
@@ -126,7 +80,7 @@
                                         <button type="submit" class="btn btn-shop btn-update-cart">Update Cart</button>
                                     </div>
                                 </td>
-                            </tr> --}}
+                            </tr>
                         </tfoot>
 
 
@@ -142,16 +96,11 @@
                             <tbody>
                                 <tr>
                                     <td>Subtotal</td>
-                                    <td>${{Cart::subtotal()}}</td>
+                                    <td>$17.90</td>
                                 </tr>
 
-                                {{-- <tr>
-                                    <td>Shipping</td>
-                                    <td>$0</td>
-                                </tr> --}}
-
                                 <tr>
-                                    {{-- <td colspan="2" class="text-left">
+                                    <td colspan="2" class="text-left">
                                         <h4>Shipping</h4>
 
                                         <div class="form-group form-group-custom-control">
@@ -206,15 +155,15 @@
                                                 Update Totals
                                             </button>
                                         </form>
-                                    </td> --}}
+                                    </td>
                                 </tr>
                             </tbody>
 
                             <tfoot>
-                                {{-- <tr>
+                                <tr>
                                     <td>Total</td>
-                                    <td>${{Cart::subtotal()}}</td>
-                                </tr> --}}
+                                    <td>$17.90</td>
+                                </tr>
                             </tfoot>
                         </table>
 
@@ -225,15 +174,6 @@
                     </div><!-- End .cart-summary -->
                 </div><!-- End .col-lg-4 -->
 
-                @else
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body d-flex justify-content-center align-items-center">
-                            <h4>Your Cart is Empty!</h4>
-                        </div>
-                    </div>
-                </div>
-                @endif
             </div><!-- End .row -->
         </div><!-- End .container -->
 
