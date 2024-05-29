@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Employee;
 use App\Models\Leave;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LeaveController extends Controller
 {
@@ -12,7 +16,8 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        //
+        $leaves = leave::get();
+        return view('leave.index',compact('leaves',));
     }
 
     /**
@@ -20,7 +25,10 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::all();
+        return view('leave.create',compact('departments','employees','leaveTypes'));
     }
 
     /**
@@ -28,7 +36,22 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request->all());
+        Leave::create([
+            'uuid'=>Str::uuid(),
+            'department_id'=>$request->department_id,
+            // 'employee_id'=>$request->employee_id,
+            'leave_type_id'=>$request->leave_type_id,
+            'title'=>$request->title,
+            'from'=>$request->from,
+            'to'=>$request->to,
+            // 'status'=>$request->status,
+            'attachment'=>$request->attachment,
+            'description'=>$request->description,
+        ]);
+        return redirect(route('leave.index'))->with('success','Leave Insert Successfully');
+
     }
 
     /**

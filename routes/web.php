@@ -15,8 +15,11 @@ use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
@@ -27,8 +30,8 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SliderController;
-use App\Models\Department;
-use App\Models\Payroll;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +91,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/payroll', PayrollController::class);
 
 
+    Route::resource('/holiday', HolidayController::class);
+    Route::resource('/leaveType', LeaveTypeController::class);
+    Route::resource('/leave', LeaveController::class);
 
 
     // product table
