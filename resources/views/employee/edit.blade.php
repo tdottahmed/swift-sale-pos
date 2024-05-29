@@ -7,8 +7,9 @@
             <form action="{{ route('employee.update', $employee->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
-                <div class="mb-3">
-                    <label for="">{{ __('Select employee') }}</label>
+                 <div class="form-group row">
+                        <label class="col-form-label col-sm-3">{{ __('Select employee') }}</label>
+                         <div class="col-sm-9">
                     <select name="department_id" id="department_id" class="form-control select-search">
                         <option value="">-- Please select --</option>
                         @foreach ($departments as $department)
@@ -18,7 +19,9 @@
                             </option>
                         @endforeach
                     </select>
+                         </div>
                 </div>
+              
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">Name</label>
                     <div class="col-sm-9">
@@ -98,6 +101,20 @@
                             value="{{ $employee->user_name }}">
                     </div>
                 </div>
+                  <div class="form-group row">
+                        <label class="col-form-label col-sm-3">{{ __('Select Role') }}</label>
+                        <div class="col-sm-9">
+                            <select name="role_id" id="role_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                {{ $role->id == $employee->role_id ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">Password</label>
                     <div class="col-sm-9">

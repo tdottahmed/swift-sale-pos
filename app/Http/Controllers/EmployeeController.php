@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Employee;
 use App\Models\Department;
 use Illuminate\Support\Str;
@@ -19,9 +20,10 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::with('department','role')->get();
+        $roles= Role::all();
         $departments = Department::all();
-        return view('employee.index', compact('employees', 'departments'));
+        return view('employee.index', compact('employees', 'departments', 'roles'));
     }
 
     /**
@@ -82,8 +84,10 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all();
+        $roles = Role::all();
 
-        return view('employee.edit', compact('employee', 'departments'));
+
+        return view('employee.edit', compact('employee', 'departments', 'roles'));
     }
 
     /**

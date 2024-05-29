@@ -20,6 +20,7 @@
                             </select>
                         </div>
                     </div>
+                    
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3">Name</label>
@@ -89,6 +90,17 @@
                         <label class="col-form-label col-sm-3">User Name</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="user_name" id="user_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3">{{ __('Select Role') }}</label>
+                        <div class="col-sm-9">
+                            <select name="role_id" id="role_id" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

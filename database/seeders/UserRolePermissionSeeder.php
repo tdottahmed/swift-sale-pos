@@ -141,6 +141,16 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create employee']);
         Permission::create(['name' => 'update employee']);
         Permission::create(['name' => 'delete employee']);
+        // Create Permissions for attendance
+        Permission::create(['name' => 'view attendance']);
+        Permission::create(['name' => 'create attendance']);
+        Permission::create(['name' => 'update attendance']);
+        Permission::create(['name' => 'delete attendance']);
+        // Create Permissions for payroll
+        Permission::create(['name' => 'view payroll']);
+        Permission::create(['name' => 'create payroll']);
+        Permission::create(['name' => 'update payroll']);
+        Permission::create(['name' => 'delete employee']);
 
 
         // Create Permissions for organization

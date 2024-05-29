@@ -3867,6 +3867,7 @@
         },
         {
             "name": "spatie/image",
+<<<<<<< HEAD
             "version": "3.6.0",
             "source": {
                 "type": "git",
@@ -3877,6 +3878,50 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/spatie/image/zipball/2e848dcf5c6780455d3d15a3e8f1dcec2571e06b",
                 "reference": "2e848dcf5c6780455d3d15a3e8f1dcec2571e06b",
+=======
+
+            "version": "3.6.1",
+
+            "version": "3.6.3",
+
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image.git",
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99"
+            },
+            "dist": {
+                "type": "zip",
+
+                "url": "https://api.github.com/repos/spatie/image/zipball/e1423322494d5f5f00fa518756a87b6e7b19bd19",
+                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19",
+
+
+            "version": "3.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image.git",
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image/zipball/1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+
+            "version": "3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image.git",
+                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image/zipball/e1423322494d5f5f00fa518756a87b6e7b19bd19",
+                "reference": "e1423322494d5f5f00fa518756a87b6e7b19bd19",
+
+                "url": "https://api.github.com/repos/spatie/image/zipball/1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+                "reference": "1d4e9c536f1bf7b88e55555d0a1ae9eee6b76a99",
+
+>>>>>>> 5eca115
                 "shasum": ""
             },
             "require": {
@@ -3923,7 +3968,19 @@
                 "spatie"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/spatie/image/tree/3.6.0"
+=======
+
+
+                "source": "https://github.com/spatie/image/tree/3.6.1",
+
+                "source": "https://github.com/spatie/image/tree/3.6.3",
+                "source": "https://github.com/spatie/image/tree/3.6.1",
+
+                "source": "https://github.com/spatie/image/tree/3.6.3"
+
+>>>>>>> 5eca115
             },
             "funding": [
                 {
@@ -3936,6 +3993,15 @@
                 }
             ],
             "time": "2024-05-07T08:56:10+00:00"
+
+            "time": "2024-05-17T15:18:24+00:00",
+
+            "time": "2024-05-24T14:08:59+00:00",
+            "time": "2024-05-17T15:18:24+00:00",
+
+
+            "time": "2024-05-24T14:08:59+00:00"
+
         },
         {
             "name": "spatie/image-optimizer",
