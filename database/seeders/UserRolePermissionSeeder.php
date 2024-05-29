@@ -136,6 +136,12 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update repair']);
         Permission::create(['name' => 'delete repair']);
 
+        // Create Permissions for employee
+        Permission::create(['name' => 'view employee']);
+        Permission::create(['name' => 'create employee']);
+        Permission::create(['name' => 'update employee']);
+        Permission::create(['name' => 'delete employee']);
+
 
         // Create Permissions for organization
         Permission::create(['name' => 'view organization']);

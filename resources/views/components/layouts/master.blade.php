@@ -102,6 +102,183 @@
 		});
   </script>
 
+  {{-- <script>
+	$("#shippingForm").submit(function(event){
+		event.preventDefault();
+		var elemet = $(this);
+		$("button[type=submit]").prop('disabled',true);
+		$.ajax({
+			type: 'post',
+			url: '{{ route("shipping.store") }}',
+			data: elemet.serializeArray(),
+			dataType: 'json',
+			success: function (response) {
+				$("button[type=submit]").prop('disabled', false);
+
+				if(response["status"] == true){
+					window.location.herf = "{{ route('shipping.create')}}";
+					
+				}else{
+					var errors = response['errors'];
+					if(errors['country']){
+					$("#country").addClass('is-invalid')
+					.siblings('p')
+					.addClass('invalid-feedback').html(errors['country']);
+				  }else{
+					$("#country").removeClass('is-invalid')
+					.siblings('p')
+					.removeClass('invalid-feedback').html("");
+				  }
+
+					
+
+
+					if(errors['amount']){
+					$("#amount").addClass('is-invalid')
+					.siblings('p')
+					.addClass('invalid-feedback').html(errors['amount']);
+					}else{
+					$("#amount").removeClass('is-invalid')
+					.siblings('p')
+					.removeClass('invalid-feedback').html("");
+					}
+					
+				}
+			}
+		});
+	})
+  </script> --}}
+
+  <script>
+	$("#shippingForm").submit(function(event){
+    event.preventDefault();
+    var element = $(this);
+    $("button[type=submit]").prop('disabled', true);
+    $.ajax({
+        type: 'post',
+        url: '{{ route("shipping.store") }}',
+        data: element.serializeArray(),
+        dataType: 'json',
+        success: function (response) {
+            $("button[type=submit]").prop('disabled', false);
+
+            if (response.status == true) {
+                window.location.href = response.redirect; // Redirect to the index page
+            } else {
+                var errors = response.errors;
+                if (errors.country) {
+                    $("#country").addClass('is-invalid')
+                        .siblings('p')
+                        .addClass('invalid-feedback').html(errors.country);
+                } else {
+                    $("#country").removeClass('is-invalid')
+                        .siblings('p')
+                        .removeClass('invalid-feedback').html("");
+                }
+
+                if (errors.amount) {
+                    $("#amount").addClass('is-invalid')
+                        .siblings('p')
+                        .addClass('invalid-feedback').html(errors.amount);
+                } else {
+                    $("#amount").removeClass('is-invalid')
+                        .siblings('p')
+                        .removeClass('invalid-feedback').html("");
+                }
+            }
+        }
+    });
+});
+
+  </script>
+
+  {{-- <script>
+	$("#updateShippingForm").submit(function(event){
+    event.preventDefault();
+    var element = $(this);
+    $("button[type=submit]").prop('disabled', true);
+    $.ajax({
+        type: 'post',
+        url: element.attr('action'),
+        data: element.serializeArray(),
+        dataType: 'json',
+        success: function (response) {
+            $("button[type=submit]").prop('disabled', false);
+
+            if (response.status == true) {
+                window.location.href = response.redirect; 
+            } else {
+                var errors = response.errors;
+                if (errors.country) {
+                    $("#country").addClass('is-invalid')
+                        .siblings('p')
+                        .addClass('invalid-feedback').html(errors.country);
+                } else {
+                    $("#country").removeClass('is-invalid')
+                        .siblings('p')
+                        .removeClass('invalid-feedback').html("");
+                }
+
+                if (errors.amount) {
+                    $("#amount").addClass('is-invalid')
+                        .siblings('p')
+                        .addClass('invalid-feedback').html(errors.amount);
+                } else {
+                    $("#amount").removeClass('is-invalid')
+                        .siblings('p')
+                        .removeClass('invalid-feedback').html("");
+                }
+            }
+        }
+    });
+});
+
+  </script> --}}
+
+  <script>
+	$(document).ready(function() {
+    $("#updateShippingForm").submit(function(event){
+        event.preventDefault();
+        var element = $(this);
+        $("button[type=submit]").prop('disabled', true);
+        $.ajax({
+            type: 'POST',
+            url: element.attr('action'),  
+            data: element.serializeArray(),
+            dataType: 'json',
+            success: function (response) {
+                $("button[type=submit]").prop('disabled', false);
+
+                if (response.status === true) {
+                    window.location.href = response.redirect;  
+                } else {
+                    var errors = response.errors;
+                    if (errors.country) {
+                        $("#country").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors.country);
+                    } else {
+                        $("#country").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+
+                    if (errors.amount) {
+                        $("#amount").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors.amount);
+                    } else {
+                        $("#amount").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+                }
+            }
+        });
+    });
+});
+
+  </script>
 	@stack('scripts')
 </body>
 </html>

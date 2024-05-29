@@ -13,6 +13,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ExpenseCategoryController;
@@ -24,6 +25,8 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SellController;
+use App\Http\Controllers\ShippingController;
 
 use App\Http\Controllers\SliderController;
 
@@ -83,12 +86,28 @@ Route::middleware('auth')->group(function () {
     Route::resource('/leaveType', LeaveTypeController::class);
     Route::resource('/leave', LeaveController::class);
 
+    Route::resource('/employee', EmployeeController::class);
+
+
+
 
     // product table
     Route::resource('/product', ProductController::class);
     Route::get('/excel/import', [ProductController::class, 'import'])->name('product.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
+
+    //Shipping
+    Route::get('/shipping/index', [ShippingController::class, 'index'])->name('shipping.index');
+    Route::get('/shipping/create', [ShippingController::class, 'create'])->name('shipping.create');
+    Route::post('/shipping', [ShippingController::class, 'store'])->name('shipping.store');
+    Route::get('/shipping/{id}/edit', [ShippingController::class, 'edit'])->name('shipping.edit');
+    Route::put('/shipping/{id}', [ShippingController::class, 'update'])->name('shipping.update');
+    Route::delete('/shipping/{id}', [ShippingController::class, 'delete'])->name('shipping.delete');
+
+
+     
+
 
     // Point of sell
     // Route::resource('pos', SellController::class);

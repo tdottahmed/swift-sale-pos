@@ -279,7 +279,7 @@
 						</form>
 
 
-						@if (auth()->user()->personalizeSettings->theme=='default' ?? 'default')							
+						@if (auth()->user()->personalizeSettings?->theme=='default' ?? 'default')							
 							<form  action="{{route('theme.update')}}" method="POST"> 
 								@csrf
 								<input type="hidden" value="dark" name="theme">

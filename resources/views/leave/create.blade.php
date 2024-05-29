@@ -33,7 +33,7 @@
                     
                     <select name="employee_id" class="form-control custom-select">
                     @foreach ($employees as $employee )
-                    <option value="{{ $employee->id }}"name="employee_id" >{{ $employee->title }}</option>
+                    <option value="{{ $employee->id }}"name="employee_id" >{{ $employee->name }}</option>
                                         
                     @endforeach
                     </select>

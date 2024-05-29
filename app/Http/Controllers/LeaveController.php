@@ -67,7 +67,10 @@ class LeaveController extends Controller
      */
     public function edit(Leave $leave)
     {
-        //
+        $departments = Department::all();
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::all();
+        return view('leave.edit',compact('leave','departments','employees','leaveTypes'));
     }
 
     /**
@@ -75,7 +78,19 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        //
+        $leave->update([
+            'department_id'=>$request->department_id,
+            'employee_id'=>$request->employee_id,
+            'leave_type_id'=>$request->leave_type_id,
+            'title'=>$request->title,
+            'from'=>$request->from,
+            'to'=>$request->to,
+            'status'=>$request->status,
+            'attachment'=>$request->attachment,
+            'description'=>$request->description,
+
+        ]);
+        return redirect(route('leave.index'))->with('success','Leave Updated Successfully');
     }
 
     /**
@@ -83,6 +98,8 @@ class LeaveController extends Controller
      */
     public function destroy(Leave $leave)
     {
-        //
+        $leave->delete();
+
+        return redirect(route('leave.index'))->with('success', 'leave Deleted Successfully');
     }
 }

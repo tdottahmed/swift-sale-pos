@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Sub Category
+            Employee List
         </x-slot>
         <x-slot name="body">
             <div class="table">
@@ -9,31 +9,21 @@
                     <thead class="bg-indigo-600">
                         <tr>
                             <th>SL</th>
-                            <th>Title</th>
-                            <th>Form</th>
-                            <th>To</th>
-                            <th>Status</th>
-                            <th>Attachment</th>
-                            <th>Description</th>
-                            <th>Leave Types</th>
-                            <th>Employee</th>
-                            <th>Departmen</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date Of Birth</th>
+                            <th>Address</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($leaves as $leave)
+                        @foreach ($employees as $employee)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $leave->title }}</td>
-                                <td>{{ $leave->from }}</td>
-                                <td>{{ $leave->to }}</td>
-                                <td>{{ $leave->status }}</td>
-                                <td>{{ $leave->attachment }}</td>
-                                <td>{{ $leave->description }}</td>
-                                <td>{{ $leave->leaveTypes->title }}</td>
-                                <td>{{ $leave->leaveEmployees->name}}</td>
-                                <td>{{ $leave->leavedepartmens->title}}</td>
+                                <td>{{ $employee->name }}</td>
+                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->dob }}</td>
+                                <td>{{ $employee->address }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -42,22 +32,21 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('leave.edit', $leave->id) }}"
-                                                    class="dropdown-item"><i class="icon-pencil7"></i> Edit Sub
-                                                    Category</a>
+                                                <a href="{{ route('employee.edit', $employee->id) }}"
+                                                    class="dropdown-item "><i class="icon-pencil7"></i> Edit
+                                                    employee</a>
                                                 <form style="display:inline"
-                                                    action="{{ route('leave.destroy', $leave->id) }}"
+                                                    action="{{ route('employee.destroy', $employee->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this leave?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item" title="Delete leave">
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this employee?')){ this.closest('form').submit(); }"
+                                                        class="dropdown-item" title="Delete employee">
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
                                                 </form>
-                                                {{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
+                                           
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +60,7 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('leave.create') }}"
+            <a href="{{ route('employee.create') }}"
                 class="btn 
             btn-sm 
             bg-success 
@@ -81,8 +70,9 @@
             rounded-round 
             legitRipple 
             shadow 
-            mr-1"><i
-                    class="icon-plus2"></i></a>
+            mr-1"
+                data-toggle="modal" data-target="#createEmployee"><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
+    @include('employee.create-modal')
 </x-layouts.master>

@@ -4,10 +4,10 @@
         <div class="container checkout-container">
             <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
                 <li>
-                    <a href="{{ route('frontend.cart',Auth::user()->id) }}">Shopping Cart -></a>
+                    <a href="">Shopping Cart -></a>
                 </li>
                 <li>
-                    <a href="{{ route('frontend.checkout') }}">Checkout -></a>
+                    <a href="">Checkout -></a>
                 </li>
                 <li>
                     <a href="cart.html">Order Complete</a>
@@ -34,14 +34,14 @@
                                         <div class="form-group">
                                             <label class="mb-0 pb-1">Username or email <span
                                                     class="required">*</span></label>
-                                            <input type="email" class="form-control" required />
+                                            <input type="email" class="form-control" />
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="mb-0 pb-1">Password <span class="required">*</span></label>
-                                            <input type="password" class="form-control" required />
+                                            <input type="password" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                             <form action="#">
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm w-auto"
-                                        placeholder="Coupon code" required="" />
+                                        placeholder="Coupon code"="" />
                                     <div class="input-group-append">
                                         <button class="btn btn-sm mt-0" type="submit">
                                             Apply Coupon
@@ -96,14 +96,16 @@
                         <li>
                             <h2 class="step-title">Billing details</h2>
 
-                            <form action="#" id="checkout-form">
+                            <form id="orderForms" name="orderForms" action="" method="post">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>First name
                                                 <abbr class="required" title="required">*</abbr>
                                             </label>
-                                            <input type="text" class="form-control" required />
+                                            <input name="first_name" id="first_name" type="text" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->first_name : ''}}"/>
+                                            <p></p>
                                         </div>
                                     </div>
 
@@ -111,191 +113,75 @@
                                         <div class="form-group">
                                             <label>Last name
                                                 <abbr class="required" title="required">*</abbr></label>
-                                            <input type="text" class="form-control" required />
+                                            <input type="text" id="last_name" name="last_name" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->last_name : ''}}"/>
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Company name (optional)</label>
-                                    <input type="text" class="form-control" />
-                                </div>
 
                                 <div class="select-custom">
                                     <label>Country / Region
                                         <abbr class="required" title="required">*</abbr></label>
-                                    <select name="orderby" class="form-control">
-                                        <option value="" selected="selected">Vanuatu
+                                    <select id="country" name="country" class="form-control">
+                                        <option value="" selected="selected">NY
                                         </option>
-                                        <option value="1">Brunei</option>
-                                        <option value="2">Bulgaria</option>
-                                        <option value="3">Burkina Faso</option>
-                                        <option value="4">Burundi</option>
-                                        <option value="5">Cameroon</option>
+                                        @if ($countries->isNotEmpty())
+                                        @foreach ($countries as $country)
+                                            <option {{  (!empty($customerAddress) && $customerAddress->country_id == $country->id) ? 'selected' : ''}} value="{{$country->id}}">{{ $country->name }}</option>
+                                        @endforeach
+                                    @endif
                                     </select>
+                                    <p></p>
                                 </div>
-
+         
                                 <div class="form-group mb-1 pb-2">
                                     <label>Street address
                                         <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text" class="form-control"
-                                        placeholder="House number and street name" required />
+                                    <input type="text" id="address" name="address" class="form-control"
+                                        placeholder="House number and street name" value="{{  (!empty($customerAddress)) ? $customerAddress->address : ''}}"/>
+                                        <p></p>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control"
-                                        placeholder="Apartment, suite, unite, etc. (optional)" required />
+                                    <input type="text" class="form-control" id="apartment" name="apartment"
+                                        placeholder="Apartment, suite, unite, etc. (optional)" value="{{  (!empty($customerAddress)) ? $customerAddress->apartment : ''}}"/>
+                                        <p></p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Town / City
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text" class="form-control" required />
+                                    <label>City <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="city" name="city" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->city : ''}}"/>
+                                    <p></p>
                                 </div>
+                                <div class="form-group">
+                                    <label>State <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="state" name="state" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->state : ''}}"/>
+                                    <p></p>
+                                </div>
+                                
 
-                                <div class="select-custom">
-                                    <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                    <select name="orderby" class="form-control">
-                                        <option value="" selected="selected">NY</option>
-                                        <option value="1">Brunei</option>
-                                        <option value="2">Bulgaria</option>
-                                        <option value="3">Burkina Faso</option>
-                                        <option value="4">Burundi</option>
-                                        <option value="5">Cameroon</option>
-                                    </select>
-                                </div>
 
                                 <div class="form-group">
-                                    <label>Postcode / Zip
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text" class="form-control" required />
+                                    <label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="zip" name="zip" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->zip : ''}}"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                    <input type="tel" class="form-control" required />
+                                    <input type="tel" id="mobile" name="mobile" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->mobile : ''}}"/>
+                                    <p></p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Email address
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    <input type="email" class="form-control" required />
+                                    <label>Email address <abbr class="required" title="required">*</abbr></label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{  (!empty($customerAddress)) ? $customerAddress->email : ''}}"/>
                                 </div>
-
-                                <div class="form-group mb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="create-account" />
-                                        <label class="custom-control-label" data-toggle="collapse"
-                                            data-target="#collapseThree" aria-controls="collapseThree"
-                                            for="create-account">Create an
-                                            account?</label>
-                                    </div>
-                                </div>
-
-                                <div id="collapseThree" class="collapse">
-                                    <div class="form-group">
-                                        <label>Create account password
-                                            <abbr class="required" title="required">*</abbr></label>
-                                        <input type="password" placeholder="Password" class="form-control"
-                                            required />
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
-                                    <div class="custom-control custom-checkbox mt-0">
-                                        <input type="checkbox" class="custom-control-input"
-                                            id="different-shipping" />
-                                        <label class="custom-control-label" data-toggle="collapse"
-                                            data-target="#collapseFour" aria-controls="collapseFour"
-                                            for="different-shipping">Ship to a
-                                            different
-                                            address?</label>
-
-
-                                    </div>
+                                    <label for="order_notes" class="order-comments">Order notes (optional)</label>
+                                    <textarea id="order_notes" class="form-control" name="order_notes" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 </div>
-
-                                <div id="collapseFour" class="collapse">
-                                    <div class="shipping-info">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>First name <abbr class="required"
-                                                            title="required">*</abbr></label>
-                                                    <input type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Last name <abbr class="required"
-                                                            title="required">*</abbr></label>
-                                                    <input type="text" class="form-control" required />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Company name (optional)</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-
-                                        <div class="select-custom">
-                                            <label>Country / Region <span class="required">*</span></label>
-                                            <select name="orderby" class="form-control">
-                                                <option value="" selected="selected">Vanuatu</option>
-                                                <option value="1">Brunei</option>
-                                                <option value="2">Bulgaria</option>
-                                                <option value="3">Burkina Faso</option>
-                                                <option value="4">Burundi</option>
-                                                <option value="5">Cameroon</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group mb-1 pb-2">
-                                            <label>Street address <abbr class="required"
-                                                    title="required">*</abbr></label>
-                                            <input type="text" class="form-control"
-                                                placeholder="House number and street name" required />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="Apartment, suite, unit, etc. (optional)" required />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Town / City <abbr class="required"
-                                                    title="required">*</abbr></label>
-                                            <input type="text" class="form-control" required />
-                                        </div>
-
-                                        <div class="select-custom">
-                                            <label>State / County <abbr class="required"
-                                                    title="required">*</abbr></label>
-                                            <select name="orderby" class="form-control">
-                                                <option value="" selected="selected">NY</option>
-                                                <option value="1">Brunei</option>
-                                                <option value="2">Bulgaria</option>
-                                                <option value="3">Burkina Faso</option>
-                                                <option value="4">Burundi</option>
-                                                <option value="5">Cameroon</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Postcode / ZIP <abbr class="required"
-                                                    title="required">*</abbr></label>
-                                            <input type="text" class="form-control" required />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="order-comments">Order notes (optional)</label>
-                                    <textarea class="form-control" placeholder="Notes about your order, e.g. special notes for delivery." required></textarea>
-                                </div>
-                            </form>
+                               
                         </li>
                     </ul>
                 </div>
@@ -312,31 +198,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (Cart::content() as $item)
+                                    
                                 <tr>
                                     <td class="product-col">
                                         <h3 class="product-title">
-                                            Circled Ultimate 3D Speaker ×
-                                            <span class="product-qty">4</span>
+                                            {{$item->name}} ×
+                                            <span class="product-qty">{{$item->qty}}</span>
                                         </h3>
                                     </td>
 
                                     <td class="price-col">
-                                        <span>$1,040.00</span>
+                                        <span>${{$item->price * $item->qty}}</span>
                                     </td>
                                 </tr>
+                                @endforeach
 
-                                <tr>
-                                    <td class="product-col">
-                                        <h3 class="product-title">
-                                            Fashion Computer Bag ×
-                                            <span class="product-qty">2</span>
-                                        </h3>
-                                    </td>
-
-                                    <td class="price-col">
-                                        <span>$418.00</span>
-                                    </td>
-                                </tr>
+                             
                             </tbody>
                             <tfoot>
                                 <tr class="cart-subtotal">
@@ -345,31 +223,16 @@
                                     </td>
 
                                     <td class="price-col">
-                                        <span>$1,458.00</span>
+                                        <span>${{Cart::subtotal()}}</span>
                                     </td>
                                 </tr>
-                                <tr class="order-shipping">
-                                    <td class="text-left" colspan="2">
+                                <tr class="cart-subtotal">
+                                    <td>
                                         <h4 class="m-b-sm">Shipping</h4>
 
-                                        <div class="form-group form-group-custom-control">
-                                            <div class="custom-control custom-radio d-flex">
-                                                <input type="radio" class="custom-control-input" name="radio"
-                                                    checked />
-                                                <label class="custom-control-label">Local Pickup</label>
-                                            </div>
-                                            <!-- End .custom-checkbox -->
-                                        </div>
-                                        <!-- End .form-group -->
-
-                                        <div class="form-group form-group-custom-control mb-0">
-                                            <div class="custom-control custom-radio d-flex mb-0">
-                                                <input type="radio" name="radio" class="custom-control-input">
-                                                <label class="custom-control-label">Flat Rate</label>
-                                            </div>
-                                            <!-- End .custom-checkbox -->
-                                        </div>
-                                        <!-- End .form-group -->
+                                    </td>
+                                    <td>
+                                       <span id="shippingAmount">${{number_format($totalShippingCharge,2)}}</span>
                                     </td>
 
                                 </tr>
@@ -379,7 +242,7 @@
                                         <h4>Total</h4>
                                     </td>
                                     <td>
-                                        <b class="total-price"><span>$1,603.80</span></b>
+                                        <b class="total-price"><span id="grandTotal">${{ number_format($grandTotal,2) }}</span></b>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -387,21 +250,47 @@
 
                         <div class="payment-methods">
                             <h4 class="">Payment methods</h4>
-                            <div class="info-box with-icon p-0">
-                                <p>
-                                    Sorry, it seems that there are no available payment methods for your state. Please
-                                    contact us if you require assistance or wish to make alternate arrangements.
-                                </p>
+
+                            <div class="">
+                                <input checked type="radio" name="payment_method" value="cod" id="payment_one">
+                                <label for="payment_one" class="form-check-label">COD</label>
+                            </div>
+                            <div class="">
+                                <input type="radio" name="payment_method" value="cod" id="payment_two">
+                                <label for="payment_two" class="form-check-label">Stripe</label>
+                            </div>
+
+                            <div class="info-box with-icon p-0 d-none" id="card-payment-form">
+                                <div class="card-body p-0">
+                                    <div class="mb-3">
+                                        <label for="card_number" class="mb-2">Card Number</label>
+                                        <input type="text" name="card_number" id="card_number" placeholder="Valid Card Number">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="expiry_date">Expiry Date</label>
+                                            <input type="text" name="expiry_date" id="expiry_date" placeholder="MM/YYY">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cvv_code">CVV Code</label>
+                                            <input type="text" name="cvv_code" id="cvv_code" placeholder="123">
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
                             </div>
                         </div>
 
-                        <button  type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
+                        <button type="submit" class="btn btn-dark">
                             Place order
                         </button>
                     </div>
                     <!-- End .cart-summary -->
                 </div>
                 <!-- End .col-lg-4 -->
+            
+</form>
             </div>
             <!-- End .row -->
         </div>

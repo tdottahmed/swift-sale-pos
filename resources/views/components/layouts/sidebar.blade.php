@@ -230,6 +230,14 @@
                             @endcan
                         </li>
 
+                        <li class="nav-item">
+                            @can('view size')
+                                            <a href="{{ route('shipping.index') }}"
+                                                class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
+                                                <i class="icon-align-top"></i>shipping
+                                            </a>
+                            @endcan
+                                        </li>
 
                         <li class="nav-item">
                             @can('view holiday')
@@ -344,6 +352,15 @@
                             class="nav-link {{ request()->is('repair*') ? 'active' : '' }}">
                             <i class="icon-users"></i>
                             <span>Repair</span>
+                        </a>
+                    @endcan
+                </li>
+                <li class="nav-item">
+                    @can('view employee')
+                        <a href="{{ route('employee.index') }}"
+                            class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
+                            <i class="icon-users"></i>
+                            <span>Employee</span>
                         </a>
                     @endcan
                 </li>

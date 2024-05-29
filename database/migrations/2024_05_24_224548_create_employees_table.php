@@ -19,9 +19,10 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('email')->nullable();
             $table->date('dob')->nullable();
-            $table->integer('nid')->nullable();
+            $table->integer('nid',20)->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
