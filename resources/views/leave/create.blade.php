@@ -12,12 +12,13 @@
                 <label for="department">Select Department</label>
                 <div class="input-group mb-3"> 
                     <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+
                     </div>
                     
-                    <select name="department_id" class="form-control custom-select">
+                    <select name="department_id" class="form-control select-search">
+                    <option disabled selected value="">-- Please select --</option>
                     @foreach ($departments as $department )
-                    <option value="{{ $department->id }}" name="department_id" required>{{ $department->title }} </option>
+                    <option value="{{ $department->id }}"  required>{{ $department->title }} </option>
                                         
                     @endforeach
                     </select>
@@ -28,33 +29,31 @@
                 <label for="employee">Select Employee</label>
                 <div class="input-group mb-3"> 
                     <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+
                     </div>
                     
-                    <select name="employee_id" class="form-control custom-select">
+                    <select name="employee_id" class="form-control select-search">
+                    <option disabled selected value="">-- Please select --</option>
                     @foreach ($employees as $employee )
-                    <option value="{{ $employee->id }}"name="employee_id" >{{ $employee->name }}</option>
+                    <option value="{{ $employee->id }}" >{{ $employee->name }}</option>
                                         
                     @endforeach
                     </select>
                 </div>
-{{-- 
-                <div class="mb-3">
-                    <label for="employee_id">employee:</label>
-                    <input type="text" class="form-control" name="employee_id" id="employee_id">
-                </div> --}}
+
 
                 {{-- leave_type --}}
 
                 <label for="leave_type">Select Leave Type</label>
                 <div class="input-group mb-3"> 
                     <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+
                     </div>
                     
-                    <select name="leave_type_id" class="form-control custom-select">
+                    <select name="leave_type_id" class="form-control select-search">
+                    <option disabled selected value="">-- Please select --</option>
                     @foreach ($leaveTypes as $leaveType )
-                    <option value="{{ $leaveType->id }}"name="leave_type_id" required>{{ $leaveType->title }}</option>
+                    <option value="{{ $leaveType->id }}" required>{{ $leaveType->title }}</option>
                                         
                     @endforeach
                     </select>
@@ -63,7 +62,7 @@
 
                 <div class="mb-3">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" name="title" id="title">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Please Title">
                 </div>
                 <div class="mb-3">
                     <label for="from">From:</label>

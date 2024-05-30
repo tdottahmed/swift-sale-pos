@@ -18,8 +18,6 @@
                             <th>Leave Types</th>
                             <th>Employee</th>
                             <th>Departmen</th>
-                            <th>Sub Category</th>
-                            <th>Category</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -36,7 +34,6 @@
                                 <td>{{ $leave->leaveTypes->title }}</td>
                                 <td>{{ $leave->leaveEmployees->name}}</td>
                                 <td>{{ $leave->leavedepartmens->title}}</td>
-                                <td>{{ $leave->category->title }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">

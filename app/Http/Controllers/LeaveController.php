@@ -41,7 +41,7 @@ class LeaveController extends Controller
         Leave::create([
             'uuid'=>Str::uuid(),
             'department_id'=>$request->department_id,
-            // 'employee_id'=>$request->employee_id,
+            'employee_id'=>$request->employee_id,
             'leave_type_id'=>$request->leave_type_id,
             'title'=>$request->title,
             'from'=>$request->from,
