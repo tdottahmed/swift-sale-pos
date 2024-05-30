@@ -221,14 +221,7 @@
                                 </a>
                             @endcan
                         </li>
-                        <li class="nav-item">
-                            @can('view department')
-                                <a href="{{ route('department.index') }}"
-                                    class="nav-link {{ request()->routeIs('department.index') ? 'active' : '' }}">
-                                    <i class="icon-align-top"></i>Department
-                                </a>
-                            @endcan
-                        </li>
+                        
 
                         <li class="nav-item">
                             @can('view size')
@@ -365,6 +358,14 @@
                         <span>HRM</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item">
+                            @can('view department')
+                                <a href="{{ route('department.index') }}"
+                                    class="nav-link {{ request()->routeIs('department.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Department
+                                </a>
+                            @endcan
+                        </li>
                          <li class="nav-item">
                             @can('view employee')
                                 <a href="{{ route('employee.index') }}"

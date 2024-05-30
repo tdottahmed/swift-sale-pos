@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            {{ __('Edit Your Sub Category Info') }}
+            {{ __('Edit Your Leave Info') }}
         </x-slot>
         <x-slot name="body">
             <form action="{{ route('leave.update', $leave->id) }} " method="POST" enctype="multipart/form-data">
@@ -21,8 +21,6 @@
                 
 
                 {{-- department --}}
-
-
 
                 <label for="department">Select Department</label>
                     <div class="input-group mb-3">
