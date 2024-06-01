@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $departments = Department::get();
+        $departments = Department::with('depars')->get();
         return view('department.index', compact('departments'));
     }
 

@@ -20,7 +20,7 @@ class LeaveTypeController extends Controller
      */
     public function index()
     {
-        $leaveTypes = LeaveType::get();
+        $leaveTypes = LeaveType::with('LeaveTypes')->get();
         return view('leaveType.index', compact('leaveTypes'));
     }
 

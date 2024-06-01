@@ -14,6 +14,15 @@ class LeaveController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('permission:view leave', ['only' => ['index']]);
+         $this->middleware('permission:create leave', ['only' => ['create', 'store']]);
+         $this->middleware('permission:update leave', ['only' => ['update', 'edit']]);
+         $this->middleware('permission:delete leave', ['only' => ['destroy']]);
+     }
+
     public function index()
     {
         $leaves = leave::get();

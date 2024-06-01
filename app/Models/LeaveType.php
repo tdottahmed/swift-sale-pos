@@ -9,4 +9,9 @@ class LeaveType extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function LeaveTypes()
+    {
+        return $this->hasMany(Leave::class, 'leave_type_id');
+    }
 }
