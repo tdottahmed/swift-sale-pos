@@ -232,7 +232,23 @@
                             @endcan
                         </li>
 
+                        <li class="nav-item">
+                            @can('view size')
+                                <a href="{{ route('coupon.index') }}"
+                                    class="nav-link {{ request()->routeIs('coupon.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Coupon
+                                </a>
+                            @endcan
+                        </li>
 
+                        <li class="nav-item">
+                            @can('view size')
+                                <a href="{{ route('coupon.index') }}"
+                                    class="nav-link {{ request()->routeIs('coupon.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Coupon
+                                </a>
+                            @endcan
+                        </li>
                     </ul>
                 </li>
 
@@ -302,7 +318,7 @@
                                 </a>
                             @endcan
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             @can('view product')
                                 <a href="{{ route('campaign.index') }}"
                                     class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
@@ -311,6 +327,7 @@
                             @endcan
                         </li>
                          <li class="nav-item">
+                        <li class="nav-item">
                             @can('view product')
                                 <a href="{{ route('campaign.create') }}"
                                     class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">

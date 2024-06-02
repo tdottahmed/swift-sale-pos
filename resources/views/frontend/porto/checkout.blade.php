@@ -77,12 +77,13 @@
                             <form action="#">
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm w-auto"
-                                        placeholder="Coupon code"="" />
+                                        placeholder="Coupon code"="" name="discount_code" id="discount_code"/>
                                     <div class="input-group-append">
-                                        <button class="btn btn-sm mt-0" type="submit">
+                                        <button class="btn btn-sm mt-0" type="submit" id="apply_discount">
                                             Apply Coupon
                                         </button>
                                     </div>
+                                    <p></p>
                                 </div>
                             </form>
                         </div>
@@ -226,6 +227,20 @@
                                         <span>${{Cart::subtotal()}}</span>
                                     </td>
                                 </tr>
+
+                             
+
+                                <tr class="cart-subtotal">
+                                    <td>
+                                        <h4>Discount</h4>
+                                    </td>
+
+                                    <td class="price-col">
+                                        <span id="discount_value">${{ $discount }}</span>
+                                    </td>
+                                </tr>
+
+
                                 <tr class="cart-subtotal">
                                     <td>
                                         <h4 class="m-b-sm">Shipping</h4>
@@ -244,6 +259,26 @@
                                     <td>
                                         <b class="total-price"><span id="grandTotal">${{ number_format($grandTotal,2) }}</span></b>
                                     </td>
+                                </tr>
+
+                                <tr class="cart-subtotal">
+                                    <td>
+                                       <h4>Code :</h4>
+                                    </td>
+                                    <td>
+                                       <div id="discount-response-wrapper">
+                                        @if (Session::has('code'))
+                                        <div id="discount-response">
+                                            <strong> {{Session::get('code')->code}}</strong>
+                                            <a class="btn btn-sm btn-danger" id="remove-discount"><i class="fa fa-times"></i></a>
+                                        </div>
+                                       
+                                        @endif
+                                       </div>
+                                       
+                                    </td>
+
+                                    
                                 </tr>
                             </tfoot>
                         </table>

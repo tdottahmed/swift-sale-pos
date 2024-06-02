@@ -20,7 +20,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::with('department','role')->get();
+        $employees = Employee::with('department','role','emplos')->get();
         $roles= Role::all();
         $departments = Department::all();
         return view('employee.index', compact('employees', 'departments', 'roles'));

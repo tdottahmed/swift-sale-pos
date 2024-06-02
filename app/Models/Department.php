@@ -9,4 +9,8 @@ class Department extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function depars()
+    {
+        return $this->hasMany(Leave::class, 'department_id');
+    }
 }

@@ -19,4 +19,9 @@ class Employee extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function emplos()
+    {
+        return $this->hasMany(Leave::class, 'department_id');
+    }
 }

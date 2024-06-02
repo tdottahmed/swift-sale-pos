@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Holiday
+            Holiday List
         </x-slot>
         <x-slot name="body">
             <div class="table">
@@ -57,7 +57,8 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('holiday.create') }}" class="btn 
+            <a href="{{ route('holiday.create') }}"
+                class="btn 
             btn-sm 
             bg-success 
             border-2 
@@ -66,7 +67,9 @@
             rounded-round 
             legitRipple 
             shadow 
-            mr-1"><i class="icon-plus2"></i></a>
+            mr-1"
+                data-toggle="modal" data-target="#createEmployee"><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
+    @include('holiday.create-modal')
 </x-layouts.master>
