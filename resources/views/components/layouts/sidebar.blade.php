@@ -238,6 +238,15 @@
                                             </a>
                             @endcan
                                         </li>
+
+                                        <li class="nav-item">
+                                            @can('view size')
+                                                            <a href="{{ route('coupon.index') }}"
+                                                                class="nav-link {{ request()->routeIs('coupon.index') ? 'active' : '' }}">
+                                                                <i class="icon-align-top"></i>Coupon
+                                                            </a>
+                                            @endcan
+                                                        </li>
                     </ul>
                 </li>
 
