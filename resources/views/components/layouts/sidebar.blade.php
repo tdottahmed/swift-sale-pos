@@ -318,7 +318,7 @@
                                 </a>
                             @endcan
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item">
                             @can('view product')
                                 <a href="{{ route('campaign.index') }}"
                                     class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
@@ -327,7 +327,6 @@
                             @endcan
                         </li>
                          <li class="nav-item">
-                        <li class="nav-item">
                             @can('view product')
                                 <a href="{{ route('campaign.create') }}"
                                     class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
