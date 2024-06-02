@@ -17,9 +17,10 @@ return new class extends Migration
             $table->double('subtotal', 10,2)->nullable();
             $table->double('shipping', 10,2)->nullable();
             $table->string('coupon_code')->nullable();
+            $table->integer('coupon_code_id')->nullable()->change();
+            // $table->foreignId('coupon_code_id')->constrained()->onDelete('cascade');
             $table->double('discount', 10,2)->nullable();
             $table->double('grand_total', 10,2)->nullable();
-
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();

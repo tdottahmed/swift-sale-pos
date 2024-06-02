@@ -46,3 +46,5 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.che
 Route::post('/process-checkout', [CartController::class, 'processCheckout'])->name('frontend.processCheckout');
 Route::get('/thanks/{orderId}', [CartController::class, 'thankyou'])->name('frontend.thankyou');
 Route::post('/get-order-summary', [CartController::class, 'getOrderSummary'])->name('frontend.getOrderSummary');
+Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('frontend.applyDiscount');
+Route::post('/remove-discount', [CartController::class, 'removeCoupon'])->name('frontend.removeCoupon');

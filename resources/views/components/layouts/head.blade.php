@@ -57,7 +57,27 @@
     <script src="{{ asset('limitless/global_assets/js/demo_pages/components_modals.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/media/fancybox.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/ecommerce_product_list.js') }}"></script>
+    
 
+
+    <link rel="stylesheet" href="{{ asset('datetime/datetimepicker.css') }}">
+    <script src="jquery-3.7.0.min.js"></script>
+
+    <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#starts_at').datetimepicker({
+                // options here
+                format:'Y-m-d H:i:s',
+            });
+
+            $('#expires_at').datetimepicker({
+                // options here
+                format:'Y-m-d H:i:s',
+            });
+        });
+    </script>
 
     <style>
 		.navbar-brand img {
