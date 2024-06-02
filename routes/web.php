@@ -99,6 +99,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/holiday', HolidayController::class);
     Route::resource('/leaveType', LeaveTypeController::class);
     Route::resource('/leave', LeaveController::class);
+    Route::get('/leave-application/{leave}', [LeaveController::class, 'leavePdf'])->name('leave.pdf');
 
 
     // product table

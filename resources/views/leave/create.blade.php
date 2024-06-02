@@ -107,4 +107,15 @@
             mr-1"><i class="icon-list"></i></a>           
         </x-slot>
     </x-data-display.card>
+     <script>
+        function validateDates() {
+            let fromDate = new Date(document.getElementById('from').value);
+            let toDate = new Date(document.getElementById('to').value);
+            if (toDate < fromDate) {
+                alert('The "to" date must be a date after or equal to the "from" date.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </x-layouts.master>

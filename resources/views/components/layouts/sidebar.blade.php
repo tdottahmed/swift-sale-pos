@@ -221,16 +221,16 @@
                                 </a>
                             @endcan
                         </li>
-                        
+
 
                         <li class="nav-item">
                             @can('view size')
-                                            <a href="{{ route('shipping.index') }}"
-                                                class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
-                                                <i class="icon-align-top"></i>shipping
-                                            </a>
+                                <a href="{{ route('shipping.index') }}"
+                                    class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>shipping
+                                </a>
                             @endcan
-                                        </li>
+                        </li>
 
 
                     </ul>
@@ -281,9 +281,9 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link {{ request()->is('contacts*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('contacts*')? 'active' : '' }}">
                         <i class="icon-users"></i>
-                        <span>Contacts</span>
+                        <span>Peoples</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
@@ -302,14 +302,30 @@
                                 </a>
                             @endcan
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item">
+                            @can('view product')
+                                <a href="{{ route('campaign.index') }}"
+                                    class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Campaign List
+                                </a>
+                            @endcan
+                        </li>
+                         <li class="nav-item">
+                            @can('view product')
+                                <a href="{{ route('campaign.create') }}"
+                                    class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                                    <i class="icon-paragraph-left2"></i>Create Campaign
+                                </a>
+                            @endcan
+                        </li>
+                        {{-- <li class="nav-item">
                             @can('view contact')
                                 <a href="{{ route('contacts.index') }}"
                                     class="nav-link {{ !request()->input('type') ? 'active' : '' }}">
                                     <i class="icon-paragraph-left2"></i>All Contacts
                                 </a>
                             @endcan
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 
@@ -323,7 +339,7 @@
                         </a>
                     @endcan
                 </li>
-               
+
 
                 <li class="nav-item">
                     {{-- @can('view product') --}}
@@ -334,26 +350,8 @@
                     </a>
                     {{-- @endcan --}}
                 </li>
-
                 <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
-                        <i class="icon-target2"></i>
-                        <span>Campaign</span>
-                    </a>
-                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
-                        <li class="nav-item">
-                            @can('view product')
-                                <a href="{{ route('campaign.index') }}"
-                                    class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
-                                    <i class="icon-paragraph-left2"></i>All Campaign
-                                </a>
-                            @endcan
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link {{ request()->is('campaign*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('department*') ? 'active' : '' }}">
                         <i class="icon-target2"></i>
                         <span>HRM</span>
                     </a>
@@ -366,7 +364,7 @@
                                 </a>
                             @endcan
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             @can('view employee')
                                 <a href="{{ route('employee.index') }}"
                                     class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
@@ -416,7 +414,7 @@
                             @can('view leave')
                                 <a href="{{ route('leave.index') }}"
                                     class="nav-link {{ request()->routeIs('leave.index') ? 'active' : '' }}">
-                                    <i class="icon-align-top"></i>Leave
+                                    <i class="icon-align-top"></i>Leave Application
                                 </a>
                             @endcan
                         </li>
