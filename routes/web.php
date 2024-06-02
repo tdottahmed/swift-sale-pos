@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeaveTypeController;
@@ -115,6 +116,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/shipping/{id}', [ShippingController::class, 'update'])->name('shipping.update');
     Route::delete('/shipping/{id}', [ShippingController::class, 'delete'])->name('shipping.delete');
 
+   //Coupon code routes
+   Route::get('/coupon/index', [DiscountCodeController::class, 'index'])->name('coupon.index');
+    Route::get('/coupon/create', [DiscountCodeController::class, 'create'])->name('coupon.create');
+    Route::post('/coupon', [DiscountCodeController::class, 'store'])->name('coupon.store');
+    Route::get('/coupon/{coupon}/edit', [DiscountCodeController::class, 'edit'])->name('coupon.edit');
+    Route::put('/coupon/{coupon}', [DiscountCodeController::class, 'update'])->name('coupon.update');
+
+    // Route::put('/coupon/{coupon}', [DiscountCodeController::class, 'update'])->name('coupon.update');
+    Route::delete('/coupon/{coupon}', [DiscountCodeController::class, 'destroy'])->name('coupon.destroy');
 
      
 

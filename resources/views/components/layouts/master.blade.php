@@ -149,6 +149,89 @@
 	})
   </script> --}}
 
+
+
+  <script>
+    $("#discountForm").submit(function(event){
+        event.preventDefault();
+        var element = $(this);
+
+        $("button[type=submit]").prop('disabled', true);
+
+        $.ajax({
+            type: 'post',
+            url: '{{ route("coupon.store") }}',
+            data: element.serializeArray(),
+            dataType: 'json',
+            success: function (response) {
+                $("button[type=submit]").prop('disabled', false);
+
+                if (response.status == true) {
+                    window.location.href = '{{ route('coupon.index') }}'; 
+
+					$("#code").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+
+							$("#discount_amount").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+							$("#starts_at").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+							$("#expires_at").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+					
+                } else {
+                    var errors = response['errors'];
+
+                    if (errors['code']) {
+                        $("#code").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors['code']);
+                    } else {
+                        $("#code").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+
+                    if (errors['discount_amount']) {
+                        $("#discount_amount").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors['discount_amount']);
+                    } else {
+                        $("#discount_amount").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+					
+					if (errors['starts_at']) {
+                        $("#starts_at").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors['starts_at']);
+                    } else {
+                        $("#starts_at").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+
+					if (errors['expires_at']) {
+                        $("#expires_at").addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback').html(errors['expires_at']);
+                    } else {
+                        $("#expires_at").removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html("");
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
   <script>
 	$("#shippingForm").submit(function(event){
     event.preventDefault();

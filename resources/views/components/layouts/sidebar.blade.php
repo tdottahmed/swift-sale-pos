@@ -221,18 +221,25 @@
                                 </a>
                             @endcan
                         </li>
-                        
+
 
                         <li class="nav-item">
                             @can('view size')
-                                            <a href="{{ route('shipping.index') }}"
-                                                class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
-                                                <i class="icon-align-top"></i>shipping
-                                            </a>
+                                <a href="{{ route('shipping.index') }}"
+                                    class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>shipping
+                                </a>
                             @endcan
-                                        </li>
+                        </li>
 
-
+                        <li class="nav-item">
+                            @can('view size')
+                                <a href="{{ route('coupon.index') }}"
+                                    class="nav-link {{ request()->routeIs('coupon.index') ? 'active' : '' }}">
+                                    <i class="icon-align-top"></i>Coupon
+                                </a>
+                            @endcan
+                        </li>
                     </ul>
                 </li>
 
@@ -323,7 +330,7 @@
                         </a>
                     @endcan
                 </li>
-               
+
 
                 <li class="nav-item">
                     {{-- @can('view product') --}}
@@ -366,7 +373,7 @@
                                 </a>
                             @endcan
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             @can('view employee')
                                 <a href="{{ route('employee.index') }}"
                                     class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
