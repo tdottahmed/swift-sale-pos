@@ -29,9 +29,7 @@ class LeaveController extends Controller
         return view('leave.index',compact('leaves',));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $departments = Department::all();
@@ -40,13 +38,9 @@ class LeaveController extends Controller
         return view('leave.create',compact('departments','employees','leaveTypes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
-        // dd($request->all());
         Leave::create([
             'uuid'=>Str::uuid(),
             'department_id'=>$request->department_id,
@@ -55,7 +49,6 @@ class LeaveController extends Controller
             'title'=>$request->title,
             'from'=>$request->from,
             'to'=>$request->to,
-            // 'status'=>$request->status,
             'attachment'=>$request->attachment,
             'description'=>$request->description,
         ]);
@@ -102,13 +95,17 @@ class LeaveController extends Controller
         return redirect(route('leave.index'))->with('success','Leave Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Leave $leave)
     {
         $leave->delete();
 
         return redirect(route('leave.index'))->with('success', 'leave Deleted Successfully');
     }
+
+    public function leavePdf(Leave $leave)
+    {
+        return view('leave.pdf', compact('leave'));
+    }
+
+
 }

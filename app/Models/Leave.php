@@ -10,16 +10,18 @@ class Leave extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function leaveTypes(){
-        // return $this->hasMany(SubCategory::class, 'category_id');
+    public function leaveType()
+    {
         return $this->belongsTo(leaveType::class, 'leave_type_id');
     }
 
-    public function leaveEmployees(){
+    public function employee()
+    {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
 
-    public function leavedepartmens(){
+    public function department()
+    {
         return $this->belongsTo(Department::class, 'department_id');
     }
 }

@@ -9,15 +9,12 @@
                     <thead class="bg-indigo-600">
                         <tr>
                             <th>SL</th>
-                            <th>Title</th>
+                            <th>Employee</th>
+                            <th>Leave Types</th>
                             <th>Form</th>
                             <th>To</th>
-                            <th>Status</th>
-                            <th>Attachment</th>
-                            <th>Description</th>
-                            <th>Leave Types</th>
-                            <th>Employee</th>
                             <th>Departmen</th>
+                            <th>Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -25,15 +22,12 @@
                         @foreach ($leaves as $leave)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $leave->title }}</td>
+                                <td>{{ $leave->employee->name}}</td>
+                                <td>{{ $leave->leaveType->title }}</td>
                                 <td>{{ $leave->from }}</td>
                                 <td>{{ $leave->to }}</td>
+                                <td>{{ $leave->department->title}}</td>
                                 <td>{{ $leave->status }}</td>
-                                <td>{{ $leave->attachment }}</td>
-                                <td>{{ $leave->description }}</td>
-                                <td>{{ $leave->leaveTypes->title }}</td>
-                                <td>{{ $leave->leaveEmployees->name}}</td>
-                                <td>{{ $leave->leavedepartmens->title}}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -45,6 +39,8 @@
                                                 <a href="{{ route('leave.edit', $leave->id) }}"
                                                     class="dropdown-item"><i class="icon-pencil7"></i> Edit Sub
                                                     Category</a>
+                                                <a href="{{ route('leave.pdf', $leave->id) }}"
+                                                    class="dropdown-item"><i class="icon-eye"></i> pdf </a>
                                                 <form style="display:inline"
                                                     action="{{ route('leave.destroy', $leave->id) }}"
                                                     method="POST">
