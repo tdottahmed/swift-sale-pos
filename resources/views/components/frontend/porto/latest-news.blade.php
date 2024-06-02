@@ -29,6 +29,13 @@
                     
                     <div class="post-media">
                         <img class="slide-bg" src="{{ imagePath($blog->image) }}" width="200" height="200" alt="slider image">
+
+                        {{-- <a  href="{{ imagePath($blog->image) }}">
+                            <img  src="{{ imagePath($blog->image) }}" width="200" height="200" class="img1" alt="" />
+                            <h4 class='text-muted'>{{ $blog->title }}</h4>
+                        </a> --}}
+
+
                         <div class="post-date">
                             <span class="day">26</span>
                             <span class="month">Feb</span>

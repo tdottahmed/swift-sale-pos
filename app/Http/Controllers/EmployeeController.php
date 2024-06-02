@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Employee;
 use App\Models\Department;
 use Illuminate\Support\Str;
@@ -19,9 +20,10 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::with('department','role','emplos')->get();
+        $roles= Role::all();
         $departments = Department::all();
-        return view('employee.index', compact('employees', 'departments'));
+        return view('employee.index', compact('employees', 'departments', 'roles'));
     }
 
     /**
@@ -63,7 +65,7 @@ class EmployeeController extends Controller
             ]);
             return redirect()->back()->with('success', 'Employee created Successfully');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             return redirect()->back()->with('error', 'Something Went Wrong');
         }
     }
@@ -82,8 +84,10 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all();
+        $roles = Role::all();
 
-        return view('employee.edit', compact('employee', 'departments'));
+
+        return view('employee.edit', compact('employee', 'departments', 'roles'));
     }
 
     /**

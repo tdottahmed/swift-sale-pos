@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Employee;
 use App\Models\Leave;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LeaveController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('permission:view leave', ['only' => ['index']]);
+         $this->middleware('permission:create leave', ['only' => ['create', 'store']]);
+         $this->middleware('permission:update leave', ['only' => ['update', 'edit']]);
+         $this->middleware('permission:delete leave', ['only' => ['destroy']]);
+     }
+
     public function index()
     {
-        //
+        $leaves = leave::get();
+        return view('leave.index',compact('leaves',));
     }
 
     /**
@@ -20,7 +34,10 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::all();
+        return view('leave.create',compact('departments','employees','leaveTypes'));
     }
 
     /**
@@ -28,7 +45,22 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request->all());
+        Leave::create([
+            'uuid'=>Str::uuid(),
+            'department_id'=>$request->department_id,
+            'employee_id'=>$request->employee_id,
+            'leave_type_id'=>$request->leave_type_id,
+            'title'=>$request->title,
+            'from'=>$request->from,
+            'to'=>$request->to,
+            // 'status'=>$request->status,
+            'attachment'=>$request->attachment,
+            'description'=>$request->description,
+        ]);
+        return redirect(route('leave.index'))->with('success','Leave Insert Successfully');
+
     }
 
     /**
@@ -44,7 +76,10 @@ class LeaveController extends Controller
      */
     public function edit(Leave $leave)
     {
-        //
+        $departments = Department::all();
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::all();
+        return view('leave.edit',compact('leave','departments','employees','leaveTypes'));
     }
 
     /**
@@ -52,7 +87,19 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        //
+        $leave->update([
+            'department_id'=>$request->department_id,
+            'employee_id'=>$request->employee_id,
+            'leave_type_id'=>$request->leave_type_id,
+            'title'=>$request->title,
+            'from'=>$request->from,
+            'to'=>$request->to,
+            'status'=>$request->status,
+            'attachment'=>$request->attachment,
+            'description'=>$request->description,
+
+        ]);
+        return redirect(route('leave.index'))->with('success','Leave Updated Successfully');
     }
 
     /**
@@ -60,6 +107,8 @@ class LeaveController extends Controller
      */
     public function destroy(Leave $leave)
     {
-        //
+        $leave->delete();
+
+        return redirect(route('leave.index'))->with('success', 'leave Deleted Successfully');
     }
 }

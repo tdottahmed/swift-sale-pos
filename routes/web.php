@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UnitController;
@@ -15,18 +16,24 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
+
 use App\Http\Controllers\SliderController;
-use App\Models\Department;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,11 +85,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subCategory', SubCategoryController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('slider', SliderController::class);
+
+    //HRM
     Route::resource('/department', DepartmentController::class);
+    Route::resource('/holiday', HolidayController::class);
+    Route::resource('/leaveType', LeaveTypeController::class);
+    Route::resource('/leave', LeaveController::class);
 
     Route::resource('/employee', EmployeeController::class);
+    Route::resource('/attendance', AttendanceController::class);
+    Route::resource('/payroll', PayrollController::class);
 
 
+    Route::resource('/holiday', HolidayController::class);
+    Route::resource('/leaveType', LeaveTypeController::class);
+    Route::resource('/leave', LeaveController::class);
 
 
     // product table

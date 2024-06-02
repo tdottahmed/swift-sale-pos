@@ -3,6 +3,8 @@
         <x-slot name="heading">
             Employee List
         </x-slot>
+
+
         <x-slot name="body">
             <div class="table">
                 <table class="table datatable-basic">
@@ -10,6 +12,8 @@
                         <tr>
                             <th>SL</th>
                             <th>Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
                             <th>Email</th>
                             <th>Date Of Birth</th>
                             <th>Address</th>
@@ -21,6 +25,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employee->name }}</td>
+                                <td>{{ $employee->department->title }}</td>
+                                <td>{{ $employee->role->name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->dob }}</td>
                                 <td>{{ $employee->address }}</td>
@@ -35,7 +41,7 @@
                                                 <a href="{{ route('employee.edit', $employee->id) }}"
                                                     class="dropdown-item "><i class="icon-pencil7"></i> Edit
                                                     employee</a>
-                                                <form style="display:inline"
+                                                {{-- <form style="display:inline"
                                                     action="{{ route('employee.destroy', $employee->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -45,7 +51,17 @@
                                                         class="dropdown-item" title="Delete employee">
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
+                                                </form> --}}
+
+                                                @if ($employee->emplos->isEmpty())
+                                                <form style="display:inline" action="{{ route('employee.destroy', $employee->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Employee?')){ this.closest('form').submit(); }" class="dropdown-item" title="Delete employee">
+                                                        <i class="icon-trash-alt"></i>Delete
+                                                    </button>
                                                 </form>
+                                                @endif
                                            
                                             </div>
                                         </div>
@@ -59,6 +75,8 @@
                 </table>
             </div>
         </x-slot>
+
+
         <x-slot name="cardFooterCenter">
             <a href="{{ route('employee.create') }}"
                 class="btn 
@@ -74,5 +92,8 @@
                 data-toggle="modal" data-target="#createEmployee"><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
+
     @include('employee.create-modal')
+
+
 </x-layouts.master>

@@ -141,6 +141,16 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create employee']);
         Permission::create(['name' => 'update employee']);
         Permission::create(['name' => 'delete employee']);
+        // Create Permissions for attendance
+        Permission::create(['name' => 'view attendance']);
+        Permission::create(['name' => 'create attendance']);
+        Permission::create(['name' => 'update attendance']);
+        Permission::create(['name' => 'delete attendance']);
+        // Create Permissions for payroll
+        Permission::create(['name' => 'view payroll']);
+        Permission::create(['name' => 'create payroll']);
+        Permission::create(['name' => 'update payroll']);
+        Permission::create(['name' => 'delete employee']);
 
 
         // Create Permissions for organization
@@ -148,6 +158,34 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create organization']);
         Permission::create(['name' => 'update organization']);
         Permission::create(['name' => 'updateTheme organization']);
+
+
+        // Create Permissions for department
+        Permission::create(['name' => 'view department']);
+        Permission::create(['name' => 'create department']);
+        Permission::create(['name' => 'update department']);
+        Permission::create(['name' => 'delete department']);
+
+
+        // Create Permissions for holiday
+        Permission::create(['name' => 'view holiday']);
+        Permission::create(['name' => 'create holiday']);
+        Permission::create(['name' => 'update holiday']);
+        Permission::create(['name' => 'delete holiday']);
+
+
+        // Create Permissions for leaveType
+        Permission::create(['name' => 'view leaveType']);
+        Permission::create(['name' => 'create leaveType']);
+        Permission::create(['name' => 'update leaveType']);
+        Permission::create(['name' => 'delete leaveType']);
+
+
+        // Create Permissions for leaves
+        Permission::create(['name' => 'view leave']);
+        Permission::create(['name' => 'create leave']);
+        Permission::create(['name' => 'update leave']);
+        Permission::create(['name' => 'delete leave']);
 
         
         // Create Permissions for import product

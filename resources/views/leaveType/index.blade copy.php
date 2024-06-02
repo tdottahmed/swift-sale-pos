@@ -1,8 +1,10 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Department
+            Leave Type
         </x-slot>
+
+
         <x-slot name="body">
             <div class="table">
                 <table class="table datatable-basic">
@@ -14,10 +16,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($departments as $department)
+                        @foreach ($leaveTypes as $leaveType)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $department->title }}</td>
+                                <td>{{ $leaveType->title }}</td>
                                <td class="text-center">
 									<div class="list-icons">
 										<div class="dropdown">
@@ -26,27 +28,18 @@
 											</a>
 
 											<div class="dropdown-menu dropdown-menu-right">
-												<a href="{{ route('department.edit', $department->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit department</a>
-                                                {{-- <form style="display:inline" action="{{ route('department.destroy', $department->id) }}"
+												<a href="{{ route('leaveType.edit', $leaveType->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit leaveType</a>
+                                                <form style="display:inline" action="{{ route('leaveType.destroy', $leaveType->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this department?')){ this.closest('form').submit(); }"
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this leaveType?')){ this.closest('form').submit(); }"
                                                         class="dropdown-item"
-                                                        title="Delete department">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form> --}}
-                                                @if ($department->depars->isEmpty())
-                                                <form style="display:inline" action="{{ route('department.edit', $department->id)}}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Department?')){ this.closest('form').submit(); }" class="dropdown-item" title="Delete department">
+                                                        title="Delete leaveType">
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
                                                 </form>
-                                            @endif
 												{{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
 												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
 											</div>
@@ -61,8 +54,10 @@
                 </table>
             </div>
         </x-slot>
+
+        
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('department.create') }}" class="btn 
+            <a href="{{ route('leaveType.create') }}" class="btn 
             btn-sm 
             bg-success 
             border-2 
