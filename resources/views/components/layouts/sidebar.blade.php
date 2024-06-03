@@ -173,6 +173,16 @@
                                 <i class="icon-certificate"></i>Brand
                             </a>
             @endcan
+            {{-- @can('view brand') --}}
+                            <a href="{{ route('variables.index') }}"
+                                class="nav-link {{ request()->routeIs('variables.index') ? 'active' : '' }}">
+                                <i class="icon-certificate"></i>Variations
+                            </a>
+                            <a href="{{ route('tax.index') }}"
+                                class="nav-link {{ request()->routeIs('tax.index') ? 'active' : '' }}">
+                                <i class="icon-certificate"></i>Tax
+                            </a>
+            {{-- @endcan --}}
                         </li>
                         <li class="nav-item">
             @can('view product')

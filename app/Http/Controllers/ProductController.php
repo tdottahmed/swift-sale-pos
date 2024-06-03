@@ -84,6 +84,7 @@ class ProductController extends Controller
             foreach ($variationData['value'] as $key => $value) {
                 Variation::create([
                     'product_id' => $product->id,
+                    'branch_id' =>$request->branch_id,
                     'product_variation' => $request->variation_name,
                     'value' => $variationData['value'][$key] ?? null,
                     'stock' => $variationData['stock'][$key] ?? null,

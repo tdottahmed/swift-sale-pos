@@ -22,6 +22,8 @@ use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\VariableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +75,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subCategory', SubCategoryController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('slider', SliderController::class);
+    Route::resource('variables', VariableController::class);
+    Route::resource('tax', TaxController::class);
+
 
     // product table
     Route::resource('/product', ProductController::class);
@@ -115,6 +120,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('campaign', CampaignController::class);
     Route::get('send-campaign-email/{campaign}',[CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
     Route::get('send-campaign-sms/{campaign}',[CampaignController::class, 'sendSms'])->name('campaign.sendSms');
+
+
 
 });
 

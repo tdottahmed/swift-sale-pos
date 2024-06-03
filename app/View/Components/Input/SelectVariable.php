@@ -1,19 +1,21 @@
 <?php
 
-namespace App\View\Components\DataDisplay\Table;
+namespace App\View\Components\Input;
 
+use App\Models\Variable;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TableHead extends Component
+class SelectVariable extends Component
 {
     /**
      * Create a new component instance.
      */
+    public $variables;
     public function __construct()
     {
-        //
+        $this->variables= Variable::all();
     }
 
     /**
@@ -21,6 +23,6 @@ class TableHead extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.data-display.table.table-head');
+        return view('components.input.select-variable',['variables'=>$this->variables]);
     }
 }
