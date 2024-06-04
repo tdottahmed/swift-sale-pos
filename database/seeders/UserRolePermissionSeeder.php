@@ -150,7 +150,7 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'view payroll']);
         Permission::create(['name' => 'create payroll']);
         Permission::create(['name' => 'update payroll']);
-        Permission::create(['name' => 'delete employee']);
+        Permission::create(['name' => 'delete payroll']);
 
 
         // Create Permissions for organization
@@ -213,7 +213,7 @@ class UserRolePermissionSeeder extends Seeder
 
         // Let's give few permissions to admin role.
 
-        $adminRole->givePermissionTo(['create role', 'view role', 'update role']);
+        // $adminRole->givePermissionTo(['create role', 'view role', 'update role']);
         $adminRole->givePermissionTo(['create permission', 'view permission']);
         $adminRole->givePermissionTo(['create user', 'view user', 'update user']);
         $adminRole->givePermissionTo(['create product', 'view product', 'update product']);

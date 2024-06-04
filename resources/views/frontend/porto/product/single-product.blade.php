@@ -51,22 +51,24 @@
                     <!-- End .product-single-gallery -->
 
                     @php
-                       $totalRatings = $product->reviews->sum('rating');
+                      if ($product->reviews->sum('rating')>1) {
+                        $totalRatings = $product->reviews->sum('rating');
                        $totalReview = count($product->reviews);
                         $ratingWidth= $totalRatings/$totalReview;
+                      }
                     @endphp
                     <div class="col-lg-7 col-md-6 product-single-details">
                         <h1 class="product-title">{{ $product->name }}</h1>
 
                         <div class="ratings-container">
                             <div class="product-ratings">
-                                <span class="ratings" style="width:{{$ratingWidth ? $ratingWidth*20: 0}}%"></span>
+                                <span class="ratings" style="width:{{isset($ratingWidth) ? $ratingWidth * 20 : 0}}%"></span>
                                 <!-- End .ratings -->
                                 <span class="tooltiptext tooltip-top"></span>
                             </div>
                             <!-- End .product-ratings -->
 
-                            <a href="#" class="rating-link">( {{$totalReview ? $totalReview : 0}} Reviews )</a>
+                            <a href="#" class="rating-link">( {{isset($totalReview) ? $totalReview : 0}} Reviews )</a>
                         </div>
                         <!-- End .ratings-container -->
 
@@ -170,7 +172,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="product-tab-reviews" data-toggle="tab"
                             href="#product-reviews-content" role="tab" aria-controls="product-reviews-content"
-                            aria-selected="false">Reviews ({{$totalReview ? $totalReview : 0}})</a>
+                            aria-selected="false">Reviews ({{isset($totalReview) ? $totalReview  : 0}})</a>
                     </li>
                 </ul>
 
