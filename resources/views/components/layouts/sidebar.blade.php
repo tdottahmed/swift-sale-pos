@@ -368,7 +368,7 @@
                 </li>
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link {{ request()->is('department*') ? 'active' : '' }}">
-                        <i class="icon-target2"></i>
+                        <i class="icon-user-tie"></i>
                         <span>HRM</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
