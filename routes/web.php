@@ -95,6 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/leaveType', LeaveTypeController::class);
     Route::resource('/leave', LeaveController::class);
     Route::get('/leave-application/{leave}', [LeaveController::class, 'leavePdf'])->name('leave.pdf');
+    Route::put('/status/{leave}', [LeaveController::class, 'updatestatus'])->name('leave.update.status');
 
 
     // product table

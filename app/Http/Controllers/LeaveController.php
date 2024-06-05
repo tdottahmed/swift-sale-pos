@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Employee;
 use App\Models\Leave;
+use App\Models\Employee;
 use App\Models\LeaveType;
-use Illuminate\Http\Request;
+use App\Models\Department;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LeaveController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
      public function __construct()
      {
          $this->middleware('permission:view leave', ['only' => ['index']]);
@@ -26,47 +24,61 @@ class LeaveController extends Controller
     public function index()
     {
         $leaves = leave::get();
-        return view('leave.index',compact('leaves',));
+        $departments = Department::all();
+        $employees = Employee::all();
+        $leaveTypes = LeaveType::all();
+
+        return view('leave.index',compact('leaves', 'departments', 'employees', 'leaveTypes'));
     }
 
     
     public function create()
     {
-        $departments = Department::all();
-        $employees = Employee::all();
-        $leaveTypes = LeaveType::all();
-        return view('leave.create',compact('departments','employees','leaveTypes'));
+      
     }
 
     public function store(Request $request)
     {
+    $request->validate([
+        'department_id' => 'required|integer',
+        'leave_type_id' => 'required|integer',
+        'from'          => 'required|date',
+        'to'            => 'required|date|after_or_equal:from',
+        'attachment'    => 'nullable|file|mimes:jpeg,png,jpg,pdf,doc,docx',
+        'description'   => 'nullable|string',
+    ]);
 
-        Leave::create([
-            'uuid'=>Str::uuid(),
-            'department_id'=>$request->department_id,
-            'employee_id'=>$request->employee_id,
-            'leave_type_id'=>$request->leave_type_id,
-            'title'=>$request->title,
-            'from'=>$request->from,
-            'to'=>$request->to,
-            'attachment'=>$request->attachment,
-            'description'=>$request->description,
-        ]);
-        return redirect(route('leave.index'))->with('success','Leave Insert Successfully');
+    $fromDate = new \DateTime($request->from);
+    $toDate = new \DateTime($request->to);
+    $totalDays = $toDate->diff($fromDate)->days + 1;
 
+    $attachmentPath = null;
+    if ($request->file('attachment')) {
+        $attachmentPath = uploadImage($request->file('attachment'), 'leaves/images');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    $userId = Auth::user()->id;
+
+    Leave::create([
+        'uuid'          => Str::uuid(),
+        'department_id' => $request->department_id,
+        'leave_type_id' => $request->leave_type_id,
+        'from'          => $request->from,
+        'to'            => $request->to,
+        'total_days'    => $totalDays,
+        'attachment'    => $attachmentPath,
+        'description'   => $request->description,
+        'created_by'    => $userId,
+    ]);
+
+    return redirect()->route('leave.index')->with('success', 'Leave application created successfully.');
+}
+
     public function show(Leave $leave)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Leave $leave)
     {
         $departments = Department::all();
@@ -75,36 +87,64 @@ class LeaveController extends Controller
         return view('leave.edit',compact('leave','departments','employees','leaveTypes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Leave $leave)
-    {
-        $leave->update([
-            'department_id'=>$request->department_id,
-            'employee_id'=>$request->employee_id,
-            'leave_type_id'=>$request->leave_type_id,
-            'title'=>$request->title,
-            'from'=>$request->from,
-            'to'=>$request->to,
-            'status'=>$request->status,
-            'attachment'=>$request->attachment,
-            'description'=>$request->description,
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'department_id' => 'required|integer',
+            'leave_type_id' => 'required|integer',
+            'from'          => 'required|date',
+            'to'            => 'required|date|after_or_equal:from',
+            'attachment'    => 'nullable|file|mimes:jpeg,png,jpg,pdf,doc,docx',
+            'description'   => 'nullable|string',
         ]);
-        return redirect(route('leave.index'))->with('success','Leave Updated Successfully');
+
+        $fromDate = new \DateTime($request->from);
+        $toDate = new \DateTime($request->to);
+        $totalDays = $toDate->diff($fromDate)->days + 1;
+
+        $leave = Leave::findOrFail($id);
+
+        if ($request->hasFile('attachment')) {
+            if ($leave->attachment) {
+                Storage::delete($leave->attachment);
+            }
+            $attachmentPath = uploadImage($request->file('attachment'), 'leaves/images');
+        } else {
+            $attachmentPath = $leave->attachment;
+        }
+
+        $leave->update([
+            'department_id' => $request->department_id,
+            'leave_type_id' => $request->leave_type_id,
+            'from' => $request->from,
+            'to' => $request->to,
+            'total_days' => $totalDays,
+            'attachment' => $attachmentPath,
+            'description' => $request->description,
+            'updated_by' => Auth::id(),
+        ]);
+
+        return redirect()->route('leave.index')->with('success', 'Leave application updated successfully.');
     }
 
     public function destroy(Leave $leave)
     {
         $leave->delete();
 
-        return redirect(route('leave.index'))->with('success', 'leave Deleted Successfully');
+        return redirect(route('leave.index'))->with('success', 'leave Application Deleted Successfully');
     }
 
     public function leavePdf(Leave $leave)
     {
         return view('leave.pdf', compact('leave'));
+    }
+
+    public function updatestatus(Request $request, Leave $leave)
+    {
+        $leave->status = $request->status == 1 ? 0 : 1;
+        $leave->save();
+        return redirect()->back();
     }
 
 

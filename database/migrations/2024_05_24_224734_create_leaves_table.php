@@ -15,15 +15,14 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->nullable();
             $table->foreignId('department_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            $table->foreignId('employee_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->foreignId('leave_type_id')->constrained('leave_types')->nullable();
-            $table->string('title')->nullable();
             $table->date('from')->nullable();
             $table->date('to')->nullable();
+            $table->string('total_days')->nullable();
             $table->tinyInteger('status')->default('0');
             $table->string('attachment')->nullable();
             $table->string('description')->nullable();
-            $table->string('created_by')->nullable();
+            $table->foreignId('created_by')->constrained('users');
             $table->string('updated_by')->nullable();
             $table->timestamps();
         });

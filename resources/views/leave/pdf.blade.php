@@ -98,10 +98,13 @@
                     <td style="text-align: center; border: 1px solid black;">
                         <span>{{ $leave->to ?? null }}</span></td>
                     <td style="text-align: center; border: 1px solid black;">
-                        <span>{{ $leave->totalDays ?? null }}</span></td>
+                        <span>{{ $leave->total_days ?? null }}</span></td>
                 </tr>
             </tbody>
         </table>
+         @if ($leave->attachment)
+            <p>Attachment File: <a href="{{ Storage::url($leave->attachment) }}" target="_blank">View</a></p>
+        @endif
     </div>
     <script>
         window.print()

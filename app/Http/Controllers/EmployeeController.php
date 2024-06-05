@@ -26,17 +26,11 @@ class EmployeeController extends Controller
         return view('employee.index', compact('employees', 'departments', 'roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());

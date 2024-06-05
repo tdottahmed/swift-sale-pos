@@ -8,7 +8,7 @@
                 @csrf
                 @method('put')
                  <div class="form-group row">
-                        <label class="col-form-label col-sm-3">{{ __('Select employee') }}</label>
+                        <label class="col-form-label col-sm-3">{{ __('Select Department') }}</label>
                          <div class="col-sm-9">
                     <select name="department_id" id="department_id" class="form-control select-search">
                         <option value="">-- Please select --</option>
