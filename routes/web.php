@@ -21,6 +21,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
@@ -164,6 +165,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('campaign', CampaignController::class);
     Route::get('send-campaign-email/{campaign}', [CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
     Route::get('send-campaign-sms/{campaign}', [CampaignController::class, 'sendSms'])->name('campaign.sendSms');
+
+    // Order Routes 
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'detail'])->name('orders.detail');
+
 });
 
 require __DIR__ . '/auth.php';
@@ -181,4 +187,5 @@ Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function (
 
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+
 });
