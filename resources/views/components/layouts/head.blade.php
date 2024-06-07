@@ -58,10 +58,10 @@
     <script src="{{ asset('limitless/global_assets/js/demo_pages/components_modals.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/media/fancybox.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/ecommerce_product_list.js') }}"></script>
-    <script src="{{ asset('limitless/global_assets/js/plugins/editors/summernote/summernote.min.js') }}"></script>
-    <script src="{{ asset('limitless/global_assets/js/demo_pages/editor_summernote.js') }}"></script>
-
-
+    <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/plugins/purify.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/uploader_bootstrap.js') }}"></script>
 
 
     <style>
