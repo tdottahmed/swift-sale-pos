@@ -10,10 +10,15 @@ class VariableController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $variables = Variable::latest()->get();
-        return view('variables.index', compact('variables'));
+        if ($request->ajax()) {
+            return response()->json($variables);
+        } else {
+            return view('variables.index', compact('variables'));
+        }
+       
     }
 
     /**

@@ -56,6 +56,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         try {
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
@@ -250,5 +251,12 @@ class ProductController extends Controller
             $existingProduct = Product::where('sku', $sku)->first();
         } while ($existingProduct);
         return $sku;
+    }
+
+    public function checkSKU(Request $request)
+    {
+        $sku = $request->sku;
+        $exists = Product::where('sku', $sku)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }

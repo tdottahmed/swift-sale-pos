@@ -84,6 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/excel/import', [ProductController::class, 'import'])->name('product.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
+    Route::post('/check-sku', [ProductController::class, 'checkSKU'])->name('check.sku');
+
 
     // Point of sell
     // Route::resource('pos', SellController::class);
