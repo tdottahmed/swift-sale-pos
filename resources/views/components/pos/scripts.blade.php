@@ -1,19 +1,13 @@
 @push('scripts')
 <script>
     var ids = [];
-    function addProductToCart(productId) {
+    function addProductToCart(productId, variationId) {
         $.ajax({
-            url: '/single/product/' + productId,
+            url: '/single/product/' + productId +'/'+ variationId,
             method: 'GET',
             dataType: 'json',
             success: function(product) {
                 let variationOptions = '';
-                product.variations.forEach(variation => {
-                    if (variation.stock>0) {                        
-                        variationOptions +=
-                            `<option value="${variation.id}">${variation.product_variation}-${variation.value}</option>`;
-                    }
-                });
                 var index = ids.indexOf(product.id);
                 flus = index != -1 ? true : false;
                 $(".data option:selected").removeAttr("selected");
@@ -28,6 +22,7 @@
                             <td>
                                 ${product.name}
                                 <input type="hidden" name="product_ids[]" value="${product.id}">
+                                <input type="hidden" name="variation_ids[]" value="${product.variation_id}">
                             </td>
                             <td>
                                 <div class="input-group">
@@ -40,11 +35,6 @@
                                     </div>
                                 </div>
     
-                            </td>
-                            <td>
-                                <select name="variation[]">
-                                    ${variationOptions}
-                                </select>
                             </td>
                             <td>
                                 <input name="unit_price[]" type="number"step="0.01" class="form-control" id="proUnitPrice-${product.id}" value="${product.selling_price}">

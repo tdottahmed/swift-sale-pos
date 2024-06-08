@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // try {
+        try {
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
             if ($request->file('image')) {
@@ -104,10 +104,10 @@ class ProductController extends Controller
             }  
             
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
-        // } catch (\Throwable $th) {
-        //     Log::error($th->getMessage());
-        //     return redirect()->back()->with('error', $th->getMessage());
-        // }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     public function show(Product $product)
