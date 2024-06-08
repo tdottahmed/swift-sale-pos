@@ -1,5 +1,6 @@
 <x-frontend.porto.layout.partials.head />
 
+
 <body>
     <div class="page-wrapper">
         <div class="top-notice bg-primary text-white">
@@ -11,7 +12,11 @@
                 <button title="Close (Esc)" type="button" class="mfp-close">×</button>
             </div>
             <!-- End .container -->
+            
         </div>
+<x-frontend.porto.layout.partials.top-head />
+
+        
         <!-- End .top-notice -->
         <x-frontend.porto.layout.partials.navbar />
 

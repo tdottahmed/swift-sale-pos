@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\Porto\BlogController;
 use App\Http\Controllers\Frontend\Porto\CommentController;
 use App\Http\Controllers\Frontend\Porto\FrontendController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/products', [FrontendController::class, 'products'])->name('frontend.products');
@@ -48,3 +49,4 @@ Route::get('/thanks/{orderId}', [CartController::class, 'thankyou'])->name('fron
 Route::post('/get-order-summary', [CartController::class, 'getOrderSummary'])->name('frontend.getOrderSummary');
 Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('frontend.applyDiscount');
 Route::post('/remove-discount', [CartController::class, 'removeCoupon'])->name('frontend.removeCoupon');
+
