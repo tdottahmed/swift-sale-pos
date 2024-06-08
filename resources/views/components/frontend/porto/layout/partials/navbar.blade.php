@@ -195,7 +195,7 @@
                         <a href="{{ route('frontend.index') }}">Home</a>
                     </li>
                     <li>
-                        <a href="">Categories</a>
+                        <a href="#">Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-6">

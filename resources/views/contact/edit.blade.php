@@ -43,12 +43,7 @@
 
                     </div>
                     <div class="form-group row">
-                        <div class="col-3">
-                            <label class="col-form-label ">Prefix :</label>
-                            <input type="text" placeholder="Mr/Mrs/Miss" class="form-control" name="prefix"
-                                value="{{ $contact->prefix }}">
-                        </div>
-
+                       
                         <div class="col-3">
 
                             <label class="col-form-label">First Name :</label>
@@ -56,11 +51,7 @@
                             <input type="text" placeholder="First Name" class="form-control" name="first_name"
                                 value="{{ $contact->first_name }}">
                         </div>
-                        <div class="col-3">
-                            <label class="col-form-label ">Middle Name :</label>
-                            <input type="text" placeholder="Middle Name" class="form-control" name="middle_name"
-                                value="{{ $contact->middle_name }}">
-                        </div>
+                       
                         <div class="col-3">
                             <label class="col-form-label 3">Last Name :</label>
                             <input type="text" placeholder="Last Name" class="form-control" name="last_name"
@@ -76,18 +67,6 @@
                         </div>
 
                         <div class="col-3">
-
-                            <label class="col-form-label">Alternate Contact Number :</label>
-
-                            <input type="text" placeholder="Alternate Contact Number" class="form-control"
-                                name="alternate_number" value="{{ $contact->alternate_number }}">
-                        </div>
-                        <div class="col-3">
-                            <label class="col-form-label ">Landline :</label>
-                            <input type="text" placeholder="Landline" class="form-control" name="landline"
-                                value="{{ $contact->landline }}">
-                        </div>
-                        <div class="col-3">
                             <label class="col-form-label 3">Email :</label>
                             <input type="email" placeholder="Email" class="form-control" name="email"
                                 value="{{ $contact->email }}">
@@ -100,14 +79,6 @@
                             <label class="col-form-label ">City :</label>
                             <input type="text" placeholder="City" class="form-control" name="city"
                                 value="{{ $contact->city }}">
-                        </div>
-
-                        <div class="col-3">
-
-                            <label class="col-form-label">State :</label>
-                            <input type="text" placeholder="State" class="form-control" name="state"
-                                value="{{ $contact->state }}">
-
                         </div>
                         <div class="col-3">
                             <label class="col-form-label ">Country :</label>
@@ -140,12 +111,6 @@
                             <label class="col-form-label ">Address :</label>
                             <input type="text" placeholder="Address" class="form-control" name="address"
                                 value="{{ $contact->address }}">
-                        </div>
-                        <div class="col-3">
-                            <label class="col-form-label 3">Address2 :</label>
-                            <input type="text" placeholder="Address2" class="form-control" name="address2"
-                                value="{{ $contact->address2 }}">
-
                         </div>
 
                     </div>

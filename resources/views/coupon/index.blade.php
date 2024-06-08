@@ -1,7 +1,7 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Size
+            Coupon List
         </x-slot>
         <x-slot name="body">
             <div class="table">
