@@ -35,7 +35,6 @@ use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SliderController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +45,7 @@ use App\Http\Controllers\SliderController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -165,6 +165,9 @@ Route::middleware('auth')->group(function () {
     // Order Routes 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'detail'])->name('orders.detail');
+    // Route::post('/order/change-status/{id}', [OrderController::class, 'chnageOrderStatus'])->name('orders.chnageOrderStatus');
+    Route::post('/order/change-status/{id}', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
+    Route::post('/order/send-email/{id}', [OrderController::class, 'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
 
 });
 

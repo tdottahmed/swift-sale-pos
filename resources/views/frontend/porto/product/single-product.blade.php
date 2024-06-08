@@ -109,9 +109,19 @@
                                 <input class="horizontal-quantity form-control" type="text">
                             </div>
                             <!-- End .product-single-qty -->
-
+                            @if ($product->track_qty == 'yes')
+                                @if ($product->qty > 0)
+                                <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart">Add to
+                                    Cart</a>
+                                    @else
+                                    <a href="javascript:void(0);" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart">Out Of Stock</a>
+                                @endif
+                            
+                            @else
                             <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn btn-dark btn-add-cart mr-2" title="Add to Cart">Add to
                                 Cart</a>
+                            @endif
+                            
 
                             @auth
                             <a href="{{ route('frontend.cart', Auth::user()->id) }}"

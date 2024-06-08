@@ -43,7 +43,7 @@
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
+                            <a onclick="addToWishlist({{ $product->id }})" href="javascript:void(0)" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
                             <a href="product.html" class="btn-icon btn-add-cart"><i
                                     class="fa fa-arrow-right"></i><span>SELECT

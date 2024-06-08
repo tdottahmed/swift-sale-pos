@@ -50,3 +50,7 @@ Route::post('/get-order-summary', [CartController::class, 'getOrderSummary'])->n
 Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('frontend.applyDiscount');
 Route::post('/remove-discount', [CartController::class, 'removeCoupon'])->name('frontend.removeCoupon');
 
+Route::post('/add-to-wishlist', [FrontendController::class, 'addToWishlist'])->name('frontend.addToWishlist');
+
+Route::get('/my-wishlist', [FrontendController::class, 'wishlist'])->name('frontend.wishlist');
+Route::post('/remove-product-from-wishlist', [FrontendController::class, 'removeProductFormWishlist'])->name('frontend.removeProductFormWishlist');
