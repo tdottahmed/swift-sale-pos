@@ -231,7 +231,6 @@
                     </li>
                     <li>
                         <a href="{{ route('frontend.products') }}">Products</a>
-
                         <!-- End .megamenu -->
                     </li>
 

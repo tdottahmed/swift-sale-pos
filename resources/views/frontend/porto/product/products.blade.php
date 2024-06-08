@@ -15,9 +15,27 @@
                                 <div class="product-label label-sale">-20%</div>
                             </div>
                             <div class="btn-icon-group">
+                                @if ($product->track_qty == 'yes')
+                                @if ($product->opening_stock > 0)
                                 <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple" title="add to cart">
                                     <i class="icon-shopping-cart"></i>
                                 </a>
+                                    @else
+                                    <a href="javascript:void(0);" class="btn-icon btn-add-cart product-type-simple" title="Out Of Stock">
+                                        <i class="icon-shopping-cart"></i>
+                                    </a>
+                                @endif
+                            
+                            @else
+                            <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple" title="add to cart">
+                                <i class="icon-shopping-cart"></i>
+                            </a>
+                            @endif
+                            
+
+                                {{-- <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple" title="add to cart">
+                                    <i class="icon-shopping-cart"></i>
+                                </a> --}}
                                 <a href="#" class="btn-icon btn-icon-wish product-type-simple" title="wishlist"><i class="icon-heart"></i></a>
                                 <a href="ajax/product-quick-view.html" class="btn-icon btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                             </div>

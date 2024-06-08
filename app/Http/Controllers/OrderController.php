@@ -34,7 +34,7 @@ class OrderController extends Controller
     }
 
     public function detail($orderId){
-        $orders = Order:: select('orders.*','countries.name as countryName')
+        $order = Order:: select('orders.*','countries.name as countryName')
          ->where('orders.id', $orderId)
         ->leftJoin('countries','countries.id','orders.country_id')
         ->first();
@@ -42,11 +42,52 @@ class OrderController extends Controller
         $orderItems = OrderedItem::where('order_id',$orderId)->get();
 
         return view('orders.detail', [
-            'orders' => $orders,
+            'order' => $order,
             'orderItems' => $orderItems
         ]);
     }
 
+    public function changeOrderStatus(Request $request, $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $order->status = $request->status;
+        $order->shipped_date = $request->shipped_date;
+        $order->save();
+
+        $message = "Order status updated successfully";
+        session()->flash('success', $message);
+        return redirect()->route('orders.detail', $order->id);
+    }
+
+    public function sendInvoiceEmail(Request $request, $orderId){
+        $order = Order::findOrFail($orderId);
+
+        orderEmail($orderId, $request->userType);
+
+        $message = "Order email send successfully";
+        session()->flash('success', $message);
+
+        return redirect()->route('orders.detail', $order->id);
+
+    }
+
+    // public function changeOrderStatus(Request $request, $orderId){
+    //     $order = Order::find($orderId);
+    //     $order->status = $request->status;
+    //     $order->shipped_date = $request->shipped_date;
+    //     $order->save();
+    
+    //     $message = "Order status updated successfully";
+    //     session()->flash('success',$message);
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => $message
+    //     ]);
+    // }
+
+    // public function chnageOrderStatus(Request $request, $orderId){
+       
+    // }
 
     public function myOrder(){
      
@@ -66,8 +107,11 @@ class OrderController extends Controller
         $data['order'] = $order;
 
         $orderItems = OrderedItem::where('order_id', $id)->get();
-
         $data['orderItems'] = $orderItems;
+
+        $orderItemCount = OrderedItem::where('order_id', $id)->count();
+        $data['orderItemCount'] = $orderItemCount;
+
         return view('frontend.porto.order-detail', $data);
     }
 

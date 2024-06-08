@@ -184,6 +184,16 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="col-lg-3 pt-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input-styled" value="1"
+                                            name="track_qty" data-fouc {{$product->track_qty ? 'checked':''}}>
+                                         Track Qty
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row my-3">
                             <div class="col-lg-4">

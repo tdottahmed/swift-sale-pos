@@ -258,6 +258,24 @@
     <!-- End .newsletter-popup -->
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+<!--Wishlist Modal -->
+<div class="modal fade" id="wishlistModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Success</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
     <!-- Plugins JS File -->
     {{-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
@@ -610,6 +628,41 @@ $('body').on('click',"#remove-discount",function(){
 
    </script>
 
+
+<script>
+    function addToWishlist(id){
+        $.ajax({
+                url: '{{ route("frontend.addToWishlist") }}',
+                type: 'POST',
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) { 
+                    if(response.status == true){
+                    $("#wishlistModal .modal-body").html(response.message);
+                    $("#wishlistModal").modal('show');
+                    }else{
+                        window.location.href= "{{ route('login') }}";
+                        // alert(response.message);
+                    }
+                }
+            });
+    }
+</script>
+<script>
+    function removeProduct(id){
+        $.ajax({
+        url: '{{ route("frontend.removeProductFormWishlist") }}',
+                type: 'POST',
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) { 
+                    if(response.status == true){
+                        window.location.href = "{{ route('frontend.wishlist')}}";
+                    }
+                }
+            });
+    }
+</script>
 
 </body>
 

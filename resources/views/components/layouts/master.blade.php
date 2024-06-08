@@ -362,6 +362,53 @@
 });
 
   </script>
+  <script>
+    $(document).ready(function () {  
+
+        $('#shipped_date').datetimepicker({
+
+            format: 'Y-m-d H:i:s'
+        })
+    })
+
+  
+
+  </script>
+  
+  <script>
+    function confirmUpdateStatus() {
+        if (confirm('Are you sure you want Update status?')) {
+            document.getElementById('updateStatus').submit();
+        }
+    }
+
+    function confirmSendEmail() {
+        if (confirm('Are you sure you want to send the email?')) {
+            document.getElementById('sendInvoiceEmail').submit();
+        }
+    }
+</script>
+
+  {{-- <script>
+     $("#sendInvoiceEmail").submit(function(event){
+         
+        event.preventDefault();
+
+        $.ajax({
+            url: '{{ route("orders.sendInvoiceEmail",$order->id) }}'
+            type: 'post', 
+            data: element.serializeArray(),
+            dataType: 'json',
+            success: function (response) {
+
+
+            }
+        });
+
+     });
+
+
+  </script> --}}
 	@stack('scripts')
 </body>
 </html>

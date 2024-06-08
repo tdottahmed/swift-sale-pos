@@ -7,11 +7,12 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Wishlist;
 use App\Models\ContactUs;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\ProductReview;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -107,4 +108,81 @@ class FrontendController extends Controller
             return redirect()->back()->with('success', $th->getMessage());
         }
     }
+
+
+    public function addToWishlist(Request $request){
+
+
+        if(Auth::check() == false){
+
+            session(['url.intended' => url()->previous()]);
+
+            return response()->json([
+                'status' => false
+            ]);
+        }
+
+        Wishlist::updateOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'product_id' => $request->id,
+            ],
+            [
+                'user_id' => Auth::user()->id,
+                'product_id' => $request->id,
+            ]
+        );
+
+        // $wishlist = new Wishlist;
+        // $wishlist->user_id = Auth::user()->id;
+        // $wishlist->product_id = $request->id;
+
+        // $wishlist->save();
+
+       $product = Product::where('id', $request->id)->first();
+       if($product == null){
+        return response()->json([
+            'status' => true,
+            'message' => '<div class="alert alert-danger">Prodcut not found</div>'
+        ]);
+       }
+        return response()->json([
+            'status' => true,
+            'message' => '<div class="alert alert-success"><strong>"'.$product->name.' "</strong>  added your wishlist</div>'
+        ]);
+
+    }
+
+
+    public function wishlist(){
+
+       $wishlists = Wishlist::where('user_id',Auth::user()->id)->with('product')->get();
+       $data= [];
+
+       $data['wishlists'] = $wishlists;
+
+       return view('frontend.porto.wishlist', $data);
+    }
+
+    public function removeProductFormWishlist(Request $request){
+
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->id)->first();
+        if($wishlist == null){
+            session()->flash('error', 'Product already removed');
+
+            return response()->json([
+
+                'status' => true,
+            ]);
+        }else{
+        Wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->id)->delete();
+        session()->flash('success', 'Product deleted successfully');
+
+        return response()->json([
+
+            'status' => true,
+        ]);
+        }
+    }
+
 }

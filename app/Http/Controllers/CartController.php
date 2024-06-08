@@ -351,7 +351,24 @@ class CartController extends Controller
         $orderItem->total = $item->price*$item->qty;
         $orderItem->save();
 
+        //update product stock
+        $productData = Product::find($item->id);
+
+        if($productData->track_qty == 'yes'){
+            $currentQty = $productData->opening_stock;
+            $updatedQty = $currentQty - $item->qty;
+            $productData->opening_stock = $updatedQty;
+            $productData->save();
+
+            
         }
+       
+        }
+
+
+
+        // send order email 
+        orderEmail($order->id, 'customer');
 
 
         session()->flash('success','You have successfully placed your order.');

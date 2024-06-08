@@ -62,14 +62,24 @@
                                         <tr>
 
                                             <td class="text-center p-0"> {{$order->id}}</td>
-                                            <td class="text-center p-0">01 Oct 2019</td>
+                                            <td class="text-center p-0">
+                                                @if (!empty($order->shipped_date))
+                                                    {{ \Carbon\Carbon::parse($order->shipped_date)->format('d M, Y')}}
+                                                    @else
+                                                    n/a
+                                                @endif
+                                            
+                                            </td>
                                             <td class="text-center p-0">
                                                 @if ($order->status == 'pending')
                                                 <span class="badge bg-danger">Pending</span>
                                                 @elseif ($order->status == 'shipped')
                                                 <span class="badge bg-info">Shipped</span>
-                                                @else
+                                                @elseif ($order->status == 'delivered')
                                                 <span class="badge bg-success">Delivered</span>
+                                                 @else
+                                                <span class="badge bg-danger">Cancelled</span>
+
                                                 @endif
                                             </td>
                                             <td class="text-center p-0">${{ number_format($order->grand_total,2) }}</td>
@@ -92,7 +102,7 @@
                                 <div class="cart-table-container">
                                     <table class="table table-cart">
                                         <thead>
-                                            <th>Order Items</th>
+                                            <th>Order Items ({{ $orderItemCount }})</th>
                                         </thead>
                                         <tbody>
                                             @foreach ($orderItems as $orderItem)
