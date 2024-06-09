@@ -95,9 +95,7 @@
 	@endif
 	<script>
 		$(document).ready(function() {
-				$('#loader-wrapper').show(); // Show the loader when the document is ready
-
-				// Hide the loader when the content is fully loaded
+				$('#loader-wrapper').show();
 				$(window).on('load', function() {
 					$('#loader-wrapper').hide();
 				});

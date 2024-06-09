@@ -23,7 +23,7 @@
                         </h6>
                     </div>
                     <h3 class="mb-0 font-weight-semibold">Price: {{ $product->selling_price }}/-</h3>
-                    <button type="button" onclick="addProductToCart({{ $product->id }}, null)" class="btn bg-teal-400 addToCartBtn"><i class="icon-cart-add mr-2"></i> Add to cart</button>
+                    <button type="button" onclick="addProductToCart({{ $product->id }}, null)" class="btn bg-teal-800 addToCartBtn"><i class="icon-cart-add mr-2"></i> Add to cart</button>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                             </h6>
                         </div>
                         <h3 class="mb-0 font-weight-semibold">Price: {{ $variation->selling_price }}/-</h3>
-                        <button type="button" onclick="addProductToCart(null, {{ $variation->id }}, {{ $variation->price }})" class="btn bg-teal-400 addToCartBtn"><i class="icon-cart-add mr-2"></i> Add to cart</button>
+                        <button type="button" onclick="addProductToCart(null, {{ $variation->id }}, {{ $variation->price }})" class="btn bg-teal-800 addToCartBtn"><i class="icon-cart-add mr-2"></i> Add to cart</button>
                     </div>
                 </div>
             </div>

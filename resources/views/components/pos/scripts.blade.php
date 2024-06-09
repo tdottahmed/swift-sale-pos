@@ -20,30 +20,25 @@
                     let row = `
                         <tr data-id="${product.id}" id="pro-${product.id}">
                             <td>
-                                ${product.name}
+                                <h5 class="font-weight-bold">${product.name}</h5>
                                 <input type="hidden" name="product_ids[]" value="${product.id}">
                                 <input type="hidden" name="variation_ids[]" value="${product.variation_id}">
                             </td>
                             <td>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="decrementQuantity(${product.id})">-</button>
-                                    </div>
-                                    <input id="proQuantity-${product.id}" class="form-control form-control-sm" type="number" min="1" onchange="proMultiPur(${product.id})" name="proQuantity[]" value="1">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-sm btn-outline-secondary" type="button" onclick="incrementQuantity(${product.id})">+</button>
-                                    </div>
+                                <div class="counter-container">
+                                    <button class="counter-button" type="button" class="decrement" onclick="decrementQuantity(${product.id})">-</button>
+                                    <input id="proQuantity-${product.id}" name="proQuantity[]" type="text" class="quantity" value="1" onchange="proMultiPur(${product.id})">
+                                    <button class="counter-button" type="button" onclick="incrementQuantity(${product.id})" class="increment">+</button>
                                 </div>
-    
                             </td>
                             <td>
-                                <input name="unit_price[]" type="number"step="0.01" class="form-control" id="proUnitPrice-${product.id}" value="${product.selling_price}">
+                                <input name="unit_price[]" type="text"step="0.01" class="form-control quantity-total" id="proUnitPrice-${product.id}" value="${product.selling_price}">
                             </td>
                             <td>
-                                <input name="sub_total[]" type="number"step="0.01" class="form-control" id="proSubPrice-${product.id}" value="${product.selling_price}">
+                                <input name="sub_total[]" type="text"step="0.01" class="form-control quantity-total" id="proSubPrice-${product.id}" value="${product.selling_price}">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="removeProductPur(${product.id})">Delete</button>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="removeProductPur(${product.id})"><i class=" icon icon-cross3"></i></button>
                             </td>
                         </tr>`;
                     $('#productTbody').append(row);

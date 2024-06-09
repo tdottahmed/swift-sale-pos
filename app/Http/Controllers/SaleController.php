@@ -43,19 +43,20 @@ class SaleController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         try {
             $salesInfos = $request->only('customer_id', 'total_price', 'paid_amount', 'total_quantity', 'discountedAmount', 'payment_type');
-            // dd($salesInfos);
             $data = array_merge(['uuid' => Str::uuid()], $salesInfos);
             $sale = Sale::create($data);
             $productIds = $request->product_ids;
             foreach ($productIds as $key => $id) {
-                $variation_id = $request->variation_ids[$key] ?? null;
+
+                $variation_id = $request->has('variation_ids') && isset($request->variation_ids[$key]) ? ($request->variation_ids[$key] === "null" ? null : $request->variation_ids[$key]) : null;
+
                 $productSale = ProductSale::create([
                     'sale_id' => $sale->id,
                     'product_id' => $id,
-                    'variation_id' => $variation_id !== 'null' ? $variation_id : null,
+                    'variation_id' =>  $variation_id,
                     'quantity' => $request->proQuantity[$key],
                     'unit_total' => $request->unit_price[$key],
                     'sub_total' => $request->sub_total[$key]
