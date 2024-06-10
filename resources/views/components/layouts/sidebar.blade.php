@@ -466,6 +466,7 @@
                                     class="nav-link {{ request()->routeIs('shipping.index') ? 'active' : '' }}">
                                     <i class="icon-align-top"></i>Shipping
                                 </a>
+                            @endcan
             @can('view brand')
                             <a href="{{ route('brand.index') }}"
                                 class="nav-link {{ request()->routeIs('brand.index') ? 'active' : '' }}">
@@ -484,7 +485,7 @@
             {{-- @endcan --}}
                         </li>
                         <li class="nav-item">
-            @can('view product')
+                     @can('view product')
                             <a href="{{ route('category.index') }}"
                                 class="nav-link {{ request()->routeIs('category.index') ? 'active' : '' }}">
                                 <i class="icon-align-left"></i>Category
