@@ -48,10 +48,25 @@
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
+                            <a onclick="addToWishlist({{ $product->id }})" href="javascript:void(0)" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+
+                                    @if ($product->track_qty == 'yes')
+                                    @if ($product->qty > 0)
+                                    <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple"><i
+                                        class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                        @else
+                                        <a href="javascript:void(0);" class="btn-icon btn-add-cart product-type-simple"><i
+                                            class="icon-shopping-cart"></i><span>Out Of Stock</span></a>
+                                    @endif
+                                
+                                @else
+                                <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple"><i
                                     class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                    
+                                @endif
+
+                            
                             <a href="{{ asset('porto') }}/ajax/product-quick-view.html" class="btn-quickview"
                                 title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                         </div>

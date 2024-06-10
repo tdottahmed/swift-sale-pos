@@ -14,7 +14,7 @@
             <!-- End .container -->
             
         </div>
-<x-frontend.porto.layout.partials.top-head />
+{{-- <x-frontend.porto.layout.partials.top-head /> --}}
 
         
         <!-- End .top-notice -->

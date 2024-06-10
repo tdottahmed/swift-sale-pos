@@ -23,22 +23,13 @@
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    <option value="4">Fashion</option>
-                                    <option value="12">- Women</option>
-                                    <option value="13">- Men</option>
-                                    <option value="66">- Jewellery</option>
-                                    <option value="67">- Kids Fashion</option>
-                                    <option value="5">Electronics</option>
-                                    <option value="21">- Smart TVs</option>
-                                    <option value="22">- Cameras</option>
-                                    <option value="63">- Games</option>
-                                    <option value="7">Home &amp; Garden</option>
-                                    <option value="11">Motors</option>
-                                    <option value="31">- Cars and Trucks</option>
-                                    <option value="32">- Motorcycles &amp; Powersports</option>
-                                    <option value="33">- Parts &amp; Accessories</option>
-                                    <option value="34">- Boats</option>
-                                    <option value="57">- Auto Tools &amp; Supplies</option>
+
+                                    @foreach ($categories as $category)
+                                        <option value="4">
+                                            <a
+                                                href="{{ route('frontend.category-wise-product', $category->id) }}">{{ $category->title }}</a>
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -49,28 +40,28 @@
                 </div>
                 <!-- End .header-search -->
 
-            
+
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                     <img alt="phone" src="{{ asset('porto') }}/assets/images/phone.png" width="30" height="30"
                         class="pb-1">
-                    <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
+                    <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+88 01703671846</a></h6>
                 </div>
 
                 <a href="{{ route('login') }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
-                <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+                <a href="{{route('frontend.wishlist')}}" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
 
                 <div class="dropdown cart-dropdown">
                     @php
                         $cartCount = Auth::user() ? Auth::user()->cart()->count() : 0;
                     @endphp
-                   @auth
-                   <a href="{{ route('frontend.cart',Auth::user()->id) }}" title="Cart" class="dropdown-toggle dropdown-arrow"
-                    >
-                     <i class="minicart-icon"></i>
-                     <span class="cart-count badge-circle">{{ $cartCount }}</span>
-                 </a>
-                   @endauth
+                    @auth
+                        <a href="{{ route('frontend.cart', Auth::user()->id) }}" title="Cart"
+                            class="dropdown-toggle">
+                            <i class="minicart-icon"></i>
+                            <span class="cart-count badge-circle">{{ $cartCount }}</span>
+                        </a>
+                    @endauth
                     {{-- <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-display="static">
@@ -106,8 +97,7 @@
                                                 alt="product" width="80" height="80">
                                         </a>
 
-                                        <a href="#" class="btn-remove"
-                                            title="Remove Product"><span>×</span></a>
+                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
                                 <!-- End .product -->
@@ -130,8 +120,7 @@
                                                 alt="product" width="80" height="80">
                                         </a>
 
-                                        <a href="#" class="btn-remove"
-                                            title="Remove Product"><span>×</span></a>
+                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
                                     </figure>
                                 </div>
                                 <!-- End .product -->
@@ -237,8 +226,8 @@
                     <li><a href="blog.html">Blog</a></li>
 
                     <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
-                    <li class="float-right"><a href="https://1.envato.market/DdLk5" rel="noopener" class="pl-5"
-                            target="_blank">Buy Porto!</a></li>
+                    <li class="float-right"><a href="{{route('frontend.myOrder')}}" rel="noopener" class="pl-5"
+                            target="_blank">My Account</a></li>
                     <li class="float-right"><a href="#" class="pl-5">Special Offer!</a></li>
                 </ul>
             </nav>

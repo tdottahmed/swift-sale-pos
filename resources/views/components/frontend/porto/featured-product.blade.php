@@ -45,7 +45,7 @@
                         <div class="product-action">
                             <a onclick="addToWishlist({{ $product->id }})" href="javascript:void(0)" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
+                            <a href="{{ route('frontend.single-product', $product->id) }}" class="btn-icon btn-add-cart"><i
                                     class="fa fa-arrow-right"></i><span>SELECT
                                     OPTIONS</span></a>
                             <a href="{{ asset('porto') }}/ajax/product-quick-view.html" class="btn-quickview"

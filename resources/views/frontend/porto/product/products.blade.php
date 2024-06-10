@@ -36,19 +36,19 @@
                                 {{-- <a href="javascript:void(0);" onclick="addToCart({{$product->id}})" class="btn-icon btn-add-cart product-type-simple" title="add to cart">
                                     <i class="icon-shopping-cart"></i>
                                 </a> --}}
-                                <a href="#" class="btn-icon btn-icon-wish product-type-simple" title="wishlist"><i class="icon-heart"></i></a>
-                                <a href="ajax/product-quick-view.html" class="btn-icon btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                <a onclick="addToWishlist({{ $product->id }})" href="javascript:void(0)" class="btn-icon btn-icon-wish product-type-simple" title="wishlist"><i class="icon-heart"></i></a>
+                                <a href="{{ route('frontend.single-product', $product->id) }}" class="btn-icon btn-primary" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                             </div>
                         </figure>
 
                         <div class="product-details">
                             <div class="category-wrap">
                                 <div class="category-list">
-                                    <a href="category.html" class="product-category">category</a>
+                                    <a href="#" class="product-category">{{ $product->category}}</a>
                                 </div>
                             </div>
 
-                            <h3 class="product-title"><a href="product.html">{{ $product->name }}</a></h3>
+                            <h3 class="product-title"><a href="{{ route('frontend.single-product', $product->id) }}">{{ $product->name }}</a></h3>
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
