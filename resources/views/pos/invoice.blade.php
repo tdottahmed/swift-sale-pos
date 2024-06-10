@@ -99,10 +99,15 @@
                      <td>{{$loop->iteration}}</td>
                      <td>{{\App\Models\Product::find($product->product_id)->name}}</td>
                      <td>
+                        @if ($product->variation_id==!null)
                         @php
-                            $variation = \App\Models\Variation::find($product->variation_id)
-                        @endphp
+                        $variation = \App\Models\Variation::find($product->variation_id)
+                         @endphp
                         {{$variation->product_variation}} - {{$variation->value}}
+                        @else
+                        N/A
+                        @endif
+                        
                     </td>
                      <td>{{$product->quantity}}</td>
                      <td>{{$product->unit_total}}</td>

@@ -7,5 +7,6 @@
             </div>
 	</div>
     <!-- Page content -->
+    @stack('scripts')
 </body>
 </html>

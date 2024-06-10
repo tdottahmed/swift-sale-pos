@@ -1,19 +1,21 @@
 <?php
 
-namespace App\View\Components\DataDisplay\Table;
+namespace App\View\Components\Input;
 
+use App\Models\Tax;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TableBody extends Component
+class ApplicableTax extends Component
 {
     /**
      * Create a new component instance.
      */
+    public $applicableTaxes;
     public function __construct()
     {
-        //
+        $this->applicableTaxes= Tax::all();
     }
 
     /**
@@ -21,6 +23,6 @@ class TableBody extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.data-display.table.table-body');
+        return view('components.input.applicable-tax',['applicableTaxes '=>$this->applicableTaxes]);
     }
 }

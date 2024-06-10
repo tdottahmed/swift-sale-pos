@@ -21,7 +21,9 @@
             <!-- Page header -->
 			<x-layouts.page-header/>
 			<!-- /page header -->
-				<x-loader/>
+			<div id="loader-wrapper">
+				<div id="loader"></div>
+		  </div>
             <div class="content pt-0">
                 {{$slot}}
             </div>
@@ -93,13 +95,11 @@
 	@endif
 	<script>
 		$(document).ready(function() {
-			 $('#overlay').show(); // Show the loader when the document is ready
-
-			 // Hide the loader when the content is fully loaded
-			 $(window).on('load', function() {
-				  $('#overlay').hide();
-			 });
-		});
+				$('#loader-wrapper').show();
+				$(window).on('load', function() {
+					$('#loader-wrapper').hide();
+				});
+			});
   </script>
 
   {{-- <script>

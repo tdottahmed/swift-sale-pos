@@ -125,9 +125,8 @@
                             <th>Default Purchase Price (Exc. tax)</th>
                             <th>Default Purchase Price (Inc. tax)</th>
                             <th>X Margin(%)</th>
-                            <th>Default Selling Price (Exc. tax)</th>
-                            <th>Default Selling Price (Inc. tax)</th>
-                            <th>Variation Images</th>
+                            <th>Purchase Price (Exc. tax)</th>
+                            <th>Purchase Price (Inc. tax)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,18 +137,11 @@
                                 <td>{{ $variation->stock }}</td>
                                 <td>{{ $variation->purchase_exc }}</td>
                                 <td>{{ $variation->purchase_inc }}</td>
-                                <td>{{ $variation->profit_marging }}</td>
-                                <td>{{ $variation->selling_price }}</td>
-                                <td>{{ $variation->selling_price + ($variation->selling_price * $variation->profit_marging) / 100 }}
+                                <td>{{ $variation->profit_margin }}</td>
+                                <td>{{ $variation->purchase_exc }}</td>
+                                <td>{{ $variation->purchase_inc }}
                                 </td>
-                                <td>
-                                    @if ($variation->variation_image)
-                                        <img src="{{ asset('storage/products') . '/' . $variation->variation_image }}"
-                                            width="100" height="70" alt="Variation Image">
-                                    @else
-                                        <span>No Image</span>
-                                    @endif
-                                </td>
+                               
                             </tr>
                         @endforeach
                     </tbody>

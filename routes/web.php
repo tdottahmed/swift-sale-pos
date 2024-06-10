@@ -33,6 +33,8 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
 
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\VariableController;
 
 
 /*
@@ -86,6 +88,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subCategory', SubCategoryController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('slider', SliderController::class);
+    Route::resource('variables', VariableController::class);
+    Route::resource('tax', TaxController::class);
+
 
     //HRM
     Route::resource('/department', DepartmentController::class);
@@ -104,6 +109,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/excel/import', [ProductController::class, 'import'])->name('product.import');
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
+    Route::post('/check-sku', [ProductController::class, 'checkSKU'])->name('check.sku');
+
 
     //Shipping
     Route::get('/shipping/index', [ShippingController::class, 'index'])->name('shipping.index');
@@ -128,16 +135,18 @@ Route::middleware('auth')->group(function () {
 
     // Point of sell
     // Route::resource('pos', SellController::class);
-    Route::get('pos-create', [SaleController::class, 'create'])->name('pos.create');
-    Route::post('pos-store', [SaleController::class, 'store'])->name('pos.store');
-    Route::get('single/product/{id}', [SaleController::class, 'singleProduct']);
-    Route::get('pos-list', [SaleController::class, 'index'])->name('pos.index');
+    Route::get('pos-create', [SaleController::class,'create'])->name('pos.create');
+    Route::post('pos-store', [SaleController::class,'store'])->name('pos.store');
+    Route::get('single/product/{productId}/{variationId}', [SaleController::class, 'singleProduct']);
+    Route::get('pos-list',[SaleController::class,'index'])->name('pos.index');
     Route::get('pos/invoice/{id}', [SaleController::class, 'invoice'])->name('pos.invoice');
-    Route::get('suspend-sale/{sale}', [SaleController::class, 'suspendSale'])->name('sale.suspend');
-    Route::get('pos/suspended-list', [SaleController::class, 'suspendedList'])->name('suspended.list');
-    Route::get('pos/return/{sale}', [SaleController::class, 'returnSale'])->name('return.sale');
-    Route::get('pos/returned-list', [SaleController::class, 'returnedList'])->name('returned.list');
+    Route::get('suspend-sale/{sale}',[SaleController::class, 'suspendSale'])->name('sale.suspend');
+    Route::get('pos/suspended-list',[SaleController::class,'suspendedList'])->name('suspended.list');
+    Route::get('pos/return/{sale}',[SaleController::class,'returnSale'])->name('return.sale');
+    Route::get('pos/returned-list',[SaleController::class,'returnedList'])->name('returned.list');
+    Route::get('/filter-products',[SaleController::class,'filterProducts'])->name('filter.product');
 
+ 
     Route::resource('customer', CustomerController::class);
     Route::get('product-filter/{sku}', [ProductController::class, 'filterProduct'])->name('filterProduct');
 
@@ -168,6 +177,8 @@ Route::middleware('auth')->group(function () {
     // Route::post('/order/change-status/{id}', [OrderController::class, 'chnageOrderStatus'])->name('orders.chnageOrderStatus');
     Route::post('/order/change-status/{id}', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
     Route::post('/order/send-email/{id}', [OrderController::class, 'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
+
+
 
 });
 

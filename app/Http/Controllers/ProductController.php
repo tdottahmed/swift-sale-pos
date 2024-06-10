@@ -56,48 +56,53 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             $data = [];
             $data['sku'] = $request->sku ?? $this->generateUniqueSKU();
-            if ($request->file('image_1')) {
-                $image =  uploadImage($request->file('image_1'), 'products/images');
+            if ($request->file('image')) {
+                $image =  uploadImage($request->file('image'), 'products/images');
+                $data['image'] = $image;
             }
-            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6',);
+           $data['purchase_price_including_tax'] = $request->purchase_price + ($request->purchase_price* $request->applicable_tax/100);
+           $data['purchase_price_excluding_tax'] = $request->purchase_price - ($request->purchase_price* $request->applicable_tax/100);
+            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6','purchase_price','_token','manage_gallery');
             $product = Product::create([
-                'uuid' => Str::uuid(),
-                'sku'  => $request->sku ? $request->sku : $this->generateProductSKU(),
-                'image' => $image
-            ] + $data);
+                'uuid' => Str::uuid()
+                ] + $data); 
 
-            $images = [];
-            foreach (range(1, 7) as $index) {
-                if ($request->hasFile('image_' . $index)) {
-                    $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
-                    $images['image_' . $index] = $imagePath;
+            // Handle Gallery Images               
+            if ($request->manage_gallery) {
+                $images = [];
+                foreach (range(1, 7) as $index) {
+                    if ($request->hasFile('image_' . $index)) {
+                        $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
+                        $images['image_' . $index] = $imagePath;
+                    }
                 }
-            }
-            ProductImage::create([
-                'product_id' => $product->id,
-            ] + $images);
-
-            $variationData = $request->child;
-            foreach ($variationData['value'] as $key => $value) {
-                Variation::create([
+                ProductImage::create([
                     'product_id' => $product->id,
-                    'product_variation' => $request->variation_name,
-                    'value' => $variationData['value'][$key] ?? null,
-                    'stock' => $variationData['stock'][$key] ?? null,
-                    'variation_sku' => $variationData['variation_sku'][$key] ??  $data['sku'] . '-' . $key,
-                    'value' => $value,
-                    'purchase_inc' => $variationData['purchase_inc'][$key] ?? null,
-                    'purchase_exc' => $variationData['purchase_exc'][$key] ?? null,
-                    'selling_price' => $variationData['selling_price'][$key] ?? null,
-                    'profit_marging' => $variationData['profit_marging'][$key] ?? null,
-                    'variation_image' => $variationData['variation_image'][$key] ?? null,
-
-
-                ]);
+                ] + $images);
             }
+            // Handle Product Variation
+            if ($product->product_type=='variable') {
+                $variationData = $request->child;
+                foreach ($variationData['variation_name'] as $key => $value) {
+                    Variation::create([
+                        'product_id' => $product->id,
+                        'branch_id' =>$request->branch_id,
+                        'product_variation' =>$variationData['variation_name'][$key],
+                        'value' => $variationData['variation_value'][$key],
+                        'variation_sku' =>$product->sku .'-'. $key,
+                        'purchase_inc' => $variationData['purchase_price'][$key] + ($variationData['purchase_price'][$key]* $request->applicable_tax/100) ,
+                        'purchase_exc' => $variationData['purchase_price'][$key] - ($variationData['purchase_price'][$key]* $request->applicable_tax/100),
+                        'profit_margin' => $variationData['profit_margin'][$key],
+                        'selling_price' => $variationData['selling_price'][$key],
+                        'stock' => $variationData['stock'][$key],
+                    ]);
+                }
+            }  
+            
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -249,5 +254,12 @@ class ProductController extends Controller
             $existingProduct = Product::where('sku', $sku)->first();
         } while ($existingProduct);
         return $sku;
+    }
+
+    public function checkSKU(Request $request)
+    {
+        $sku = $request->sku;
+        $exists = Product::where('sku', $sku)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }
