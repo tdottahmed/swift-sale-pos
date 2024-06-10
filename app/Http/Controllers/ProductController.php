@@ -106,7 +106,7 @@ class ProductController extends Controller
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-            return redirect()->back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage())->withInput();
         }
     }
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('purchase_inc');
             $table->integer('purchase_exc');
             $table->integer('selling_price');
-            $table->string('profit_marging');
+            $table->string('profit_margin');
             $table->string('variation_image')->nullable();
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();

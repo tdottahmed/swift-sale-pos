@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sale_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('variation_id');
+            $table->unsignedBigInteger('variation_id')->nullable();
             $table->integer('quantity');
             $table->integer('unit_total');
             $table->integer('sub_total');

@@ -10,6 +10,13 @@ class TaxController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:view tax', ['only' => ['index']]);
+        $this->middleware('permission:create tax', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update tax', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete tax', ['only' => ['destroy']]);
+    } 
     public function index()
     {
         $taxes = Tax::latest()->get();

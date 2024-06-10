@@ -186,6 +186,11 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create leave']);
         Permission::create(['name' => 'update leave']);
         Permission::create(['name' => 'delete leave']);
+        // Create Permissions for tax
+        Permission::create(['name' => 'view tax']);
+        Permission::create(['name' => 'create tax']);
+        Permission::create(['name' => 'update tax']);
+        Permission::create(['name' => 'delete tax']);
 
         
         // Create Permissions for import product
