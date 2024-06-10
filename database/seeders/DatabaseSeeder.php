@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UnitTableSeeder::class);
         $this->call(PersonalizeSettingsTableSeeder::class);
         $this->call(ContactTypeSeeder::class);
+        $this->call(BranchTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

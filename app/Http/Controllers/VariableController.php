@@ -10,6 +10,14 @@ class VariableController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+     public function __construct()
+     {
+         $this->middleware('permission:view variables', ['only' => ['index']]);
+         $this->middleware('permission:create variables', ['only' => ['create','store']]);
+         $this->middleware('permission:update variables', ['only' => ['update','edit']]);
+         $this->middleware('permission:delete variables', ['only' => ['destroy']]);
+     } 
     public function index(Request $request)
     {
         $variables = Variable::latest()->get();

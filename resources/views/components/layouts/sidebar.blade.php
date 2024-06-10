@@ -138,6 +138,14 @@
                         <span>Product</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        @can('view variables')
+                            <li class="nav-item">
+                                <a href="{{ route('variables.index') }}"
+                                    class="nav-link {{ request()->routeIs('variables.index') ? 'active' : '' }}">
+                                    <i class="icon-list"></i>Product Vaiations
+                                </a>
+                            </li>
+                        @endcan
                         @can('view product')
                             <li class="nav-item">
                                 <a href="{{ route('product.index') }}"
