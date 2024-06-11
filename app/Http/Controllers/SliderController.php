@@ -12,6 +12,13 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:view slider', ['only' => ['index']]);
+        $this->middleware('permission:create slider', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update slider', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete slider', ['only' => ['destroy']]);
+    } 
     public function index()
     {
         $sliders = Slider::get();

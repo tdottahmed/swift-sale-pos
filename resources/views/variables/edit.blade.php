@@ -40,7 +40,7 @@
             </form>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('unit.index') }}"
+            <a href="{{ route('variables.index') }}"
                 class="btn 
           btn-sm bg-indigo 
           border-2 

@@ -86,6 +86,12 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create subCategory']);
         Permission::create(['name' => 'update subCategory']);
         Permission::create(['name' => 'delete subCategory']);
+        
+        // Create Permissions for brand
+        Permission::create(['name' => 'view brand']);
+        Permission::create(['name' => 'create brand']);
+        Permission::create(['name' => 'update brand']);
+        Permission::create(['name' => 'delete brand']);
 
 
         // Create Permissions for customer
@@ -191,6 +197,32 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create tax']);
         Permission::create(['name' => 'update tax']);
         Permission::create(['name' => 'delete tax']);
+
+        // Create Permissions for orders
+        Permission::create(['name' => 'view orders']);
+        Permission::create(['name' => 'create orders']);
+        Permission::create(['name' => 'update orders']);
+        Permission::create(['name' => 'delete orders']);
+        // Create Permissions for slider
+        Permission::create(['name' => 'view slider']);
+        Permission::create(['name' => 'create slider']);
+        Permission::create(['name' => 'update slider']);
+        Permission::create(['name' => 'delete slider']);
+        // Create Permissions for shipping
+        Permission::create(['name' => 'view shipping']);
+        Permission::create(['name' => 'create shipping']);
+        Permission::create(['name' => 'update shipping']);
+        Permission::create(['name' => 'delete shipping']);
+        // Create Permissions for shipping
+        Permission::create(['name' => 'view variables']);
+        Permission::create(['name' => 'create variables']);
+        Permission::create(['name' => 'update variables']);
+        Permission::create(['name' => 'delete variables']);
+        // Create Permissions for blog
+        Permission::create(['name' => 'view blog']);
+        Permission::create(['name' => 'create blog']);
+        Permission::create(['name' => 'update blog']);
+        Permission::create(['name' => 'delete blog']);
 
         
         // Create Permissions for import product

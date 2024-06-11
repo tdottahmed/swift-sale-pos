@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ShippingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view shipping', ['only' => ['index']]);
+        $this->middleware('permission:create shipping', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update shipping', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete shipping', ['only' => ['destroy']]);
+    }
+
     public function index(){
         $shippings = ShippingCharge::get();
         return view('shipping.index',compact('shippings'));

@@ -69,7 +69,7 @@
                 </table>
             </div>
         </x-slot>
-        <x-slot name="cardFooterCenter">
+        {{-- <x-slot name="cardFooterCenter">
             <a href="{{ route('repair.create') }}"
                 class="btn 
             btn-sm 
@@ -82,7 +82,7 @@
             shadow 
             mr-1"
                 data-toggle="modal" data-target="#createRepair"><i class="icon-plus2"></i></a>
-        </x-slot>
+        </x-slot> --}}
     </x-data-display.card>
-    @include('repair.create-modal')
+    {{-- @include('repair.create-modal') --}}
 </x-layouts.master>
