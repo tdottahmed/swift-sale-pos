@@ -23,7 +23,7 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
+                            <a href="#" class="product-category">{{ $product->category}}</a>
                         </div>
                         <h3 class="product-title">
                             <a href="product.html">{{ $product->name }}</a>

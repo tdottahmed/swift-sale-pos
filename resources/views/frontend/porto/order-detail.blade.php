@@ -106,11 +106,15 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($orderItems as $orderItem)
+                                            {{-- @dd($orderItem->product); --}}
                                             <tr class="product-row">
                                                 <td>
                                                     <figure class="product-image-container">
                                                         <a href="product.html" class="product-image">
-                                                            <img src="assets/images/products/product-6.jpg" alt="product">
+                                                            @php
+                                                               $product = \App\Models\Product::find($orderItem->product_id);
+                                                            @endphp
+                                                            <img src="{{imagePath($product->image)}}" alt="product">
                                                         </a>
         
                                                         {{-- <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a> --}}

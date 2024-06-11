@@ -41,5 +41,16 @@
     <link rel="stylesheet" href="{{asset('porto')}}/assets/css/demo4.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('porto')}}/assets/vendor/fontawesome-free/css/all.min.css">
     <meta name="csrf-token" content="{{csrf_token()}}">
+    
+    <link rel="stylesheet" href="{{asset('porto')}}/assets/css/style.min.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('porto')}}/assets/vendor/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('porto')}}/assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
 
+    <!-- Plugins JS File -->
+	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
+	<script src="{{asset('porto')}}/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="{{asset('porto')}}/assets/js/plugins.min.js"></script>
+
+	<!-- Main JS File -->
+	<script src="{{asset('porto')}}/assets/js/main.min.js"></script>
 </head>

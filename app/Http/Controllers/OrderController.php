@@ -39,6 +39,7 @@ class OrderController extends Controller
         ->leftJoin('countries','countries.id','orders.country_id')
         ->first();
 
+        // dd($order);
         $orderItems = OrderedItem::where('order_id',$orderId)->get();
 
         return view('orders.detail', [
