@@ -69,6 +69,10 @@
     <link rel="stylesheet" href="{{ asset('datetime/datetimepicker.css') }}">
     <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
 
+
+   
+
+
     <script>
         $(document).ready(function(){
             $('#starts_at').datetimepicker({
@@ -121,4 +125,7 @@
     <!-- /theme JS files -->
 
     @stack('css')
+    @stack('js')
+
+	
 </head>

@@ -20,12 +20,20 @@
 		<div class="content-wrapper">
             <!-- Page header -->
 			<x-layouts.page-header/>
+           
 			<!-- /page header -->
 			<div id="loader-wrapper">
 				<div id="loader"></div>
 		  </div>
+          
             <div class="content pt-0">
-                {{$slot}}
+                <!-- Content area -->
+<div class="content">
+    {{$slot}}
+</div>
+<!-- /content area -->
+
+                {{-- {{$slot}} --}}
             </div>
             <!-- Footer -->
 			<x-layouts.footer/>
