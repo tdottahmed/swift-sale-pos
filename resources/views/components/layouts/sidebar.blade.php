@@ -142,7 +142,7 @@
                     class="nav-item nav-item-submenu {{ request()->routeIs('product*') || request()->routeIs('brand.index') || request()->routeIs('category*') || request()->routeIs('subCategory*') || request()->routeIs('unit*') || request()->is('variables*') || request()->routeIs('barcodeType*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#"
                         class="nav-link {{ request()->routeIs('product*') || request()->routeIs('brand.index') || request()->routeIs('category*') || request()->routeIs('subCategory*') || request()->is('variables*') || request()->routeIs('unit*') || request()->routeIs('barcodeType*') ? 'active' : '' }}">
-                        <i class="icon-versions"></i>
+                        <i class="icon-basket"></i>
                         <span>Product</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
