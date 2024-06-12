@@ -42,7 +42,7 @@
                         <div class="prod-thumbnail owl-dots">
                             @foreach (range(1, 6) as $image)
                                 <div class="owl-dot">
-                                    <img src="{{ imagePath($product->images->{'image_' . $loop->iteration}) }}"
+                                    <img src="{{ imagePath($product->images?->{'image_' . $loop->iteration}) }}"
                                         width="110" height="110" alt="product-thumbnail" />
                                 </div>
                             @endforeach
@@ -323,7 +323,7 @@
                                 <a href="{{ route('frontend.single-product', $relatedProduct->id) }}">
                                     <img src="{{ imagePath($relatedProduct->image) }}" width="280" height="280"
                                         alt="product">
-                                    <img src="{{ imagePath($relatedProduct->images->image_2) }}" width="280"
+                                    <img src="{{ imagePath($relatedProduct->images?->image_2) }}" width="280"
                                         height="280" alt="product">
                                 </a>
                                 <div class="label-group">

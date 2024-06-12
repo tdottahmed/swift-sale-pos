@@ -367,7 +367,7 @@
                             @can('view attendance')
                                 <a href="{{ route('attendance.index') }}"
                                     class="nav-link {{ request()->is('attendance*') || request()->routeIs('attendance.create') || request()->routeIs('attendance.edit') ? 'active' : '' }}">
-                                    <i class="icon-point-rights"></i>
+                                    <i class="icon-person"></i>
                                     <span>Attendance</span>
                                 </a>
                             @endcan
