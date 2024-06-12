@@ -63,3 +63,13 @@
    <h6 class="font-weight-bold text-danger">No data Founds</h6>
 </div>
 @endforelse
+<div class="card card-body border-top-teal text-center">
+    <ul class="pagination pagination-flat pagination-lg align-self-center">
+        <li class="page-item"><a href="#" class="page-link">&larr; &nbsp; Prev</a></li>
+        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+        <li class="page-item"><a href="#" class="page-link">2</a></li>
+        <li class="page-item disabled"><a href="#" class="page-link">3</a></li>
+        <li class="page-item"><a href="#" class="page-link">4</a></li>
+        <li class="page-item"><a href="#" class="page-link">Next &nbsp; &rarr;</a></li>
+    </ul>
+</div>

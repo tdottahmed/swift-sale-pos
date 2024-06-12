@@ -18,6 +18,7 @@
     <link href="{{ asset('limitless/' . $mode . '/assets/css/components.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('limitless/' . $mode . '/assets/css/colors.min.css') }}" rel="stylesheet" type="text/css">
     <link src="{{ asset('limitless/global_assets/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
+
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
@@ -62,22 +63,19 @@
     <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/uploader_bootstrap.js') }}"></script>
-
+    <script src="{{ asset('limitless/global_assets/js/plugins/pagination/bs_pagination.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/components_pagination.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('datetime/datetimepicker.css') }}">
-    <script src="jquery-3.7.0.min.js"></script>
-
     <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
 
     <script>
         $(document).ready(function(){
             $('#starts_at').datetimepicker({
-                // options here
                 format:'Y-m-d H:i:s',
             });
 
             $('#expires_at').datetimepicker({
-                // options here
                 format:'Y-m-d H:i:s',
             });
         });
@@ -92,32 +90,32 @@
     </style>
     <style>
         /* Loader styles */
-#loader-wrapper {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        #loader-wrapper {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-#loader {
-    border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-}
+        #loader {
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
     </style>
     <!-- /theme JS files -->
