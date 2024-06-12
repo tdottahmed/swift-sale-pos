@@ -118,6 +118,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
     Route::post('/check-sku', [ProductController::class, 'checkSKU'])->name('check.sku');
+    Route::post('/images/store/{product}', [ProductController::class, 'imageStore'])->name('product.image.store');
 
 
     //Shipping
