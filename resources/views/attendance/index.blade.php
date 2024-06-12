@@ -1,79 +1,124 @@
 <x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            Attendance List
-        </x-slot>
-        <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
-                            <th>SL</th>
-                            <th>Date</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Note</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($attendances as $attendance)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $attendance->date }}</td>
-                                <td>{{ $attendance->check_in }}</td>
-                                <td>{{ $attendance->check_out }}</td>
-                                <td>{{ $attendance->note }}</td>
-                               
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
 
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('attendance.edit', $attendance->id) }}"
-                                                    class="dropdown-item "><i class="icon-pencil7"></i> Edit
-                                                    Attendance</a>
-                                                <form style="display:inline"
-                                                    action="{{ route('attendance.destroy', $attendance->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this attendance?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item" title="Delete attendance">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form>
-                                           
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Employee Attendance</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+      #closeAttendance {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn btn-primary btn-lg" id="markAttendance" onclick="markAttendance()">Mark Attendance</button>
+    <button class="btn btn-danger btn-lg"  id="closeAttendance" onclick="closeAttendance()">Close Attendance</button>
+    {{-- <a href="{{route('showAttendance')}}" class="btn btn-info btn-lg"  >Show Attendance</a> --}}
+    
+{{-- {{Auth::user()->id}} --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // Function to retrieve the state of the button from sessionStorage
+  function retrieveButtonState() {
+    const isMarked = sessionStorage.getItem('attendanceMarked');
+    if (isMarked === 'true') {
+      document.getElementById('markAttendance').style.display = 'none';
+      document.getElementById('closeAttendance').style.display = 'block';
+    }
+  }
+
+  // Call the function to retrieve button state when the page loads
+  window.onload = retrieveButtonState;
+
+  function markAttendance() {
+    const userId = {{ Auth::user()->id }}; // Replace with dynamic employee ID as needed
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    axios.post('/attendance/mark', {
+      user_id: userId
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
+    })
+      .then(function (response) {
+        alert(response.data.message);
+        document.getElementById('markAttendance').style.display = 'none';
+        document.getElementById('closeAttendance').style.display = 'block';
+        // Store the state of the button in sessionStorage
+        sessionStorage.setItem('attendanceMarked', 'true');
+
+        // Schedule automatic closing at 6 PM
+        scheduleAutomaticClose();
+      })
+      .catch(function (error) {
+        console.error('Error marking attendance:', error.response.data);
+        alert('Error: ' + error.response.data.message);
+      });
+  }
+
+  function closeAttendance() {
+    const userId = {{ Auth::user()->id }};
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    axios.post('/attendance/close', {
+      user_id: userId
+    }, {
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
+    })
+      .then(function (response) {
+        alert(response.data.message);
+        document.getElementById('closeAttendance').style.display = 'none';
+        // **Scenario 1: Hide for 10 hours (commented out, adjust as needed):**
+        // const hidingTime = 10 * 60 * 60 * 1000; // 10 hours in milliseconds
+        // setTimeout(function () {
+        //   document.getElementById('closeAttendance').style.display = 'block';
+        // }, hidingTime);
+        sessionStorage.removeItem('attendanceMarked');
+
+      })
+      .catch(function (error) {
+        console.error('Error closing attendance:', error.response.data);
+        alert('Error: ' + error.response.data.message);
+      });
+  }
+
+  
+      function scheduleAutomaticClose() {
+        // Get the current time
+        const now = new Date();
+        
+        // Set the target closing time to 6 PM today
+        const closingTime = new Date();
+        closingTime.setHours(14, 00, 00, 0); // 6 PM with zero minutes, seconds, milliseconds
+  
+        // Calculate the time difference in milliseconds
+        const timeDifference = closingTime.getTime() - now.getTime();
+        
+        // Check if closing time has already passed
+        if (timeDifference <= 0) {
+          console.log('Closing time has already passed. Attendance will not be closed automatically.');
+          return;
+        }
+        
+        // Schedule automatic close after the calculated time difference
+        setTimeout(function() {
+          closeAttendance();
+          sessionStorage.removeItem('attendanceMarked');
+        }, timeDifference);
+      }
 
 
-                    </tbody>
-                </table>
-            </div>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('attendance.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"
-                data-toggle="modal" data-target="#createAttendance"><i class="icon-plus2"></i></a>
-        </x-slot>
-    </x-data-display.card>
-    @include('attendance.create-modal')
-</x-layouts.master>
+      
+    </script>
+
+
+
+  </body>
+  </html>
+  
+  </x-layouts.master>
+  

@@ -323,13 +323,18 @@
 
 
                 <li class="nav-item">
-                    @can('view blog')
-                        <a href="{{ route('blogs.index') }}"
-                            class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
-                            <i class="icon-users"></i>
-                            <span>Blog</span>
-                        </a>
-                    @endcan
+                    {{-- @can('view product') --}}
+                    <a href="{{ route('blogs.index') }}"
+                        class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>Blog</span>
+                    </a>
+                    <a href="{{ route('comments.index') }}"
+                        class="nav-link {{ request()->is('comment*') ? 'active' : '' }}">
+                        <i class="icon-users"></i>
+                        <span>Comment   </span>
+                    </a>
+                    {{-- @endcan --}}
                 </li>
                 <li
                     class="nav-item nav-item-submenu {{ request()->is('department*') || request()->is('employee*') || request()->is('attendance*') || request()->is('payroll*') || request()->is('holiday*') || request()->is('leaveType*') || request()->is('leave*') ? 'nav-item-expanded nav-item-open' : '' }}">

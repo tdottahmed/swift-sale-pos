@@ -1,153 +1,157 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Laravel Ajax CRUD Tutorial Example - ItSolutionStuff.com</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-</head>
-<body>
+<x-layouts.master>
+    <x-data-display.card>
+        <x-slot name="heading">
+            comment
+        </x-slot>
+        <x-slot name="body">
 
-<div class="container">
-    <h1>Laravel Ajax CRUD Tutorial Example - ItSolutionStuff.com</h1>
-    <a class="btn btn-success" href="javascript:void(0)" id="createNewComment"> Create New Comment</a>
-    <table class="table table-bordered data-table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Comment</th>
-                <th>Description</th>
-                <th width="280px">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12">
 
-<div class="modal fade" id="ajaxModel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modelHeading"></h4>
+                        <hr>
+                        <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#addStudentModal">
+                        <i class="fas fa-user-plus"></i>    Add Comment
+                        </button>
+
+                        <table class="table table-bordered">
+                            <thead class="bg-light text-dark">
+                                <tr>
+                                    <th><i class="fas fa-user"></i> Sri</th>
+                                    <th><i class="fas fa-user"></i> Comment</th>
+                                    <th><i class="fas fa-envelope"></i> description</th>
+
+                                    <th><i class="fas fa-cog"></i> Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($comments as $comment)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $comment->comment }}</td>
+                                        <td>{{ $comment->description }}</td>
+                                        <td>
+                                            <!-- Edit button -->
+                                            {{-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editCommentModal{{ $comment->id }}" data-comment="{{ $comment->comment }}" data-description="{{ $comment->description }}">
+                                                <i class="fas fa-edit"></i>
+                                            </button> --}}
+
+                                            <!-- Delete button -->
+                                            <form method="POST" action="{{ route('comments.destroy', $comment->id) }}" 
+                                                onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')){ this.closest('form').submit(); }"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm" type="submit">
+                                                    <i class="icon-trash-alt"></i>Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table> 
+
+
+
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <form id="commentForm" name="commentForm" class="form-horizontal">
-                   <input type="hidden" name="comment_id" id="comment_id">
-                    <div class="form-group">
-                        <label for="comment" class="col-sm-2 control-label">Comment</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="comment" name="comment" placeholder="Enter Comment" value="" maxlength="50" required="">
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-12">
-                            <textarea id="description" name="description" required="" placeholder="Enter Description" class="form-control"></textarea>
-                        </div>
-                    </div>
+            <!-- Add Student Modal -->
+            <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" action="">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addStudentModalLabel"><i class="fas fa-user-plus"></i> Add Student</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
 
-                    <div class="col-sm-offset-2 col-sm-10">
-                     <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes</button>
+                                {{-- <div class="form-group">
+                                    <input type="hidden" name="blog_id" class="form-control" value="{{$blog->blog_id}}">
+                                </div> --}}
+
+                                <select name="blog_id" class="form-control custom-select">
+                                    @foreach ($blogs as $blog )
+                                    <option value="{{ $blog->id }}"name="blog_id">{{ $blog->title }}</option>
+                                                         
+                                    @endforeach
+                                   </select>
+                          
+
+                                {{-- <div class="col-lg-6">
+                                    <label for="">{{ __('Select blog') }}</label>
+                                    <select name="blog_id" id="blog_id" class="form-control select-search">
+                                        <option value="">-- Please select --</option>
+                                        @foreach ($blogs as $blog)
+                                            <option value="{{ $blog->id }}">{{ $blog->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+
+
+                                <div class="form-group">
+                                    <label for="comment"><i class="fas fa-user"></i> comment</label>
+                                    <input type="text" name="comment" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description"><i class="fas fa-envelope"></i> description</label>
+                                    <input type="description" name="description" class="form-control" required>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
-</body>
+            <!-- Edit Student Modal (for each student) -->
+            
+            <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog"
+                aria-labelledby="editStudentModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" action=" ">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editStudentModalLabel "><i class="fas fa-edit"></i> Edit Student</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="id" value=" ">
+                                <div class="form-group">
+                                    <label for="comment"><i class="fas fa-user"></i> comment</label>
+                                    <input type="text" name="comment" value=" " class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description"><i class="fas fa-envelope"></i> description</label>
+                                    <input type="description" name="description" value=" " class="form-control" required>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-{{-- <script src="../../script.js"></script> --}}
+        </x-slot>
 
-<script type="text/javascript">
-  $(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    
-    //index
-    var table = $('.data-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('comments.index') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'comment', name: 'comment'},
-            {data: 'description', name: 'description'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-
-    $('#createNewComment').click(function () {
-        $('#saveBtn').val("create-comment");
-        $('#comment_id').val('');
-        $('#commentForm').trigger("reset");
-        $('#modelHeading').html("Create New Comment");
-        $('#ajaxModel').modal('show');
-    });
-
-    $('body').on('click', '.editComment', function () {
-        var comment_id = $(this).data('id');
-        $.get("{{ route('comments.index') }}" +'/' + comment_id +'/edit', function (data) {
-            $('#modelHeading').html("Edit Comment");
-            $('#saveBtn').val("edit-comment");
-            $('#ajaxModel').modal('show');
-            $('#comment_id').val(data.id);
-            $('#comment').val(data.comment);
-            $('#description').val(data.description);
-        })
-    });
-
-    $('#saveBtn').click(function (e) {
-        e.preventDefault();
-        $(this).html('Sending..');
-
-        $.ajax({
-            data: $('#commentForm').serialize(),
-            url: "{{ route('comments.store') }}",
-            type: "POST",
-            dataType: 'json',
-            success: function (data) {
-                $('#commentForm').trigger("reset");
-                $('#ajaxModel').modal('hide');
-                table.draw();
-                $('#saveBtn').html('Save changes');
-            },
-            error: function (data) {
-                console.log('Error:', data);
-                $('#saveBtn').html('Save changes');
-            }
-        });
-    });
-
-
-    //delete
-    $('body').on('click', '.deleteComment', function () {
-        var comment_id = $(this).data("id");
-        if (confirm("Are You sure want to delete?")) {
-            $.ajax({
-                type: "DELETE",
-                url: "{{ route('comments.store') }}"+'/'+comment_id,
-                success: function (data) {
-                    table.draw();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-        }
-    });
-  });
-</script>
-</html>
+    </x-data-display.card>
+</x-layouts.master>

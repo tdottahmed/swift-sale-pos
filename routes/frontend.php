@@ -29,7 +29,12 @@ Route::post('/contact-us', [FrontendController::class, 'storeContact'])->name('f
 
 //block
 Route::resource('/blogs', BlogController::class);
+Route::resource('/comments', CommentController::class);
+Route::post('/comments/{comment}', [FrontendController::class,'Update'])->name('comments.update');
+    // Route::get('/moreDeteils/{blog}', [CommentController::class,'moreDeteils'])->name('comments.moreDeteils');
 
+
+    
 // Route::middleware('auth')->group(function () {
 Route::resource('comments', CommentController::class);
 // });

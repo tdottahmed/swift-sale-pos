@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Frontend\Porto;
 
 use App\Http\Controllers\Controller;
-use App\Models\Frontend\Blog;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+
+use App\Models\Frontend\Blog;
+use App\Models\Frontend\Comment;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -60,10 +64,12 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Blog $blog)
-    {
-        //
-    }
+    // public function show(Blog $blog)
+    // {
+    //     // $blogs = DB::table('blogs')->where('blog_id', $blog->id)->get();
+    //     // $blogs = DB::table('blogs')->get();
+    //     return view('frontend.porto.blog.show', compact('blog'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -99,5 +105,16 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect(route('blogs.index'))->with('success', 'Category Deleted Successfully');
+    }
+
+    public function show(Blog $blog)
+    {
+        $comments = Comment::all();
+        // return view('frontend.porto.blog.comment.moreDeteils', compact('blog','comments'));
+
+        $blog = Blog::with('comments')->find($blog->id); // Eager load comments with blog
+
+        return view('frontend.porto.blog.comment.moreDeteils', compact('blog','comments'));
+
     }
 }

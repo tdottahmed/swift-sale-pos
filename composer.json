@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "carbondate/carbon": "^1.17",
         "guzzlehttp/guzzle": "^7.2",
         "hardevine/shoppingcart": "^3.3",
         "intervention/image": "^2.7",

@@ -224,6 +224,7 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update blog']);
         Permission::create(['name' => 'delete blog']);
 
+
         
         // Create Permissions for import product
         Permission::create(['name' => 'import product']);
