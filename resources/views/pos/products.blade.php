@@ -47,6 +47,9 @@
                             <h6 class="font-weight-semibold mb-0">
                                 {{ $product->name }}-({{ $product->category }})
                             </h6>
+                            <h6 class="btn btn-outline-primary" >
+                                {{ $variation->product_variation }}-{{ $variation->value }}
+                            </h6>
                             <h6 class="font-weight-semibold mb-0">
                                 {{ $variation->variation_sku }}
                             </h6>
