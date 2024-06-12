@@ -1,4 +1,5 @@
-<x-layouts.master>  
+<x-layouts.master>
+    @include('product.add-gallery')  
     <x-data-display.card>
         <x-slot name="heading">
             Products
@@ -23,7 +24,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
-                                <td>{{ $stocks[$product->id] }}</td>
+                                <td>{{ $product->opening_stock }}</td>
                                 <td><img src="{{imagePath($product->image)}}" width="100"
                                         height="70" alt="no image"></td>
                                 <td>{{ $product->description }}</td>
@@ -54,7 +55,7 @@
                                                     </button>
                                                 </form>
 												<a href="{{route('label.print', $product->id)}}" class="dropdown-item"><i class="icon-printer"></i> Print Label</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
+												<button type="button" class="dropdown-item"  data-toggle="modal" data-target="#add_gallery"><i class="icon-file-word"></i> Add Images</button>
 											</div>
 										</div>
 									</div>

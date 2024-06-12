@@ -42,15 +42,25 @@
 </head>
 <body>
    <div class="content">
-      @foreach ($products as $product)
-         <h6>{{env('APP_NAME')}}</h6>
-         <p>{{$mainProduct->name}}</p>
-         <p>{{$product->product_variation}} - {{$product->value}}</p>
-         <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($product->variation_sku, 'C128')}}" alt="barcode" /><br>
-         <small>{{$product->variation_sku}}</small>
-         <p><strong>Price: {{$product->selling_price}}/-</strong></p>
-         <hr>
-      @endforeach
+      @if ($product->variations->isEmpty())
+      <h6>{{env('APP_NAME')}}</h6>
+      <p>{{$product->name}}</p>
+      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($product->sku, 'C128')}}" alt="barcode" /><br>
+      <small>{{$product->sku}}</small>
+      <p><strong>Price: {{$product->selling_price}}/-</strong></p>
+      <hr>
+      @else
+      @foreach ($product->variations as $variation)
+      <h6>{{env('APP_NAME')}}</h6>
+      <p>{{$variation->product->name}}</p>
+      <p>{{$variation->product_variation}} - {{$variation->value}}</p>
+      <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($variation->variation_sku, 'C128')}}" alt="barcode" /><br>
+      <small>{{$variation->variation_sku}}</small>
+      <p><strong>Price: {{$variation->selling_price}}/-</strong></p>
+      <hr>
+   @endforeach
+      @endif
+      
    </div>
 
    <script>

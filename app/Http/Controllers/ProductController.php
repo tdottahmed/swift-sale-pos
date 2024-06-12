@@ -210,9 +210,9 @@ class ProductController extends Controller
 
     public function labelPrint($id)
     {
-        $products = Variation::where('product_id', $id)->get();
-        $mainProduct = Product::find($id);
-        return view('product.label', compact('products', 'mainProduct'));
+        $product = Product::find($id);
+        // $products = Variation::where('product_id', $id)->get();
+        return view('product.label', compact('product'));
     }
 
 
