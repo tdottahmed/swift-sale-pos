@@ -329,6 +329,7 @@
                         <span>Comment </span>
                     </a>
                 </li>
+                <li class="nav-item">
                     @can('view blog')
                         <a href="{{ route('blogs.index') }}"
                             class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
