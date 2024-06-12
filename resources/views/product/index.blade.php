@@ -55,7 +55,7 @@
                                                     </button>
                                                 </form>
 												<a href="{{route('label.print', $product->id)}}" class="dropdown-item"><i class="icon-printer"></i> Print Label</a>
-												<button type="button" class="dropdown-item"  data-toggle="modal" data-target="#add_gallery"><i class="icon-file-word"></i> Add Images</button>
+												<button type="button" class="dropdown-item"  data-toggle="modal" data-target="#add_gallery"><i class="icon-images2"></i> Add Images</button>
 											</div>
 										</div>
 									</div>
