@@ -193,25 +193,7 @@
                     </div> --}}
 
                 </div>
-                <div class="row mb-3" id="single_product_wrapper">
-                    <div class="col-lg-4">
-                        <label for="purchase_price_including_tax">Purchase Price:</label>
-                        <input type="number" class="form-control" name="purchase_price" id="purchase_price">
-                    </div>
-                    {{-- <div class="col-lg-3">
-                        <label for="purchase_price_excluding_tax">Purchase Price(Excluding Tax):</label>
-                        <input type="number" class="form-control" name="purchase_price_excluding_tax"
-                            id="purchase_price_excluding_tax">
-                    </div> --}}
-                    <div class="col-lg-4">
-                        <label for="profit_margin">Profit Margin:</label>
-                        <input type="number" class="form-control" name="profit_margin" id="profit_margin">
-                    </div>
-                    <div class="col-lg-4">
-                        <label for="selling_price">Selling Price:</label>
-                        <input type="number" class="form-control" name="selling_price" id="selling_price">
-                    </div>
-                </div>
+                
 
                 <div class="card" id="product_variation_wrapper">
                     <div class="card-body">

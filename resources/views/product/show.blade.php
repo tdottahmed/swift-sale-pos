@@ -114,44 +114,46 @@
 
             </div>
 
-           
-            <div class="table mt-5">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
-                            <th>Variation</th>
-                            <th>SKU</th>
-                            <th>Current Stock</th>
-                            <th>Default Purchase Price (Exc. tax)</th>
-                            <th>Default Purchase Price (Inc. tax)</th>
-                            <th>X Margin(%)</th>
-                            <th>Purchase Price (Exc. tax)</th>
-                            <th>Purchase Price (Inc. tax)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($variations as $variation)
-                            <tr>
-                                <td>{{ $variation->product_variation }} - {{ $variation->value }}</td>
-                                <td>{{ $variation->variation_sku }}</td>
-                                <td>{{ $variation->stock }}</td>
-                                <td>{{ $variation->purchase_exc }}</td>
-                                <td>{{ $variation->purchase_inc }}</td>
-                                <td>{{ $variation->profit_margin }}</td>
-                                <td>{{ $variation->purchase_exc }}</td>
-                                <td>{{ $variation->purchase_inc }}
-                                </td>
-                               
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+           @if (!$product->variations->isEmpty())
+               
+           <div class="table mt-5">
+               <table class="table datatable-basic">
+                   <thead class="bg-indigo-600">
+                       <tr>
+                           <th>Variation</th>
+                           <th>SKU</th>
+                           <th>Current Stock</th>
+                           <th>Default Purchase Price (Exc. tax)</th>
+                           <th>Default Purchase Price (Inc. tax)</th>
+                           <th>X Margin(%)</th>
+                           <th>Purchase Price (Exc. tax)</th>
+                           <th>Purchase Price (Inc. tax)</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       @foreach ($variations as $variation)
+                           <tr>
+                               <td>{{ $variation->product_variation }} - {{ $variation->value }}</td>
+                               <td>{{ $variation->variation_sku }}</td>
+                               <td>{{ $variation->stock }}</td>
+                               <td>{{ $variation->purchase_exc }}</td>
+                               <td>{{ $variation->purchase_inc }}</td>
+                               <td>{{ $variation->profit_margin }}</td>
+                               <td>{{ $variation->purchase_exc }}</td>
+                               <td>{{ $variation->purchase_inc }}
+                               </td>
+                              
+                           </tr>
+                       @endforeach
+                   </tbody>
+               </table>
+           </div>
+           @endif
 
 
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('product.create') }}"
+            <a href="{{ route('product.index') }}"
                 class="btn 
             btn-sm 
             bg-success 
@@ -162,7 +164,7 @@
             legitRipple 
             shadow 
             mr-1"><i
-                    class="icon-plus2"></i></a>
+                    class="icon-list"></i></a>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>
