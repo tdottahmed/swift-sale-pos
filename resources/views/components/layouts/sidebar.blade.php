@@ -323,6 +323,11 @@
 
 
                 <li class="nav-item">
+                    <a href="{{ route('comments.index') }}"
+                        class="nav-link {{ request()->is('comment*') ? 'active' : '' }}">
+                        <i class="icon-bubble8"></i>
+                        <span>Comment </span>
+                    </a>
                     @can('view blog')
                         <a href="{{ route('blogs.index') }}"
                             class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">

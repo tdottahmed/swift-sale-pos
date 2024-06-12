@@ -4,7 +4,7 @@
             {{ __('Edit Your Blog Info') }}
         </x-slot>
         <x-slot name="body">
-            <form action="{{ route('blogs.update', $blog->id) }} " method="POST" enctype="multipart/form-data">
+            <form action="{{ route('blog.update', $blog->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3">
@@ -32,7 +32,7 @@
             </form>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('blogs.index') }}"
+            <a href="{{ route('blog.index') }}"
                 class="btn 
             btn-sm bg-indigo 
             border-2 

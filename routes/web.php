@@ -95,8 +95,15 @@ Route::middleware('auth')->group(function () {
     //HRM
     Route::resource('/department', DepartmentController::class);
     Route::resource('/employee', EmployeeController::class);
-    Route::resource('/attendance', AttendanceController::class);
     Route::resource('/payroll', PayrollController::class);
+
+    Route::resource('/attendance', AttendanceController::class);
+    Route::post('/attendance/mark', [AttendanceController::class, 'markAttendance']);
+    Route::post('/attendance/close', [AttendanceController::class, 'closeAttendance']);
+    Route::get('/showAttendance', [AttendanceController::class, 'showAttendance'])->name('showAttendance');
+    
+
+
     Route::resource('/holiday', HolidayController::class);
     Route::resource('/leaveType', LeaveTypeController::class);
     Route::resource('/leave', LeaveController::class);

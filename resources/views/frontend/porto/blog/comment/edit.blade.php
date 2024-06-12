@@ -1,20 +1,20 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            {{ __('Edit Your Blog Info') }}
+            {{ __('Edit Your comment Info') }}
         </x-slot>
         <x-slot name="body">
-            <form action="{{ route('blogs.update', $blog->id) }} " method="POST" enctype="multipart/form-data">
+            <form action="{{ route('comment.update', $comment->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3">
                     <label for="title">Title:</label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{ $blog->title }}">
+                    <input type="text" class="form-control" name="title" id="title" value="{{ $comment->title }}">
                 </div>
                 <div class="mb-3">
                     <label for="image">Image</label>
                     <input type="file" class="form-control" name="image" id="image">
-                    <img class="mt-1" src="{{ asset('storage/brand') . '/' . $blog->image }}" width="100"
+                    <img class="mt-1" src="{{ asset('storage/brand') . '/' . $comment->image }}" width="100"
                         height="70" alt="no image">
 
                 </div>
@@ -32,7 +32,7 @@
             </form>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('blogs.index') }}"
+            <a href="{{ route('comment.index') }}"
                 class="btn 
             btn-sm bg-indigo 
             border-2 

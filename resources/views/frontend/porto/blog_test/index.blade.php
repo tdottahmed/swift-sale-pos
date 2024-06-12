@@ -30,7 +30,6 @@
 
 											<div class="dropdown-menu dropdown-menu-right">
 												<a href="{{ route('blogs.edit', $blog->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit blog</a>
-												{{-- <a href="{{ route('blogs.show', $blog->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Show blog</a> --}}
                                                 <form style="display:inline" action="{{ route('blogs.destroy', $blog->id) }}"
                                                     method="POST">
                                                     @csrf
