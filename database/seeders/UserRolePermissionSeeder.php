@@ -25,17 +25,6 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'delete role']);
 
 
-        Permission::create(['name' => 'view variables']);
-        Permission::create(['name' => 'create variables']);
-        Permission::create(['name' => 'update variables']);
-        Permission::create(['name' => 'delete variables']);
-
-        Permission::create(['name' => 'view tax']);
-        Permission::create(['name' => 'create tax']);
-        Permission::create(['name' => 'update tax']);
-        Permission::create(['name' => 'delete tax']);
-
-
         // Create Permissions for permission
         Permission::create(['name' => 'view permission']);
         Permission::create(['name' => 'create permission']);

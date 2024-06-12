@@ -1,5 +1,4 @@
 <x-layouts.master>
-    @include('product.add-gallery')  
     <x-data-display.card>
         <x-slot name="heading">
             Products
@@ -21,6 +20,7 @@
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
+                         @include('product.add-gallery', compact('product'))  
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>

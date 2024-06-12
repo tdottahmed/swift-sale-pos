@@ -262,4 +262,24 @@ class ProductController extends Controller
         $exists = Product::where('sku', $sku)->exists();
         return response()->json(['exists' => $exists]);
     }
+    
+    public function imageStore(Request $request,  Product $product)
+    {
+       try {
+        $images = [];
+        foreach (range(1, 7) as $index) {
+            if ($request->hasFile('image_' . $index)) {
+                $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
+                $images['image_' . $index] = $imagePath;
+            }
+        }
+        $product->images()->updateOrCreate(
+            ['product_id' => $product->id],
+            $images
+        );
+        return back()->with('success', 'Product images Updated Successfully');
+       } catch (\Throwable $th) {
+        dd($th->getMessage());
+       }
+    }
 }

@@ -65,7 +65,7 @@
                     class="nav-item nav-item-submenu {{ request()->routeIs('organization*') || request()->routeIs('smtp*') || request()->routeIs('sms*') || request()->routeIs('tax*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#"
                         class="nav-link {{ request()->routeIs('organization*') || request()->routeIs('smtp*') || request()->routeIs('sms*') ? 'active' : '' }}">
-                        <i class="icon-users"></i>
+                        <i class="icon-gear"></i>
                         <span>Application Settings</span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="User Management">
@@ -332,7 +332,7 @@
                     <a href="{{ route('comments.index') }}"
                         class="nav-link {{ request()->is('comment*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
-                        <span>Comment   </span>
+                        <span>Comment </span>
                     </a>
                     {{-- @endcan --}}
                 </li>

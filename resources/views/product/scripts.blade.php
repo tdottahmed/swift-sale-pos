@@ -162,6 +162,7 @@
             }
         });
 
+        $('#single_product_wrapper').show();
         $('#product_variation_wrapper, #product_variable_wrapper').hide();
         $('#product_type').on('change', function() {
             var selectedType = $(this).val();
