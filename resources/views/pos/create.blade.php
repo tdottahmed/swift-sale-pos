@@ -1,42 +1,46 @@
 <x-layouts.guest>
     @push('css')
         <style>
-           .counter-container {
+            .counter-container {
                 display: flex;
                 align-items: center;
                 border-radius: 50px;
                 overflow: hidden;
             }
+
             .counter-button {
                 background: rgb(0, 105, 92);
                 color: #fff;
                 border: none;
-                padding: 4px 15px;
+                padding: 10px 16px;
                 cursor: pointer;
-                font-size: 20px;
+                font-size: 10px;
                 border-radius: 50%;
                 margin: 5px;
             }
+
             .counter-button:hover {
                 background: linear-gradient(135deg, #0056b3, #003a75);
             }
+
             .quantity {
                 width: 50px;
-                height: 40px;
+                height: 30px;
                 text-align: center;
                 border: none;
-                font-size: 20px;
+                font-size: 10px;
                 font-weight: bold;
                 margin: 5px;
                 border-radius: 10px;
                 box-shadow: inset 0 0 5px rgb(0, 105, 92);
             }
+
             .quantity-total {
                 width: 100px;
-                height: 40px;
+                height: 30px;
                 text-align: center;
                 border: none;
-                font-size: 20px;
+                font-size: 10px;
                 font-weight: bold;
                 margin: 5px;
                 border-radius: 10px;
@@ -47,13 +51,22 @@
                 outline: none;
                 box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
             }
-            .total-payable{
-                font-size: 18px;               
-                transition: transform 0.3s ease-in-out;
+
+            .card-payment {
+                cursor: pointer;
+                border-radius: 15%;
             }
-                #total:hover {
-                    transform: scale(1.05); 
-                }
+
+            .card-body-payment {
+                padding: 1rem;
+            }
+
+            input[type="radio"]:checked+label {
+                border-width: 2px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                background-color: #95afc0;
+                color: #130f40;
+            }
         </style>
     @endpush
     <div>
@@ -80,13 +93,12 @@
                 <div class="card">
                     <div class="card-body h-full">
                         <x-pos.chose-customer />
-                    </div>
-                    <form action="{{ route('pos.store') }}" target="_blank" method="post">
-                        @csrf
-                        <input type="hidden" name="customer_id" id="customer_id">
-                        <input type="hidden" name="total_price" id="total_price">
-                        <input type="hidden" name="paid_amount" id="paid_amount">
-                        <input type="hidden" name="total_quantity" id="total_quantity">
+                        <form action="{{ route('pos.store') }}" target="_blank" method="post">
+                            @csrf
+                            <input type="hidden" name="customer_id" id="customer_id">
+                            <input type="hidden" name="total_price" id="total_price">
+                            <input type="hidden" name="paid_amount" id="paid_amount">
+                            <input type="hidden" name="total_quantity" id="total_quantity">
                             <div class="card">
                                 <table class="table table-bordered" id="productTable">
                                     <thead>
@@ -101,10 +113,7 @@
                                     <tbody id="productTbody">
                                     </tbody>
                                 </table>
-                            </div>
-                        <div class="card shadow-lg height-full">
-                            <div class="m-3">
-                                <div class="row">
+                                <div class="row my-3 mx-2">
                                     <div class="col-lg-6">
                                         <button type="button" class="btn bg-teal-800" data-toggle="modal"
                                             data-target="#createDiscount">Discount (-) <i
@@ -116,70 +125,77 @@
                                         <input type="hidden" name="discountedAmount" id="discountedAmmount">
                                     </div>
                                 </div>
-                                <div class="row justify-content-center">
-                                    <div class="card-body ">
-                                        <table class="table">
-                                            <tr>
-                                                <td>
-                                                    <h5 class="font-weight-bold total-payable">Total Item :</h5>
-                                                </td>
-                                                <td>
-                                                    <h5 class="font-weight-bold total-payable" id="total">0</h5>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable">Total Price :</h6>
-                                                </td>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable"id="totalPrice">0.0</h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable">Payable Amount :</h6>
-                                                </td>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable"id="payable_amount">0.0</h6>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-between mx-4 card-body">
-                                    <div class="col-lg-4 form-check">
-                                        <label class="form-check-label">
-                                            <div class="uniform-choice border-info text-info"><span
-                                                    class=""><input type="radio" name="payment_type"
-                                                        value="cash" class="form-check-input-styled-info"
-                                                        data-fouc=""></span></div>
-                                            Cash Payment
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-4 form-check">
-                                        <label class="form-check-label">
-                                            <div class="uniform-choice border-warning text-warning"><span
-                                                    class=""><input type="radio" name="payment_type"
-                                                        value="Bank" class="form-check-input-styled-warning"
-                                                        data-fouc=""></span></div>
-                                            Bank Pyment
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-4 form-check">
-                                        <label class="form-check-label">
-                                            <div class="uniform-choice border-danger text-danger"><span
-                                                    class=""><input type="radio" name="payment_type"
-                                                        value="mobile_banking" class="form-check-input-styled-danger"
-                                                        data-fouc=""></span></div>
-                                            Mobile Banking
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-lg bg-teal-800 fs-1 w-100"> <i
-                                        class="icon-shredder mr-2"></i> Print Bills</button>
                             </div>
-                        </div>
-                    </form>
+                            <div class="card shadow-lg height-full">
+                                <div class="justify-content-between card-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <h5 class="font-weight-bold total-payable">Total Item :</h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="font-weight-bold total-payable" id="total">0</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable">Total Price :</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable"id="totalPrice">0.0</h6>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable">Payable Amount :</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable"id="payable_amount">0.0</h6>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-6 col-md-3">
+                                                <input type="radio" name="payment_method" id="bank"
+                                                    class="d-none" />
+                                                <label for="bank" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-office icon-2x text-indigo-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Bank Payment</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-6 col-md-3 rounded">
+                                                <input type="radio" name="payment_method" id="cash"
+                                                    class="d-none" checked />
+                                                <label for="cash" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-cash3 icon-2x text-warning-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Cash Payment</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <input type="radio" name="payment_method" id="online"
+                                                    class="d-none" />
+                                                <label for="online" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-mobile icon-2x text-teal-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Online Payment</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-lg bg-teal-800 mt-4 w-100">
+                                            <i class="icon-checkmark2 icon-2x mr-2"></i> Confirm Payment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

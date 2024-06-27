@@ -40,9 +40,9 @@
 			<!-- /footer -->
 		</div>
         <!-- Main content -->		
-		  <div id="loader" style="display: none;">
+		  {{-- <div id="loader" style="display: none;">
 			Loading...
-		</div>
+		</div> --}}
 		
 	</div>
 		<!-- /main content -->
