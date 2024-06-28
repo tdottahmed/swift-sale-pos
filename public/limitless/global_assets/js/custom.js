@@ -1,5 +1,5 @@
 // public/js/custom.js
-function forModal(url, title) {
+function openModal(url, title) {
    $('#ajaxModal .modal-title').text(title);
    $.ajax({
        url: url,

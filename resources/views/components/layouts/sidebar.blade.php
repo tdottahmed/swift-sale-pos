@@ -276,7 +276,7 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
                             @can('view contact')
-                                <a href="{{ route('contacts.index', ['type' => 'supplier']) }}"
+                                <a href="{{ route('supplier.index')}}"
                                     class="nav-link {{ request()->input('type') === 'supplier' ? 'active' : '' }}">
                                     <i class="icon-finder"></i>Supplier
                                 </a>

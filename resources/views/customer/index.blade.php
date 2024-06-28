@@ -35,11 +35,11 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <button type="button"
-                                                    onclick="forModal('{{ route('customer.edit', $customer->id) }}', 'Create New Customer')"
+                                                    onclick="openModal('{{ route('customer.edit', $customer->id) }}', 'Create New Customer')"
                                                     class="dropdown-item "><i class="icon-pencil7"></i> Edit
                                                     customer</button>
                                                 <button
-                                                    onclick="forModal('{{ route('customer.show', $customer->id) }}')"
+                                                    onclick="openModal('{{ route('customer.show', $customer->id) }}')"
                                                     class="dropdown-item"><i class="icon-eye"></i> View
                                                     customer</button>
                                                 <form style="display:inline"
@@ -64,7 +64,7 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <button type="button" onclick="forModal('{{ route('customer.create') }}', 'Create New Customer')"
+            <button type="button" onclick="openModal('{{ route('customer.create') }}', 'Create New Customer')"
                 class="btn 
             btn-sm 
             bg-success 

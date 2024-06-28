@@ -55,5 +55,4 @@
                 <i class="icon-plus3 ml-2"></i></button>
         </x-slot>
     </x-data-display.card>
-
 </x-layouts.master>

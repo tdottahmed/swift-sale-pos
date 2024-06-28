@@ -33,6 +33,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
 
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\VariableController;
 
@@ -157,6 +158,7 @@ Route::middleware('auth')->group(function () {
 
  
     Route::resource('customer', CustomerController::class);
+    Route::resource('supplier', SupplierController::class);
     Route::get('product-filter/{sku}', [ProductController::class, 'filterProduct'])->name('filterProduct');
 
     //Expenses
