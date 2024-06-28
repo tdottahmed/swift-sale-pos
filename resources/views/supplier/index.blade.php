@@ -22,14 +22,31 @@
                            <td>{{ $supplier->email }}</td>
                            <td>{{ $supplier->phone }}</td>
                            <td class="text-center">
-                               <button type="button" class="btn btn-sm btn-primary" onclick="openModal('{{route('supplier.edit', $supplier->id)}}')">
-                                   Edit
-                               </button>
-                               <form action="{{ route('supplier.destroy', $supplier->id) }}" method="POST" style="display: inline;">
-                                   @csrf
-                                   @method('DELETE')
-                                   <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this supplier?')">Delete</button>
-                               </form>
+                              <div class="list-icons">
+                                 <div class="dropdown">
+                                     <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                         <i class="icon-menu9"></i>
+                                     </a>
+                                     <div class="dropdown-menu dropdown-menu-right">
+                                         <button type="button"
+                                            onclick="openModal('{{route('supplier.edit', $supplier->id)}}', 'Edit Supplier')"
+                                             class="dropdown-item "><i class="icon-pencil7"></i> Edit
+                                             customer</button>
+                                         
+                                         <form style="display:inline"
+                                             action="{{ route('supplier.destroy', $supplier->id) }}"
+                                             method="POST">
+                                             @csrf
+                                             @method('delete')
+                                             <button
+                                                 onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this customer?')){ this.closest('form').submit(); }"
+                                                 class="dropdown-item" title="Delete customer">
+                                                 <i class="icon-trash-alt"></i>Delete
+                                             </button>
+                                         </form>
+                                     </div>
+                                 </div>
+                             </div>
                            </td>
                        </tr>
                    @endforeach
