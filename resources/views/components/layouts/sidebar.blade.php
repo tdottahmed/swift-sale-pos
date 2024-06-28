@@ -267,7 +267,7 @@
                 </li>
 
                 <li
-                    class="nav-item nav-item-submenu {{ request()->is('contacts*') || request()->is('campaign*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                    class="nav-item nav-item-submenu {{ request()->is('contacts*') || request()->is('campaign*')|| request()->is('supplier*')|| request()->is('customer*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#"
                         class="nav-link {{ request()->is('contacts*') || request()->is('campaign*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
@@ -277,15 +277,15 @@
                         <li class="nav-item">
                             @can('view contact')
                                 <a href="{{ route('supplier.index')}}"
-                                    class="nav-link {{ request()->input('type') === 'supplier' ? 'active' : '' }}">
+                                    class="nav-link {{ request()->is('supplier') ? 'active' : '' }}">
                                     <i class="icon-finder"></i>Supplier
                                 </a>
                             @endcan
                         </li>
                         <li class="nav-item">
                             @can('view customer')
-                                <a href="{{ route('contacts.index', ['type' => 'customer']) }}"
-                                    class="nav-link {{ request()->input('type') === 'customer' ? 'active' : '' }}">
+                                <a href="{{ route('customer.index')}}"
+                                    class="nav-link {{ request()->is('customer') ? 'active' : '' }}">
                                     <i class="icon-users"></i>Customer
                                 </a>
                             @endcan

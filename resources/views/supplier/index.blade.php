@@ -1,5 +1,3 @@
-<!-- suppliers-index.blade.php -->
-
 <x-layouts.master>
    <x-data-display.card>
        <x-slot name="heading">
