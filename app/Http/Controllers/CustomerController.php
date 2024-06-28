@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\Customer;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -22,7 +24,6 @@ class CustomerController extends Controller
      
     public function index()
     {
-
         $customers = Customer::all();
         return view('customer.index', compact('customers'));
     }
@@ -41,7 +42,19 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         try {
-            Customer::create($request->all());
+            $customer = Customer::create($request->all());
+            Contact::create([
+                'uuid'             => Str::uuid(),
+                "contact_type"     => 2,
+                "contact_id"       => uniqid(),
+                "first_name"       => $customer->fname,
+                "last_name"        => $customer->lname,
+                "mobile"           => $customer->phone,
+                "email"            => $customer->email,
+                "city"             => $customer->city,
+                "address"          => $customer->address,
+                "shipping_address" => $customer->address
+            ]);
             return redirect()->back()->with('success', 'Customer created Successfully');
         } catch (\Throwable $th) {
            return redirect()->back()->with('error', 'Something Went Wrong');
@@ -53,7 +66,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customer.show-modal', compact('customer'));
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -61,7 +74,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('customer.edit-modal',compact('customer'));
+        return view('customer.edit',compact('customer'));
     }
 
     /**
@@ -82,6 +95,12 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+            $customer->delete();
+            return redirect()->back()->with('success', 'Customer Deleted Successfully');
+ 
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 }
