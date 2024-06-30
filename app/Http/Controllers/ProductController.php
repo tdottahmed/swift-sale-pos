@@ -203,9 +203,13 @@ class ProductController extends Controller
     public function excelStore(Request $request)
 
     {
+       try {
         $file = $request->excel;
         Excel::import(new ProductImport, $file);
-        return redirect()->back();
+        return redirect()->route('product.index')->with('success', 'Product Imported Success fully!!');
+       } catch (\Throwable $th) {
+        return redirect()->back()->with('error', $th->getMessage());
+       }
     }
 
     public function labelPrint($id)

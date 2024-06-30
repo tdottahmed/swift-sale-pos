@@ -25,8 +25,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->opening_stock }}</td>
-                                <td><img src="{{imagePath($product->image)}}" width="100"
-                                        height="70" alt="no image"></td>
+                                <td><img src="{{ imagePath($product->image) }}" class="card-img" alt="{{ $product->name }}">
+                                </td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ $product->product_type }}</td>
                                 <td class="bg-white">

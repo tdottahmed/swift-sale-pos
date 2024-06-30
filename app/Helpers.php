@@ -10,16 +10,7 @@ use App\Models\Organization;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-// function organizationName()
-// {
-//     $organization = Organization::first();
-//     return $organization;
-// }
 
-
-// function organizationLogo()
-// {
-    
  function avatar()
  {
    if (auth()->user()->image != null) {
@@ -40,11 +31,15 @@ use Illuminate\Support\Facades\Storage;
     return $filePath;
  }
 
- function imagePath($path)
- {
-    $image = asset('storage/'.$path);
-    return $image;
- }
+     function imagePath($path)
+     {
+         if ($path) {
+             return asset('storage/' . $path);
+         } else {
+             return asset('limitless/global_assets/images/placeholders/404-Illustration.png');
+         }
+     }
+ 
    
 
  function customAvatar($name)

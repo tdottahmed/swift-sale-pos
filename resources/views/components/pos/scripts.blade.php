@@ -19,8 +19,8 @@
                 else{
                     let row = `
                         <tr data-id="${product.id}" id="pro-${product.id}">
-                            <td>
-                                <h5 class="font-weight-bold">${product.name}</h5>
+                            <td colspan="2">
+                                <span class="font-weight-bold text-info-800">${product.name}</span>
                                 <input type="hidden" name="product_ids[]" value="${product.id}">
                                 <input type="hidden" name="variation_ids[]" value="${product.variation_id}">
                             </td>
