@@ -38,7 +38,8 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('employee.edit', $employee->id) }}"
+                                                <a 
+                                                onclick="openModal('{{route('employee.edit', $employee->id)}}', 'Create Employee')"                                               
                                                     class="dropdown-item "><i class="icon-pencil7"></i> Edit
                                                     employee</a>
                                                 {{-- <form style="display:inline"
@@ -78,18 +79,10 @@
 
 
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('employee.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"
-                data-toggle="modal" data-target="#createEmployee"><i class="icon-plus2"></i></a>
+
+                <button type="button" class="btn bg-indigo-800" data-toggle="modal" data-target="#createEmployee" href="{{ route('employee.create') }}">
+                    Create <i class="icon-plus3 ml-2"></i>
+                </button>
         </x-slot>
     </x-data-display.card>
 

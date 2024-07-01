@@ -1,9 +1,4 @@
-<x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            {{ __('Insert Your Expense Category') }}
-        </x-slot>
-        <x-slot name="body">
+
             <form action="{{ route('expense-category.store') }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -24,17 +19,4 @@
                 </div>
 
             </form>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('expense-category.index') }}" class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i class="icon-list"></i></a>           
-        </x-slot>
-    </x-data-display.card>
-</x-layouts.master>
+

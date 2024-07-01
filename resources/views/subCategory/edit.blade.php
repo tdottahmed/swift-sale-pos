@@ -1,9 +1,4 @@
-<x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            {{ __('Edit Your Sub Category Info') }}
-        </x-slot>
-        <x-slot name="body">
+
             <form action="{{ route('subCategory.update', $subCategory->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
@@ -12,6 +7,20 @@
                     <input type="text" class="form-control" name="title" id="title" value="{{ $subCategory->title }}">
                 </div>
 
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3">Select Category</label>
+                    <div class="col-sm-9">
+                        <select name="category_id" id="category_id" class="form-control select-search">
+                            <option value="">-- Please select --</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $category->id == $subCategory->category_id ? 'selected' : '' }}>
+                                    {{ $category->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
                 <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">
@@ -23,19 +32,6 @@
                 </div>
 
             </form>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('subCategory.index') }}"
-                class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i
-                    class="icon-list"></i></a>
-        </x-slot>
-    </x-data-display.card>
-</x-layouts.master>
+
+
+            

@@ -4,10 +4,8 @@
             All Campaign
         </x-slot>
         <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
+            <x-data-display.table class="table-striped table-hover">
+                <x-slot name="header">
                             <th>SL</th>
                             <th>Title</th>
                             <th>Description</th>
@@ -15,9 +13,8 @@
                             <th>Audience</th>
                             <th>Campaign Type</th>
                             <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </x-slot>
+                        <x-slot name="body">
                         @foreach ($campaigns as $campaign)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -34,7 +31,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('campaign.edit', $campaign->id) }}"
+                                                <a onclick="openModal('{{route('campaign.edit', $campaign->id)}}', 'Create Campaign')"
                                                     class="dropdown-item"
                                                     ><i class="icon-pencil7"></i> Edit
                                                     Campaign</a>
@@ -66,24 +63,14 @@
                             </tr>
                         @endforeach
 
-
-                    </tbody>
-                </table>
-            </div>
+                    </x-slot>
+                </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('campaign.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"
-               ><i class="icon-plus2"></i></a>
+
+            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('campaign.create')}}', 'Create Campaign')">
+                Create <i class="icon-plus3 ml-2"></i>
+            </button>
         </x-slot>
     </x-data-display.card>
     {{-- @include('campaign.create-modal') --}}

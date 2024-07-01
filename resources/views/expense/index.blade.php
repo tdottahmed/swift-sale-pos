@@ -4,10 +4,8 @@
             Expense List
         </x-slot>
         <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
+            <x-data-display.table class="table-striped table-hover">
+                <x-slot name="header">
                             <th>SL</th>
                             <th>Expense Category</th>
                             <th>Expense For</th>
@@ -15,9 +13,8 @@
                             <th>Payment Method</th>
                             <th>Date</th>
                             <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </x-slot>
+                        <x-slot name="body">
                         @foreach ($expenses as $expense)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -34,9 +31,10 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('expenses.edit', $expense->id) }}"
-                                                    class="dropdown-item "><i class="icon-pencil7"></i> Edit
-                                                    expense</a>
+                                                
+
+                                                <a onclick="openModal('{{ route('expenses.edit', $expense->id) }}', 'Edit category')" class="dropdown-item"><i class="icon-pencil7"></i> Edit expense</a>
+   
                                                 <form style="display:inline"
                                                     action="{{ route('expenses.destroy', $expense->id) }}"
                                                     method="POST">
@@ -57,24 +55,14 @@
                             </tr>
                         @endforeach
 
-
-                    </tbody>
-                </table>
-            </div>
+                    </x-slot>
+                </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
             <a href="{{ route('expenses.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"
-                data-toggle="modal" data-target="#createExpense"><i class="icon-plus2"></i></a>
+                class="btn bg-indigo-800"
+                data-toggle="modal" data-target="#createExpense"> Create <i class="icon-plus3 ml-2"></i></a>
+
         </x-slot>
     </x-data-display.card>
     @include('expense.create-modal')

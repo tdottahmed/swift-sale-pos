@@ -31,7 +31,9 @@
                                             <i class="icon-menu9"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{ route('leaveType.edit', $leaveType->id) }}" class="dropdown-item">
+                                            <a 
+                                            onclick="openModal('{{route('leaveType.edit', $leaveType->id)}}', 'Create Leave Type')"
+                                            class="dropdown-item">
                                                 <i class="icon-pencil7"></i> Edit leaveType
                                             </a>
                                             @if ($leaveType->LeaveTypes->isEmpty())
@@ -59,18 +61,10 @@
 
 
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('leaveType.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"
-                data-toggle="modal" data-target="#createEmployee"><i class="icon-plus2"></i></a>
+
+                <a href="{{ route('leaveType.create') }}"
+                class="btn bg-indigo-800"
+                data-toggle="modal" data-target="#createEmployee">Create <i class="icon-plus3 ml-2"></i></a>
         </x-slot>
     </x-data-display.card>
 

@@ -4,17 +4,14 @@
             expense_category
         </x-slot>
         <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
+            <x-data-display.table class="table-striped table-hover">
+                <x-slot name="header">
                             <th>SL</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </x-slot>
+                        <x-slot name="body">
                         @foreach ($expenseCategories as $expense_category)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -28,7 +25,7 @@
 											</a>
 
 											<div class="dropdown-menu dropdown-menu-right">
-												<a href="{{ route('expense-category.edit', $expense_category->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit expense category</a>
+												<a onclick="openModal('{{route('expense-category.edit', $expense_category->id)}}', 'Create Expense Category')"  class="dropdown-item"><i class="icon-pencil7"></i> Edit expense category</a>
                                                 <form style="display:inline" action="{{ route('expense-category.destroy', $expense_category->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -48,23 +45,14 @@
 								</td>
                             </tr>
                         @endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
+                    </x-slot>
+                </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('expense-category.create') }}" class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i class="icon-plus2"></i></a>
+            {{-- <a href="{{ route('expense-category.create') }}" class="btn  --}}
+            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('expense-category.create')}}', 'Create Expense Category')">
+               Create <i class="icon-plus3 ml-2"></i>
+           </button>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

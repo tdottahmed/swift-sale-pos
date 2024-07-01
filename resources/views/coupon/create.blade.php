@@ -1,10 +1,5 @@
-<x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            {{ __('Create Cupon') }}
-        </x-slot>
-        <x-slot name="body">
-            <form action="" method="post" id="discountForm" name="discountForm" enctype="multipart/form-data">
+
+            <form action="{{route('coupon.create')}}" method="post" id="discountForm" name="discountForm" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <div class="col-6">
@@ -93,17 +88,4 @@
                 </div>
 
             </form>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('coupon.index')}}" class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i class="icon-list"></i></a>           
-        </x-slot>
-    </x-data-display.card>
-</x-layouts.master>
+

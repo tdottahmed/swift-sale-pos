@@ -179,6 +179,7 @@ Route::middleware('auth')->group(function () {
 
     //Campaign
     Route::resource('campaign', CampaignController::class);
+    // Route::get('campaign/createDirect', [CampaignController::class, 'createDirect'])->name('campaign.createDirect');
     Route::get('send-campaign-email/{campaign}', [CampaignController::class, 'sendEmail'])->name('campaign.sendEmail');
     Route::get('send-campaign-sms/{campaign}', [CampaignController::class, 'sendSms'])->name('campaign.sendSms');
 

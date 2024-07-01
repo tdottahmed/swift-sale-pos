@@ -300,7 +300,8 @@
                         </li>
                         <li class="nav-item">
                             @can('view product')
-                                <a href="{{ route('campaign.create') }}"
+                                {{-- <a href="{{ route('campaign.createDirect') }}" --}}
+                                <a href="#"
                                     class="nav-link {{ request()->is('campaign*') && request()->routeIs('campaign.create') ? 'active' : '' }}">
                                     <i class="icon-file-eye2"></i>Create Campaign
                                 </a>

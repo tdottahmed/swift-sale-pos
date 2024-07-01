@@ -24,6 +24,10 @@ class CampaignController extends Controller
     {
         return view('campaign.create');
     }
+    // public function createDirect()
+    // {
+    //     return view('campaign.createDirect');
+    // }
 
     public function store(Request $request)
     {

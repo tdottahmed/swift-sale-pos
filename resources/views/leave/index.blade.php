@@ -44,8 +44,11 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('leave.edit', $leave->id) }}" class="dropdown-item"><i
+                                                <a 
+                                                onclick="openModal('{{route('leave.edit', $leave->id)}}', 'Create Employee')" 
+                                                 class="dropdown-item"><i
                                                         class="icon-pencil7"></i> Edit Application</a>
+
                                                 <a href="{{ route('leave.pdf', $leave->id) }}" class="dropdown-item" target="_blank"><i
                                                         class="icon-eye"></i> pdf </a>
                                                 <form style="display:inline"
@@ -72,7 +75,7 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('leave.create') }}"
+            {{-- <a href="{{ route('leave.create') }}"
                 class="btn 
             btn-sm 
             bg-success 
@@ -84,7 +87,11 @@
             shadow 
             mr-1"
                 data-toggle="modal" data-target="#createLeave">
-                <i class="icon-plus2"></i></a>
+                <i class="icon-plus2"></i></a> --}}
+
+                <a href="{{ route('leave.create') }}"
+                class="btn bg-indigo-800"
+                data-toggle="modal" data-target="#createLeave">Create <i class="icon-plus3 ml-2"></i></a>
         </x-slot>
     </x-data-display.card>
     @include('leave.create-modal')

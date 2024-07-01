@@ -1,8 +1,4 @@
-<x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            {{ __('Edit Cupon Code') }}
-        </x-slot>
+
         <x-slot name="body">
             <form method="POST" name="discountForm" action="{{ route('coupon.update', $coupon->id) }}">
                 @csrf
@@ -82,17 +78,4 @@
                 </div>
 
             </form>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('coupon.index')}}" class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i class="icon-list"></i></a>           
-        </x-slot>
-    </x-data-display.card>
-</x-layouts.master>
+

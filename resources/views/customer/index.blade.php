@@ -64,19 +64,9 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <button type="button" onclick="openModal('{{ route('customer.create') }}', 'Create New Customer')"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1">
-                <i class="icon-plus3"></i>
-                Create New Customer
+            
+            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{ route('customer.create') }}', 'Create New Customer')">
+                Create <i class="icon-plus3 ml-2"></i>
             </button>
         </x-slot>
     </x-data-display.card>

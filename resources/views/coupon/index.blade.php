@@ -51,7 +51,12 @@
 											</a>
 
 											<div class="dropdown-menu dropdown-menu-right">
-												<a href="{{ route('coupon.edit', $discountCoupon->id) }}" class="dropdown-item"><i class="icon-pencil7"></i> Edit size</a>
+												<a 
+                                                onclick="openModal('{{route('coupon.edit', $discountCoupon->id)}}', 'Edit Coupon')"
+                                                class="dropdown-item"><i class="icon-pencil7"></i> Edit size</a>
+
+                                                
+                                                
                                                 <form style="display:inline" action="{{ route('coupon.destroy', $discountCoupon->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -78,16 +83,10 @@
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('coupon.create') }}" class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i class="icon-plus2"></i></a>
+ 
+            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('coupon.create')}}', 'Create Coupon')">
+                Create <i class="icon-plus3 ml-2"></i>
+            </button>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

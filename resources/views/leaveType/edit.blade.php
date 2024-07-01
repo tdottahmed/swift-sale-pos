@@ -1,9 +1,4 @@
-<x-layouts.master>
-    <x-data-display.card>
-        <x-slot name="heading">
-            {{ __('Edit Your LeaveType Info') }}
-        </x-slot>
-        <x-slot name="body">
+
             <form action="{{ route('leaveType.update', $leaveType->id) }} " method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
@@ -23,19 +18,3 @@
                 </div>
 
             </form>
-        </x-slot>
-        <x-slot name="cardFooterCenter">
-            <a href="{{ route('leaveType.index') }}"
-                class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i
-                    class="icon-list"></i></a>
-        </x-slot>
-    </x-data-display.card>
-</x-layouts.master>

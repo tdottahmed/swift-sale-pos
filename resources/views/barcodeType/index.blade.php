@@ -4,16 +4,13 @@
             Barcode Types
         </x-slot>
         <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
-                        <tr>
+            <x-data-display.table class="table-striped table-hover">
+                <x-slot name="header">
                             <th>SL</th>
                             <th>Title</th>
                             <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    </x-slot>
+                    <x-slot name="body">
                         @foreach ($barcodeTypes as $barcodeType)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -26,9 +23,10 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('barcodeType.edit', $barcodeType->id) }}"
-                                                    class="dropdown-item"><i class="icon-pencil7"></i> Edit Barcode
-                                                    Type</a>
+                                                
+
+                                                    <a onclick="openModal('{{route('barcodeType.edit', $barcodeType->id)}}', 'Create Barcode Type')" class="dropdown-item"><i class="icon-pencil7"></i> Edit Barcode Type</a>
+
                                                 <form style="display:inline"
                                                     action="{{ route('barcodeType.destroy', $barcodeType->id) }}"
                                                     method="POST">
@@ -48,25 +46,14 @@
                                 </td>
                             </tr>
                         @endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
-        </x-slot>
+                    </x-slot>
+                </x-data-display.table>
+            </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('barcodeType.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i
-                    class="icon-plus2"></i></a>
+            {{-- <a href="{{ route('barcodeType.create') }}" --}}
+            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('barcodeType.create')}}', 'Create Barcode Type')">
+                Create <i class="icon-plus3 ml-2"></i>
+            </button>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>
