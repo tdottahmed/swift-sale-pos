@@ -22,31 +22,11 @@
                            <td>{{ $supplier->email }}</td>
                            <td>{{ $supplier->phone }}</td>
                            <td class="text-center">
-                              <div class="list-icons">
-                                 <div class="dropdown">
-                                     <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                         <i class="icon-menu9"></i>
-                                     </a>
-                                     <div class="dropdown-menu dropdown-menu-right">
-                                         <button type="button"
-                                            onclick="openModal('{{route('supplier.edit', $supplier->id)}}', 'Edit Supplier')"
-                                             class="dropdown-item "><i class="icon-pencil7"></i> Edit
-                                             customer</button>
-                                         
-                                         <form style="display:inline"
-                                             action="{{ route('supplier.destroy', $supplier->id) }}"
-                                             method="POST">
-                                             @csrf
-                                             @method('delete')
-                                             <button
-                                                 onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this customer?')){ this.closest('form').submit(); }"
-                                                 class="dropdown-item" title="Delete customer">
-                                                 <i class="icon-trash-alt"></i>Delete
-                                             </button>
-                                         </form>
-                                     </div>
-                                 </div>
-                             </div>
+                            <x-data-display.table-actions :actions="[
+                                ['route' => 'supplier.edit', 'params' => $supplier->id, 'label' => 'Edit Supplier', 'icon' => 'icon-pencil7'],
+                                ['route' => 'supplier.destroy', 'params' => $supplier->id, 'label' => 'Delete Supplier', 'icon' => 'icon-trash-alt', 'method' => 'delete']
+                            ]" />
+                            
                            </td>
                        </tr>
                    @endforeach
@@ -54,9 +34,7 @@
            </x-data-display.table>
        </x-slot>
        <x-slot name="cardFooterCenter">
-           <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('supplier.create')}}', 'Create Supplier')">
-               Create <i class="icon-plus3 ml-2"></i>
-           </button>
+        <x-action.create-btn route="{{ route('supplier.create') }}" buttonLabel="Create Supplier" modalHeaderLabel="Create New Supplier" />
        </x-slot>
    </x-data-display.card>
 </x-layouts.master>

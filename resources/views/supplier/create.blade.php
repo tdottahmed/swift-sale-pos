@@ -1,9 +1,9 @@
-<form action="{{ route('supplier.store') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="fname">First Name</label>
-        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name">
-    </div>
+<x-data-entry.form action="{{ route('supplier.store') }}">
+
+    <x-data-entry.input type="text" name="fname" placeholder="Enter First Name" attribte="readonly"/>
+    <x-data-entry.text-area name="description" label="Description" placeholder="Enter description..." :cols="30" :rows="5"/>
+
+
     <div class="form-group">
         <label for="lname">Last Name</label>
         <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name">
@@ -41,10 +41,4 @@
         <input type="text" class="form-control" id="country" name="country" placeholder="Enter country">
     </div>
     </div>
-    <div class="text-right">
-      <button type="button" class="btn btn-lg bg-danger-400 shadow-2" data-dismiss="modal"><i
-         class="icon-cross2 mr-1"></i>Close</button>
-      <button type="submit" class="btn btn-lg bg-teal-400 shadow-2"><i
-         class="icon-checkmark4 mr-1 "></i>{{ __('Submit') }}</button>
-     </div>
-</form>
+</x-data-entry.form>
