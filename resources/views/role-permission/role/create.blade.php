@@ -1,4 +1,4 @@
-<x-layouts.master>
+
 
     <div class="container mt-5">
         <div class="row">
@@ -36,4 +36,3 @@
         </div>
     </div>
 
-</x-layouts.master>

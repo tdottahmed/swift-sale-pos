@@ -26,7 +26,10 @@ $permissionCount = DB::table('permissions')->count();
                         <h4>
                             Roles
                             @can('create role')
-                            <a href="{{ url('roles/create') }}" class="btn btn-primary float-end">Add Role</a>
+                            {{-- <a href="{{ url('roles/create') }}" class="btn btn-primary float-end">Add Role</a> --}}
+                            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{url('roles/create')}}', ' Add User')">
+                                Add Role <i class="icon-plus3 ml-2"></i>
+                            </button>
                             @endcan
                         </h4>
                     </div>
@@ -51,7 +54,9 @@ $permissionCount = DB::table('permissions')->count();
                                         </a>
 
                                         @can('update role')
-                                        <a href="{{ url('roles/'.$role->id.'/edit') }}" class="btn btn-success">
+                                        <a 
+                                        onclick="openModal('{{url('roles/'.$role->id.'/edit')}}', ' Edit Role')"
+                                        class="btn btn-success">
                                             Edit
                                         </a>
                                         @endcan
