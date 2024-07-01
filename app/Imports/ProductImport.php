@@ -3,13 +3,14 @@ namespace App\Imports;
 
 use App\Models\Unit;
 use App\Models\Brand;
+use App\Models\Branch;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\BarcodeType;
-use App\Models\Branch;
-use App\Models\Subcategory;
-use App\Models\ProductVariation;
 use App\Models\Variation;
+use App\Models\BarcodeType;
+use App\Models\Subcategory;
+use Illuminate\Support\Str;
+use App\Models\ProductVariation;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -35,9 +36,7 @@ class ProductImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $row = $this->mapHeaders($row);
-        // dd($row);
 
-        // Find or create brand, category, subcategory, unit, and barcode_type
         $brand = Brand::firstOrCreate(['title' => $row['brand']]);
         $category = Category::firstOrCreate(['title' => $row['category']]);
         $subcategory = Subcategory::firstOrCreate(['title' => $row['sub_category'], 'category_id' => $category->id]);
@@ -49,7 +48,7 @@ class ProductImport implements ToModel, WithHeadingRow
         $product = Product::updateOrCreate(
             ['sku' => $row['sku']],
             [
-                'uuid' => $row['uuid'] ?? (string) \Illuminate\Support\Str::uuid(),
+                'uuid' => $row['uuid'] ?? (string) Str::uuid(),
                 'name' => $row['name'],
                 'brand_id' => $brand->id,
                 'category_id' => $category->id,
@@ -62,7 +61,6 @@ class ProductImport implements ToModel, WithHeadingRow
                 'sub_category' => $row['sub_category'],
                 'sku' => $row['sku'],
                 'barcode_type' => $row['barcode_type'],
-
                 'sku' => $row['sku'],
                 'manage_stock' => $row['manage_stock'],
                 'alert_quantity' => $row['alert_quantity'],
