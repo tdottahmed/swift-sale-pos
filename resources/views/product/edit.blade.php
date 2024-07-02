@@ -87,15 +87,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <label for="description">Product Description</label>
-                                <textarea name="description" id="description" cols="30" rows="10" class="form-control">{!$product->description!}</textarea>
+                                <textarea name="description" id="description" cols="30" rows="10" class="form-control">{!!$product->description!!}</textarea>
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
                                 <label class="font-weight-semibold">Upload Image</label>
                                 <input type="file" name="image" class="file-input"
                                     data-browse-class="btn btn-primary btn-block" data-show-remove="false"
                                     data-show-caption="false" data-show-upload="false" data-fouc>
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="{{imagePath(imagePath($product->image))}}" alt="{{$product->name}}">
                             </div>
                         </div>
                     </div>

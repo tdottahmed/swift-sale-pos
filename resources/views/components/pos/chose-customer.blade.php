@@ -13,7 +13,7 @@
             </select>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <x-customer.create-modal/>
     </div>
 </div>

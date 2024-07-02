@@ -22,12 +22,16 @@
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <label for="">{{ __('Select Category') }}</label>
-                        <select name="category" id="category" class="form-control select-search">
-                            <option value="">-- Please select --</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->title }}">{{ $category->title }}</option>
-                            @endforeach
-                        </select>
+                        <div class="d-flex align-items-center gap-1">
+                            <select name="category" id="category" class="form-control select-search">
+                                <option value="">-- Please select --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->title }}">{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                            <span class="btn btn-success cursor-pointer"><i class="icon icon-plus3"></i></span>
+                        </div>
+
                     </div>
                     <div class="col-lg-6">
                         <label for="">{{ __('Select Sub Category') }}</label>
@@ -42,12 +46,15 @@
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <label for="">{{ __('Select Brand') }}</label>
+                        <div class="d-flex align-items-center gap-1">
                         <select name="brand" id="brand" class="form-control select-search">
                             <option value="">-- Please select --</option>
                             @foreach ($brands as $brand)
                                 <option value="{{ $brand->title }}">{{ $brand->title }}</option>
                             @endforeach
                         </select>
+                        <span class="btn btn-success cursor-pointer"><i class="icon icon-plus3"></i></span>
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <label for="">{{ __('Select Barcode Type') }}</label>

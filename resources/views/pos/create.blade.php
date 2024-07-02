@@ -1,29 +1,35 @@
-<x-layouts.guest>
+<x-layouts.pos>
     @push('css')
         <style>
             ::-webkit-scrollbar {
                 width: 5px;
             }
+
             ::-webkit-scrollbar-track {
                 background: #f1f1f1;
             }
+
             ::-webkit-scrollbar-thumb {
                 background: #888;
                 border-radius: 6px;
             }
+
             ::-webkit-scrollbar-thumb:hover {
                 background: #555;
             }
-            .bill-section{
+
+            .bill-section {
                 max-height: 75vh;
                 overflow-y: auto;
             }
+
             .counter-container {
                 display: flex;
                 align-items: center;
                 border-radius: 50px;
                 overflow: hidden;
             }
+
             .counter-button {
                 background: rgb(0, 105, 92);
                 color: #fff;
@@ -81,153 +87,157 @@
                 background-color: #95afc0;
                 color: #130f40;
             }
+            .card{
+                padding:15px;
+            }
         </style>
     @endpush
     <x-pos.quick-access />
-        <div class="mt-4 pt-4">
+    <div class="page-content mt-1">
+        <div class="content">
             <x-expense.create-modal />
             <x-pos.discount />
-    
+
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="card-body">
-                            <x-pos.filter-box />
-                            @include('pos.loader')
-                            <div class="my-1" id="productList">
-                                @include('pos.products', ['products' => $products])
-                            </div>
+                        <x-pos.filter-box />
+                        @include('pos.loader')
+                        <div class="py-1" id="productList">
+                            @include('pos.products', ['products' => $products])
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="card-body h-full">
-                            <x-pos.chose-customer />
-                            <form action="{{ route('pos.store') }}" class="bill-section" target="_blank" method="post">
-                                @csrf
-                                <input type="hidden" name="customer_id" id="customer_id">
-                                <input type="hidden" name="total_price" id="total_price">
-                                <input type="hidden" name="paid_amount" id="paid_amount">
-                                <input type="hidden" name="total_quantity" id="total_quantity">
-                                <div class="card">
-                                    <table class="table table-bordered" id="productTable">
-                                        <thead>
-                                            <tr class="bg-teal-800">
-                                                <th colspan="2">Product</th>
-                                                <th>Quantity</th>
-                                                <th>Sub Total</th>
-                                                <th>Total</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="productTbody">
-                                        </tbody>
+                        <x-pos.chose-customer />
+                        <form action="{{ route('pos.store') }}" class="bill-section" target="_blank" method="post">
+                            @csrf
+                            <input type="hidden" name="customer_id" id="customer_id">
+                            <input type="hidden" name="total_price" id="total_price">
+                            <input type="hidden" name="paid_amount" id="paid_amount">
+                            <input type="hidden" name="total_quantity" id="total_quantity">
+                            <div class="card">
+                                <table class="table table-bordered" id="productTable">
+                                    <thead>
+                                        <tr class="bg-teal-800">
+                                            <th colspan="2">Product</th>
+                                            <th>Quantity</th>
+                                            <th>Sub Total</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productTbody">
+                                    </tbody>
+                                </table>
+                                <div class="row my-3 mx-2">
+                                    <div class="col-lg-6">
+                                        <button type="button" class="btn bg-teal-800" data-toggle="modal"
+                                            data-target="#createDiscount">Discount (-) <i
+                                                class="icon icon-pencil7 ml-2"></i></button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="discountAmount" class="form-control"
+                                            id="discountAmount" disabled>
+                                        <input type="hidden" name="discountedAmount" id="discountedAmmount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="justify-content-between card-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <h5 class="font-weight-bold total-payable">Total Item :</h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="font-weight-bold total-payable" id="total">0</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable">Total Price :</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable"id="totalPrice">0.0</h6>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable">Payable Amount :</h6>
+                                            </td>
+                                            <td>
+                                                <h6 class="font-weight-bold total-payable"id="payable_amount">0.0</h6>
+                                            </td>
+                                        </tr>
                                     </table>
-                                    <div class="row my-3 mx-2">
-                                        <div class="col-lg-6">
-                                            <button type="button" class="btn bg-teal-800" data-toggle="modal"
-                                                data-target="#createDiscount">Discount (-) <i
-                                                    class="icon icon-pencil7 ml-2"></i></button>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="discountAmount" class="form-control"
-                                                id="discountAmount" disabled>
-                                            <input type="hidden" name="discountedAmount" id="discountedAmmount">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card shadow-lg height-full">
-                                    <div class="justify-content-between card-body">
-                                        <table class="table">
-                                            <tr>
-                                                <td>
-                                                    <h5 class="font-weight-bold total-payable">Total Item :</h5>
-                                                </td>
-                                                <td>
-                                                    <h5 class="font-weight-bold total-payable" id="total">0</h5>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable">Total Price :</h6>
-                                                </td>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable"id="totalPrice">0.0</h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable">Payable Amount :</h6>
-                                                </td>
-                                                <td>
-                                                    <h6 class="font-weight-bold total-payable"id="payable_amount">0.0</h6>
-                                                </td>
-                                            </tr>
-                                        </table>
-    
-                                        <div class="container">
-                                            <div class="row justify-content-center">
-                                                <div class="col-6 col-md-3">
-                                                    <input type="radio" name="payment_method" id="bank"
-                                                        class="d-none" />
-                                                    <label for="bank" class="card-payment text-center border border">
-                                                        <div class="card-body-payment">
-                                                            <i class="icon-office icon-2x text-indigo-800 mb-2"></i>
-                                                            <h6 class="font-weight-black">Bank Payment</h6>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="col-6 col-md-3 rounded">
-                                                    <input type="radio" name="payment_method" id="cash"
-                                                        class="d-none" checked />
-                                                    <label for="cash" class="card-payment text-center border border">
-                                                        <div class="card-body-payment">
-                                                            <i class="icon-cash3 icon-2x text-warning-800 mb-2"></i>
-                                                            <h6 class="font-weight-black">Cash Payment</h6>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="col-6 col-md-3">
-                                                    <input type="radio" name="payment_method" id="online"
-                                                        class="d-none" />
-                                                    <label for="online" class="card-payment text-center border border">
-                                                        <div class="card-body-payment">
-                                                            <i class="icon-mobile icon-2x text-teal-800 mb-2"></i>
-                                                            <h6 class="font-weight-black">Online Payment</h6>
-                                                        </div>
-                                                    </label>
-                                                </div>
+
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-6 col-md-3">
+                                                <input type="radio" name="payment_method" id="bank"
+                                                    class="d-none" />
+                                                <label for="bank" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-office icon-2x text-indigo-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Bank Payment</h6>
+                                                    </div>
+                                                </label>
                                             </div>
-                                            <button type="submit" class="btn btn-lg bg-teal-800 mt-4 w-100">
-                                                <i class="icon-checkmark2 icon-2x mr-2"></i> Confirm Payment
-                                            </button>
+                                            <div class="col-6 col-md-3 rounded">
+                                                <input type="radio" name="payment_method" id="cash"
+                                                    class="d-none" checked />
+                                                <label for="cash" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-cash3 icon-2x text-warning-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Cash Payment</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-6 col-md-3">
+                                                <input type="radio" name="payment_method" id="online"
+                                                    class="d-none" />
+                                                <label for="online" class="card-payment text-center border border">
+                                                    <div class="card-body-payment">
+                                                        <i class="icon-mobile icon-2x text-teal-800 mb-2"></i>
+                                                        <h6 class="font-weight-black">Online Payment</h6>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
+                                        <button type="submit" class="btn btn-lg bg-teal-800 mt-4 w-100">
+                                            <i class="icon-checkmark2 icon-2x mr-2"></i> Confirm Payment
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <x-repair.create-modal />
             <x-pos.scripts />
         </div>
-    <div class="navbar navbar-expand-lg navbar-light fixed-bottom">
-        <div class="text-center d-lg-none w-100">
-            <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
-                <i class="icon-unfold mr-2"></i>
-                Footer
-            </button>
-        </div>
+        <div class="navbar navbar-expand-lg navbar-light fixed-bottom">
+            <div class="text-center d-lg-none w-100">
+                <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse"
+                    data-target="#navbar-footer">
+                    <i class="icon-unfold mr-2"></i>
+                    Footer
+                </button>
+            </div>
 
-        <div class="navbar-collapse collapse" id="navbar-footer">
-            <span class="navbar-text">
-                &copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-            </span>
-            <div class="clock-items ml-auto">                
-                <x-clock/>                  
+            <div class="navbar-collapse collapse" id="navbar-footer">
+                <span class="navbar-text">
+                    &copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a
+                        href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+                </span>
+                <div class="clock-items ml-auto">
+                    <x-clock />
+                </div>
             </div>
         </div>
     </div>
-</x-layouts.guest>
+    </div>
+</x-layouts.pos>

@@ -20,7 +20,7 @@ class BrandController extends Controller
     }
     
     public function index(){
-        $brands = Brand::get();
+        $brands = Brand::latest()->get();
         return view('brand.index',compact('brands'));
     }
 

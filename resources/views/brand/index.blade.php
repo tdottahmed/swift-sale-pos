@@ -1,73 +1,48 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            Brands
+            {{ __('Brands') }}
         </x-slot>
         <x-slot name="body">
-            <div class="table">
-                <table class="table datatable-basic">
-                    <thead class="bg-indigo-600">
+            <x-data-display.table class="table-striped table-hover">
+                <x-slot name="header">
+                    <th>{{ __('SL') }}</th>
+                    <th>{{ __('Title') }}</th>
+                    <th>{{ __('Image') }}</th>
+                    <th class="text-center">{{ __('Action') }}</th>
+                </x-slot>
+                <x-slot name="body">
+                    @foreach ($brands as $brand)
                         <tr>
-                            <th>SL</th>
-                            <th>Title</th>
-                            <th>Image</th>
-                            <th class="text-center">Action</th>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $brand->title }}</td>
+                            <td><img src="{{ imagePath($brand->image) }}" width="100" height="70" alt="no image">
+                            </td>
+                            <td class="text-center">
+                                <x-data-display.table-actions :actions="[
+                                    [
+                                        'route' => 'brand.edit',
+                                        'params' => $brand->id,
+                                        'label' => 'Edit Brand',
+                                        'icon' => 'icon-pencil7',
+                                    ],
+                                    [
+                                        'route' => 'brand.destroy',
+                                        'params' => $brand->id,
+                                        'label' => 'Delete brand',
+                                        'icon' => 'icon-trash-alt',
+                                        'method' => 'delete',
+                                    ],
+                                ]" />
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($brands as $brand)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $brand->title }}</td>
-                                <td><img src="{{ imagePath($brand->image) }}" width="100" height="70" alt="no image">
-                                </td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="{{ route('brand.edit', $brand->id) }}" class="dropdown-item"><i
-                                                        class="icon-pencil7"></i> Edit Brand</a>
-                                                <form style="display:inline"
-                                                    action="{{ route('brand.destroy', $brand->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this brand?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item" title="Delete brand">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form>
-                                                {{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </x-slot>
+            </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('brand.create') }}"
-                class="btn 
-            btn-sm 
-            bg-success 
-            border-2 
-            border-success
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1">
-                <i class="icon-plus2"></i></a>
+            <x-action.create-btn route="{{ route('brand.create') }}" buttonLabel="Create Brand"
+                modalHeaderLabel="Create New Brand" />
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

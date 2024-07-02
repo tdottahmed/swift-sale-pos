@@ -64,7 +64,6 @@
     <script src="{{ asset('limitless/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/uploader_bootstrap.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/pagination/bs_pagination.min.js') }}"></script>
-    <script src="{{ asset('limitless/global_assets/js/demo_pages/components_pagination.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('datetime/datetimepicker.css') }}">
     <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
