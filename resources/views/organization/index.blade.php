@@ -49,7 +49,8 @@
         </div>
         <div class="card-footer text-center">
             @if ($organizations->isEmpty())
-                <a href="{{ route('organization.create') }}" class="btn btn-success btn-sm">Create</a>
+            <x-action.create-btn route="{{ route('organization.create') }}" buttonLabel="Create Organization" modalHeaderLabel="Create New Organization" />
+                {{-- <a href="{{ route('organization.create') }}" class="btn btn-success btn-sm">Create</a> --}}
             @endif
         </div>
 

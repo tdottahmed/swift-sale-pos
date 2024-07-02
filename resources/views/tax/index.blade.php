@@ -1,5 +1,4 @@
 <x-layouts.master>
-    @include('tax.create')
     <x-data-display.card>
         <x-slot name="heading">
             Variations
@@ -23,27 +22,12 @@
                                 </span>
                             </td>
                             <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{ route('tax.edit', $tax->id) }}"
-                                                class="dropdown-item"><i class="icon-pencil7"></i>Edit</a>
-                                            <form style="display:inline"
-                                                action="{{ route('tax.destroy', $tax->id) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button
-                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this unit?')){ this.closest('form').submit(); }"
-                                                    class="dropdown-item" title="Delete unit">
-                                                    <i class="icon-trash-alt"></i>Delete
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                 <x-data-display.table-actions :actions="[
+                                ['route' => 'tax.edit', 'params' => $tax->id, 'label' => 'Edit tax', 'icon' => 'icon-pencil7'],
+                                ['route' => 'tax.destroy', 'params' => $tax->id, 'label' => 'Delete tax', 'icon' => 'icon-trash-alt', 'method' => 'delete']
+                            ]" />
+                                
                             </td>
                         </tr>
                     @endforeach
@@ -51,8 +35,7 @@
             </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <button type="button" class="btn bg-indigo-800" data-toggle="modal" data-target="#modal_default">Create
-                <i class="icon-plus3 ml-2"></i></button>
+             <x-action.create-btn route="{{ route('tax.create') }}" buttonLabel="Create tax" modalHeaderLabel="Create New Tax" />
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

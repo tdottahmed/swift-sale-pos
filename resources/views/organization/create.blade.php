@@ -1,12 +1,4 @@
-<x-layouts.master>
-    <div class="card ">
-        <div class="card-header bg-teal">
-            <h2>{{ __('Insert Your Organization Info') }}</h2>
-        </div>
-
-        <div class="card-body">
-            <form action="{{ route('organization.store') }} " method="POST" enctype="multipart/form-data">
-                @csrf
+<x-data-entry.form action="{{ route('organization.store') }}" :hasFile="true">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
@@ -70,19 +62,4 @@
                         </div>
                     </div>
                 </div>
-
-
-
-                <div class="mb-3">
-                    <input type="submit" class="form-control btn btn-info" value="Submit">
-                </div>
-
-            </form>
-        </div>
-        <div class="card-footer text-center">
-            <a href="{{ route('organization.index') }}" class="btn btn-success btn-sm">List</a>
-        </div>
-    </div>
-
-
-</x-layouts.master>
+            </x-data-entry.form>

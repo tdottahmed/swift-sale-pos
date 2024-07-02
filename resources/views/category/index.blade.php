@@ -19,35 +19,10 @@
                                 <td><img src="{{imagePath($category->image)}}" width="100"
                                     height="70" alt="no image"></td>
                                <td class="text-center">
-									<div class="list-icons">
-										<div class="dropdown">
-											<a href="#" class="list-icons-item" data-toggle="dropdown">
-												<i class="icon-menu9"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-right">
-
-												<a onclick="openModal('{{ route('category.edit', $category->id) }}', 'Edit category')" class="dropdown-item"><i class="icon-pencil7"></i> Edit category</a>
-                                                {{-- <button type="button" class="btn bg-indigo-800" onclick="openModal('{{ route('category.edit', $category->id) }}', 'Edit category')">
-                                                    Create <i class="icon-plus3 ml-2"></i>
-                                                </button> --}}
-
-                                                <form style="display:inline" action="{{ route('category.destroy', $category->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this category?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item"
-                                                        title="Delete category">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form>
-												{{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
-											</div>
-										</div>
-									</div>
+                                <x-data-display.table-actions :actions="[
+                                ['route' => 'category.edit', 'params' => $category->id, 'label' => 'Edit category', 'icon' => 'icon-pencil7'],
+                                ['route' => 'category.destroy', 'params' => $category->id, 'label' => 'Delete category', 'icon' => 'icon-trash-alt', 'method' => 'delete']
+                            ]" />
 								</td>
                             </tr>
                         @endforeach
@@ -55,10 +30,8 @@
                 </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            {{-- <a href="{{ route('category.create') }}" class="btn  --}}
-           <button type="button" class="btn bg-indigo-800" onclick="openModal('{{ route('category.create')}}', 'Create Category')">
-               Create <i class="icon-plus3 ml-2"></i>
-           </button>
+            <x-action.create-btn route="{{ route('category.create') }}" buttonLabel="Create tax" modalHeaderLabel="Create New category" />
+          
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

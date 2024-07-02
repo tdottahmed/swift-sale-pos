@@ -33,7 +33,6 @@ class OrganizationController extends Controller
 
     public function store(Request $request)
     {
-
         $image = $request->file('logo');
         $footer_logo = $request->file('footer_logo');
         $favicon = $request->file('favicon');
