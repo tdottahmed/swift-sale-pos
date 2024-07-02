@@ -449,6 +449,25 @@
                         </li>
                     </ul>
                 </li>
+                <li
+                    class="nav-item nav-item-submenu {{ request()->is('purchase*')  ? 'nav-item-expanded nav-item-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ request()->is('purchase*') ? 'active' : '' }}">
+                        <i class="icon-store"></i>
+                        <span>Purchase </span>
+                    </a>
+                    <ul class="nav nav-group-sub" data-submenu-title="Layouts">
+                        <li class="nav-item">
+                            @can('view slider')
+                                <a href="{{ route('purchase.index') }}"
+                                    class="nav-link {{ request()->routeIs('purchase.index') || request()->routeIs('purchase.create') || request()->routeIs('purchase.edit') ? 'active' : '' }}">
+                                    <i class="icon-gradient"></i>Add Purchase
+                                </a>
+                            @endcan
+                        </li>
+                       
+                    </ul>
+                </li>
 
 
         </div>

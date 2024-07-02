@@ -27,6 +27,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
@@ -92,6 +93,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('slider', SliderController::class);
     Route::resource('variables', VariableController::class);
     Route::resource('tax', TaxController::class);
+
+    //Purchase
+    Route::resource('/purchase', PurchaseController::class);
 
 
     //HRM
