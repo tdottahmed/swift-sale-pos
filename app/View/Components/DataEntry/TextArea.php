@@ -10,16 +10,16 @@ class TextArea extends Component
 {
     public $name;
     public $label;
-    public $placeholder;
+    public $value;
     public $cols;
     public $rows;
     public $attributes;
 
-    public function __construct($name = '', $label = '', $placeholder = '', $cols = 30, $rows = 10, $attributes = '')
+    public function __construct($name = '', $label = '', $value = '', $cols = 30, $rows = 10, $attributes = '')
     {
         $this->name = $name;
         $this->label = $label;
-        $this->placeholder = $placeholder;
+        $this->value = $value;
         $this->cols = $cols;
         $this->rows = $rows;
         $this->attributes = $attributes;

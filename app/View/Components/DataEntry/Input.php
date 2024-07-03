@@ -3,8 +3,9 @@
 namespace App\View\Components\DataEntry;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class Input extends Component
 {
@@ -25,6 +26,14 @@ class Input extends Component
     /**
      * Get the view / contents that represent the component.
      */
+    public function label()
+    {
+        $formattedName = Str::of($this->name)
+            ->replace(['-', '_'], ' ') 
+            ->snake() 
+            ->replace('_', ' '); 
+        return Str::title($formattedName); 
+    }
     public function render(): View|Closure|string
     {
         return view('components.data-entry.input');

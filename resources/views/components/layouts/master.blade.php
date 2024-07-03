@@ -37,7 +37,7 @@
             </div>
 
             <!--Modal Component -->
-            <x-data-display.modal id="ajaxModal" title="" headerColor="bg-teal-800"/>
+            <x-data-display.modal id="ajaxModal" title="" headerColor=""/>
             <!--/Modal Component -->
 
             <!-- Footer -->

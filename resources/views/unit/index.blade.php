@@ -18,31 +18,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $unit->title }}</td>
                                <td class="text-center">
-									<div class="list-icons">
-										<div class="dropdown">
-											<a href="#" class="list-icons-item" data-toggle="dropdown">
-												<i class="icon-menu9"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-right">
-												<a onclick="openModal('{{route('unit.edit', $unit->id, $unit->id)}}', 'Create Unit')" class="dropdown-item"><i class="icon-pencil7"></i> Edit unit</a>
-                                                
-                                                <form style="display:inline" action="{{ route('unit.destroy', $unit->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this unit?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item"
-                                                        title="Delete unit">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form>
-												
-                                                
-											</div>
-										</div>
-									</div>
+                                <x-data-display.table-actions :actions="[
+                                    ['route' => 'unit.edit', 'params' => $unit->id, 'label' => 'Edit unit', 'icon' => 'icon-pencil7'],
+                                    ['route' => 'unit.destroy', 'params' => $unit->id, 'label' => 'Delete unit', 'icon' => 'icon-trash-alt', 'method' => 'delete']
+                                ]" />
 								</td>
                             </tr>
                         @endforeach
@@ -51,12 +30,8 @@
                     </x-slot>
                 </x-data-display.table>
         </x-slot>
-        <x-slot name="cardFooterCenter">
-            {{-- <a href="{{ route('unit.create') }}" class="btn  --}}
-            
-            <button type="button" class="btn bg-indigo-800" onclick="openModal('{{route('unit.create')}}', 'Create Unit')">
-               Create <i class="icon-plus3 ml-2"></i>
-           </button>
+        <x-slot name="cardFooterCenter"> 
+            <x-action.create-btn route="{{ route('unit.create') }}" buttonLabel="Create unit" modalHeaderLabel="Create New unit" />
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

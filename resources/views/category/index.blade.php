@@ -31,7 +31,6 @@
         </x-slot>
         <x-slot name="cardFooterCenter">
             <x-action.create-btn route="{{ route('category.create') }}" buttonLabel="Create tax" modalHeaderLabel="Create New category" />
-          
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

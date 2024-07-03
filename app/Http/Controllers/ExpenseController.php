@@ -75,7 +75,6 @@ class ExpenseController extends Controller
     {
         $expenseCategories = ExpenseCategory::all();
         $paymentMethods = PaymentMethod::all();
-
         return view('expense.edit', compact('expense', 'expenseCategories', 'paymentMethods'));
     }
 

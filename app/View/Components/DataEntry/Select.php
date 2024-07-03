@@ -12,13 +12,15 @@ class Select extends Component
     public $label;
     public $options;
     public $attributes;
+    public $selected;
 
-    public function __construct($name = '', $label = '', $options = [], $attributes = '')
+    public function __construct($name = '', $label = '',$selected = null, $options = [], $attributes = '')
     {
         $this->name = $name;
         $this->label = $label;
         $this->options = $options;
         $this->attributes = $attributes;
+        $this->selected = $selected;
     }
 
     /**

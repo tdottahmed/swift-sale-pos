@@ -1,16 +1,15 @@
 <x-layouts.master>
-    @include('variables.create')
     <x-data-display.card>
         <x-slot name="heading">
-            Variations
+            {{ __('Variations') }}
         </x-slot>
         <x-slot name="body">
             <x-data-display.table class="table-striped table-hover">
                 <x-slot name="header">
-                    <th>SL</th>
-                    <th>Title</th>
-                    <th>Value</th>
-                    <th class="text-center">Action</th>
+                    <th>{{ __('SL') }}</th>
+                    <th>{{ __('Title') }}</th>
+                    <th>{{ __('Value') }}</th>
+                    <th class="text-center">{{ __('Action') }}</th>
                 </x-slot>
                 <x-slot name="body">
                     @foreach ($variables as $variable)
@@ -24,27 +23,21 @@
                                 @endforeach
                             </td>
                             <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{ route('variables.edit', $variable->id) }}"
-                                                class="dropdown-item"><i class="icon-pencil7"></i>Edit</a>
-                                            <form style="display:inline"
-                                                action="{{ route('variables.destroy', $variable->id) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button
-                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this unit?')){ this.closest('form').submit(); }"
-                                                    class="dropdown-item" title="Delete unit">
-                                                    <i class="icon-trash-alt"></i>Delete
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                <x-data-display.table-actions :actions="[
+                                    [
+                                        'route' => 'variables.edit',
+                                        'params' => $variable->id,
+                                        'label' => 'Edit variables',
+                                        'icon' => 'icon-pencil7',
+                                    ],
+                                    [
+                                        'route' => 'variables.destroy',
+                                        'params' => $variable->id,
+                                        'label' => 'Delete variables',
+                                        'icon' => 'icon-trash-alt',
+                                        'method' => 'delete',
+                                    ],
+                                ]" />
                             </td>
                         </tr>
                     @endforeach
@@ -52,9 +45,8 @@
             </x-data-display.table>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <button type="button" class="btn bg-indigo-800" data-toggle="modal" data-target="#modal_default">Create
-                <i class="icon-plus3 ml-2"></i></button>
+            <x-action.create-btn route="{{ route('variables.create') }}" buttonLabel="Create Variatios"
+                modalHeaderLabel="Create New Variatios" />
         </x-slot>
     </x-data-display.card>
-
 </x-layouts.master>

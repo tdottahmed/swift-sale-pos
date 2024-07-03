@@ -12,7 +12,7 @@ class Modal extends Component
     public $title;
     public $headerColor;
 
-    public function __construct($id, $title, $headerColor = 'bg-teal-800')
+    public function __construct($id, $title, $headerColor = '')
     {
         $this->id = $id;
         $this->title = $title;
