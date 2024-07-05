@@ -15,7 +15,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('supplier.index',compact('suppliers'));
+        return view('supplier.index', compact('suppliers'));
     }
 
     /**
@@ -47,7 +47,7 @@ class SupplierController extends Controller
             ]);
             return redirect()->back()->with('success', 'Customer created Successfully');
         } catch (\Throwable $th) {
-           dd($th->getMessage());
+            dd($th->getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
@@ -72,7 +72,12 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        try {
+            $supplier->update($request->all());
+            return redirect()->back()->with('success', 'Supplier ifo updated Successfully!!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -80,6 +85,11 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        try {
+            $supplier->delete();
+            return redirect()->back()->with('success', "supplier info deleted Successfully!!");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }

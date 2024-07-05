@@ -1,18 +1,18 @@
 <x-layouts.master>
     <x-data-display.card>
         <x-slot name="heading">
-            All Campaign
+            {{__('All Campaigns')}}
         </x-slot>
         <x-slot name="body">
             <x-data-display.table class="table-striped table-hover">
                 <x-slot name="header">
-                            <th>SL</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Body</th>
-                            <th>Audience</th>
-                            <th>Campaign Type</th>
-                            <th class="text-center">Action</th>
+                            <th>{{__('SL')}}</th>
+                            <th>{{__('Title')}}</th>
+                            <th>{{__('Description')}}</th>
+                            <th>{{__('Body')}}</th>
+                            <th>{{__('Audience')}}</th>
+                            <th>{{__('Campaign Type')}}</th>
+                            <th class="text-center">{{__('Action')}}</th>
                         </x-slot>
                         <x-slot name="body">
                         @foreach ($campaigns as $campaign)
@@ -24,6 +24,27 @@
                                 <td>{{\App\Models\ContactType::find($campaign->contact_type_id)->title}}</td>
                                 <td>{{ $campaign->campaign_type}}</td>
                                 <td class="text-center">
+                                    <x-data-display.table-actions :actions="[
+                                        [
+                                            'route' => 'campaign.edit',
+                                            'params' => $campaign->id,
+                                            'label' => 'Edit Campaign',
+                                            'icon' => 'icon-pencil7',
+                                        ],
+                                        [
+                                            'route' => 'campaign.sendEmail',
+                                            'params' => $campaign->id,
+                                            'label' => 'Send Email',
+                                            'icon' => 'icon-envelop2',
+                                        ],
+                                        [
+                                            'route' => 'customer.destroy',
+                                            'params' => $customer->id,
+                                            'label' => 'Delete Customer',
+                                            'icon' => 'icon-trash-alt',
+                                            'method' => 'delete',
+                                        ],
+                                    ]" />
                                     <div class="list-icons">
                                         <div class="dropdown">
                                             <a href="#" class="list-icons-item" data-toggle="dropdown">
