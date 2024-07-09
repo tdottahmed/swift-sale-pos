@@ -38,48 +38,19 @@
                                             'icon' => 'icon-envelop2',
                                         ],
                                         [
-                                            'route' => 'customer.destroy',
-                                            'params' => $customer->id,
-                                            'label' => 'Delete Customer',
+                                            'route' => 'campaign.sendSms',
+                                            'params' => $campaign->id,
+                                            'label' => 'Send SMS',
+                                            'icon' => 'icon-comment',
+                                        ],
+                                        [
+                                            'route' => 'campaign.destroy',
+                                            'params' => $campaign->id,
+                                            'label' => 'Send SMS',
                                             'icon' => 'icon-trash-alt',
                                             'method' => 'delete',
                                         ],
                                     ]" />
-                                    <div class="list-icons">
-                                        <div class="dropdown">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                <i class="icon-menu9"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a onclick="openModal('{{route('campaign.edit', $campaign->id)}}', 'Create Campaign')"
-                                                    class="dropdown-item"
-                                                    ><i class="icon-pencil7"></i> Edit
-                                                    Campaign</a>
-                                                <a href="{{ route('campaign.sendEmail', $campaign->id) }}"
-                                                    class="dropdown-item"
-                                                    ><i class="icon-envelop2"></i> Send
-                                                    Email</a>
-                                                <a href="{{ route('campaign.sendSms', $campaign->id) }}"
-                                                    class="dropdown-item"
-                                                    ><i class="icon-comment"></i> Send
-                                                    SMS</a>
-                                                <form style="display:inline"
-                                                    action="{{ route('campaign.destroy', $campaign->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this campaign?')){ this.closest('form').submit(); }"
-                                                        class="dropdown-item" title="Delete expense">
-                                                        <i class="icon-trash-alt"></i>Delete
-                                                    </button>
-                                                </form>
-                                                {{-- <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-												<a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a> --}}
-                                            </div>
-                                        </div>
-                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,5 +65,4 @@
             </button>
         </x-slot>
     </x-data-display.card>
-    {{-- @include('campaign.create-modal') --}}
 </x-layouts.master>
