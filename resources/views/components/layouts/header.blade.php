@@ -5,13 +5,13 @@
 		<!-- Header with logos -->
 		<div class="navbar-header bg-white-800 sidebar-light d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
-				<a href="index.html">					
+				<a href="/">					
 					<img src="{{ asset('logo/logo-no-background.png') }}" >
 				</a>
 			</div>
 			
 			<div class="navbar-brand navbar-brand-xs">
-				<a href="index.html" class="d-inline-block">
+				<a href="/" class="d-inline-block">
 					<img src="{{asset('shopping.png')}}" style="margin-left: 0px !important" alt="">
 				</a>
 			</div>

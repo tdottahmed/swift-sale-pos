@@ -8,8 +8,6 @@
                     <input type="text" class="form-control" name="title" id="title"
                         value="{{ $barcodeType->title }}">
                 </div>
-
-
                 <div class="row justify-content-end">
                     <div class="col-lg-4 text-right">
                         <a class="btn btn-lg bg-danger-400 shadow-2" href=""><i
@@ -18,6 +16,5 @@
                                 class="icon-checkmark4 mr-1"></i>{{ __('Update') }}</button>
                     </div>
                 </div>
-
             </form>
 

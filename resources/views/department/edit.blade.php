@@ -16,6 +16,5 @@
                                 class="icon-checkmark4 mr-1"></i>{{ __('Update') }}</button>
                     </div>
                 </div>
-
             </form>
 

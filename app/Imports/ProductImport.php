@@ -82,7 +82,6 @@ class ProductImport implements ToModel, WithHeadingRow
             ]
         );
 
-        // Handle purchase and selling price for single product type
         if ($row['product_type'] === 'single') {
             $product->update([
                 'purchase_price_including_tax' => $row['purchase_price_including_tax'],
@@ -92,7 +91,6 @@ class ProductImport implements ToModel, WithHeadingRow
                 'opening_stock' => $row['opening_stock'],
             ]);
         }
-        // Handle product variations if any
         if ($row['product_type'] === 'variable' && !empty($row['variation_name'])) {
             $variationNames = explode('|', $row['variation_name']);
             $variationValues = explode('|', $row['variation_values']);
@@ -117,7 +115,6 @@ class ProductImport implements ToModel, WithHeadingRow
                 $variation->profit_margin = $variationProfitMargins[$index];
                 // $variation->variation_image = $variationImages[$index];
 
-                // Save variation to database
                 $variation->save();
             }
         }

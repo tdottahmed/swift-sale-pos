@@ -6,7 +6,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="{{ route('frontend.index') }}" class="logo">
-                    <img src="{{ asset('porto') }}/assets/images/logo.png" width="111" height="44"
+                    <img src="{{asset('logo/logo-no-background.png')}}" width="111" height="44"
                         alt="Porto Logo">
                 </a>
             </div>
