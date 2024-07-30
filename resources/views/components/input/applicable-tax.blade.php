@@ -2,7 +2,7 @@
     <select id="applicable_tax" class="form-control select select-search" name="applicable_tax" {{ $attributes }}>
         <option value="">Applicable Tax</option>
         @foreach ($applicableTaxes as $applicabletax)
-            <option value="{{ $applicabletax->value }}">
+            <option value="{{ $applicabletax->value }}" {{$applicabletax->value==$selected ? 'selected':''}}>
                 {{ $applicabletax->title }}
             </option>
         @endforeach

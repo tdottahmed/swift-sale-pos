@@ -4,102 +4,75 @@
             {{ __('Insert Your Product Info') }}
         </x-slot>
         <x-slot name="body">
-            <form action="{{ route('product.store') }} " method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row mb-3">
+            <x-data-entry.form action="{{ route('product.store') }}" :hasFile=true>
+                <div class="row">
                     <div class="col-lg-6">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" id="name">
+                        <x-data-entry.input type="text" name="name"/>
                     </div>
                     <div class="col-lg-6">
-                        <label for="sku">Sku Code:</label>
-                        <div class="d-flex align-items-center gap-1">
-                        <input type="text" class="form-control" name="sku" id="sku">
-                        <span class="btn btn-success generate-sku"><i class="icon icon-sync"></i></span>
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <label for="sku">Sku Code:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="d-flex align-items-center gap-1">
+                                    <input type="text" class="form-control" name="sku" id="sku">
+                                    <span class="btn btn-success generate-sku"><i class="icon icon-sync"></i></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label for="">{{ __('Select Category') }}</label>
-                        <div class="d-flex align-items-center gap-1">
-                            <select name="category" id="category" class="form-control select-search">
-                                <option value="">-- Please select --</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->title }}">{{ $category->title }}</option>
-                                @endforeach
-                            </select>
-                            <span class="btn btn-success cursor-pointer"><i class="icon icon-plus3"></i></span>
-                        </div>
-
+                        <x-data-entry.select-and-create name="category" label="Select Category" :options="$categories"
+                            :createRoute="route('category.create')" createLabel="Create Category" />
                     </div>
                     <div class="col-lg-6">
-                        <label for="">{{ __('Select Sub Category') }}</label>
-                        <select name="sub_category" id="sub_category" class="form-control select-search">
-                            <option value="">-- Please select --</option>
-                            @foreach ($subCategories as $subCategory)
-                                <option value="{{ $subCategory->title }}">{{ $subCategory->title }}</option>
-                            @endforeach
-                        </select>
+                        <x-data-entry.select-and-create name="sub_category" label="Select Sub Category" :options="$subCategories"
+                            :createRoute="route('subCategory.create')" createLabel="Create Sub Category" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label for="">{{ __('Select Brand') }}</label>
-                        <div class="d-flex align-items-center gap-1">
-                        <select name="brand" id="brand" class="form-control select-search">
-                            <option value="">-- Please select --</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{ $brand->title }}">{{ $brand->title }}</option>
-                            @endforeach
-                        </select>
-                        <span class="btn btn-success cursor-pointer"><i class="icon icon-plus3"></i></span>
-                        </div>
+                        <x-data-entry.select-and-create name="brand" label="Select brand" :options="$brands"
+                            :createRoute="route('brand.create')" createLabel="Create Brand" />
                     </div>
                     <div class="col-lg-6">
-                        <label for="">{{ __('Select Barcode Type') }}</label>
-                        <select name="barcode_type" id="barcode_type" class="form-control select-search">
-                            <option value="">-- Please select --</option>
-                            @foreach ($barcodeTypes as $barcodeType)
-                                <option value="{{ $barcodeType->title }}">{{ $barcodeType->title }}</option>
-                            @endforeach
-                        </select>
+                        <x-data-entry.select-and-create name="barcode_type" label="Select Barcode Type" :options="$barcodeTypes"
+                            :createRoute="route('barcodeType.create')" createLabel="Create Barcode Type" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label for="branch_id">Product Location:</label>
-                        <x-input.branch-select :selectedBranchId="auth()->user()->branch_id" />
+                        <x-data-entry.select-and-create name="branch_id" label="Product Location" :options="$branches"
+                            :createRoute="route('branch.create')" createLabel="Create Branch" />
                     </div>
                     <div class="col-lg-6">
-                        <label for="">{{ __('Select Unit') }}</label>
-                        <select name="unit" id="unit" class="form-control select-search">
-                            <option value="">-- Please select --</option>
-                            @foreach ($units as $unit)
-                                <option value="{{ $unit->title }}">{{ $unit->title }}</option>
-                            @endforeach
-                        </select>
+                        <x-data-entry.select-and-create name="unit" label="Select Unit" :options="$units"
+                        :createRoute="route('unit.create')" createLabel="Create units" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="description">Product Description</label>
+                        <label for="description">{{__('Product Description')}}</label>
                         <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="col-lg-6">
-                        <label class="font-weight-semibold">Upload Image</label>
-                        <input type="file" name="image" class="file-input" data-browse-class="btn btn-primary btn-block" data-show-remove="false" data-show-caption="false" data-show-upload="false" data-fouc>
+                        <label class="font-weight-semibold">{{__('Upload Image')}}</label>
+                        <input type="file" name="image" class="file-input"
+                            data-browse-class="btn btn-primary btn-block" data-show-remove="false"
+                            data-show-caption="false" data-show-upload="false" data-fouc>
                     </div>
                 </div>
-                <hr>
                 <div class="card mt-2">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input-styled" name="manage_gallery" value="1"
-                                            id="manage_galery" data-fouc>
+                                        <input type="checkbox" class="form-check-input-styled" name="manage_gallery"
+                                            value="1" id="manage_galery" data-fouc>
                                         Image Galery
                                     </label>
                                 </div>
@@ -131,17 +104,6 @@
                                     </label>
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 pt-2">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input-styled" value="1"
-                                            name="track_qty" data-fouc>
-                                        Track Qty
-                                    </label>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -161,44 +123,55 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label for="applicable_tax">Applicable Tax</label>
-                        <x-input.applicable-tax />
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <label for="applicable_tax">{{__('Applicable Tax')}}</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <x-input.applicable-tax />
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-6">
-                        <label for="selling_price_tax_type">Applicable Tax Type</label>
-                        <select name="selling_price_tax_type" id="selling_price_tax_type"
-                            class="form-control select">
-                            <option value="">Choose Tax Type</option>
-                            <option value="Exclusive">Exclusive</option>
-                            <option value="Inclusive">Inclusive</option>
-                        </select>
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <label for="selling_price_tax_type">Applicable Tax Type</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select name="selling_price_tax_type" id="selling_price_tax_type"
+                                class="form-control select">
+                                <option value="">Choose Tax Type</option>
+                                <option value="Exclusive">Exclusive</option>
+                                <option value="Inclusive">Inclusive</option>
+                            </select>
+                            </div>
+                        </div>
+                       
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label for="opening_stock">Opening Stock:</label>
-                        <input type="number" class="form-control" name="opening_stock" id="opening_stock">
+                        <x-data-entry.input type="number" name="opening_stock"/>
                     </div>
                     <div class="col-lg-6">
-                        <label for="product_type">Product Type</label>
-                        <select name="product_type" id="product_type" class="form-control select">
-                            <option value="single" selected>Single</option>
-                            <option value="variable">Variable</option>
-                        </select>
-
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <label for="product_type">{{__('Product Type')}}</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select name="product_type" id="product_type" class="form-control select">
+                                    <option value="single" selected>{{__('Single')}}</option>
+                                    <option value="variable">{{__('Variable')}}</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <div class="row mb-3" id="single_product_wrapper">
                     <div class="col-lg-4">
                         <label for="purchase_price_including_tax">Purchase Price:</label>
                         <input type="number" class="form-control" name="purchase_price" id="purchase_price">
                     </div>
-                    {{-- <div class="col-lg-3">
-                        <label for="purchase_price_excluding_tax">Purchase Price(Excluding Tax):</label>
-                        <input type="number" class="form-control" name="purchase_price_excluding_tax"
-                            id="purchase_price_excluding_tax">
-                    </div> --}}
                     <div class="col-lg-4">
                         <label for="profit_margin">Profit Margin:</label>
                         <input type="number" class="form-control" name="profit_margin" id="profit_margin">
@@ -213,13 +186,18 @@
                         <label for="alert_quantity">Alert Quantity:</label>
                         <input type="text" class="form-control" name="alert_quantity" id="alert_qty">
                     </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6 d-none" id="alert_qty_wrapper">
+                        <label for="alert_quantity">Alert Quantity:</label>
+                        <input type="text" class="form-control" name="alert_quantity" id="alert_qty">
+                    </div>
                     {{-- <div class="col-lg-6" id="product_variable_wrapper">
                         <label for="variation_name">Select Variation</label>
                         <x-input.select-variable/>
                     </div> --}}
 
                 </div>
-                
 
                 <div class="card" id="product_variation_wrapper">
                     <div class="card-body">
@@ -248,30 +226,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-lg-4 text-right">
-                        <a class="btn btn-lg bg-danger-400 shadow-2" href=""><i
-                                class="icon-cross2 mr-1"></i>Cancel</a>
-                        <button type="submit" class="btn btn-lg bg-teal-400 shadow-2"><i
-                                class="icon-checkmark4 mr-1"></i>{{ __('Submit') }}</button>
-                    </div>
-                </div>
-
-            </form>
+            </x-data-entry.form>
         </x-slot>
         <x-slot name="cardFooterCenter">
-            <a href="{{ route('product.index') }}"
-                class="btn 
-            btn-sm bg-indigo 
-            border-2 
-            border-indigo 
-            btn-icon 
-            rounded-round 
-            legitRipple 
-            shadow 
-            mr-1"><i
-                    class="icon-list"></i></a>
+            <x-action.list-btn :route="route('product.index')" />
         </x-slot>
     </x-data-display.card>
-   @include('product.scripts')
+    @include('product.scripts')
 </x-layouts.master>

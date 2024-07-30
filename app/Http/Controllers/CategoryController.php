@@ -47,7 +47,7 @@ class CategoryController extends Controller
             'image' => $productImagePath,
         ]);
 
-        return redirect(route('category.index'))->with('success', 'Category Insert Successfully');
+        return redirect()->back()->with('success', 'Category Created Successfully');
     }
 
     public function show(category $category)

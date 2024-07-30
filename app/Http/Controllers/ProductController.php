@@ -14,7 +14,9 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
+use App\Models\Branch;
 use App\Models\ProductImage;
+use App\Models\Tax;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
@@ -51,7 +53,9 @@ class ProductController extends Controller
         $sizes = Size::all();
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
-        return view('product.create', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes'));
+        $branches = Branch::all();
+        $taxes = Tax::all();
+        return view('product.create', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'branches','taxes'));
     }
 
     public function store(Request $request)
@@ -67,8 +71,10 @@ class ProductController extends Controller
            $data['purchase_price_including_tax'] = $request->purchase_price + ($request->purchase_price* $request->applicable_tax/100);
            $data['purchase_price_excluding_tax'] = $request->purchase_price - ($request->purchase_price* $request->applicable_tax/100);
             $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6','purchase_price','_token','manage_gallery');
+            $branch = Branch::where('title', $request->branch_id)->first();
             $product = Product::create([
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
+                'branch_id'=>$branch->id
                 ] + $data); 
 
             // Handle Gallery Images               
@@ -125,7 +131,8 @@ class ProductController extends Controller
         $sizes = Size::all();
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
-        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product'));
+        $branches = Branch::all();
+        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product','branches'));
     }
 
     public function update(Request $request, Product $product)
@@ -232,22 +239,13 @@ class ProductController extends Controller
         $variations = Variation::with('product')
             ->where('variation_sku', 'like', '%' . $sku . '%')
             ->get();
-
-        // Initialize an empty array to store products
         $products = [];
-
-        // Loop through each variation to get its associated product
         foreach ($variations as $variation) {
-            // Access the product relationship on each variation
             $product = $variation->product;
-
-            // Add the product to the array if it exists
             if ($product) {
                 $products[] = $product;
             }
         }
-
-        // Return the response with products
         return response()->json(['products' => $products]);
     }
 
@@ -267,21 +265,35 @@ class ProductController extends Controller
         $exists = Product::where('sku', $sku)->exists();
         return response()->json(['exists' => $exists]);
     }
+
+    public function addImage(Product $product)
+    {
+        return view('product.add-image', compact('product'));
+    }
     
     public function imageStore(Request $request,  Product $product)
     {
+        // dd($request->all());
        try {
+        if ($request->hasFile('main_image')) {
+            $image = uploadImage($request->file('main_image'), 'products/images');
+            $product->update([
+                'image' => $image
+            ]);
+        }
         $images = [];
-        foreach (range(1, 7) as $index) {
+        foreach (range(1, 6) as $index) {
             if ($request->hasFile('image_' . $index)) {
                 $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
                 $images['image_' . $index] = $imagePath;
             }
         }
-        $product->images()->updateOrCreate(
-            ['product_id' => $product->id],
-            $images
-        );
+        if (!empty($images)) {
+            $product->images()->updateOrCreate(
+                ['product_id' => $product->id],
+                $images
+            );
+        }
         return back()->with('success', 'Product images Updated Successfully');
        } catch (\Throwable $th) {
         dd($th->getMessage());

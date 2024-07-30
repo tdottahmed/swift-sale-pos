@@ -13,8 +13,10 @@ class ApplicableTax extends Component
      * Create a new component instance.
      */
     public $applicableTaxes;
-    public function __construct()
+    public $selected;
+    public function __construct($selected=null)
     {
+        $this->selected= $selected;
         $this->applicableTaxes= Tax::all();
     }
 

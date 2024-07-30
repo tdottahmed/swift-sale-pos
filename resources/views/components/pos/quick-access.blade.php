@@ -1,4 +1,96 @@
+@push('css')
+        <style>
+            ::-webkit-scrollbar {
+                width: 5px;
+            }
 
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 6px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+            .bill-section {
+                max-height: 75vh;
+                overflow-y: auto;
+            }
+
+            .counter-container {
+                display: flex;
+                align-items: center;
+                border-radius: 50px;
+                overflow: hidden;
+            }
+
+            .counter-button {
+                background: rgb(0, 105, 92);
+                color: #fff;
+                border: none;
+                padding: 10px 16px;
+                cursor: pointer;
+                font-size: 10px;
+                border-radius: 50%;
+            }
+
+            .counter-button:hover {
+                background: linear-gradient(135deg, #0056b3, #003a75);
+            }
+
+            .quantity {
+                width: 50px;
+                height: 30px;
+                text-align: center;
+                border: none;
+                font-size: 10px;
+                font-weight: bold;
+                border-radius: 10px;
+                box-shadow: inset 0 0 5px rgb(0, 105, 92);
+            }
+
+            .quantity-total {
+                width: 100px;
+                height: 30px;
+                text-align: center;
+                border: none;
+                font-size: 10px;
+                font-weight: bold;
+                margin: 5px;
+                border-radius: 10px;
+                box-shadow: inset 0 0 5px rgb(0, 105, 92);
+            }
+
+            .quantity:focus {
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+            .card-payment {
+                cursor: pointer;
+                border-radius: 15%;
+            }
+
+            .card-body-payment {
+                padding: 1rem;
+            }
+
+            input[type="radio"]:checked+label {
+                border-width: 2px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                background-color: #95afc0;
+                color: #130f40;
+            }
+            .card{
+                padding:15px;
+            }
+        </style>
+    @endpush
 <div class="navbar navbar-expand-md navbar-light fixed-top">
     <!-- Header with logos -->
     <div class="navbar-header bg-white-800 sidebar-light d-none d-md-flex align-items-md-center">

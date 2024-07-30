@@ -9,6 +9,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactTypeController;
@@ -93,6 +94,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('slider', SliderController::class);
     Route::resource('variables', VariableController::class);
     Route::resource('tax', TaxController::class);
+    Route::resource('branch', BranchController::class);
 
     //Purchase
     Route::resource('/purchase', PurchaseController::class);
@@ -123,6 +125,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/excel/store', [ProductController::class, 'excelStore'])->name('excel.store');
     Route::get('/print-label/{id}', [ProductController::class, 'labelPrint'])->name('label.print');
     Route::post('/check-sku', [ProductController::class, 'checkSKU'])->name('check.sku');
+    Route::get('/images/add/{product}', [ProductController::class, 'addImage'])->name('product.addImage');
     Route::post('/images/store/{product}', [ProductController::class, 'imageStore'])->name('product.image.store');
 
 
