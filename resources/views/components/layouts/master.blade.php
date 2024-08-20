@@ -22,9 +22,9 @@
             <x-layouts.page-header />
 
             <!-- /page header -->
-            <div id="loader-wrapper">
+            {{-- <div id="loader-wrapper">
                 <div id="loader"></div>
-            </div>
+            </div> --}}
 
             <div class="content pt-0">
                 <!-- Content area -->
@@ -45,9 +45,6 @@
             <!-- /footer -->
         </div>
         <!-- Main content -->
-        {{-- <div id="loader" style="display: none;">
-			Loading...
-		</div> --}}
 
     </div>
     <!-- /main content -->

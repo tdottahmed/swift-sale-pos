@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->enum('status', ['Received', 'Partial', 'Pending', 'Ordered'])->default('Pending');
             $table->string('document')->nullable();
-            $table->foreignId('currency_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('currency_id')->constrained()->onDelete('cascade');
             $table->decimal('exchange_rate', 15, 8)->default(1);
             $table->text('note')->nullable();
             $table->decimal('total_qty', 15, 2)->default(0);

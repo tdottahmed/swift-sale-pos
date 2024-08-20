@@ -1,6 +1,6 @@
 <x-layouts.guest>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -25,14 +25,14 @@
                                 <label for="email">{{__('Email')}}</label>
                                 <input type="email" class="form-control" name="email" :value="old('email')">
 
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                             </div>
                     
                             <!-- Password -->
                             <div class="mt-4">
                                 <label for="password">{{__('Password')}}</label>
                                 <input type="password" class="form-control" name="password" :value="old('email')">                   
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
                             </div>
                     
                             <!-- Remember Me -->

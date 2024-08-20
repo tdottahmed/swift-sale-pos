@@ -15,15 +15,15 @@ class BranchTableSeeder extends Seeder
     {
         $branches = [
             [
-                'name' => 'Dhaka',
+                'title' => 'Dhaka',
                 'location' => 'Uttara'
             ],
             [
-                'name' => 'Chittagong',
+                'title' => 'Chittagong',
                 'location' => 'Agrabad'
             ],
             [
-                'name' => 'Sylhet',
+                'title' => 'Sylhet',
                 'location' => 'Shahjalal Uposhohor'
             ]
         ];

@@ -10,44 +10,50 @@ use App\Models\Organization;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-
- function avatar()
- {
-   if (auth()->user()->image != null) {
-      return asset(auth()->user()->photo);
-  } else {
-      return Avatar::create(Str::upper(auth()->user()->name));
-  }
- }
-
- function uploadImage($file, $directory)
- {
-    if (!$file) {
-        return null;
+if (!function_exists('avatar')) {
+    function avatar()
+    {
+        if (auth()->user()->image != null) {
+            return asset(auth()->user()->photo);
+        } else {
+            return Avatar::create(Str::upper(auth()->user()->name));
+        }
     }
-    Storage::makeDirectory($directory);
-    $fileName = time() . '_' . $file->getClientOriginalName();
-    $filePath = $file->storeAs($directory, $fileName, 'public');
-    return $filePath;
- }
+}
 
-     function imagePath($path)
-     {
-         if ($path) {
-             return asset('storage/' . $path);
-         } else {
-             return asset('limitless/global_assets/images/placeholders/404-Illustration.png');
-         }
-     }
- 
-   
+if (!function_exists('uploadImage')) {
+    function uploadImage($file, $directory)
+    {
+        if (!$file) {
+            return null;
+        }
+        Storage::makeDirectory($directory);
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs($directory, $fileName, 'public');
+        return $filePath;
+    }
+}
 
- function customAvatar($name)
- {
-    return Avatar::create(Str::upper($name));
- }
+if (!function_exists('imagePath')) {
+    function imagePath($path)
+    {
+        if ($path) {
+            return asset('storage/' . $path);
+        } else {
+            return asset('limitless/global_assets/images/placeholders/404-Illustration.png');
+        }
+    }
+}
 
- function readableDate($date)
+if (!function_exists('customAvatar')) {
+    function customAvatar($name)
+    {
+        return Avatar::create(Str::upper($name));
+    }
+}
+
+if (!function_exists('readableDate')) {
+    function readableDate($date)
     {
         $date = Carbon::parse($date);
         $day = $date->format('jS');
@@ -55,35 +61,35 @@ use Illuminate\Support\Facades\Storage;
         $year = $date->format('Y');
         return "$day $month, $year";
     }
+}
 
+if (!function_exists('orderEmail')) {
+    function orderEmail($orderId, $userType = "customer")
+    {
+        $order = Order::where('id', $orderId)->with('items')->first();
 
+        if ($userType == 'customer') {
+            $subject = 'Thanks For Your Order';
+            $email = $order->email;
+        } else {
+            $subject = 'You Have Receive An Order';
+            $email = env('ADMIN_EMAIL');
+        }
 
-    function orderEmail($orderId, $userType="customer") {
-      $order = Order::where('id', $orderId)->with('items')->first();
+        $mailData = [
+            'subject' => $subject,
+            'order' => $order,
+            'userType' => $userType,
+        ];
+        Mail::to($email)->send(new OrderEmail($mailData));
 
-      if($userType == 'customer'){
+        // dd($order);
+    }
+}
 
-         $subject = 'Thanks For Your Order';
-         $email = $order->email;
-      }else{
-         $subject = 'You Have Receive An Order';
-         $email = env('ADMIN_EMAIL');
-      }
-      
-      $mailData = [
-          'subject' => 'Thanks for your order',
-          'order' => $order,
-          'userType' => $userType,
-      ];
-
-      
-  
-      Mail::to($email)->send(new OrderEmail($mailData));
-  
-      // dd($order);
-  
-  }
-
-  function getCountryInfo($id){
-  return Country::where('id', $id)->first();
-  }
+if (!function_exists('getCountryInfo')) {
+    function getCountryInfo($id)
+    {
+        return Country::where('id', $id)->first();
+    }
+}
