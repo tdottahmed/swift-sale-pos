@@ -55,7 +55,7 @@ class ProductController extends Controller
         $barcodeTypes = BarcodeType::all();
         $branches = Branch::all();
         $taxes = Tax::all();
-        return view('product.create', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'branches','taxes'));
+        return view('product.create', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'branches', 'taxes'));
     }
 
     public function store(Request $request)
@@ -68,14 +68,14 @@ class ProductController extends Controller
                 $image =  uploadImage($request->file('image'), 'products/images');
                 $data['image'] = $image;
             }
-           $data['purchase_price_including_tax'] = $request->purchase_price + ($request->purchase_price* $request->applicable_tax/100);
-           $data['purchase_price_excluding_tax'] = $request->purchase_price - ($request->purchase_price* $request->applicable_tax/100);
-            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6','purchase_price','_token','manage_gallery');
+            $data['purchase_price_including_tax'] = $request->purchase_price + ($request->purchase_price * $request->applicable_tax / 100);
+            $data['purchase_price_excluding_tax'] = $request->purchase_price - ($request->purchase_price * $request->applicable_tax / 100);
+            $data += $request->except('child', 'sku', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5', 'image_6', 'purchase_price', '_token', 'manage_gallery');
             $branch = Branch::where('title', $request->branch_id)->first();
             $product = Product::create([
                 'uuid' => Str::uuid(),
-                'branch_id'=>$branch->id
-                ] + $data); 
+                'branch_id' => $branch->id
+            ] + $data);
 
             // Handle Gallery Images               
             if ($request->manage_gallery) {
@@ -91,24 +91,24 @@ class ProductController extends Controller
                 ] + $images);
             }
             // Handle Product Variation
-            if ($product->product_type=='variable') {
+            if ($product->product_type == 'variable') {
                 $variationData = $request->child;
                 foreach ($variationData['variation_name'] as $key => $value) {
                     Variation::create([
                         'product_id' => $product->id,
-                        'branch_id' =>$request->branch_id,
-                        'product_variation' =>$variationData['variation_name'][$key],
+                        'branch_id' => $request->branch_id,
+                        'product_variation' => $variationData['variation_name'][$key],
                         'value' => $variationData['variation_value'][$key],
-                        'variation_sku' =>$product->sku .'-'. $key,
-                        'purchase_inc' => $variationData['purchase_price'][$key] + ($variationData['purchase_price'][$key]* $request->applicable_tax/100) ,
-                        'purchase_exc' => $variationData['purchase_price'][$key] - ($variationData['purchase_price'][$key]* $request->applicable_tax/100),
+                        'variation_sku' => $product->sku . '-' . $key,
+                        'purchase_inc' => $variationData['purchase_price'][$key] + ($variationData['purchase_price'][$key] * $request->applicable_tax / 100),
+                        'purchase_exc' => $variationData['purchase_price'][$key] - ($variationData['purchase_price'][$key] * $request->applicable_tax / 100),
                         'profit_margin' => $variationData['profit_margin'][$key],
                         'selling_price' => $variationData['selling_price'][$key],
                         'stock' => $variationData['stock'][$key],
                     ]);
                 }
-            }  
-            
+            }
+
             return redirect(route('product.index'))->with('success', 'Product Created Successfully');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -132,7 +132,7 @@ class ProductController extends Controller
         $units = Unit::all();
         $barcodeTypes = BarcodeType::all();
         $branches = Branch::all();
-        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product','branches'));
+        return view('product.edit', compact('categories', 'subCategories', 'brands', 'colors', 'sizes', 'units', 'barcodeTypes', 'product', 'branches'));
     }
 
     public function update(Request $request, Product $product)
@@ -211,13 +211,13 @@ class ProductController extends Controller
     public function excelStore(Request $request)
 
     {
-       try {
+        //    try {
         $file = $request->excel;
         Excel::import(new ProductImport, $file);
         return redirect()->route('product.index')->with('success', 'Product Imported Success fully!!');
-       } catch (\Throwable $th) {
-        return redirect()->back()->with('error', $th->getMessage());
-       }
+        //    } catch (\Throwable $th) {
+        //     return redirect()->back()->with('error', $th->getMessage());
+        //    }
     }
 
     public function labelPrint($id)
@@ -270,33 +270,33 @@ class ProductController extends Controller
     {
         return view('product.add-image', compact('product'));
     }
-    
+
     public function imageStore(Request $request,  Product $product)
     {
         // dd($request->all());
-       try {
-        if ($request->hasFile('main_image')) {
-            $image = uploadImage($request->file('main_image'), 'products/images');
-            $product->update([
-                'image' => $image
-            ]);
-        }
-        $images = [];
-        foreach (range(1, 6) as $index) {
-            if ($request->hasFile('image_' . $index)) {
-                $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
-                $images['image_' . $index] = $imagePath;
+        try {
+            if ($request->hasFile('main_image')) {
+                $image = uploadImage($request->file('main_image'), 'products/images');
+                $product->update([
+                    'image' => $image
+                ]);
             }
+            $images = [];
+            foreach (range(1, 6) as $index) {
+                if ($request->hasFile('image_' . $index)) {
+                    $imagePath = uploadImage($request->file('image_' . $index), 'products/images');
+                    $images['image_' . $index] = $imagePath;
+                }
+            }
+            if (!empty($images)) {
+                $product->images()->updateOrCreate(
+                    ['product_id' => $product->id],
+                    $images
+                );
+            }
+            return back()->with('success', 'Product images Updated Successfully');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
         }
-        if (!empty($images)) {
-            $product->images()->updateOrCreate(
-                ['product_id' => $product->id],
-                $images
-            );
-        }
-        return back()->with('success', 'Product images Updated Successfully');
-       } catch (\Throwable $th) {
-        dd($th->getMessage());
-       }
     }
 }

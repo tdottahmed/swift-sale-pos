@@ -13,15 +13,16 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Date</label>
-                                    <input type="date" name="date" class="form-control date"
+                                    <input type="date" name="date" class="form-control datepicker"
                                         placeholder="Choose date" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Branch *</label>
-                                    <select required name="branch_id" class="selectpicker form-control"
-                                        data-live-search="true" title="Select branch...">
+                                    <select required name="branch_id"
+                                        class="selectpicker form-control select select-search" data-live-search="true"
+                                        title="Select branch...">
                                         <option value="1">Shop 1</option>
                                         <option value="2">Shop 2</option>
                                     </select>
@@ -58,7 +59,7 @@
                                     <label>Currency *</label>
                                     <select name="currency_id" id="currency-id" class="form-control selectpicker">
                                         <option value="1" checked>TK</option>
-                                        <option value="2" >USD</option>
+                                        <option value="2">USD</option>
                                     </select>
                                 </div>
                             </div>
@@ -200,27 +201,27 @@
 
             </form>
             <div class="container-fluid mt-3">
-        <table class="table table-bordered table-condensed totals">
-            <td><strong>Items</strong>
-                <span class="pull-right" id="item">0.00</span>
-            </td>
-            <td><strong>Total</strong>
-                <span class="pull-right" id="subtotal">0.00</span>
-            </td>
-            <td><strong>Order Tax</strong>
-                <span class="pull-right" id="order_tax">0.00</span>
-            </td>
-            <td><strong>Order Discount</strong>
-                <span class="pull-right" id="order_discount">0.00</span>
-            </td>
-            <td><strong>Shipping Cost</strong>
-                <span class="pull-right" id="shipping_cost">0.00</span>
-            </td>
-            <td><strong>Grand Total</strong>
-                <span class="pull-right" id="grand_total">0.00</span>
-            </td>
-        </table>
-    </div>
+                <table class="table table-bordered table-condensed totals">
+                    <td><strong>Items</strong>
+                        <span class="pull-right" id="item">0.00</span>
+                    </td>
+                    <td><strong>Total</strong>
+                        <span class="pull-right" id="subtotal">0.00</span>
+                    </td>
+                    <td><strong>Order Tax</strong>
+                        <span class="pull-right" id="order_tax">0.00</span>
+                    </td>
+                    <td><strong>Order Discount</strong>
+                        <span class="pull-right" id="order_discount">0.00</span>
+                    </td>
+                    <td><strong>Shipping Cost</strong>
+                        <span class="pull-right" id="shipping_cost">0.00</span>
+                    </td>
+                    <td><strong>Grand Total</strong>
+                        <span class="pull-right" id="grand_total">0.00</span>
+                    </td>
+                </table>
+            </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
             <a href="{{ route('purchase.index') }}"
