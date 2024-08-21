@@ -26,8 +26,8 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <x-data-entry.select-and-create name="category" label="Select Category" :options="$categories"
-                            :createRoute="route('category.create')" createLabel="Create Category" :selected="$product->category" />
+                        <x-d name="category" label="Select Category" :options="$categories" :createRoute="route('category.create')"
+                            createLabel="Create Category" :selected="$product->category" />
                     </div>
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="sub_category" label="Select Sub Category"
@@ -172,7 +172,7 @@
                             </div>
                         </div>
                         <div class="row mb-3" id="single_product_wrapper">
-                                @if ($product->product_type == 'single')
+                            @if ($product->product_type == 'single')
                                 <div class="col-lg-4">
                                     <label for="purchase_price_including_tax">Purchase Price:</label>
                                     <input type="number" class="form-control" name="purchase_price"
@@ -189,8 +189,8 @@
                                     <input type="number" class="form-control" name="selling_price"
                                         id="selling_price" value="{{ $product->selling_price }}">
                                 </div>
-                                @endif
-                            </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="card" id="product_variation_wrapper">

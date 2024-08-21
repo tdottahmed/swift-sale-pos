@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Category;
 use App\Models\Purchase;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -20,7 +23,10 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        return view('purchase.create');
+        $branches = Branch::all();
+        $allSuppliers = Supplier::all();
+        $categories = Category::all();
+        return view('purchase.create', compact('branches', 'allSuppliers', 'categories'));
     }
 
     /**

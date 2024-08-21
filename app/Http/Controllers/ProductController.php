@@ -273,7 +273,6 @@ class ProductController extends Controller
 
     public function imageStore(Request $request,  Product $product)
     {
-        // dd($request->all());
         try {
             if ($request->hasFile('main_image')) {
                 $image = uploadImage($request->file('main_image'), 'products/images');
@@ -298,5 +297,15 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('q');
+
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('sku', 'LIKE', "%{$query}%")
+            ->get(['id', 'name', 'sku']);
+        return response()->json($products);
     }
 }

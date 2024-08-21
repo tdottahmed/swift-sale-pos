@@ -6,9 +6,9 @@
         <select name="{{ $name }}" id="{{ $name }}" class="form-control select-search">
             <option value="">-- Please select --</option>
             @foreach ($options as $option)
-                <option value="{{ $option->title }}" 
+                <option value="{{ $option->title }}"
                     {{ $option->title == old($name, $selected) || $option->id == old($name, $selected) ? 'selected' : '' }}>
-                    {{ $option->title }}
+                    {{ $option->title ? $option->title : $option->fname . ' ' . $option->lname }}
                 </option>
             @endforeach
         </select>

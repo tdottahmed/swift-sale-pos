@@ -1,6 +1,6 @@
 <div class="form-group row">
-    <label for="{{ $name }}" class="col-form-label col-sm-3">{{ $label }}</label>
-    <div class="col-sm-9">
+    <label for="{{ $name }}" class="col-form-label col-lg-3">{{ $label }}</label>
+    <div class="col-lg-9">
         <select id="{{ $name }}" class="form-control select select-search" name="{{ $name }}" {{ $attributes }}>
             <option value="">Select {{ $label }}</option>
             @foreach ($options as  $option)

@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/mark', [AttendanceController::class, 'markAttendance']);
     Route::post('/attendance/close', [AttendanceController::class, 'closeAttendance']);
     Route::get('/showAttendance', [AttendanceController::class, 'showAttendance'])->name('showAttendance');
-    
+
 
 
     Route::resource('/holiday', HolidayController::class);
@@ -137,8 +137,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/shipping/{id}', [ShippingController::class, 'update'])->name('shipping.update');
     Route::delete('/shipping/{id}', [ShippingController::class, 'delete'])->name('shipping.delete');
 
-   //Coupon code routes
-   Route::get('/coupon/index', [DiscountCodeController::class, 'index'])->name('coupon.index');
+    //Coupon code routes
+    Route::get('/coupon/index', [DiscountCodeController::class, 'index'])->name('coupon.index');
     Route::get('/coupon/create', [DiscountCodeController::class, 'create'])->name('coupon.create');
     Route::post('/coupon', [DiscountCodeController::class, 'store'])->name('coupon.store');
     Route::get('/coupon/{coupon}/edit', [DiscountCodeController::class, 'edit'])->name('coupon.edit');
@@ -147,23 +147,23 @@ Route::middleware('auth')->group(function () {
     // Route::put('/coupon/{coupon}', [DiscountCodeController::class, 'update'])->name('coupon.update');
     Route::delete('/coupon/{coupon}', [DiscountCodeController::class, 'destroy'])->name('coupon.destroy');
 
-     
+
 
 
     // Point of sell
     // Route::resource('pos', SellController::class);
-    Route::get('pos-create', [SaleController::class,'create'])->name('pos.create');
-    Route::post('pos-store', [SaleController::class,'store'])->name('pos.store');
+    Route::get('pos-create', [SaleController::class, 'create'])->name('pos.create');
+    Route::post('pos-store', [SaleController::class, 'store'])->name('pos.store');
     Route::get('single/product/{productId}/{variationId}', [SaleController::class, 'singleProduct']);
-    Route::get('pos-list',[SaleController::class,'index'])->name('pos.index');
+    Route::get('pos-list', [SaleController::class, 'index'])->name('pos.index');
     Route::get('pos/invoice/{id}', [SaleController::class, 'invoice'])->name('pos.invoice');
-    Route::get('suspend-sale/{sale}',[SaleController::class, 'suspendSale'])->name('sale.suspend');
-    Route::get('pos/suspended-list',[SaleController::class,'suspendedList'])->name('suspended.list');
-    Route::get('pos/return/{sale}',[SaleController::class,'returnSale'])->name('return.sale');
-    Route::get('pos/returned-list',[SaleController::class,'returnedList'])->name('returned.list');
-    Route::get('/filter-products',[SaleController::class,'filterProducts'])->name('filter.product');
+    Route::get('suspend-sale/{sale}', [SaleController::class, 'suspendSale'])->name('sale.suspend');
+    Route::get('pos/suspended-list', [SaleController::class, 'suspendedList'])->name('suspended.list');
+    Route::get('pos/return/{sale}', [SaleController::class, 'returnSale'])->name('return.sale');
+    Route::get('pos/returned-list', [SaleController::class, 'returnedList'])->name('returned.list');
+    Route::get('/filter-products', [SaleController::class, 'filterProducts'])->name('filter.product');
 
- 
+
     Route::resource('customer', CustomerController::class);
     Route::resource('supplier', SupplierController::class);
     Route::get('product-filter/{sku}', [ProductController::class, 'filterProduct'])->name('filterProduct');
@@ -197,8 +197,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/change-status/{id}', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
     Route::post('/order/send-email/{id}', [OrderController::class, 'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
 
-
-
+    Route::get('/search-products', [ProductController::class, 'search'])->name('product.search');
 });
 
 require __DIR__ . '/auth.php';
@@ -216,5 +215,4 @@ Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function (
 
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
-
 });
