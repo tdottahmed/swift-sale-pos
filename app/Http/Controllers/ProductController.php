@@ -303,9 +303,11 @@ class ProductController extends Controller
     {
         $query = $request->get('q');
 
+        
         $products = Product::where('name', 'LIKE', "%{$query}%")
             ->orWhere('sku', 'LIKE', "%{$query}%")
-            ->get(['id', 'name', 'sku']);
+            ->with('variations')
+            ->get();
         return response()->json($products);
     }
 }

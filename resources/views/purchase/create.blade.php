@@ -7,6 +7,8 @@
             <form method="POST" action="{{ route('purchase.store') }}" accept-charset="UTF-8" id="purchase-form"
                 enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="itemqty" id="inputitemqty">
+                <input type="hidden" name="total" id="inputtotal">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -42,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <x-data-entry.input type="file" name="document" label="Attche Document" />
+                            <x-data-entry.input type="file" name="document" label="Attach Document" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -69,7 +71,6 @@
                                 <thead>
                                     <tr>
                                         <th colspan="2">Name</th>
-                                        <th>Code</th>
                                         <th>Quantity</th>
                                         <th>Received</th>
                                         <th>Net Unit Cost</th>
@@ -80,86 +81,23 @@
                                     </tr>
                                 </thead>
                                 <tbody id="orderMultipleEntry">
-                                    <tr>
-                                        <td colspan="2">
-                                            <input type="text" class="form-control" name="product_name" readonly
-                                                value="Test" />
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="product_code" readonly
-                                                value="test" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="qty" value="1" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control recieved" name="recieved">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="unit_cost"
-                                                value="1" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="discount" value="0" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="tax" value="5">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control sub-total" name="sub_total">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm" type="button"><i
-                                                    class="icon-cross"></i></button>
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                                 <tfoot class="tfoot active">
-                                    <th colspan="3">Total</th>
-                                    <th id="total-qty">0</th>
+                                    <th colspan="2">Total</th>
+                                    <th>
+                                        <span id="totalQty"></span>
+                                    </th>
                                     <th></th>
                                     <th></th>
                                     <th id="total-discount">0.00</th>
                                     <th id="total-tax">0.00</th>
-                                    <th id="total">0.00</th>
+                                    <th>
+                                        <span id="totalAmount"></span>
+                                    </th>
                                     <th><i class="dripicons-trash"></i></th>
                                 </tfoot>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="total_qty" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="total_discount" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="total_tax" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="total_cost" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="item" />
-                            <input type="hidden" name="order_tax" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <input type="hidden" name="grand_total" />
-                            <input type="hidden" name="paid_amount" value="0.00" />
-                            <input type="hidden" name="payment_status" value="1" />
                         </div>
                     </div>
                 </div>
@@ -167,7 +105,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Order Tax</label>
-                            <select class="form-control" name="order_tax_rate">
+                            <select class="form-control select" name="order_tax_rate">
                                 <option value="0">No Tax</option>
                                 <option value="10">@10</option>
                                 <option value="15">@15</option>
@@ -210,30 +148,13 @@
 
             </form>
             <div class="container-fluid mt-3">
-                <table class="table table-bordered table-condensed">
-                    <thead>
-                        <tr>
-                            <td><strong>Items</strong>
-                                <span class="pull-right" id="item">0.00</span>
-                            </td>
-                            <td><strong>Total</strong>
-                                <span class="pull-right" id="subtotal">0.00</span>
-                            </td>
-                            <td><strong>Order Tax</strong>
-                                <span class="pull-right" id="order_tax">0.00</span>
-                            </td>
-                            <td><strong>Order Discount</strong>
-                                <span class="pull-right" id="order_discount">0.00</span>
-                            </td>
-                            <td><strong>Shipping Cost</strong>
-                                <span class="pull-right" id="shipping_cost">0.00</span>
-                            </td>
-                            <td><strong>Grand Total</strong>
-                                <span class="pull-right" id="grand_total">0.00</span>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div>
+                    <strong>Total Quantity:</strong> <span id="totalQty">0</span>
+                </div>
+                <div>
+                    <strong>Total Amount:</strong> <span id="totalAmount">0</span>
+                </div>
+
             </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
@@ -253,12 +174,9 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
+                calculateTotals();
                 $('#productSearch').on('keyup', function() {
-
                     let query = $(this).val();
-                    console.log(query);
-
-
                     if (query.length > 1) {
                         $.ajax({
                             url: "{{ route('product.search') }}",
@@ -267,16 +185,23 @@
                                 q: query
                             },
                             success: function(data) {
-                                console.log(data);
-
                                 $('#productList').empty().show();
-
                                 if (data.length > 0) {
                                     $.each(data, function(index, product) {
+                                        if (product.product_type == 'variable') {
+                                            productPurchasePrice = product.variations[0]
+                                                .purchase_exc;
+                                        } else {
+                                            productPurchasePrice = product
+                                                .purchase_price_excluding_tax;
+                                        }
                                         $('#productList').append(
-                                            '<li class="list-group-item" data-id="' +
-                                            product.id + '">' + product.name + ' - ' +
-                                            product.sku + '</li>');
+                                            `<li class="list-group-item" 
+                                            data-id="${product.id}"
+                                            data-purchasePrice="${productPurchasePrice}"
+                                            data-name="${product.name}" 
+                                            data-sku="${product.sku}">${product.name} - ${product.sku}</li>`
+                                        );
                                     });
                                 } else {
                                     $('#productList').hide();
@@ -288,77 +213,92 @@
                     }
                 });
 
-                // Handle item selection
                 $(document).on('click', '#productList li', function() {
-                    generateitem();
+                    const product = {
+                        id: $(this).data('id'),
+                        name: $(this).data('name'),
+                        sku: $(this).data('sku'),
+                        purchasePrice: $(this).data('purchaseprice')
+                    };
+                    generateItem(product);
                     $('#productList').hide();
+                    $('#productSearch').val('');
                 });
 
-                // Hide the list if clicked outside
-                $(document).click(function(e) {
-                    if (!$(e.target).closest('#productSearch, #productList').length) {
-                        $('#productList').hide();
-                    }
-                });
+                function generateItem(product) {
 
-                function generateitem(product) {
-                    // let item = product.name + ' - ' + product.sku;
                     let itemtr = `<tr>
-                                        <td colspan="2">
-                                            <input type="text" class="form-control" name="product_name" readonly
-                                                value="Test" />
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="product_code" readonly
-                                                value="test" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="qty" value="1" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control recieved" name="recieved">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="unit_cost"
-                                                value="1" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="discount" value="0" />
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" name="tax" value="5">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control sub-total" name="sub_total">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm" type="button"><i
-                                                    class="icon-cross"></i></button>
-                                        </td>
-                                    </tr>`;
-
+                        <input type="hidden" name="product_id[]" value="${product.id}" />
+                        <input type="hidden" name="product_name[]" value="${product.name}" />
+                        <input type="hidden" name="product_sku[]" value="${product.sku}" />
+                        <td colspan="2">
+                            <span class="product-name text-bold text-indigo">${product.name} (${product.sku})</span>
+                        </td>
+                        <td>
+                            <input type="number" class="styled-input small-input styled-number-input qty" name="qty[]" value="1" />
+                        </td>
+                        <td>
+                            <input type="number" class="styled-input small-input styled-number-input received" name="received[]" value="1" />
+                        </td>
+                        <td>
+                            <input type="number" class="styled-input small-input styled-number-input unit-cost" name="unit_cost[]" value="${product.purchasePrice}" />
+                        </td>
+                        <td>
+                            <input type="number" class="styled-input small-input styled-number-input discount" name="discount[]" value="0" />
+                        </td>
+                        <td>
+                            <input type="number" class="styled-input small-input styled-number-input tax" name="tax[]" value="5" />
+                        </td>
+                        <td>
+                            <input type="text" class="styled-input small-input styled-number-input sub-total" name="sub_total[]" value="${product.purchasePrice}" readonly/>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" type="button" onclick="removeItem(this)">
+                                <i class="icon-cross"></i>
+                            </button>
+                        </td>
+                    </tr>`;
                     $('#orderMultipleEntry').append(itemtr);
+                    calculateTotals();
                 }
+
+                $(document).on('input', '.qty, .unit-cost, .discount, .tax', function() {
+                    updateSubtotal($(this).closest('tr'));
+                    calculateTotals();
+                });
             });
+
+            function removeItem(element) {
+                $(element).closest('tr').remove();
+                calculateTotals();
+            }
+
+            function calculateTotals() {
+                let totalQty = 0;
+                let totalAmount = 0;
+                $('#orderMultipleEntry tr').each(function() {
+                    let qty = parseFloat($(this).find('.qty').val()) || 0;
+                    let subTotal = parseFloat($(this).find('.sub-total').val()) || 0;
+                    totalQty += qty;
+                    totalAmount += subTotal;
+                });
+                $('#totalQty').text(totalQty);
+                $('#inputitemqty').val(totalQty);
+                $('#inputtotal').val(totalAmount.toFixed(2));
+                $('#totalAmount').text(totalAmount.toFixed(2));
+            }
+
+            function updateSubtotal(row) {
+                let qty = parseFloat(row.find('.qty').val()) || 0;
+                let unitCost = parseFloat(row.find('.unit-cost').val()) || 0;
+                let discount = parseFloat(row.find('.discount').val()) || 0;
+                let tax = parseFloat(row.find('.tax').val()) || 0;
+
+                let subTotal = (qty * unitCost) - discount + (qty * unitCost * (tax / 100));
+                row.find('.sub-total').val(subTotal.toFixed(2));
+            }
         </script>
     @endpush
-    @push('css')
-        <style>
-            #productList {
-                max-height: 200px;
-                overflow-y: auto;
-                cursor: pointer;
-            }
 
-            #productList li {
-                padding: 10px;
-                border: 1px solid #ddd;
-            }
-
-            #productList li:hover {
-                background-color: #2d4cf7;
-                color: #ddd;
-            }
-        </style>
-    @endpush
+    @include('purchase.partials.custom-input')
 </x-layouts.master>

@@ -459,7 +459,7 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
                             @can('view slider')
-                                <a href="{{ route('purchase.index') }}"
+                                <a href="{{ route('purchase.create') }}"
                                     class="nav-link {{ request()->routeIs('purchase.index') || request()->routeIs('purchase.create') || request()->routeIs('purchase.edit') ? 'active' : '' }}">
                                     <i class="icon-gradient"></i>Add Purchase
                                 </a>
