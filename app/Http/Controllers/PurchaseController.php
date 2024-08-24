@@ -16,7 +16,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return view('purchase.index');
+        $purchases = Purchase::latest()->get();
+        return view('purchase.index', compact('purchases'));
     }
 
     /**
@@ -35,35 +36,39 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $purchase = Purchase::create([
-            'supplier_id' => $request->supplier_id ?? 1,
-            'branch_id' => $request->branch_id ?? auth()->user()->branch_id,
-            'date' => $request->date,
-            'grand_total' => $request->total,
-            'total_qty' => $request->itemqty,
-            'status' => $request->status,
-            'note' => $request->note,
-            'order_tax' => $request->order_tax_rate,
-            'total_discount' => $request->order_discount,
-            'grand_total' => $request->total,
-            'shipping_cost' => $request->shipping_cost,
-        ]);
-        $orderItems = $request->only('product_id', 'unit_cost', 'qty', 'price', 'discount', 'tax', 'sub_total', 'product_name', 'product_sku');
-
-        foreach ($orderItems['product_id'] as $key => $productId) {
-            PurchaseItem::create([
-                'purchase_id' => $purchase->id,
-                'product_id' => $productId,
-                'product_name' => $orderItems['product_name'][$key],
-                'product_sku' => $orderItems['product_sku'][$key],
-                'unit_cost' => $orderItems['unit_cost'][$key],
-                'qty' => $orderItems['qty'][$key],
-                'unit_cost' => $orderItems['unit_cost'][$key],
-                'total' => $orderItems['sub_total'][$key],
-                'discount' => $orderItems['discount'][$key] ?? 0,
-                'tax' => $orderItems['tax'][$key] ?? 0,
+        try {
+            $purchase = Purchase::create([
+                'supplier_id' => $request->supplier_id ?? 1,
+                'branch_id' => $request->branch_id ?? auth()->user()->branch_id,
+                'date' => $request->date,
+                'grand_total' => $request->total,
+                'total_qty' => $request->itemqty,
+                'status' => $request->status,
+                'note' => $request->note,
+                'order_tax' => $request->order_tax_rate,
+                'total_discount' => $request->order_discount,
+                'grand_total' => $request->total,
+                'shipping_cost' => $request->shipping_cost,
             ]);
+            $orderItems = $request->only('product_id', 'unit_cost', 'qty', 'price', 'discount', 'tax', 'sub_total', 'product_name', 'product_sku');
+
+            foreach ($orderItems['product_id'] as $key => $productId) {
+                PurchaseItem::create([
+                    'purchase_id' => $purchase->id,
+                    'product_id' => $productId,
+                    'product_name' => $orderItems['product_name'][$key],
+                    'product_sku' => $orderItems['product_sku'][$key],
+                    'unit_cost' => $orderItems['unit_cost'][$key],
+                    'qty' => $orderItems['qty'][$key],
+                    'unit_cost' => $orderItems['unit_cost'][$key],
+                    'total' => $orderItems['sub_total'][$key],
+                    'discount' => $orderItems['discount'][$key] ?? 0,
+                    'tax' => $orderItems['tax'][$key] ?? 0,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Purchase Created Successfully');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -72,7 +77,7 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        //
+        return view('purchase.show', compact('purchase'));
     }
 
     /**

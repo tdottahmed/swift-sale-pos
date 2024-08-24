@@ -267,7 +267,7 @@
                 </li>
 
                 <li
-                    class="nav-item nav-item-submenu {{ request()->is('contacts*') || request()->is('campaign*')|| request()->is('supplier*')|| request()->is('customer*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                    class="nav-item nav-item-submenu {{ request()->is('contacts*') || request()->is('campaign*') || request()->is('supplier*') || request()->is('customer*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#"
                         class="nav-link {{ request()->is('contacts*') || request()->is('campaign*') ? 'active' : '' }}">
                         <i class="icon-users"></i>
@@ -276,7 +276,7 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
                             @can('view contact')
-                                <a href="{{ route('supplier.index')}}"
+                                <a href="{{ route('supplier.index') }}"
                                     class="nav-link {{ request()->is('supplier') ? 'active' : '' }}">
                                     <i class="icon-finder"></i>Supplier
                                 </a>
@@ -284,7 +284,7 @@
                         </li>
                         <li class="nav-item">
                             @can('view customer')
-                                <a href="{{ route('customer.index')}}"
+                                <a href="{{ route('customer.index') }}"
                                     class="nav-link {{ request()->is('customer') ? 'active' : '' }}">
                                     <i class="icon-users"></i>Customer
                                 </a>
@@ -450,22 +450,25 @@
                     </ul>
                 </li>
                 <li
-                    class="nav-item nav-item-submenu {{ request()->is('purchase*')  ? 'nav-item-expanded nav-item-open' : '' }}">
-                    <a href="#"
-                        class="nav-link {{ request()->is('purchase*') ? 'active' : '' }}">
+                    class="nav-item nav-item-submenu {{ request()->is('purchase*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('purchase*') ? 'active' : '' }}">
                         <i class="icon-store"></i>
                         <span>Purchase </span>
                     </a>
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
                             @can('view slider')
+                                <a href="{{ route('purchase.index') }}"
+                                    class="nav-link {{ request()->routeIs('purchase.index') ? 'active' : '' }}">
+                                    <i class="icon-gradient"></i>All Purchases
+                                </a>
                                 <a href="{{ route('purchase.create') }}"
-                                    class="nav-link {{ request()->routeIs('purchase.index') || request()->routeIs('purchase.create') || request()->routeIs('purchase.edit') ? 'active' : '' }}">
+                                    class="nav-link {{ request()->routeIs('purchase.create') ? 'active' : '' }}">
                                     <i class="icon-gradient"></i>Add Purchase
                                 </a>
                             @endcan
                         </li>
-                       
+
                     </ul>
                 </li>
 
