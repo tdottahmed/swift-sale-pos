@@ -1,43 +1,44 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\BarcodeTypeController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ContactTypeController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\DiscountCodeController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\HolidayController;
-use App\Http\Controllers\LeaveTypeController;
-use App\Http\Controllers\ExpenseCategoryController;
-use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\RepairController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\RepairController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\SellController;
 use App\Http\Controllers\ShippingController;
-
-use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\TaxController;
 use App\Http\Controllers\VariableController;
+use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\BarcodeTypeController;
+use App\Http\Controllers\ContactTypeController;
+
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\DiscountCodeController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ExpenseCategoryController;
 
 
 /*
@@ -198,6 +199,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/send-email/{id}', [OrderController::class, 'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
 
     Route::get('/search-products', [ProductController::class, 'search'])->name('product.search');
+
+    // Report
+
+    Route::get('/reports/profit-loss', [ReportController::class, 'profitLoss'])->name('reports.profitLoss');
 });
 
 require __DIR__ . '/auth.php';
