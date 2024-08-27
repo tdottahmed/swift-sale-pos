@@ -482,7 +482,7 @@
                             @can('view slider')
                                 <a href="{{ route('reports.profitLoss') }}"
                                     class="nav-link {{ request()->routeIs('reports.profitLoss') ? 'active' : '' }}">
-                                    <i class="icon-gradient"></i>All Purchases
+                                    <i class="icon-gradient"></i>Profit/Loss Report
                                 </a>
                                 <a href="{{ route('purchase.create') }}"
                                     class="nav-link {{ request()->routeIs('purchase.create') ? 'active' : '' }}">

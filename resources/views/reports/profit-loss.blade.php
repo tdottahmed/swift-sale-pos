@@ -17,8 +17,7 @@
             rounded-round 
             legitRipple 
             shadow 
-            mr-1"><i
-                    class="icon-plus2"></i></a>
+            mr-1"><i class="icon-plus2"></i></a>
         </x-slot>
     </x-data-display.card>
 </x-layouts.master>

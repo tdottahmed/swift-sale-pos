@@ -11,6 +11,14 @@ use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('purchase:view repair', ['only' => ['index']]);
+    //     $this->middleware('purchase:create repair', ['only' => ['create', 'store']]);
+    //     $this->middleware('purchase:update repair', ['only' => ['update', 'edit']]);
+    //     $this->middleware('purchase:delete repair', ['only' => ['destroy']]);
+    // }
+
     /**
      * Display a listing of the resource.
      */
@@ -68,7 +76,7 @@ class PurchaseController extends Controller
             }
             return redirect()->back()->with('success', 'Purchase Created Successfully');
         } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
+            return back()->withInput()->with('error', $th->getMessage());
         }
     }
 
