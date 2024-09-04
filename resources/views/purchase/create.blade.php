@@ -7,6 +7,7 @@
             <form method="POST" action="{{ route('purchase.store') }}" accept-charset="UTF-8" id="purchase-form"
                 enctype="multipart/form-data">
                 @csrf
+                <x-data-entry.date-range-picker />
                 <input type="hidden" name="itemqty" id="inputitemqty">
                 <input type="hidden" name="total" id="inputtotal">
                 <div class="row">
