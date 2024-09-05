@@ -301,7 +301,7 @@
                         <li class="nav-item">
                             @can('view product')
                                 {{-- <a href="{{ route('campaign.createDirect') }}" --}}
-                                <a href="#"
+                                <a href="{{ route('campaign.create') }}"
                                     class="nav-link {{ request()->is('campaign*') && request()->routeIs('campaign.create') ? 'active' : '' }}">
                                     <i class="icon-file-eye2"></i>Create Campaign
                                 </a>
@@ -323,14 +323,14 @@
                 </li>
 
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('comments.index') }}"
                         class="nav-link {{ request()->is('comment*') ? 'active' : '' }}">
                         <i class="icon-bubble8"></i>
                         <span>Comment </span>
                     </a>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     @can('view blog')
                         <a href="{{ route('blogs.index') }}"
                             class="nav-link {{ request()->is('blog*') ? 'active' : '' }}">
@@ -338,7 +338,7 @@
                             <span>Blog</span>
                         </a>
                     @endcan
-                </li>
+                </li> --}}
                 <li
                     class="nav-item nav-item-submenu {{ request()->is('department*') || request()->is('employee*') || request()->is('attendance*') || request()->is('payroll*') || request()->is('holiday*') || request()->is('leaveType*') || request()->is('leave*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#"

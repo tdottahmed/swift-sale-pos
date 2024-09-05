@@ -19,7 +19,7 @@ class CampaignController extends Controller
         $campaigns = Campaign::all();
         return view('campaign.index', compact('campaigns'));
     }
-    
+
     public function create()
     {
         return view('campaign.create');
@@ -31,24 +31,24 @@ class CampaignController extends Controller
 
     public function store(Request $request)
     {
-        
-        try {
-            $contactTypeId = (int) $request->contact_type_id;
-            $contacts = ContactType::find($contactTypeId);
-            $file = $request->file('attachment');
-            if ($file) {
-                $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
-                Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
-            }
-            $campaignData = $request->all();
-            $campaignData['uuid'] = Str::uuid();
-            $campaign = Campaign::create($campaignData);
-            $campaign->contacts()->attach($contacts->contact);
-            return redirect()->back()->with('success', 'campaign created Successfully');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->with('error', 'Something Went Wrong');
+
+        // try {
+        $contactTypeId = (int) $request->contact_type_id;
+        $contacts = ContactType::find($contactTypeId);
+        $file = $request->file('attachment');
+        if ($file) {
+            $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' . $file_name));
         }
+        $campaignData = $request->all();
+        $campaignData['uuid'] = Str::uuid();
+        $campaign = Campaign::create($campaignData);
+        $campaign->contacts()->attach($contacts->contact);
+        return redirect()->back()->with('success', 'campaign created Successfully');
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage());
+        //     return redirect()->back()->with('error', 'Something Went Wrong');
+        // }
     }
 
     public function show(Campaign $campaign)
@@ -67,14 +67,14 @@ class CampaignController extends Controller
             $file = $request->file('attachment');
 
             if ($file) {
-                
+
                 $path = public_path('storage/campaign/' . $campaign->attachment);
                 if ($campaign->attachment && is_file($path)) {
                     unlink($path);
                 }
                 $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
 
-                Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' .$file_name));
+                Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' . $file_name));
             } else {
                 $file_name = $campaign->attachment;
             }
@@ -109,7 +109,7 @@ class CampaignController extends Controller
         }
     }
     public function sendSms(Campaign $campaign)
-    {      
+    {
         try {
             SendCampaignSms::dispatch($campaign);
             return redirect()->back()->with('success', 'Campaign SMS Sending has been queued Successfully!!');
@@ -117,5 +117,5 @@ class CampaignController extends Controller
             dd($th->getMessage());
             return redirect()->back()->with('error', 'Something went wrong!!');
         }
-    }    
+    }
 }
