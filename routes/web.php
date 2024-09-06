@@ -203,6 +203,13 @@ Route::middleware('auth')->group(function () {
     // Report
 
     Route::get('/reports/profit-loss', [ReportController::class, 'profitLoss'])->name('reports.profitLoss');
+
+    // Profit Report by Tab Content
+    Route::get('reports/profit-by-product', [ReportController::class, 'profitByProduct'])->name('reports.profit-by-product');
+    Route::get('reports/profit-by-category', [ReportController::class, 'profitByCategory'])->name('reports.profit-by-category');
+    Route::get('reports/profit-by-brand', [ReportController::class, 'profitByBrand'])->name('reports.profit-by-brand');
+    Route::get('reports/profit-by-day', [ReportController::class, 'profitByDay'])->name('reports.profit-by-day');
+    Route::get('reports/profit-by-customer', [ReportController::class, 'profitByCustomer'])->name('reports.profit-by-customer');
 });
 
 require __DIR__ . '/auth.php';

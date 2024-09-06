@@ -32,23 +32,23 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
 
-        // try {
-        $contactTypeId = (int) $request->contact_type_id;
-        $contacts = ContactType::find($contactTypeId);
-        $file = $request->file('attachment');
-        if ($file) {
-            $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
-            Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' . $file_name));
+        try {
+            $contactTypeId = (int) $request->contact_type_id;
+            $contacts = ContactType::find($contactTypeId);
+            $file = $request->file('attachment');
+            if ($file) {
+                $file_name = uniqid() . '.' . $file->getClientOriginalExtension();
+                Image::make($file)->resize(200, 250)->save(public_path('storage/campaign/' . $file_name));
+            }
+            $campaignData = $request->all();
+            $campaignData['uuid'] = Str::uuid();
+            $campaign = Campaign::create($campaignData);
+            $campaign->contacts()->attach($contacts->contact);
+            return redirect()->back()->with('success', 'campaign created Successfully');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Something Went Wrong');
         }
-        $campaignData = $request->all();
-        $campaignData['uuid'] = Str::uuid();
-        $campaign = Campaign::create($campaignData);
-        $campaign->contacts()->attach($contacts->contact);
-        return redirect()->back()->with('success', 'campaign created Successfully');
-        // } catch (\Exception $e) {
-        //     dd($e->getMessage());
-        //     return redirect()->back()->with('error', 'Something Went Wrong');
-        // }
     }
 
     public function show(Campaign $campaign)
