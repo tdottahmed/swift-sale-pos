@@ -1,4 +1,4 @@
-<x-data-display.table class="table-striped table-hover">
+<x-data-display.table class="table-striped data-table table-hover">
     <x-slot name="header">
         <tr>
             <th>{{ __('SL') }}</th>
