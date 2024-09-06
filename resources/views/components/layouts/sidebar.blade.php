@@ -480,12 +480,16 @@
                     <ul class="nav nav-group-sub" data-submenu-title="Layouts">
                         <li class="nav-item">
                             @can('view slider')
-                                <a href="{{ route('reports.profitLoss') }}"
-                                    class="nav-link {{ request()->routeIs('reports.profitLoss') ? 'active' : '' }}">
-                                    <i class="icon-gradient"></i>Profit/Loss Report
-                                </a>
-                                <a href="{{ route('purchase.create') }}"
-                                    class="nav-link {{ request()->routeIs('purchase.create') ? 'active' : '' }}">
+                            <a href="{{ route('reports.profitLoss') }}"
+                            class="nav-link {{ request()->routeIs('reports.profitLoss') ? 'active' : '' }}">
+                            <i class="icon-gradient"></i>Profit/Loss Report
+                        </a>
+                        <a href="{{ route('reports.purchaseSale') }}"
+                            class="nav-link {{ request()->routeIs('reports.purchaseSale') ? 'active' : '' }}">
+                            <i class="icon-gradient"></i>Purchase/Sale Report
+                        </a>
+                        <a href="{{ route('purchase.create') }}"
+                        class="nav-link {{ request()->routeIs('purchase.create') ? 'active' : '' }}">
                                     <i class="icon-gradient"></i>Add Purchase
                                 </a>
                             @endcan

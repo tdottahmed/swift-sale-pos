@@ -13,6 +13,10 @@ class ReportController extends Controller
     {
         return view('reports.profit-loss.index');
     }
+    public function purchaseSale(Request $request)
+    {
+        return view('reports.purchase-sale.index');
+    }
 
     public function profitByProduct()
     {

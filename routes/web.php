@@ -203,6 +203,7 @@ Route::middleware('auth')->group(function () {
     // Report
 
     Route::get('/reports/profit-loss', [ReportController::class, 'profitLoss'])->name('reports.profitLoss');
+    Route::get('/reports/purchase-sale', [ReportController::class, 'purchaseSale'])->name('reports.purchaseSale');
 
     // Profit Report by Tab Content
     Route::get('reports/profit-by-product', [ReportController::class, 'profitByProduct'])->name('reports.profit-by-product');
