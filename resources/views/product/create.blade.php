@@ -7,7 +7,8 @@
             <x-data-entry.form action="{{ route('product.store') }}" :hasFile=true>
                 <div class="row">
                     <div class="col-lg-6">
-                        <x-data-entry.input type="text" name="name"/>
+                        <x-data-entry.input type="text" name="name" placeholder="Enter Product name"
+                            value="{{ old('email') }}" attribute="required" />
                     </div>
                     <div class="col-lg-6">
                         <div class="row align-items-center">
@@ -26,40 +27,43 @@
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="category" label="Select Category" :options="$categories"
-                            :createRoute="route('category.create')" createLabel="Create Category" />
+                            :createRoute="route('category.create')" createLabel="Create Category" attributes="required" />
                     </div>
                     <div class="col-lg-6">
-                        <x-data-entry.select-and-create name="sub_category" label="Select Sub Category" :options="$subCategories"
-                            :createRoute="route('subCategory.create')" createLabel="Create Sub Category" />
+                        <x-data-entry.select-and-create name="sub_category" label="Select Sub Category"
+                            :options="$subCategories" :createRoute="route('subCategory.create')" createLabel="Create Sub Category"
+                            attributes="required" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="brand" label="Select brand" :options="$brands"
-                            :createRoute="route('brand.create')" createLabel="Create Brand" />
+                            :createRoute="route('brand.create')" createLabel="Create Brand" attributes="required" />
                     </div>
                     <div class="col-lg-6">
-                        <x-data-entry.select-and-create name="barcode_type" label="Select Barcode Type" :options="$barcodeTypes"
-                            :createRoute="route('barcodeType.create')" createLabel="Create Barcode Type" />
+                        <x-data-entry.select-and-create name="barcode_type" label="Select Barcode Type"
+                            :options="$barcodeTypes" :createRoute="route('barcodeType.create')" createLabel="Create Barcode Type" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="branch_id" label="Product Location" :options="$branches"
-                            :createRoute="route('branch.create')" createLabel="Create Branch" />
+                            :createRoute="route('branch.create')" createLabel="Create Branch" attributes="required" />
                     </div>
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="unit" label="Select Unit" :options="$units"
-                        :createRoute="route('unit.create')" createLabel="Create units" />
+                            :createRoute="route('unit.create')" createLabel="Create units" attributes="required" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="description">{{__('Product Description')}}</label>
+                        <label for="description">{{ __('Product Description') }}</label>
                         <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="col-lg-6">
-                        <label class="font-weight-semibold">{{__('Upload Image')}}</label>
+                        <label class="font-weight-semibold">{{ __('Upload Image') }}
+                            <span class="text-danger">*</span>
+                        </label>
                         <input type="file" name="image" class="file-input"
                             data-browse-class="btn btn-primary btn-block" data-show-remove="false"
                             data-show-caption="false" data-show-upload="false" data-fouc>
@@ -125,7 +129,9 @@
                     <div class="col-lg-6">
                         <div class="row align-items-center">
                             <div class="col-lg-3">
-                                <label for="applicable_tax">{{__('Applicable Tax')}}</label>
+                                <label for="applicable_tax">{{ __('Applicable Tax') }}
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
                             <div class="col-lg-9">
                                 <x-input.applicable-tax />
@@ -139,29 +145,28 @@
                             </div>
                             <div class="col-lg-9">
                                 <select name="selling_price_tax_type" id="selling_price_tax_type"
-                                class="form-control select">
-                                <option value="">Choose Tax Type</option>
-                                <option value="Exclusive">Exclusive</option>
-                                <option value="Inclusive">Inclusive</option>
-                            </select>
+                                    class="form-control select">
+                                    <option value="Exclusive">Exclusive</option>
+                                    <option value="Inclusive">Inclusive</option>
+                                </select>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <x-data-entry.input type="number" name="opening_stock"/>
+                        <x-data-entry.input type="number" name="opening_stock" attribute="required" />
                     </div>
                     <div class="col-lg-6">
                         <div class="row align-items-center">
                             <div class="col-lg-3">
-                                <label for="product_type">{{__('Product Type')}}</label>
+                                <label for="product_type">{{ __('Product Type') }}</label>
                             </div>
                             <div class="col-lg-9">
                                 <select name="product_type" id="product_type" class="form-control select">
-                                    <option value="single" selected>{{__('Single')}}</option>
-                                    <option value="variable">{{__('Variable')}}</option>
+                                    <option value="single" selected>{{ __('Single') }}</option>
+                                    <option value="variable">{{ __('Variable') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -169,15 +174,21 @@
                 </div>
                 <div class="row mb-3" id="single_product_wrapper">
                     <div class="col-lg-4">
-                        <label for="purchase_price_including_tax">Purchase Price:</label>
+                        <label for="purchase_price_including_tax">Purchase Price:
+                            <span class="text-danger">*</span>
+                        </label>
                         <input type="number" class="form-control" name="purchase_price" id="purchase_price">
                     </div>
                     <div class="col-lg-4">
-                        <label for="profit_margin">Profit Margin:</label>
+                        <label for="profit_margin">Profit Margin:
+                            <span class="text-danger">*</span>
+                        </label>
                         <input type="number" class="form-control" name="profit_margin" id="profit_margin">
                     </div>
                     <div class="col-lg-4">
-                        <label for="selling_price">Selling Price:</label>
+                        <label for="selling_price">Selling Price:
+                            <span class="text-danger">*</span>
+                        </label>
                         <input type="number" class="form-control" name="selling_price" id="selling_price">
                     </div>
                 </div>

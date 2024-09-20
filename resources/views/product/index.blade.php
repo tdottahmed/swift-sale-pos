@@ -22,7 +22,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->opening_stock }}</td>
+                            <td>
+                                @if ($product->product_type == 'variable')
+                                    {{ $product->variations->sum('stock') }}
+                                @else
+                                    {{ $product->opening_stock }}
+                                @endif
+                            </td>
                             <td><img src="{{ imagePath($product->image) }}" height="120" alt="{{ $product->name }}">
                             </td>
                             <td>{{ $product->description }}</td>

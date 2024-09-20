@@ -6,18 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <x-layouts.title/>
-    <link rel="shortcut icon" href="{{asset('shopping.png')}}">
+    <x-layouts.title />
+    <link rel="shortcut icon" href="{{ asset('shopping.png') }}">
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+        type="text/css">
     <link href="{{ asset('limitless/global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet"
         type="text/css">
     <link href="{{ asset('limitless/' . $mode . '/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('limitless/' . $mode . '/assets/css/bootstrap_limitless.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('limitless/' . $mode . '/assets/css/bootstrap_limitless.min.css') }}" rel="stylesheet"
+        type="text/css">
     <link href="{{ asset('limitless/' . $mode . '/assets/css/layout.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('limitless/' . $mode . '/assets/css/components.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('limitless/' . $mode . '/assets/css/colors.min.css') }}" rel="stylesheet" type="text/css">
-    <link src="{{ asset('limitless/global_assets/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
+    <link src="{{ asset('limitless/global_assets/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet"
+        type="text/css">
 
     <!-- /global stylesheets -->
 
@@ -46,9 +49,9 @@
     <script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/pies.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_charts/pages/dashboard/dark/bullets.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-	<script src="{{ asset('limitless/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
-	<script src="{{ asset('limitless/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
-	<script src="{{ asset('limitless/global_assets/js/demo_pages/form_select2.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script src="{{ asset('limitless/global_assets/js/demo_pages/form_select2.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/demo_pages/datatables_basic.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script src="{{ asset('limitless/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
@@ -69,27 +72,27 @@
     <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
 
 
-   
+
 
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#starts_at').datetimepicker({
-                format:'Y-m-d H:i:s',
+                format: 'Y-m-d H:i:s',
             });
 
             $('#expires_at').datetimepicker({
-                format:'Y-m-d H:i:s',
+                format: 'Y-m-d H:i:s',
             });
         });
     </script>
 
     <style>
-		.navbar-brand img {
-			height: 35px !important;
-			display: block;
+        .navbar-brand img {
+            height: 35px !important;
+            display: block;
             margin-left: 25px;
-		}
+        }
     </style>
     <style>
         /* Loader styles */
@@ -107,8 +110,10 @@
         }
 
         #loader {
-            border: 5px solid #f3f3f3; /* Light grey */
-            border-top: 5px solid #3498db; /* Blue */
+            border: 5px solid #f3f3f3;
+            /* Light grey */
+            border-top: 5px solid #3498db;
+            /* Blue */
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -116,15 +121,19 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+            0% {
+                transform: rotate(0deg);
+            }
 
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
     <!-- /theme JS files -->
 
     @stack('css')
     @stack('js')
 
-	
+
 </head>

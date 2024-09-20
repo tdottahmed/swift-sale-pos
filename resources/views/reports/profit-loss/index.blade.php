@@ -12,9 +12,9 @@
         </div>
 
         <div class="card-body">
-            <x-data-display.card-toolbar />
+            {{-- <x-data-display.card-toolbar /> --}}
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title"> <i class="icon-graph mr-2"></i>Profit or loss</h6>
@@ -31,38 +31,49 @@
                                 <tbody>
                                     <tr>
                                         <td>Total Purchases</td>
-                                        <td></td>
+                                        <td><x-data-display.amount-display :amount="$data['purchase']" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Total Sales</td>
-                                        <td>Rs. 0</td>
+                                        <td><x-data-display.amount-display :amount="$data['sales_amount']" /></td>
                                     </tr>
                                     <tr>
                                         <td>Sale return</td>
-                                        <td>Rs. 0</td>
+                                        <td>
+                                            <x-data-display.amount-display :amount="$data['return_sale']" />
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Purchase Return</td>
-                                        <td>Rs. 0</td>
+                                        <td>Suspended Sale</td>
+                                        <td>
+                                            <x-data-display.amount-display :amount="$data['suspense_amount']" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Total Expenses</td>
-                                        <td>Rs. 0</td>
+                                        <td>
+                                            <x-data-display.amount-display :amount="$data['expense']" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Total Payroll</td>
-                                        <td>Rs. 0</td>
+                                        <td>
+                                            <x-data-display.amount-display :amount="$data['payroll']" />
+                                        </td>
                                     </tr>
-                                    <tr class="bg-success">
+                                    <tr class="bg-indigo-600">
                                         <td><strong>Profit</strong></td>
-                                        <td><strong>Rs. 0</strong></td>
+                                        <td><strong>
+                                                <x-data-display.amount-display :amount="$data['total_profit']" />
+                                            </strong></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title"> <i class="icon-cash3 mr-2"></i> Net Profit / Net Loss</h6>
@@ -90,7 +101,7 @@
                                 customer reward + Total Payroll + Total Production Cost )</small>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
                 <li class="nav-item">
@@ -126,7 +137,11 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="profitByProduct"></div>
+                <div class="tab-pane fade show active" id="profitByProduct">
+                    @include('reports.profit-loss.partials.by-product', [
+                        'profits' => $profitByProductData,
+                    ])
+                </div>
                 <div class="tab-pane fade" id="profitByCategories"></div>
                 <div class="tab-pane fade" id="profitByBrands"></div>
                 <div class="tab-pane fade" id="profitByDay"></div>

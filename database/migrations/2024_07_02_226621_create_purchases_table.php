@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('branch_id')->constrained()->onDelete('cascade');
             $table->foreignId('supplier_id')->nullable()->constrained()->onDelete('set null');
             $table->date('date')->nullable();
-            $table->enum('status', ['received', 'partial', 'pending', 'ordered'])->default('pending');
+            $table->string('status')->default('pending');
             $table->string('document')->nullable();
             $table->text('note')->nullable();
             $table->decimal('total_qty', 15, 2)->default(0);

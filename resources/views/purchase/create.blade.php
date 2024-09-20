@@ -7,32 +7,32 @@
             <form method="POST" action="{{ route('purchase.store') }}" accept-charset="UTF-8" id="purchase-form"
                 enctype="multipart/form-data">
                 @csrf
-                <x-data-entry.date-range-picker />
                 <input type="hidden" name="itemqty" id="inputitemqty">
                 <input type="hidden" name="total" id="inputtotal">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <x-data-entry.input type="date" name="date" />
+                            <x-data-entry.input type="date" name="date" attribute="required" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <x-data-entry.select name="branch_id" label="Select Branch" :options="$branches"
-                                class="select select-search" />
+                                class="select select-search" attribute="required" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="supplier" label="Select Supplier" :options="$allSuppliers"
-                            :createRoute="route('supplier.create')" createLabel="Create Supplier" />
+                            :createRoute="route('supplier.create')" createLabel="Create Supplier" attribute="required" />
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3">Purchase Status</label>
+                            <label class="col-form-label col-lg-3">Purchase Status <span
+                                    class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <select name="status" class="form-control select">
+                                <select name="status" class="form-control select" required>
                                     <option value="recieved">Received</option>
                                     <option value="partial">Partial</option>
                                     <option value="pending">Pending</option>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <x-data-entry.input type="number" name="shipping_cost" />
+                        <x-data-entry.input type="number" name="shipping_cost" attribute="required" value="0" />
                     </div>
                 </div>
                 <div class="row">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Order Tax</label>
                             <select class="form-control select" name="order_tax_rate">
@@ -113,20 +113,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>
                                 <strong>Discount</strong>
                             </label>
                             <input type="number" name="order_discount" class="form-control" step="any" />
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>
-                                <strong>Shipping Cost</strong>
-                            </label>
-                            <input type="number" name="shipping_cost" class="form-control" step="any" />
                         </div>
                     </div>
                 </div>
@@ -148,15 +140,6 @@
                 </div>
 
             </form>
-            <div class="container-fluid mt-3">
-                <div>
-                    <strong>Total Quantity:</strong> <span id="totalQty">0</span>
-                </div>
-                <div>
-                    <strong>Total Amount:</strong> <span id="totalAmount">0</span>
-                </div>
-
-            </div>
         </x-slot>
         <x-slot name="cardFooterCenter">
             <a href="{{ route('purchase.index') }}"

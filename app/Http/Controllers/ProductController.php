@@ -96,7 +96,7 @@ class ProductController extends Controller
                 foreach ($variationData['variation_name'] as $key => $value) {
                     Variation::create([
                         'product_id' => $product->id,
-                        'branch_id' => $request->branch_id,
+                        'branch_id' => $branch->id,
                         'product_variation' => $variationData['variation_name'][$key],
                         'value' => $variationData['variation_value'][$key],
                         'variation_sku' => $product->sku . '-' . $key,
@@ -303,7 +303,7 @@ class ProductController extends Controller
     {
         $query = $request->get('q');
 
-        
+
         $products = Product::where('name', 'LIKE', "%{$query}%")
             ->orWhere('sku', 'LIKE', "%{$query}%")
             ->with('variations')

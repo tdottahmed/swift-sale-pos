@@ -26,8 +26,8 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <x-d name="category" label="Select Category" :options="$categories" :createRoute="route('category.create')"
-                            createLabel="Create Category" :selected="$product->category" />
+                        <x-data-entry.select-and-create name="category" label="Select Category" :options="$categories"
+                            :createRoute="route('category.create')" createLabel="Create Category" :selected="$product->category" />
                     </div>
                     <div class="col-lg-6">
                         <x-data-entry.select-and-create name="sub_category" label="Select Sub Category"
@@ -210,7 +210,6 @@
                             <tbody id="multiple_variation">
                                 @if ($product->product_type == 'variable')
                                     @foreach ($product->variations as $variation)
-                                        <tr>
                                         <tr>
                                             <td>
                                                 <select class="form-control select select-search variation-name"
