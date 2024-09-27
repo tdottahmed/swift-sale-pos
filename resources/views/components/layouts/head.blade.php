@@ -72,9 +72,6 @@
     <script src="{{ asset('datetime/datetimepicker.js') }}"></script>
 
 
-
-
-
     <script>
         $(document).ready(function() {
             $('#starts_at').datetimepicker({
@@ -94,46 +91,6 @@
             margin-left: 25px;
         }
     </style>
-    <style>
-        /* Loader styles */
-        #loader-wrapper {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: rgba(255, 255, 255, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #loader {
-            border: 5px solid #f3f3f3;
-            /* Light grey */
-            border-top: 5px solid #3498db;
-            /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-    <!-- /theme JS files -->
-
     @stack('css')
-    @stack('js')
-
 
 </head>

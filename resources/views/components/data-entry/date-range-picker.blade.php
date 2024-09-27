@@ -45,8 +45,13 @@
                     cancelClass: 'btn-sm btn-light'
                 },
                 function(start, end) {
-                    $('.daterange-predefined').val(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                        'MMMM D, YYYY'));
+                    // Format the dates in 'YYYY-MM-DD' format
+                    let formattedStartDate = start.format('YYYY-MM-DD');
+                    let formattedEndDate = end.format('YYYY-MM-DD');
+
+                    // Update the input value with the formatted date range
+                    $('.daterange-predefined').val(formattedStartDate + ' - ' + formattedEndDate);
+
                     $.jGrowl('Date range has been changed', {
                         header: 'Update',
                         theme: 'bg-primary',
@@ -56,9 +61,10 @@
                 }
             );
 
-            // Set the initial value in the input field
-            $('.daterange-predefined').val(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment()
-                .format('MMMM D, YYYY'));
+            // Set the initial value in the input field to 'YYYY-MM-DD' format
+            let initialStartDate = moment().subtract(29, 'days').format('YYYY-MM-DD');
+            let initialEndDate = moment().format('YYYY-MM-DD');
+            $('.daterange-predefined').val(initialStartDate + ' - ' + initialEndDate);
         });
     </script>
 @endpush

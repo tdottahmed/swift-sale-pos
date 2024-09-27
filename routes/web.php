@@ -33,7 +33,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\BarcodeTypeController;
 use App\Http\Controllers\ContactTypeController;
-
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\OrganizationController;
@@ -57,10 +57,11 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
