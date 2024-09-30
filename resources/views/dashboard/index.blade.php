@@ -12,7 +12,6 @@
             </div>
         </div>
     </form>
-    <hr>
     @include('dashboard.partials.widgets', compact('widgetData'))
     @include('dashboard.partials.charts', compact('chartData'))
 </x-layouts.master>

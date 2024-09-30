@@ -31,15 +31,6 @@ class DashboardController extends Controller
             $totalExpense = $totalExpensesQuery->sum('total_amount');
         }
         $totalProfit = $totalSales - $totalPurchase;
-
-        // $monthlyPurchases = Purchase::select(DB::raw('MONTH(created_at) as month, SUM(grand_total) as total'))
-        //     ->groupBy('month')
-        //     ->orderBy('month')
-        //     ->pluck('total');
-        // $monthlySales = Sale::select(DB::raw('MONTH(created_at) as month, SUM(total_price) as total'))
-        //     ->groupBy('month')
-        //     ->orderBy('month')
-        //     ->pluck('total');
         $widgetData = [
             'totalProducts' => Product::count(),
             'totalPurchase' => $totalPurchase,
@@ -72,28 +63,23 @@ class DashboardController extends Controller
 
     private function prepareMonthlyData()
     {
-        // Fetch monthly purchase totals
         $monthlyPurchases = Purchase::select(DB::raw('MONTH(created_at) as month, SUM(grand_total) as total'))
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('total', 'month')
             ->toArray();
 
-        // Fetch monthly sales totals
         $monthlySales = Sale::select(DB::raw('MONTH(created_at) as month, SUM(total_price) as total'))
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('total', 'month')
             ->toArray();
 
-        // Create an array of month names for the x-axis
         $monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-        // Initialize data arrays with zeros
         $monthlyPurchasesData = array_fill(1, 12, 0);
         $monthlySalesData = array_fill(1, 12, 0);
 
-        // Fill the data arrays with actual totals from the database
         foreach ($monthlyPurchases as $month => $total) {
             $monthlyPurchasesData[$month] = $total;
         }
@@ -103,8 +89,8 @@ class DashboardController extends Controller
         }
 
         return [
-            'monthlyPurchases' => array_values($monthlyPurchasesData), // Get values for chart
-            'monthlySales' => array_values($monthlySalesData), // Get values for chart
+            'monthlyPurchases' => array_values($monthlyPurchasesData), 
+            'monthlySales' => array_values($monthlySalesData), 
             'monthNames' => $monthNames
         ];
     }
