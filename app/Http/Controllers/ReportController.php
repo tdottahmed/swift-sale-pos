@@ -41,10 +41,6 @@ class ReportController extends Controller
         $data['total_profit'] = $data['sales_amount'] - ($purchase + $data['return_sale'] + $data['suspense_amount'] + $data['payroll'] + $data['expense']);
         return view('reports.profit-loss.index', compact('data', 'profitByProductData'));
     }
-    public function purchaseSale(Request $request)
-    {
-        return view('reports.purchase-sale.index');
-    }
 
     public function profitByProduct()
     {
@@ -157,5 +153,22 @@ class ReportController extends Controller
     public function profitByCustomer()
     {
         // Fetch and return data for profit by customer
+    }
+
+    /**
+     * Product Purchase and Sale report
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function purchaseSale(Request $request)
+    {
+        $purchaseData = [];
+        $saleData = [];
+        $purchases = DB::table('purchases')->get();
+        $sales = DB::table('sales')->get();
+        
+        dd($purchaseData, $saleData);
+        return view('reports.purchase-sale.index');
     }
 }

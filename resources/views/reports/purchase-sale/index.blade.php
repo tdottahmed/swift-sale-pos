@@ -83,72 +83,11 @@
                             <small>(Total sell price - Total purchase price) + Hms Total + Project Invoice</small>
                             <hr>
                             <h3>Net Profit: $ 3,713.25</h3>
-                            <small>Gross Profit + (Total sell shipping charge + Sell additional expenses + Total Stock
-                                Recovered + Total Purchase discount + Total sell round off + Hms Total )
-                                - ( Total Stock Adjustment + Total Expense + Total purchase shipping charge + Total
-                                transfer shipping charge + Purchase additional expenses + Total Sell discount + Total
-                                customer reward + Total Payroll + Total Production Cost )</small>
+                            <small></small>
                         </div>
                     </div>
                 </div>
             </div>
-            <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
-                <li class="nav-item">
-                    <a href="#profitByProduct" class="nav-link active" data-toggle="tab"
-                        data-url="{{ route('reports.profit-by-product') }}">
-                        <i class="icon-cart mr-2"></i> Purchase
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#profitByCategories" class="nav-link" data-toggle="tab"
-                        data-url="{{ route('reports.profit-by-category') }}">
-                        <i class="icon-list mr-2"></i> Sale
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#profitByBrands" class="nav-link" data-toggle="tab"
-                        data-url="{{ route('reports.profit-by-brand') }}">
-                        <i class="icon-package mr-2"></i> Product Purchase Report
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#profitByDay" class="nav-link" data-toggle="tab"
-                        data-url="{{ route('reports.profit-by-day') }}">
-                        <i class="icon-calendar mr-2"></i> Product Sale Report
-                    </a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="profitByProduct"></div>
-                <div class="tab-pane fade" id="profitByCategories"></div>
-                <div class="tab-pane fade" id="profitByBrands"></div>
-                <div class="tab-pane fade" id="profitByDay"></div>
-                <div class="tab-pane fade" id="profitByCustomer"></div>
-            </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                    var target = $(e.target).attr("href");
-                    var url = $(e.target).data("url");
-                    if ($(target).is(':empty')) {
-                        $.ajax({
-                            url: url,
-                            method: 'GET',
-                            success: function(data) {
-                                $(target).html(data);
-                            },
-                            error: function() {
-                                $(target).html('<p>Error loading content</p>');
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-    @endpush
 </x-layouts.master>
