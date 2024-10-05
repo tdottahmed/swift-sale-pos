@@ -32,8 +32,7 @@
                     <div class="media-body">
                         <div class="media-title font-weight-semibold">{{ $user->name }}</div>
                         <div class="font-size-xs opacity-50">
-                            <i class="icon-pin font-size-sm"></i> &nbsp;{{ $user->branch->location }},
-                            {{ $user->branch->address }}
+                            <i class="icon-pin font-size-sm"></i> &nbsp;{{ $user->branch?->location }},
                         </div>
                     </div>
                 </div>

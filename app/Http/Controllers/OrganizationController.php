@@ -9,17 +9,18 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class OrganizationController extends Controller
 {
     public function __construct()
     {
         $this->middleware('permission:view organization', ['only' => ['index']]);
-        $this->middleware('permission:create organization', ['only' => ['create','store']]);
-        $this->middleware('permission:update organization', ['only' => ['update','edit']]);
+        $this->middleware('permission:create organization', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update organization', ['only' => ['update', 'edit']]);
         $this->middleware('permission:updateTheme organization', ['only' => ['updateTheme']]);
     }
-    
+
     public function index()
     {
         $organizations = Organization::get();
@@ -33,134 +34,94 @@ class OrganizationController extends Controller
 
     public function store(Request $request)
     {
-        $image = $request->file('logo');
-        $footer_logo = $request->file('footer_logo');
-        $favicon = $request->file('favicon');
-        // $request->validate([
-        //     'title'=>'required',
-        //     'favicon'=>'required',
-        //     'email'=>'required',
-        //     'phone'=>'required',
-        //     'telephone_no'=>'required',
-        //     'address'=>'required',
-        //     'facebook'=>'required',
-        //     'twitter'=>'required',
-        //     'skype'=>'required',
-        //     'linkdein'=>'required',
-        //     'currency'=>'required',
-        //     'time_zone'=>'required',
-        //     'image' => 'required|mimes:png,jpg,jpeg',
-        // ]);
+        try {
+            // save if there is an header logo
+            if ($request->file('header_logo')) {
 
-        if ($image) {
-            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+                try {
+                    $file = $request->file('header_logo');
 
-            Image::make($image)->resize(200, 250)->save(public_path('storage/organization/' . $image_name));
-        }
-        if ($footer_logo) {
-            $footer_logo_name = uniqid() . '.' . $footer_logo->getClientOriginalExtension();
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = Str::uuid() . '.' . $extension;
+                    $filePath = $file->storeAs('backend/upload/general', $filename, 'public');
 
-            Image::make($footer_logo)->resize(200, 250)->save(public_path('storage/organization/' . $footer_logo_name));
-        }
-        if ($favicon) {
-            $favicon_name = uniqid() . '.' . $favicon->getClientOriginalExtension();
+                    $headerLogo = siteSetting('header_logo');
 
-            Image::make($favicon)->resize(200, 250)->save(public_path('storage/organization/' . $favicon_name));
-        }
-
-
-        Organization::create([
-            'uuid' => Str::uuid(),
-            'title' => $request->title,
-            'favicon' => $request->favicon,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'telephone_no' => $request->telephone_no,
-            'address' => $request->address,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'skype' => $request->skype,
-            'linkdein' => $request->linkdein,
-            'currency' => $request->currency,
-            'time_zone' => $request->time_zone,
-            'logo' => $image_name,
-            'footer_logo' => $footer_logo_name,
-            'favicon' => $favicon_name,
-        ]);
-
-        return redirect(route('organization.index'))->with('success', 'Organization Info Create Successfully');
-    }
-    public function edit(Organization $organization)
-    {
-
-        return view('organization.edit', compact('organization'));
-    }
-
-
-    public function update(Organization $organization, Request $request)
-    {
-        $image = $request->file('logo');
-        $footer_logo = $request->file('footer_logo');
-        $favicon = $request->file('favicon');
-
-        if ($image) {
-            $path = public_path('storage/organization/' . $organization->logo);
-            if (is_file($path)) {
-                unlink($path);
+                    // Check if the existing image exists using the relative path and delete
+                    if ($headerLogo && Storage::exists('public/' . $headerLogo)) {
+                        Storage::delete('public/' . $headerLogo);
+                    }
+                    GeneralSetting::updateOrCreate(['name' => 'header_logo'], ['value' => "backend/upload/general/" . $filename]);
+                } catch (\Exception $e) {
+                    Session::flash('error', 'Header logo update failed: ' . $e->getMessage());
+                    return back();
+                }
             }
 
-            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+            // save if there is an footer logo
+            if ($request->file('footer_logo')) {
+                try {
+                    $file = $request->file('footer_logo');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = Str::uuid() . '.' . $extension;
+                    $filePath = $file->storeAs('backend/upload/general', $filename, 'public');
+                    $footer_logo = siteSetting('footer_logo');
 
-            Image::make($image)->resize(200, 250)->save(public_path('storage/organization/' . $image_name));
-        } else {
-            $image_name = $organization->logo;
-        }
-
-        if ($footer_logo) {
-            $path = public_path('storage/organization/' . $organization->footer_logo);
-            if (is_file($path)) {
-                unlink($path);
+                    // Check if the existing image exists using the relative path and delete
+                    if ($footer_logo && Storage::exists('public/' . $footer_logo)) {
+                        Storage::delete('public/' . $footer_logo);
+                    }
+                    GeneralSetting::updateOrCreate(['name' => 'footer_logo'], ['value' => "backend/upload/general/" . $filename]);
+                } catch (\Exception $e) {
+                    Session::flash('error', 'Footer logo update failed: ' . $e->getMessage());
+                    return back();
+                }
             }
 
-            $footer_logo_name = uniqid() . '.' . $footer_logo->getClientOriginalExtension();
 
-            Image::make($footer_logo)->resize(200, 250)->save(public_path('storage/organization/' . $footer_logo_name));
-        } else {
-            $footer_logo_name = $organization->footer_logo;
-        }
+            // save if there is an favicon
+            if ($request->file('favicon')) {
+                try {
+                    $file = $request->file('favicon');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = Str::uuid() . '.' . $extension;
+                    $filePath = $file->storeAs('backend/upload/general', $filename, 'public');
+                    $favicon = siteSetting('favicon');
 
-        if ($favicon) {
-            $path = public_path('storage/organization/' . $organization->favicon);
-            if (is_file($path)) {
-                unlink($path);
+                    // Check if the existing image exists using the relative path and delete
+                    if ($favicon && Storage::exists('public/' . $favicon)) {
+                        Storage::delete('public/' . $favicon);
+                    }
+                    GeneralSetting::updateOrCreate(['name' => 'favicon'], ['value' => "backend/upload/general/" . $filename]);
+                } catch (\Exception $e) {
+                    Session::flash('error', 'Favicon update failed: ' . $e->getMessage());
+                    return back();
+                }
             }
 
-            $favicon_name = uniqid() . '.' . $favicon->getClientOriginalExtension();
+            GeneralSetting::updateOrCreate(['name' => 'company_website'], ['value' => $request->company_website]);
+            GeneralSetting::updateOrCreate(['name' => 'company_name'], ['value' => $request->company_name]);
+            GeneralSetting::updateOrCreate(['name' => 'company_email'], ['value' => $request->company_email]);
+            GeneralSetting::updateOrCreate(['name' => 'company_phone'], ['value' => $request->company_phone]);
+            GeneralSetting::updateOrCreate(['name' => 'company_address'], ['value' => $request->company_address]);
+            GeneralSetting::updateOrCreate(['name' => 'usa_location'], ['value' => $request->usa_location]);
+            GeneralSetting::updateOrCreate(['name' => 'uk_location'], ['value' => $request->uk_location]);
+            GeneralSetting::updateOrCreate(['name' => 'about_description'], ['value' => $request->about_description]);
 
-            Image::make($favicon)->resize(200, 250)->save(public_path('storage/organization/' . $favicon_name));
-        } else {
-            $favicon_name = $organization->favicon;
+            // social media
+            GeneralSetting::updateOrCreate(['name' => 'facebook'], ['value' => $request->facebook]);
+            GeneralSetting::updateOrCreate(['name' => 'instagram'], ['value' => $request->instagram]);
+            GeneralSetting::updateOrCreate(['name' => 'linkedin'], ['value' => $request->linkedin]);
+            GeneralSetting::updateOrCreate(['name' => 'twitter'], ['value' => $request->twitter]);
+            GeneralSetting::updateOrCreate(['name' => 'google'], ['value' => $request->google]);
+            GeneralSetting::updateOrCreate(['name' => 'skype'], ['value' => $request->skype]);
+        } catch (\Exception $e) {
+            Session::flash('error', 'Profile update failed: ' . $e->getMessage());
+            return back();
         }
 
-        $organization->update([
-            'title' => $request->title,
-            'favicon' => $request->favicon,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'telephone_no' => $request->telephone_no,
-            'address' => $request->address,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'skype' => $request->skype,
-            'linkdein' => $request->linkdein,
-            'currency' => $request->currency,
-            'time_zone' => $request->time_zone,
-            'logo' => $image_name,
-            'footer_logo' => $footer_logo_name,
-            'favicon' => $favicon_name,
-        ]);
-
-        return redirect(route('organization.index'))->with('success', 'Product Updated Successfully');
+        Session::flash('success', 'Successfully updated');
+        return back();
     }
 
     public function updateTheme(Request $request)
@@ -183,14 +144,14 @@ class OrganizationController extends Controller
     public function storeSmtp(Request $request)
     {
         try {
-            foreach ($request->types as $type) {      
+            foreach ($request->types as $type) {
                 $this->overWriteEnvFile($type, $request->$type);
             }
             Artisan::call('optimize:clear');
-            return redirect()->back()->with('success','Application Set up Successfully');
+            return redirect()->back()->with('success', 'Application Set up Successfully');
         } catch (\Throwable $th) {
             dd($th->getMessage());
-            return redirect()->back()->with('error',$th->getMessage());            
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
     public function createSmsGateway()
@@ -200,14 +161,14 @@ class OrganizationController extends Controller
     public function storeSmsGateway(Request $request)
     {
         try {
-            foreach ($request->types as $type) {      
+            foreach ($request->types as $type) {
                 $this->overWriteEnvFile($type, $request->$type);
             }
             Artisan::call('optimize:clear');
-            return redirect()->back()->with('success','Application Set up Successfully');
+            return redirect()->back()->with('success', 'Application Set up Successfully');
         } catch (\Throwable $th) {
             dd($th->getMessage());
-            return redirect()->back()->with('error',$th->getMessage());            
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -215,7 +176,7 @@ class OrganizationController extends Controller
     {
         $path = base_path('.env');
         if (file_exists($path)) {
-            $val = '"'.trim($val).'"';
+            $val = '"' . trim($val) . '"';
             $envContent = file_get_contents($path);
             if (preg_match("/\b{$type}\b/", $envContent)) {
                 $envContent = preg_replace("/\b{$type}\b=.*/", "{$type}={$val}", $envContent);
@@ -225,5 +186,4 @@ class OrganizationController extends Controller
             file_put_contents($path, $envContent);
         }
     }
-
 }
