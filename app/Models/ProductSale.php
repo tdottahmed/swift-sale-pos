@@ -11,8 +11,8 @@ class ProductSale extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function sales()
+    public function product()
     {
-        return $this->belongsTo(Sale::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

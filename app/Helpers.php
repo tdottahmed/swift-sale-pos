@@ -93,3 +93,12 @@ if (!function_exists('getCountryInfo')) {
         return Country::where('id', $id)->first();
     }
 }
+if (!function_exists('calculateDaysPassed')) {
+    function calculateDaysPassed($createdAt)
+    {
+        $createdDate = Carbon::parse($createdAt);
+        // $daysPassed = $createdDate->diffInDays(Carbon::now());
+        $timePassed = $createdDate->diffForHumans(Carbon::now(), true);
+        return $timePassed;
+    }
+}

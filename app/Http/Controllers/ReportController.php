@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Expense;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ExpenseCategory;
+use App\Models\ProductSale;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -40,10 +44,6 @@ class ReportController extends Controller
         $data['payroll'] = DB::table('payrolls')->sum('amount');
         $data['total_profit'] = $data['sales_amount'] - ($purchase + $data['return_sale'] + $data['suspense_amount'] + $data['payroll'] + $data['expense']);
         return view('reports.profit-loss.index', compact('data', 'profitByProductData'));
-    }
-    public function purchaseSale(Request $request)
-    {
-        return view('reports.purchase-sale.index');
     }
 
     public function profitByProduct()
@@ -157,5 +157,93 @@ class ReportController extends Controller
     public function profitByCustomer()
     {
         // Fetch and return data for profit by customer
+    }
+
+    /**
+     * Product Purchase and Sale report
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function purchaseSale(Request $request)
+    {
+        $purchaseData = [];
+        $saleData = [];
+        $purchases = DB::table('purchases')->get();
+        $sales = DB::table('sales')->get();
+
+        $purchaseData['total'] = $purchases->sum('grand_total');
+        $purchaseData['quantity'] = $purchases->sum('total_qty');
+        $purchaseData['shipping_cost'] = $purchases->sum('shipping_cost');
+        $purchaseData['unpaid_amount'] = $purchases->where('payment_status', 'unpaid')->sum('grand_total');
+        $purchaseData['paid_amount'] = $purchases->where('payment_status', 'paid')->sum('grand_total');
+        $purchaseData['total_discount'] = $purchases->sum('discount_amount');
+
+        $saleData['total'] = $sales->sum('total_price');
+        $saleData['quantity'] = $sales->sum('total_quantity');
+        $saleData['total_return'] = $sales->where('is_return', 1)->sum('total_price');
+        $saleData['total_discount'] = $sales->sum('discountedAmount');
+        $saleData['paid_amount'] = $sales->sum('paid_amount');
+        $saleData['walking_customer'] = $sales->where('is_walking_customer', 1)->sum('total_price');
+
+        return view('reports.purchase-sale.index', compact('purchaseData', 'saleData'));
+    }
+
+
+    /**
+     * Inventory reports
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function inventory(Request $request)
+    {
+        $products = Product::all();
+        return view('reports.inventory.index', compact('products'));
+    }
+
+    /**
+     * Expense reports
+     *
+     * @return  
+     */
+    public function expense()
+    {
+        $expenseCategories = ExpenseCategory::all();
+        $expenses = Expense::all();
+
+        $monthsList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        $monthlyExpenses = DB::table('expenses')
+            ->select(
+                DB::raw('SUM(total_amount) as total_expense'),
+                DB::raw('DATE_FORMAT(created_at, "%M") as month')
+            )
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%M")'))
+            ->orderBy(DB::raw('MIN(created_at)'), 'ASC')
+            ->pluck('total_expense', 'month')
+            ->toArray();
+
+        $chartData = [
+            'monthlyExpenses' => array_map(function ($month) use ($monthlyExpenses) {
+                return $monthlyExpenses[$month] ?? 0;
+            }, $monthsList),
+            'monthNames' => $monthsList
+        ];
+
+        return view('reports.expense.index', compact('expenseCategories', 'expenses', 'chartData'));
+    }
+
+    public function trendingProducts()
+    {
+        $trendingProducts = ProductSale::select('product_id', DB::raw('SUM(quantity) as total_sold'))
+            ->with('product')
+            ->groupBy('product_id')
+            ->orderBy('total_sold', 'desc')
+            ->take(10)
+            ->get();
+        $productNames = $trendingProducts->pluck('product.name')->toArray();
+        $totalSold = $trendingProducts->pluck('total_sold')->toArray();
+        return view('reports.trending-products.index', compact('productNames', 'totalSold'));
     }
 }

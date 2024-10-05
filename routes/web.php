@@ -205,6 +205,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/reports/profit-loss', [ReportController::class, 'profitLoss'])->name('reports.profitLoss');
     Route::get('/reports/purchase-sale', [ReportController::class, 'purchaseSale'])->name('reports.purchaseSale');
+    Route::get('/reports/inventory', [ReportController::class, 'inventory'])->name('reports.inventory');
+    Route::get('/reports/expense', [ReportController::class, 'expense'])->name('reports.expense');
+    Route::get('/reports/trending-products', [ReportController::class, 'trendingProducts'])->name('reports.trending-products');
 
     // Profit Report by Tab Content
     Route::get('reports/profit-by-product', [ReportController::class, 'profitByProduct'])->name('reports.profit-by-product');

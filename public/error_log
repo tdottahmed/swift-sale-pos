@@ -1,0 +1,4 @@
+[05-Oct-2024 11:38:39 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\View\Components\DataDisply\CardToolbar, because the name is already in use in /home/tosfastc/public_html/app/View/Components/DataDisplay/CardToolbar.php on line 9
+[05-Oct-2024 11:38:49 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\View\Components\DataDisply\CardToolbar, because the name is already in use in /home/tosfastc/public_html/app/View/Components/DataDisplay/CardToolbar.php on line 9
+[05-Oct-2024 11:39:10 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\View\Components\DataDisply\CardToolbar, because the name is already in use in /home/tosfastc/public_html/app/View/Components/DataDisplay/CardToolbar.php on line 9
+[05-Oct-2024 11:40:14 Asia/Dhaka] PHP Fatal error:  Cannot declare class App\View\Components\DataDisply\CardToolbar, because the name is already in use in /home/tosfastc/public_html/app/View/Components/DataDisplay/CardToolbar.php on line 9
