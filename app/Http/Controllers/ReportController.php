@@ -245,5 +245,7 @@ class ReportController extends Controller
         $productNames = $trendingProducts->pluck('product.name')->toArray();
         $totalSold = $trendingProducts->pluck('total_sold')->toArray();
         return view('reports.trending-products.index', compact('productNames', 'totalSold'));
+
+        return view('reports.purchase-sale.index');
     }
 }
