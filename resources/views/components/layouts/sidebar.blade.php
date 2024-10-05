@@ -12,11 +12,8 @@
         </a>
     </div>
     <!-- /sidebar mobile toggler -->
-
-
     <!-- Sidebar content -->
     <div class="sidebar-content">
-
         <!-- User menu -->
         <div class="sidebar-user">
             <div class="card-body">
@@ -25,7 +22,6 @@
                         <a href="#"><img src="{{ avatar() }}" width="38" height="38"
                                 class="rounded-circle" alt=""></a>
                     </div>
-
                     @php
                         $user = auth()->user();
                     @endphp
