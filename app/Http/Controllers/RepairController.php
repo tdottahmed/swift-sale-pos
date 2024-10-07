@@ -12,8 +12,8 @@ class RepairController extends Controller
     public function __construct()
     {
         $this->middleware('permission:view repair', ['only' => ['index']]);
-        $this->middleware('permission:create repair', ['only' => ['create','store']]);
-        $this->middleware('permission:update repair', ['only' => ['update','edit']]);
+        $this->middleware('permission:create repair', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update repair', ['only' => ['update', 'edit']]);
         $this->middleware('permission:delete repair', ['only' => ['destroy']]);
     }
 
@@ -26,7 +26,8 @@ class RepairController extends Controller
 
     public function create()
     {
-        //
+        $brands = Brand::all();
+        return view('repair.create', compact('brands'));
     }
 
     public function store(Request $request)
@@ -43,9 +44,9 @@ class RepairController extends Controller
                 "serial_number"            => $request->serial_number,
                 "prb_reported_by_customer" => $request->prb_reported_by_customer,
             ]);
-            return redirect()->back()->with('success', 'Repair created Successfully');
+            return redirect()->route('repair.index')->with('success', 'Repair created Successfully');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->withInput()->with('error', 'Something Went Wrong');
         }
     }
 

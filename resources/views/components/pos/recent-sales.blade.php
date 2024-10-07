@@ -1,4 +1,4 @@
-<button class="btn btn-sm bg-success-800 mx-2" data-toggle="modal" data-target="#recentSales"><i
+<button class="btn bg-success-800 mx-2" data-toggle="modal" data-target="#recentSales"><i
         class="icon icon-arrow-up15 mr-2"></i>Recent Sales</button>
 
 <div id="recentSales" class="modal fade" tabindex="-1">
@@ -24,35 +24,36 @@
                     <tbody>
                         @foreach ($sales as $sale)
                             <tr>
-                               <td>{{$loop->iteration}}</td>
-                               <td>
-                                  @foreach ($sale->saleProduct as $product)
-                                  <span class="badge badge-success mr-2">{{\App\Models\Product::find($product->product_id)->name}}</span>
-                                  @endforeach
-                               </td>
-                               <td>
-                                  @if ($sale->customer_id==0)
-                                     Walking Customer
-                                  @else
-                                  {{\App\Models\Customer::find($sale->customer_id)->fname}}
-                                  @endif
-                               </td>
-                               <td>
-                                  {{$sale->total_quantity}}
-                               </td>
-                               <td>
-                                  {{$sale->total_price}}
-                               </td>
-                               <td>
-                                  {{$sale->paid_amount}}
-                               </td>
-                               <td>
-                                  {{ $sale->created_at->format('jS F, Y h:i:s A') }}
-                               </td>                               
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    @foreach ($sale->saleProduct as $product)
+                                        <span
+                                            class="badge badge-success mr-2">{{ \App\Models\Product::find($product->product_id)->name }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @if ($sale->customer_id == 0)
+                                        Walking Customer
+                                    @else
+                                        {{ \App\Models\Customer::find($sale->customer_id)->fname }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $sale->total_quantity }}
+                                </td>
+                                <td>
+                                    {{ $sale->total_price }}
+                                </td>
+                                <td>
+                                    {{ $sale->paid_amount }}
+                                </td>
+                                <td>
+                                    {{ $sale->created_at->format('jS F, Y h:i:s A') }}
+                                </td>
                             </tr>
                         @endforeach
-    
-    
+
+
                     </tbody>
                 </table>
             </div>

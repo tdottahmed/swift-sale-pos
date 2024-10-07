@@ -1,5 +1,4 @@
 <x-layouts.pos>
-    
     <x-pos.quick-access />
     <div class="page-content mt-1">
         <div class="content">
@@ -18,7 +17,28 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <x-pos.chose-customer />
+                        <div class="row align-items-center mb-2">
+                            <div class="col-lg-3">
+                                <label for="customer_id" class="form-label">{{ __('Select Customer') }}
+                                    <span class="text-danger">*</span>
+                                </label>
+
+                            </div>
+                            <div class="col-lg-9 d-flex align-items-center">
+                                <select name="customer_id" id="customer_id" class="form-control select-search">
+                                    <option value="0" selected>{{ __('Walking Customer') }}</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">
+                                            {{ $customer->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="btn btn-success cursor-pointer"
+                                    onclick="openModal('{{ route('customer.create') }}', 'Create Customer')">
+                                    <i class="icon icon-plus3"></i>
+                                </span>
+                            </div>
+                        </div>
                         <form action="{{ route('pos.store') }}" class="bill-section" target="_blank" method="post">
                             @csrf
                             <input type="hidden" name="customer_id" id="customer_id">
