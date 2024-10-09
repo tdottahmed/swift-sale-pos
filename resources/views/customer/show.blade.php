@@ -3,7 +3,7 @@
         <div class="form-group row">
             <label class="col-form-label col-lg-3">Customer Name</label>
             <div class="col-lg-9">
-                <p class="form-control">{{ $customer->fname }} {{ $customer->lname }}</p>
+                <p class="form-control">{{ $customer->name }}</p>
             </div>
         </div>
 
@@ -33,13 +33,6 @@
             <div class="col-lg-9">
                 <p class="form-control">{{ $customer->city }}</p>
 
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-form-label col-lg-3">State/Province</label>
-            <div class="col-lg-9">
-                <p class="form-control">{{ $customer->state }}</p>
             </div>
         </div>
     </div>

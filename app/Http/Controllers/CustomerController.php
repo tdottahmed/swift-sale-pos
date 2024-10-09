@@ -13,15 +13,15 @@ class CustomerController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
-         $this->middleware('permission:view customer', ['only' => ['index']]);
-         $this->middleware('permission:create customer', ['only' => ['create','store']]);
-         $this->middleware('permission:update customer', ['only' => ['update','edit']]);
-         $this->middleware('permission:delete customer', ['only' => ['destroy']]);
-     } 
+    public function __construct()
+    {
+        $this->middleware('permission:view customer', ['only' => ['index']]);
+        $this->middleware('permission:create customer', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update customer', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete customer', ['only' => ['destroy']]);
+    }
 
-     
+
     public function index()
     {
         $customers = Customer::all();
@@ -41,26 +41,44 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'        => 'required|string|min:2',
+            'phone'       => 'required|string',
+            'email'       => 'nullable|string|email',
+            'city'        => 'nullable|string',
+            'address'     => 'nullable|string',
+        ]);
+
+        $fullName = $request->input('name');
+        $nameParts = explode(" ", $fullName);
+
+        if (!empty($request->fullName) && count($nameParts) > 1) {
+            $fname = $nameParts[0];
+            $lname = $nameParts[1];
+        } else {
+            $fname = $fullName;
+            $lname = '';
+        }
         try {
             $customer = Customer::create($request->all());
+
             Contact::create([
                 'uuid'             => Str::uuid(),
-                "contact_type"     => 2,
-                "contact_id"       => uniqid(),
-                "first_name"       => $customer->fname,
-                "last_name"        => $customer->lname,
-                "mobile"           => $customer->phone,
-                "email"            => $customer->email,
-                "city"             => $customer->city,
-                "address"          => $customer->address,
-                "shipping_address" => $customer->address
+                'contact_type'     => 2,
+                'contact_id'       => uniqid(),
+                'first_name'       => $fname,
+                'last_name'        => $lname,
+                'mobile'           => $customer->phone,
+                'email'            => $customer->email,
+                'city'             => $customer->city,
+                'address'          => $customer->address,
+                'shipping_address' => $customer->address,
             ]);
-            return redirect()->back()->with('success', 'Customer created Successfully');
-        } catch (\Throwable $th) {
-           return redirect()->back()->with('error', 'Something Went Wrong');
+            return redirect()->back()->with('success', 'Customer created successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -74,7 +92,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('customer.edit',compact('customer'));
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -98,7 +116,6 @@ class CustomerController extends Controller
         try {
             $customer->delete();
             return redirect()->back()->with('success', 'Customer Deleted Successfully');
- 
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }

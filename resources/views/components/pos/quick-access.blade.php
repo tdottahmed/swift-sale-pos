@@ -8,17 +8,9 @@
             background: #f1f1f1;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
 
         .bill-section {
-            max-height: 75vh;
+            max-height: 80%;
             overflow-y: auto;
         }
 
@@ -88,7 +80,7 @@
         }
 
         .card {
-            padding: 15px;
+            padding: 10px;
         }
     </style>
 @endpush
@@ -115,11 +107,14 @@
                     modalHeaderLabel="Create New Expense" />
             </li>
             <li class="nav-item">
-                <a href="{{ route('returned.list') }}" class="btn bg-danger-800"><i
+                <a href="{{ route('returned.list') }}" class="btn bg-danger-800 mr-2"><i
                         class="icon icon-reset mr-2"></i>Return</a>
             </li>
             <li class="nav-item">
-                <x-pos.recent-sales />
+                <button type="button" class="btn bg-teal-800"
+                    onclick="openModal('{{ route('recent.sales') }}', 'Recent Sales')">
+                    <i class="icon-history mr-2"></i> Recent Sales
+                </button>
             </li>
         </ul>
 

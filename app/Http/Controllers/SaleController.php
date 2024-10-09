@@ -35,7 +35,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $customers = User::all();
+        $customers = Customer::all();
         $products = Product::with('variations')->latest()->get();
 
         return view('pos.create', compact('products', 'customers'));
@@ -48,7 +48,8 @@ class SaleController extends Controller
 
         try {
             $salesInfos = $request->only('customer_id', 'total_price', 'paid_amount', 'total_quantity', 'discountedAmount', 'payment_type');
-            $data = array_merge(['uuid' => Str::uuid()], $salesInfos);
+            $is_walking_customer = $request->customer_id == 0 ? $is_walking_customer = true : $is_walking_customer = false;
+            $data = array_merge(['uuid' => Str::uuid(), 'is_walking_customer' => $is_walking_customer], $salesInfos);
             $sale = Sale::create($data);
             $productIds = $request->product_ids;
             foreach ($productIds as $key => $id) {
@@ -89,15 +90,13 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         if ($sale->customer_id == 0) {
             $customersInfos = [
-                'fname' => 'Walked by Customer',
-                'lname' => '',
+                'name' => 'Walked by Customer',
                 'phone' => 'N/A'
             ];
         } else {
             $customer = Customer::find($sale->customer_id);
             $customersInfos = [
-                'fname' => $customer->fname,
-                'lname' => $customer->lname,
+                'name' => $customer->name,
                 'phone' => $customer->phone
             ];
         }
@@ -211,5 +210,11 @@ class SaleController extends Controller
         }
         $products = $query->get();
         return view('pos.products', compact('products'))->render();
+    }
+
+    public function recentSales()
+    {
+        $sales = Sale::with('saleProduct')->latest()->take(5)->get();
+        return view('pos.recent-sales', compact('sales'));
     }
 }

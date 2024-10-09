@@ -38,7 +38,7 @@
                                     @if ($sale->customer_id == 0)
                                         Walking Customer
                                     @else
-                                        {{ \App\Models\Customer::find($sale->customer_id)->fname }}
+                                        {{ \App\Models\Customer::find($sale->customer_id)->name }}
                                     @endif
                                 </td>
                                 <td>

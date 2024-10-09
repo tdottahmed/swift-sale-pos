@@ -2,7 +2,6 @@
     <x-pos.quick-access />
     <div class="page-content mt-1">
         <div class="content">
-            <x-expense.create-modal />
             <x-pos.discount />
 
             <div class="row">
@@ -17,31 +16,30 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="row align-items-center mb-2">
-                            <div class="col-lg-3">
-                                <label for="customer_id" class="form-label">{{ __('Select Customer') }}
-                                    <span class="text-danger">*</span>
-                                </label>
-
-                            </div>
-                            <div class="col-lg-9 d-flex align-items-center">
-                                <select name="customer_id" id="customer_id" class="form-control select-search">
-                                    <option value="0" selected>{{ __('Walking Customer') }}</option>
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">
-                                            {{ $customer->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <span class="btn btn-success cursor-pointer"
-                                    onclick="openModal('{{ route('customer.create') }}', 'Create Customer')">
-                                    <i class="icon icon-plus3"></i>
-                                </span>
-                            </div>
-                        </div>
                         <form action="{{ route('pos.store') }}" class="bill-section" target="_blank" method="post">
                             @csrf
-                            <input type="hidden" name="customer_id" id="customer_id">
+                            <div class="row align-items-center mb-2">
+                                <div class="col-lg-3">
+                                    <label for="customer_id" class="form-label">{{ __('Select Customer') }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+
+                                </div>
+                                <div class="col-lg-9 d-flex align-items-center">
+                                    <select name="customer_id" id="customer_id" class="form-control select-search">
+                                        <option value="0" selected>{{ __('Walking Customer') }}</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}">
+                                                {{ $customer->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <span class="btn btn-success cursor-pointer"
+                                        onclick="openModal('{{ route('customer.create') }}', 'Create Customer')">
+                                        <i class="icon icon-plus3"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <input type="hidden" name="total_price" id="total_price">
                             <input type="hidden" name="paid_amount" id="paid_amount">
                             <input type="hidden" name="total_quantity" id="total_quantity">
@@ -105,7 +103,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-6 col-md-3">
                                                 <input type="radio" name="payment_method" id="bank"
-                                                    class="d-none" />
+                                                    value="bank" class="d-none" />
                                                 <label for="bank" class="card-payment text-center border border">
                                                     <div class="card-body-payment">
                                                         <i class="icon-office icon-2x text-indigo-800 mb-2"></i>
@@ -115,7 +113,7 @@
                                             </div>
                                             <div class="col-6 col-md-3 rounded">
                                                 <input type="radio" name="payment_method" id="cash"
-                                                    class="d-none" checked />
+                                                    class="d-none" value="cash" checked />
                                                 <label for="cash" class="card-payment text-center border border">
                                                     <div class="card-body-payment">
                                                         <i class="icon-cash3 icon-2x text-warning-800 mb-2"></i>
@@ -125,7 +123,7 @@
                                             </div>
                                             <div class="col-6 col-md-3">
                                                 <input type="radio" name="payment_method" id="online"
-                                                    class="d-none" />
+                                                    class="d-none" value="online" />
                                                 <label for="online" class="card-payment text-center border border">
                                                     <div class="card-body-payment">
                                                         <i class="icon-mobile icon-2x text-teal-800 mb-2"></i>
@@ -144,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            <x-repair.create-modal />
+
             <x-pos.scripts />
         </div>
         <div class="navbar navbar-expand-lg navbar-light fixed-bottom">
