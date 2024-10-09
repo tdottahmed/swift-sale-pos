@@ -164,6 +164,7 @@ Route::middleware('auth')->group(function () {
     Route::get('pos/return/{sale}', [SaleController::class, 'returnSale'])->name('return.sale');
     Route::get('pos/returned-list', [SaleController::class, 'returnedList'])->name('returned.list');
     Route::get('/filter-products', [SaleController::class, 'filterProducts'])->name('filter.product');
+    Route::get('pos/recent-sales', [SaleController::class, 'recentSales'])->name('recent.sales');
 
 
     Route::resource('customer', CustomerController::class);

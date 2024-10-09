@@ -20,7 +20,7 @@
                     @foreach ($customers as $customer)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $customer->fname }} {{ $customer->lname }}</td>
+                            <td>{{ $customer->name }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->phone }}</td>
                             <td>{{ $customer->address }}</td>

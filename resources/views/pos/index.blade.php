@@ -38,7 +38,7 @@
                                     @if ($sale->customer_id == 0)
                                         Walking Customer
                                     @else
-                                        {{ \App\Models\Customer::find($sale->customer_id)->fname }}
+                                        {{ \App\Models\Customer::find($sale->customer_id)->name }}
                                     @endif
                                 </td>
                                 <td>
@@ -63,7 +63,8 @@
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a href="{{ route('sale.suspend', $sale->id) }}"
                                                     class="dropdown-item"><i class="icon-pause"></i> Suspend Sale</a>
-                                                <a href="" class="dropdown-item"><i class="icon-reset"></i>
+                                                <a href="{{ route('return.sale', $sale->id) }}" class="dropdown-item"><i
+                                                        class="icon-reset"></i>
                                                     Return Sale</a>
                                                 <form style="display:inline" action="" method="POST">
                                                     @csrf
@@ -74,8 +75,8 @@
                                                         <i class="icon-trash-alt"></i>Delete
                                                     </button>
                                                 </form>
-                                                <a href="{{ route('pos.invoice', $sale->id) }}" class="dropdown-item"><i
-                                                        class="icon-printer"></i> Print Label</a>
+                                                <a href="{{ route('pos.invoice', $sale->id) }}"
+                                                    class="dropdown-item"><i class="icon-printer"></i> Print Label</a>
                                             </div>
                                         </div>
                                     </div>

@@ -140,11 +140,9 @@
     }
 
     function updateHiddenFields() {
-        const customer_id = $('#selected_customer').val();
         const total_price = $('#totalPrice').text();
         const payable_amount = $('#payable_amount').text();
         const total_quantity = $('#total').text();
-        $('#customer_id').val(customer_id);
         $('#total_price').val(total_price);
         $('#paid_amount').val(payable_amount);
         $('#total_quantity').val(total_quantity);

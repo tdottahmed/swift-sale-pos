@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->date('delivery_date')->nullable();
             $table->date('repair_completed_on')->nullable();
-            $table->integer('status')->default('1');
+            $table->string('status')->default('default');
             $table->foreignId('brand_id')->nullable();
             $table->string('device')->nullable();
             $table->string('device_model')->nullable();
