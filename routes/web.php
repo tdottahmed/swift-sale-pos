@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaxController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\LeaveController;
@@ -28,12 +30,13 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\VariableController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\BarcodeTypeController;
 use App\Http\Controllers\ContactTypeController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\OrganizationController;
@@ -57,9 +60,6 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
@@ -72,11 +72,10 @@ Route::middleware('auth')->group(function () {
     // organization setting
     Route::prefix('swift-sale')->name('organization.')->controller(OrganizationController::class)->group(function () {
         Route::get('/index', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{organization}', 'edit')->name('edit');
-        Route::post('/update/{organization}', 'update')->name('update');
     });
+
+
     Route::post('update/theme', [OrganizationController::class, 'updateTheme'])->name('theme.update');
     Route::get('swift-sale/setup/smtp', [OrganizationController::class, 'createSmtp'])->name('smtp.create');
     Route::post('swift-sale/setup/smtp', [OrganizationController::class, 'storeSmtp'])->name('smtp.store');
@@ -106,14 +105,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/department', DepartmentController::class);
     Route::resource('/employee', EmployeeController::class);
     Route::resource('/payroll', PayrollController::class);
-
-    Route::resource('/attendance', AttendanceController::class);
-    Route::post('/attendance/mark', [AttendanceController::class, 'markAttendance']);
-    Route::post('/attendance/close', [AttendanceController::class, 'closeAttendance']);
-    Route::get('/showAttendance', [AttendanceController::class, 'showAttendance'])->name('showAttendance');
-
-
-
     Route::resource('/holiday', HolidayController::class);
     Route::resource('/leaveType', LeaveTypeController::class);
     Route::resource('/leave', LeaveController::class);
@@ -153,7 +144,6 @@ Route::middleware('auth')->group(function () {
 
 
     // Point of sell
-    // Route::resource('pos', SellController::class);
     Route::get('pos-create', [SaleController::class, 'create'])->name('pos.create');
     Route::post('pos-store', [SaleController::class, 'store'])->name('pos.store');
     Route::get('single/product/{productId}/{variationId}', [SaleController::class, 'singleProduct']);
@@ -219,19 +209,18 @@ Route::middleware('auth')->group(function () {
     Route::get('reports/profit-by-customer', [ReportController::class, 'profitByCustomer'])->name('reports.profit-by-customer');
 });
 
-require __DIR__ . '/auth.php';
-
 
 Route::group(['middleware' => ['role:super-admin|admin|staff|user']], function () {
 
-    Route::resource('permissions', App\Http\Controllers\PermissionController::class);
-    Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
+    Route::resource('permissions', PermissionController::class);
+    Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
 
-    Route::resource('roles', App\Http\Controllers\RoleController::class);
-    Route::get('roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
-    Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
-    Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
+    Route::resource('roles', RoleController::class);
+    Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
+    Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
+    Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 
-    Route::resource('users', App\Http\Controllers\UserController::class);
-    Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+    Route::resource('users', UserController::class);
+    Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 });
+require __DIR__ . '/auth.php';

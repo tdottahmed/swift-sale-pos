@@ -1,1 +1,1 @@
-<title>{{ config('app.name', 'Laravel') }} - {{$title}}</title>
+<title>{{ organizationDetails('name') }} - {{ $title }}</title>

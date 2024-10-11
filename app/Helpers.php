@@ -102,3 +102,10 @@ if (!function_exists('calculateDaysPassed')) {
         return $timePassed;
     }
 }
+if (!function_exists('organizationDetails')) {
+    function organizationDetails($name)
+    {
+        $organization = Organization::where('name', $name)->first()->value;
+        return $organization;
+    }
+}

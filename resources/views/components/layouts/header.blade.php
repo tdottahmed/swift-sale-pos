@@ -5,13 +5,14 @@
     <div class="navbar-header bg-white-800 sidebar-light d-none d-md-flex align-items-md-center">
         <div class="navbar-brand navbar-brand-md">
             <a href="/">
-                <img src="{{ asset('logo/logo-no-background.png') }}">
+                <img src="{{ imagePath(organizationDetails('logo')) }}">
             </a>
         </div>
 
         <div class="navbar-brand navbar-brand-xs">
             <a href="/" class="d-inline-block">
-                <img src="{{ asset('shopping.png') }}" style="margin-left: 0px !important" alt="">
+                <img src="{{ imagePath(organizationDetails('favicon')) }}" style="margin-left: 0px !important"
+                    alt="">
             </a>
         </div>
     </div>

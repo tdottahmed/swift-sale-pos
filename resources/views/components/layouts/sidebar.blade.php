@@ -310,15 +310,6 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('view attendance')
-                            <li class="nav-item">
-                                <a href="{{ route('attendance.index') }}"
-                                    class="nav-link {{ request()->is('attendance*') || request()->routeIs('attendance.create') || request()->routeIs('attendance.edit') ? 'active' : '' }}">
-                                    <i class="icon-person"></i>
-                                    <span>Attendance</span>
-                                </a>
-                            </li>
-                        @endcan
                         @can('view payroll')
                             <li class="nav-item">
                                 <a href="{{ route('payroll.index') }}"

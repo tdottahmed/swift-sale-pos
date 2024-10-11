@@ -6,7 +6,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="{{ route('frontend.index') }}" class="logo">
-                    <img src="{{asset('logo/logo-no-background.png')}}" width="111" height="44"
+                    <img src="{{ imagePath(organizationDetails('logo')) }}" width="111" height="44"
                         alt="Porto Logo">
                 </a>
             </div>
@@ -49,15 +49,15 @@
 
                 <a href="{{ route('login') }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
-                <a href="{{route('frontend.wishlist')}}" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+                <a href="{{ route('frontend.wishlist') }}" class="header-icon" title="wishlist"><i
+                        class="icon-wishlist-2"></i></a>
 
                 <div class="dropdown cart-dropdown">
                     @php
                         $cartCount = Auth::user() ? Auth::user()->cart()->count() : 0;
                     @endphp
                     @auth
-                        <a href="{{ route('frontend.cart', Auth::user()->id) }}" title="Cart"
-                            class="dropdown-toggle">
+                        <a href="{{ route('frontend.cart', Auth::user()->id) }}" title="Cart" class="dropdown-toggle">
                             <i class="minicart-icon"></i>
                             <span class="cart-count badge-circle">{{ $cartCount }}</span>
                         </a>
@@ -226,7 +226,7 @@
                     <li><a href="blog.html">Blog</a></li>
 
                     <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
-                    <li class="float-right"><a href="{{route('frontend.myOrder')}}" rel="noopener" class="pl-5"
+                    <li class="float-right"><a href="{{ route('frontend.myOrder') }}" rel="noopener" class="pl-5"
                             target="_blank">My Account</a></li>
                     <li class="float-right"><a href="#" class="pl-5">Special Offer!</a></li>
                 </ul>

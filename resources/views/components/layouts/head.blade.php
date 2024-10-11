@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <x-layouts.title />
-    <link rel="shortcut icon" href="{{ asset('shopping.png') }}">
+    <link rel="shortcut icon" href="{{ imagePath(organizationDetails('favicon')) }}">
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
         type="text/css">
