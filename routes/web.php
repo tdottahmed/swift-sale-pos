@@ -209,6 +209,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/inventory', [ReportController::class, 'inventory'])->name('reports.inventory');
     Route::get('/reports/expense', [ReportController::class, 'expense'])->name('reports.expense');
     Route::get('/reports/trending-products', [ReportController::class, 'trendingProducts'])->name('reports.trending-products');
+    Route::get('/reports/daily-sales', [ReportController::class, 'dailySales'])->name('reports.daily-sales');
 
     // Profit Report by Tab Content
     Route::get('reports/profit-by-product', [ReportController::class, 'profitByProduct'])->name('reports.profit-by-product');

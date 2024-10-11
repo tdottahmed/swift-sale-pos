@@ -248,4 +248,16 @@ class ReportController extends Controller
 
         return view('reports.purchase-sale.index');
     }
+
+    public function dailySales()
+    {
+        $salesData = DB::table('sales')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_price) as total_sales'))
+            ->groupBy('date')
+            ->get();
+
+        $dates = $salesData->pluck('date');
+        $totals = $salesData->pluck('total_sales');
+        return view('reports.daily-sales.index', compact('dates', 'totals'));
+    }
 }

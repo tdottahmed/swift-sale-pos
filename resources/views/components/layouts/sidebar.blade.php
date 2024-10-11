@@ -454,6 +454,12 @@
                                     <i class="icon-stats-growth2"></i>Trending-products Report
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('reports.daily-sales') }}"
+                                    class="nav-link {{ request()->routeIs('reports.daily-sales') ? 'active' : '' }}">
+                                    <i class="icon-stats-growth2"></i>Daily sales
+                                </a>
+                            </li>
                         @endcan
 
                     </ul>

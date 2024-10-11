@@ -17,7 +17,7 @@
             </form>
         </div>
         <div class="col-lg-2">
-            <div class="header-elements text-right text-md-left mb-3 mb-md-0">
+            <div class="header-elements text-right mb-3 mb-md-0">
                 <div class="btn-group">
                     <button type="button" class="btn bg-teal-800"><i class="icon-stack2 mr-2"></i> view
                         report</button>
